@@ -1,0 +1,6 @@
+npm init -y
+npm install --save react react-dom next
+mkdir pages
+
+# เอาไว้ debug เวลาเขียนแล้ว bug
+npm install eslint
