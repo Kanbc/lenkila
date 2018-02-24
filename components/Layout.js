@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter } from 'next/router';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -18,18 +18,6 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
     </Head>
     <nav className="navbar navbar-expand-lg navbar-dark d-flex justify-content-space-between">
       <a className="navbar-brand" href="#">LENKILA Stadium</a>
-      <div className="d-flex flex-row">
-        <Link href="/money">
-          <button type="button" className="top-btn btn btn-primary">
-            เติมเงิน / จ่ายเงิน
-          </button>
-        </Link>
-        <Link href="/booking-table">
-          <button type="button" className="top-btn btn btn-success">
-            จองสนาม
-          </button>
-        </Link>
-      </div>
     </nav>
     <div className="content d-flex flex-row">
       {/* Sidebar */}
@@ -37,55 +25,55 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
         <li className="nav-item">
           <Link href="/">
             <a className={`nav-link ${router.pathname === '/' && 'active'}`}>
-              <i className="fa fa-newspaper-o"></i>
+              <i className="fa fa-newspaper-o" />
               รายการวันนี้
-            </a>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/money">
-            <a className={`nav-link ${router.pathname === '/money' && 'active'}`}>
-              <i className="fa fa-money"></i>
-              เติมเงิน / จ่ายเงิน
             </a>
           </Link>
         </li>
         <li className="nav-item">
           <Link href="/booking-table">
             <a className={`nav-link ${router.pathname === '/booking-table' && 'active'}`}>
-              <i className="fa fa-calendar-plus-o"></i>
-              ตารางจองสนาม
-            </a>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/field-management">
-            <a className={`nav-link ${router.pathname === '/field-management' && 'active'}`}>
-              <i className="fa fa-dashboard"></i>
-              หน้าจัดการสนาม
+              <i className="fa fa-calendar-plus-o" />
+              การจอง
             </a>
           </Link>
         </li>
         <li className="nav-item">
           <Link href="/customer">
             <a className={`nav-link ${router.pathname === '/customer' && 'active'}`}>
-              <i className="fa fa-users"></i>
+              <i className="fa fa-users" />
               ข้อมูลลูกค้า
             </a>
           </Link>
         </li>
         <li className="nav-item">
-          <Link href="/customer">
+          <Link href="/analysis">
+            <a className={`nav-link ${router.pathname === '/analysis' && 'active'}`}>
+              <i className="fa fa-line-chart" />
+              วิเคราะห์ข้อมูล
+            </a>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link href="/field-management">
+            <a className={`nav-link ${router.pathname === '/field-management' && 'active'}`}>
+              <i className="fa fa-dashboard" />
+              แผงควบคุม
+            </a>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link href="/user-management">
             <a className={`nav-link ${router.pathname === '/user-management' && 'active'}`}>
-              <i className="fa fa-address-book-o"></i>
-              การจัดการบัญชีผู้ใช้งาน
+              <i className="fa fa-address-book-o" />
+              การจัดการบัญชีผู้ใช้
             </a>
           </Link>
         </li>
         <li className="nav-item">
           <a className={`nav-link ${router.pathname === '/connect' && 'active'}`}>
-            <i className="fa fa-quote-left"></i>
-            LENKILA Connect
+            <i className="fa fa-bug" />
+            แจ้งปัญหาการใช้งาน
           </a>
         </li>
       </ul>

@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Customer extends Component {
-  render() {
-    return (
-      <div>ข้อมูลลูกค้า</div>
-    );
-  }
+import { Layout } from '../components';
+
+function Customer() {
+    return 'sdfsdf';
 }
 
 export default Customer;
