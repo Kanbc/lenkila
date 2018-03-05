@@ -9,9 +9,7 @@ class StadiumBookingColumnItem extends Component {
   render() {
     return (
       <div className="item">
-        <a
-          onClick={() => this.setState(prev => ({ isOpen: !prev.isOpen }))}
-        >
+        <a onClick={() => this.setState(prev => ({ isOpen: !prev.isOpen }))} >
           <div className="d-flex align-items-center">
             <div className="time">8.00 - 9.00</div>
             <div className="name">
