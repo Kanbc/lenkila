@@ -128,9 +128,11 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
         overflow: hidden;
       }
       .page-container {
-        padding: 25px;
+        padding: 25px 25px 100px 25px;
         overflow: hidden;
         width: calc(100% - 220px);
+        height: 100vh; 
+        overflow-y: scroll;
       }
     `}
     </style>

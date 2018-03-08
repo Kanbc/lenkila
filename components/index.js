@@ -1,5 +1,7 @@
 import Layout from './Layout';
 import UserManagementModal from './UserManagementModal';
+import UserManagementModalBody from './UserManagementModalBody';
+import UserManagementModalEdit from './UserManagementModalEdit';
 import DatePickerButton from './DatePickerButton';
 import StadiumBookingColumn from './StadiumBookingColumn';
 import StadiumBookingColumnItem from './StadiumBookingColumnItem';
@@ -14,4 +16,6 @@ export {
   StadiumBookingModal,
   StadiumBookingTimetable,
   UserManagementModal,
+  UserManagementModalBody,
+  UserManagementModalEdit,
 };
