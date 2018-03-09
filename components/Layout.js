@@ -17,11 +17,73 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
       <link href="/static/react-datepicker.min.css" rel="stylesheet" />
     </Head>
     <nav className="navbar navbar-expand-lg navbar-dark d-flex justify-content-space-between">
-      <a className="navbar-brand" href="#">LENKILA Stadium</a>
+      <a className="navbar-brand d-none d-sm-block" href="#">LENKILA Stadium</a>
+      <a className="navbar-brand d-sm-none" href="#">LENKILA</a>
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon" />
+      </button>
+      <div className="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul className="navbar-nav d-lg-none d-xl-none">
+          <li className="nav-item">
+            <Link href="/">
+              <a className={`nav-link ${router.pathname === '/' && 'active'}`}>
+                <i className="fa fa-newspaper-o" />
+                รายการวันนี้
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link href="/booking-table">
+              <a className={`nav-link ${router.pathname === '/booking-table' && 'active'}`}>
+                <i className="fa fa-calendar-plus-o" />
+                การจอง
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link href="/customer">
+              <a className={`nav-link ${router.pathname === '/customer' && 'active'}`}>
+                <i className="fa fa-users" />
+                ข้อมูลลูกค้า
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link href="/analysis">
+              <a className={`nav-link ${router.pathname === '/analysis' && 'active'}`}>
+                <i className="fa fa-line-chart" />
+                วิเคราะห์ข้อมูล
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link href="/field-management">
+              <a className={`nav-link ${router.pathname === '/field-management' && 'active'}`}>
+                <i className="fa fa-dashboard" />
+                แผงควบคุม
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link href="/user-management">
+              <a className={`nav-link ${router.pathname === '/user-management' && 'active'}`}>
+                <i className="fa fa-address-book-o" />
+                การจัดการบัญชีผู้ใช้
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <a className={`nav-link ${router.pathname === '/connect' && 'active'}`}>
+              <i className="fa fa-bug" />
+              แจ้งปัญหาการใช้งาน
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
     <div className="content d-flex flex-row">
       {/* Sidebar */}
-      <ul className="nav navbar-light flex-column">
+      <ul className="nav navbar-light flex-column d-none d-lg-block">
         <li className="nav-item">
           <Link href="/">
             <a className={`nav-link ${router.pathname === '/' && 'active'}`}>
@@ -122,6 +184,31 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
           }
         }
       }
+      .navbar-nav{
+        .nav-item {
+          transition: all 0.2s;
+          height: 50px;
+          font-size: 15px;
+          &:hover {
+            background-color: #062c69;
+          }
+          .fa {
+            margin-right: 10px;
+            width: 25px;
+            text-align: center;
+            font-size: 20px;
+          }
+        }
+        .nav-link {
+          color: #fff;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          &.active {
+            background-color: #062c69;
+          }
+        }
+      }
       .root {
         width: 100vw;
         height: 100vh;
@@ -133,6 +220,18 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
         width: calc(100% - 220px);
         height: 100vh; 
         overflow-y: scroll;
+      }
+      @media (max-width: 992px) { 
+        .page-container {
+          padding: 25px 25px 100px 25px;
+          width: 100%;
+        }
+      }
+      @media (max-width: 576px) { 
+        .page-container {
+          padding: 10px 10px 50px 10px;
+          width: 100%;
+        }
       }
     `}
     </style>
