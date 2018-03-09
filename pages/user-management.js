@@ -17,17 +17,17 @@ class UserManagement extends Component {
               <thead>
                 <tr className="um-two-row">
                   <th scope="col"><input className="form-control um-search" type="text" placeholder="ค้นหา..." /></th>
-                  <th scope="col" />
-                  <th scope="col" />
+                  <th scope="col" className="hide1" />
+                  <th scope="col" className="hide2" />
                   <th scope="col" />
                   <th scope="col" />
                   <th scope="col"> <button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user"><i className="fa fa-plus" aria-hidden="true" /></button> </th>
                 </tr>
                 <tr>
-                  <th scope="col">ชื่อ - นามสกุล</th>
+                  <th scope="col" className="hide1">ชื่อ - นามสกุล</th>
                   <th scope="col">ชื่อเล่น</th>
                   <th scope="col">ID</th>
-                  <th scope="col">Email</th>
+                  <th scope="col" className="hide2">Email</th>
                   <th scope="col">Role</th>
                   <th scope="col" />
                 </tr>
@@ -35,10 +35,10 @@ class UserManagement extends Component {
               <tbody>
                 {this.users.map(user => (
                   <tr key={user.id}>
-                    <td>{user.firstname} {user.lastname}</td>
+                    <td className="hide1">{user.firstname} {user.lastname}</td>
                     <td>{user.nickname}</td>
                     <td>{user.username}</td>
-                    <td>{user.email}</td>
+                    <td className="hide2">{user.email}</td>
                     <td>{user.role}</td>
                     <td><button type="button" className="btn btn-secondary um-edit-button" data-toggle="modal" data-target={`#edit-user-${user.id}`}><i className="fa fa-pencil" /></button></td>
                   </tr>))}
@@ -88,6 +88,24 @@ class UserManagement extends Component {
             background-color: #FD9226;
             border-color:#f77e06;
             cursor:pointer;
+          }
+          .container{
+            max-width: 100%;
+          }
+          @media (max-width: 992px) { 
+            .hide1{
+              display:none;
+            }
+          }
+          @media (max-width: 768px) { 
+            .hide2{
+              display:none;
+            }
+          }
+          @media (max-width: 576px) { 
+            .um-three-row button{
+              width: 50px;
+            }
           }
         `}
         </style>

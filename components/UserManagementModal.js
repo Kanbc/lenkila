@@ -37,6 +37,21 @@ function ModalLayout(props) {
           font-weight:900;
           font-size: 1.5rem;
         }
+        @media (max-width: 992px) { 
+          .modal-dialog{
+            max-width:90%;
+          }
+        }
+        @media (max-width: 768px) { 
+          .modal-dialog{
+            max-width:95%;
+          }
+        }
+        @media (max-width: 576px) { 
+          .modal-dialog{
+            max-width:96%;
+          }
+        }
       `}
       </style>
     </div>
