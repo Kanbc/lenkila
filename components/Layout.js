@@ -60,7 +60,7 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
             <Link href="/field-management">
               <a className={`nav-link ${router.pathname === '/field-management' && 'active'}`}>
                 <i className="fa fa-dashboard" />
-                แผงควบคุม
+                จัดการสนาม
               </a>
             </Link>
           </li>
@@ -120,7 +120,7 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
           <Link href="/field-management">
             <a className={`nav-link ${router.pathname === '/field-management' && 'active'}`}>
               <i className="fa fa-dashboard" />
-              แผงควบคุม
+              จัดการสนาม
             </a>
           </Link>
         </li>

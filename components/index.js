@@ -7,6 +7,8 @@ import StadiumBookingColumn from './StadiumBookingColumn';
 import StadiumBookingColumnItem from './StadiumBookingColumnItem';
 import StadiumBookingModal from './StadiumBookingModal';
 import StadiumBookingTimetable from './StadiumBookingTimetable';
+import FieldManagementLayout from './FieldManagementLayout';
+
 
 export {
   Layout,
@@ -18,4 +20,5 @@ export {
   UserManagementModal,
   UserManagementModalBody,
   UserManagementModalEdit,
+  FieldManagementLayout,
 };
