@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FieldManagementLayout } from '../components';
 
-class FieldManagement extends Component {
+class FieldManagementField extends Component {
   render() {
     return (
       <FieldManagementLayout title="สนาม">
@@ -34,4 +34,4 @@ class FieldManagement extends Component {
   }
 }
 
-export default FieldManagement;
+export default FieldManagementField;
