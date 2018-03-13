@@ -69,9 +69,10 @@ const FieldManagementLayout = ({ children, title = 'ข้อมูลสนา�
       }
       .fm-row-two{
         text-align:center;
-        margin: 25px 0px;
+        margin: 25px 0px 0px 0px;
       }
       .fm-row-two p{
+        margin-bottom:20px;
         font-size:1.5rem;
         font-weight:bold;
         margin-left:auto;

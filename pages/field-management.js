@@ -186,6 +186,9 @@ class FieldManagement extends Component {
         </div>
         <style jsx>
           {`
+            .first-row{
+              margin-top:20px;
+            }
             .first-row p{
               position: absolute;
               top: 50%;
