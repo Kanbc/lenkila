@@ -122,7 +122,7 @@ function userData() {
       start: '10:24',
       end: '13:44',
       price: 340,
-      color: '#e84393',
+      color: '#FD9226',
     },
     {
       id: 2,
@@ -130,7 +130,7 @@ function userData() {
       start: '7:44',
       end: '13:03',
       price: 990,
-      color: '#00b894',
+      color: '#9013FE',
     },
     {
       id: 3,
@@ -138,7 +138,7 @@ function userData() {
       start: '5:58',
       end: '6:37',
       price: 640,
-      color: '#fdcb6e',
+      color: '#D0021B',
     },
   ];
   return price;
