@@ -16,7 +16,7 @@ class Customer extends Component {
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" className="hide2" />
-                  <th scope="col"><button type="button" className="btn btn-secondary grey-button" data-toggle="modal" data-target="#add-user">Import</button></th>
+                  <th scope="col"><button type="button" className="btn btn-secondary grey-button" data-toggle="modal" data-target="#add-user">Filter</button></th>
                   <th scope="col"><button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user"><i className="fa fa-plus" aria-hidden="true" /></button></th>
                 </tr>
                 <tr>

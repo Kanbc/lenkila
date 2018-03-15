@@ -25,57 +25,98 @@ class CustomerModalEdit extends Component {
     const userDetail = this.props.userData;
     let button1 = null;
     let button2 = null;
+    let button3 = null;
     if (this.state.isEdit === true) {
-      button1 = <SaveButton />;
-      button2 = <CancelButton onClick={() => this.cancelEditForm()} />;
+      button1 = <GreenButton title="บันทึก" />;
+      button2 = <RedButton title="ยกเลิก" onClick={() => this.cancelEditForm()} />;
+      button3 = null;
     } else {
-      button1 = <EditButton />;
-      button2 = <DeleteButton />;
+      button1 = <OrageButton title="ประวัติ" />;
+      button2 = <BlueButton title="แก้ไข" />;
+      button3 = <DeleteButton />;
     }
     return (
       <form>
         <div className="modal-body">
           <div className="row">
-            <div className="col-sm-1">
-              <p>ชื่อ</p>
+            <div className="col-sm-2">
+              <p className="bold-text">ชื่อเล่น*</p>
             </div>
-            <div className="col-sm-3">
-              <input type="text" className="form-control" id="firstname" defaultValue={userDetail.firstname} onChange={this.editForm} />
+            <div className="col-sm-2">
+              <p>{userDetail.firstname}</p>
+            </div>
+            <div className="col-sm-2">
+              <p className="bold-text">เบอร์โทรศัพท์*</p>
+            </div>
+            <div className="col-sm-2">
+              <p>{userDetail.lastname}</p>
+            </div>
+            <div className="col-sm-2">
+              <p className="bold-text">วันเกิด</p>
+            </div>
+            <div className="col-sm-2">
+              <p>{userDetail.nickname}</p>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-2">
+              <p className="bold-text">ชื่อจริง</p>
+            </div>
+            <div className="col-sm-2">
+              <p>{userDetail.username}</p>
+            </div>
+            <div className="col-sm-2">
+              <p className="bold-text">นามสกุล</p>
+            </div>
+            <div className="col-sm-2">
+              <p>xxxx</p>
+            </div>
+            <div className="col-sm-2">
+              <p className="bold-text">เพศ</p>
             </div>
             <div className="col-sm-2">
               <p>นามสกุล</p>
             </div>
-            <div className="col-sm-3">
-              <input type="text" className="form-control" id="lastname" defaultValue={userDetail.lastname} onChange={this.editForm} />
-            </div>
-            <div className="col-sm-1">
-              <p>ชื่อเล่น</p>
+          </div>
+          <div className="row">
+            <div className="col-sm-2">
+              <p className="bold-text">หน้าที่:</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="nickname" defaultValue={userDetail.nickname} onChange={this.editForm} />
+              <p>{userDetail.username}</p>
+            </div>
+            <div className="col-sm-2">
+              <p className="bold-text">ความสัมพันธ์:</p>
+            </div>
+            <div className="col-sm-2">
+              <p>ขาประจำ</p>
+            </div>
+            <div className="col-sm-2">
+              <p className="bold-text">Free Credits:</p>
+            </div>
+            <div className="col-sm-2">
+              <p>นามสกุล</p>
             </div>
           </div>
           <div className="row">
-            <div className="col-sm-1">
-              <p>ID</p>
-            </div>
-            <div className="col-sm-3">
-              <input type="text" className="form-control" id="username" defaultValue={userDetail.username} onChange={this.editForm} />
+            <div className="col-sm-2">
+              <p className="bold-text">ประเภท:</p>
             </div>
             <div className="col-sm-2">
-              <p>Password</p>
+              <p>{userDetail.username}</p>
             </div>
-            <div className="col-sm-3">
-              <ChangePasswordButton />
+            <div className="col-sm-2">
+              <OrageButton title="Member" />
             </div>
-            <div className="col-sm-1" />
+            <div className="col-sm-2" />
+            <div className="col-sm-2" />
             <div className="col-sm-2" />
           </div>
           <div className="row">
-            <div className="col-sm-1">
-              <p>โน้ต</p>
+            <div className="col-sm-2">
+              <p className="bold-text">โน้ต</p>
             </div>
-            <div className="col-sm-11">
+            <div className="col-sm-10">
               <textarea className="form-control" id="note" rows="3" onChange={this.editForm} />
             </div>
           </div>
@@ -83,6 +124,7 @@ class CustomerModalEdit extends Component {
         <div className="modal-footer">
           {button1}
           {button2}
+          {button3}
         </div>
         <style jsx>{`
           .modal-body{
@@ -90,16 +132,11 @@ class CustomerModalEdit extends Component {
             padding-right:60px;
           }
           .modal-body p{
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 0;
-            right: 0;
             text-align: center;
           }
           .modal-body .row{
             margin-top:10px;
-            margin-bottom:40px;
+            margin-bottom:30px;
           }
           .modal-footer{
             justify-content: center;
@@ -109,6 +146,9 @@ class CustomerModalEdit extends Component {
           }
           .modal-footer>:not(:last-child){
             margin-right: 2rem;
+          }
+          .bold-text{
+            font-weight:bold;
           }
           .modal-footer>:not(:first-child){
             margin-left: 2rem;
@@ -137,12 +177,12 @@ class CustomerModalEdit extends Component {
   }
 }
 
-function ChangePasswordButton() {
+function BlueButton(props) {
   return (
-    <button type="button" className="btn btn-primary" >เปลี่ยนรหัส
+    <button type="button" className="btn btn-primary" >{props.title}
       <style jsx>{`
         button{
-          width:100%;
+          width:100px;
           background-color: #4A90E2;
           cursor:pointer;
         }
@@ -152,9 +192,9 @@ function ChangePasswordButton() {
   );
 }
 
-function SaveButton() {
+function GreenButton(props) {
   return (
-    <button type="button" className="btn btn-success">บันทึก
+    <button type="button" className="btn btn-success">{props.title}
       <style jsx>{`
         button{
           width:100px;
@@ -165,9 +205,9 @@ function SaveButton() {
   );
 }
 
-function EditButton() {
+function OrageButton(props) {
   return (
-    <button type="button" className="btn btn-success">แก้ไข
+    <button type="button" className="btn btn-success">{props.title}
       <style jsx>{`
           .btn-success{
             background-color: #FD9226;
@@ -182,9 +222,9 @@ function EditButton() {
   );
 }
 
-function CancelButton(props) {
+function RedButton(props) {
   return (
-    <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={props.onClick} >ยกเลิก
+    <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={props.onClick} >{props.title}
       <style jsx>{`
           button{
             width:100px;
