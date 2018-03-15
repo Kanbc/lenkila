@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CustomerLayout, UserManagementModal } from '../components';
+import { CustomerLayout, CustomerTypeModal } from '../components';
 
 class CustomerType extends Component {
   // [GET] - Users
@@ -44,9 +44,9 @@ class CustomerType extends Component {
         </div>
 
         {/* Modal */}
-        <UserManagementModal title="สร้างผู้ใช้ใหม่" type="add-user" />
+        <CustomerTypeModal title="สร้างประเภทลูกค้าใหม่" type="add-user" />
         {this.users.map(user => (
-          <UserManagementModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
+          <CustomerTypeModal key={user.id} title="ดูประเภทลูกค้า" type={`edit-user-${user.id}`} userData={user} />
         ))}
         <style jsx>{`
           .um-search{
