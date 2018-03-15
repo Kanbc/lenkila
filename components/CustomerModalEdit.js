@@ -73,30 +73,6 @@ class CustomerModalEdit extends Component {
           </div>
           <div className="row">
             <div className="col-sm-1">
-              <p>Email</p>
-            </div>
-            <div className="col-sm-3">
-              <input type="text" className="form-control" id="email" defaultValue={userDetail.email} onChange={this.editForm} />
-            </div>
-            <div className="col-sm-2">
-              <p>เบอร์โทร</p>
-            </div>
-            <div className="col-sm-3">
-              <input type="text" className="form-control" id="tel" defaultValue={userDetail.tel} onChange={this.editForm} />
-            </div>
-            <div className="col-sm-1">
-              <p>Role</p>
-            </div>
-            <div className="col-sm-2">
-              <select className="form-control" id="role" defaultValue={userDetail.role} onChange={this.editForm} >
-                <option>Owner</option>
-                <option>Admin</option>
-                <option>Staff</option>
-              </select>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-1">
               <p>โน้ต</p>
             </div>
             <div className="col-sm-11">

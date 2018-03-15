@@ -44,9 +44,9 @@ class Customer extends Component {
         </div>
 
         {/* Modal */}
-        <CustomerModal title="สร้างผู้ใช้ใหม่" type="add-user" />
+        <CustomerModal title="สร้างลูกค้า" type="add-user" />
         {this.users.map(user => (
-          <CustomerModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
+          <CustomerModal key={user.id} title="ข้อมูลลูกค้า" type={`edit-user-${user.id}`} userData={user} />
         ))}
         <style jsx>{`
           .um-search{

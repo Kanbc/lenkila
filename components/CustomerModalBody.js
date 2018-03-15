@@ -20,19 +20,19 @@ function ModalBodyAdd() {
       <div className="modal-body">
         <div className="row">
           <div className="col-sm-1">
-            <p>ชื่อ</p>
+            <p>ชื่อเล่น*</p>
           </div>
-          <div className="col-sm-3">
+          <div className="col-sm-2">
             <input type="text" className="form-control" id="firstname" />
           </div>
           <div className="col-sm-2">
-            <p>นามสกุล</p>
+            <p>เบอร์โทรศัพท์</p>
           </div>
           <div className="col-sm-3">
             <input type="text" className="form-control" id="lastname" />
           </div>
-          <div className="col-sm-1">
-            <p>ชื่อเล่น</p>
+          <div className="col-sm-2">
+            <p>วันเกิด</p>
           </div>
           <div className="col-sm-2">
             <input type="text" className="form-control" id="nickname" />
@@ -40,41 +40,24 @@ function ModalBodyAdd() {
         </div>
         <div className="row">
           <div className="col-sm-1">
-            <p>ID</p>
+            <p>ชื่อจริง</p>
           </div>
-          <div className="col-sm-3">
+          <div className="col-sm-2">
             <input type="text" className="form-control" id="user-id" />
           </div>
           <div className="col-sm-2">
-            <p>Password</p>
+            <p>นามสกุล</p>
           </div>
           <div className="col-sm-3">
             <input type="text" className="form-control" id="password" />
           </div>
-          <div className="col-sm-1" />
-          <div className="col-sm-2" />
-        </div>
-        <div className="row">
-          <div className="col-sm-1">
-            <p>Email</p>
-          </div>
-          <div className="col-sm-3">
-            <input type="text" className="form-control" id="email" />
+          <div className="col-sm-2">
+            <p>เพศ</p>
           </div>
           <div className="col-sm-2">
-            <p>เบอร์โทร</p>
-          </div>
-          <div className="col-sm-3">
-            <input type="text" className="form-control" id="tel" />
-          </div>
-          <div className="col-sm-1">
-            <p>Role</p>
-          </div>
-          <div className="col-sm-2">
-            <select className="form-control" id="role">
-              <option>Owner</option>
-              <option>Admin</option>
-              <option>Staff</option>
+            <select className="custom-select" defaultValue="0">
+              <option value="0">ชาย</option>
+              <option value="1">หญิง</option>
             </select>
           </div>
         </div>
