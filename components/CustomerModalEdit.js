@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class UserManagementModalEdit extends Component {
+class CustomerModalEdit extends Component {
   constructor(props) {
     super(props);
     this.state = { isEdit: false };
@@ -232,4 +232,4 @@ function DeleteButton() {
   );
 }
 
-export default UserManagementModalEdit;
+export default CustomerModalEdit;

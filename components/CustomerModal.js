@@ -1,7 +1,7 @@
 import React from 'react';
-import { UserManagementModalBody } from '../components';
+import { CustomerModalBody } from '../components';
 
-function UserManagementModal(props) {
+function CustomerModal(props) {
   return (
     <ModalLayout title={props.title} type={props.type} userData={props.userData} />
   );
@@ -18,7 +18,7 @@ function ModalLayout(props) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <UserManagementModalBody type={props.type} userData={props.userData} />
+          <CustomerModalBody type={props.type} userData={props.userData} />
         </div>
       </div>
       <style jsx>{`
@@ -58,4 +58,4 @@ function ModalLayout(props) {
   );
 }
 
-export default UserManagementModal;
+export default CustomerModal;

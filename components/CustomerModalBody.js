@@ -1,7 +1,7 @@
 import React from 'react';
-import { UserManagementModalEdit } from '../components';
+import { CustomerModalEdit } from '../components';
 
-function UserManagementModalBody(props) {
+function CustomerModalBody(props) {
   const typeForm = props.type;
   if (typeForm === 'add-user') {
     return (
@@ -10,7 +10,7 @@ function UserManagementModalBody(props) {
   }
   const userDetail = props.userData;
   return (
-    <UserManagementModalEdit userData={userDetail} />
+    <CustomerModalEdit userData={userDetail} />
   );
 }
 
@@ -169,4 +169,4 @@ function CancelButton() {
   );
 }
 
-export default UserManagementModalBody;
+export default CustomerModalBody;
