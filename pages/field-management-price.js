@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FieldManagementLayout, UserManagementModal } from '../components';
+import { FieldManagementLayout, UserManagementModal, PriceImportModal } from '../components';
 
 class FieldManagementPrice extends Component {
   // [GET] - Users
@@ -24,7 +24,7 @@ class FieldManagementPrice extends Component {
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" className="hide2" />
-                  <th scope="col"><button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user">Import</button></th>
+                  <th scope="col"><button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#import-field">Import</button></th>
                   <th scope="col"><button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user"><i className="fa fa-plus" aria-hidden="true" /></button></th>
                 </tr>
                 <tr>
@@ -53,6 +53,7 @@ class FieldManagementPrice extends Component {
 
         {/* Modal */}
         <UserManagementModal title="สร้างผู้ใช้ใหม่" type="add-user" />
+        <PriceImportModal title="Import" type="import-field" />
         {this.users.map(user => (
           <UserManagementModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
         ))}
