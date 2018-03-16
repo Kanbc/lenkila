@@ -3,6 +3,8 @@ import UserManagementModal from './UserManagementModal';
 import UserManagementModalBody from './UserManagementModalBody';
 import UserManagementModalEdit from './UserManagementModalEdit';
 import CustomerModal from './CustomerModal';
+import CustomerMemberModal from './CustomerMemberModal';
+import CustomerHistoryModal from './CustomerHistoryModal';
 import CustomerFilterModal from './CustomerFilterModal';
 import CustomerFilterModalBody from './CustomerFilterModalBody';
 import CustomerModalBody from './CustomerModalBody';
@@ -36,6 +38,8 @@ export {
   CustomerFilterModal,
   CustomerFilterModalBody,
   CustomerModal,
+  CustomerMemberModal,
+  CustomerHistoryModal,
   CustomerModalBody,
   CustomerModalEdit,
   CustomerTypeModal,

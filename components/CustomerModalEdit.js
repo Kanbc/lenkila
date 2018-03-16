@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { CustomerMemberModal, CustomerHistoryModal } from '../components';
 
 class CustomerModalEdit extends Component {
   constructor(props) {
@@ -144,6 +145,10 @@ class CustomerModalEdit extends Component {
           {button2}
           {button3}
         </div>
+        {/* Member Modal */}
+        <CustomerMemberModal title="Member" type="user-member" />
+        {/* History Modal */}
+        <CustomerHistoryModal title="ประวัติ" type="user-history" />
         <style jsx>{`
           .modal-body{
             padding-left:60px;
@@ -227,8 +232,24 @@ function GreenButton(props) {
 }
 
 function OrageButton(props) {
+  if (props.title === 'Member') {
+    return (
+      <button type="button" className="btn btn-success" data-toggle="modal" data-target="#user-member">{props.title}
+        <style jsx>{`
+            .btn-success{
+              background-color: #FD9226;
+              border-color:#f77e06;
+            }
+            button{
+              width:100px;
+            }
+          `}
+        </style>
+      </button>
+    );
+  }
   return (
-    <button type="button" className="btn btn-success">{props.title}
+    <button type="button" className="btn btn-success" data-toggle="modal" data-target="#user-history">{props.title}
       <style jsx>{`
           .btn-success{
             background-color: #FD9226;
