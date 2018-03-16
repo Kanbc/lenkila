@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FieldManagementLayout, UserManagementModal } from '../components';
+import { FieldManagementLayout, FieldModal } from '../components';
 
 class FieldManagementField extends Component {
   // [GET] - Users
@@ -42,9 +42,9 @@ class FieldManagementField extends Component {
         </div>
 
         {/* Modal */}
-        <UserManagementModal title="สร้างผู้ใช้ใหม่" type="add-user" />
+        <FieldModal title="เพิ่มสนาม" type="add-user" />
         {this.users.map(user => (
-          <UserManagementModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
+          <FieldModal key={user.id} title="แก้ไขสนาม" type={`edit-user-${user.id}`} userData={user} />
         ))}
         <style jsx>{`
           .um-search{
