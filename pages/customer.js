@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { CustomerLayout, CustomerModal } from '../components';
+import { CustomerLayout, CustomerModal, CustomerFilterModal } from '../components';
 
 class Customer extends Component {
   // [GET] - Users
@@ -16,7 +16,7 @@ class Customer extends Component {
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" className="hide2" />
-                  <th scope="col"><button type="button" className="btn btn-secondary grey-button" data-toggle="modal" data-target="#add-user">Filter</button></th>
+                  <th scope="col"><button type="button" className="btn btn-secondary grey-button" data-toggle="modal" data-target="#filter-user">Filter</button></th>
                   <th scope="col"><button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user"><i className="fa fa-plus" aria-hidden="true" /></button></th>
                 </tr>
                 <tr>
@@ -44,6 +44,7 @@ class Customer extends Component {
         </div>
 
         {/* Modal */}
+        <CustomerFilterModal title="Filter" type="filter-user" />
         <CustomerModal title="สร้างลูกค้า" type="add-user" />
         {this.users.map(user => (
           <CustomerModal key={user.id} title="ข้อมูลลูกค้า" type={`edit-user-${user.id}`} userData={user} />

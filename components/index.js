@@ -3,6 +3,8 @@ import UserManagementModal from './UserManagementModal';
 import UserManagementModalBody from './UserManagementModalBody';
 import UserManagementModalEdit from './UserManagementModalEdit';
 import CustomerModal from './CustomerModal';
+import CustomerFilterModal from './CustomerFilterModal';
+import CustomerFilterModalBody from './CustomerFilterModalBody';
 import CustomerModalBody from './CustomerModalBody';
 import CustomerModalEdit from './CustomerModalEdit';
 import CustomerTypeModal from './CustomerTypeModal';
@@ -31,6 +33,8 @@ export {
   UserManagementModalEdit,
   FieldManagementLayout,
   CustomerLayout,
+  CustomerFilterModal,
+  CustomerFilterModalBody,
   CustomerModal,
   CustomerModalBody,
   CustomerModalEdit,
