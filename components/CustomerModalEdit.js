@@ -32,7 +32,7 @@ class CustomerModalEdit extends Component {
       button3 = null;
     } else {
       button1 = <OrageButton title="ประวัติ" />;
-      button2 = <BlueButton title="แก้ไข" />;
+      button2 = <BlueButton title="แก้ไข" onClick={() => this.editForm()} />;
       button3 = <DeleteButton />;
     }
     return (
@@ -43,7 +43,8 @@ class CustomerModalEdit extends Component {
               <p className="bold-text">ชื่อเล่น*</p>
             </div>
             <div className="col-sm-2">
-              <p>{userDetail.firstname}</p>
+              <p className={this.state.isEdit ? 'd-none' : ''} >{userDetail.firstname}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="firstname" defaultValue={userDetail.firstname} />
             </div>
             <div className="col-sm-2">
               <p className="bold-text">เบอร์โทรศัพท์*</p>
@@ -55,7 +56,8 @@ class CustomerModalEdit extends Component {
               <p className="bold-text">วันเกิด</p>
             </div>
             <div className="col-sm-2">
-              <p>{userDetail.nickname}</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>{userDetail.nickname}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue={userDetail.nickname} />
             </div>
           </div>
           <div className="row">
@@ -63,19 +65,25 @@ class CustomerModalEdit extends Component {
               <p className="bold-text">ชื่อจริง</p>
             </div>
             <div className="col-sm-2">
-              <p>{userDetail.username}</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>{userDetail.username}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue={userDetail.username} />
             </div>
             <div className="col-sm-2">
               <p className="bold-text">นามสกุล</p>
             </div>
             <div className="col-sm-2">
-              <p>xxxx</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>xxxx</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue="xxxx" />
             </div>
             <div className="col-sm-2">
               <p className="bold-text">เพศ</p>
             </div>
             <div className="col-sm-2">
-              <p>นามสกุล</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>ชาย</p>
+              <select className={this.state.isEdit ? 'custom-select' : 'custom-select d-none'} defaultValue="0">
+                <option value="0">ชาย</option>
+                <option value="1">หญิง</option>
+              </select>
             </div>
           </div>
           <div className="row">
@@ -95,7 +103,8 @@ class CustomerModalEdit extends Component {
               <p className="bold-text">Free Credits:</p>
             </div>
             <div className="col-sm-2">
-              <p>นามสกุล</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>50</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue="50" />
             </div>
           </div>
           <div className="row">
@@ -117,7 +126,16 @@ class CustomerModalEdit extends Component {
               <p className="bold-text">โน้ต</p>
             </div>
             <div className="col-sm-10">
-              <textarea className="form-control" id="note" rows="3" onChange={this.editForm} />
+              <textarea className="form-control" id="note" rows="3" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-10" />
+            <div className="col-sm-2">
+              <label className={this.state.isEdit ? 'form-check-label red-label' : 'form-check-label red-label d-none'} htmlFor="inlineCheckbox5">
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox5" value="0" />
+                Blacklist
+              </label>
             </div>
           </div>
         </div>
@@ -143,6 +161,9 @@ class CustomerModalEdit extends Component {
             padding-top:0px;
             padding-bottom:40px;
             border-top:none;
+          }
+          .red-label{
+            color:#c82333;
           }
           .modal-footer>:not(:last-child){
             margin-right: 2rem;
@@ -179,7 +200,7 @@ class CustomerModalEdit extends Component {
 
 function BlueButton(props) {
   return (
-    <button type="button" className="btn btn-primary" >{props.title}
+    <button type="button" className="btn btn-primary" onClick={props.onClick}>{props.title}
       <style jsx>{`
         button{
           width:100px;
