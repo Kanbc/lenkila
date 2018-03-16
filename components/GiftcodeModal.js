@@ -1,7 +1,7 @@
 import React from 'react';
-import { FieldModalBody } from '../components';
+import { GiftcodeModalBody } from '../components';
 
-function FieldModal(props) {
+function GiftcodeModal(props) {
   return (
     <ModalLayout title={props.title} type={props.type} userData={props.userData} />
   );
@@ -18,7 +18,7 @@ function ModalLayout(props) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <FieldModalBody type={props.type} userData={props.userData} />
+          <GiftcodeModalBody type={props.type} userData={props.userData} />
         </div>
       </div>
       <style jsx>{`
@@ -58,4 +58,4 @@ function ModalLayout(props) {
   );
 }
 
-export default FieldModal;
+export default GiftcodeModal;

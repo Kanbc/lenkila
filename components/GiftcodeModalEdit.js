@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class FieldModalEdit extends Component {
+class GiftcodeModalEdit extends Component {
   constructor(props) {
     super(props);
     this.state = { isEdit: false };
@@ -39,39 +39,71 @@ class FieldModalEdit extends Component {
         <div className="modal-body">
           <div className="row">
             <div className="col-sm-2">
-              <p>ชื่อสนาม</p>
+              <p>ชื่อ</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" defaultValue={userDetail.firstname} />
+              <input type="text" className="form-control" id="firstname" />
             </div>
+            <div className="col-sm-2">
+              <p>วันสิ้นสุด</p>
+            </div>
+            <div className="col-sm-4">
+              <input type="text" className="form-control" id="firstname" />
+            </div>
+          </div>
+          <div className="row">
             <div className="col-sm-2">
               <p>ประเภท</p>
             </div>
             <div className="col-sm-4">
               <select className="custom-select" defaultValue="0">
-                <option value="0">ฟุตบอล</option>
-                <option value="1">แบตมินตัน</option>
+                <option value="0">%</option>
+                <option value="1">เงิน</option>
               </select>
             </div>
-          </div>
-          <div className="row">
             <div className="col-sm-2">
-              <p>แบ่งครึ่งสนาม</p>
+              <p>ราคา</p>
             </div>
             <div className="col-sm-4">
-              <select className="custom-select" defaultValue="0">
-                <option value="0">ได้</option>
-                <option value="1">ไม่ได้</option>
-              </select>
+              <input type="text" className="form-control" id="firstname" />
             </div>
-            <div className="col-sm-6" />
+          </div>
+          <div className="row">
+            <div className="col-sm-12">
+              <div className="form-check form-check-inline">
+                <label className="form-check-label" htmlFor="inlineCheckbox6">
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                  ทั้งวัน
+                </label>
+              </div>
+            </div>
           </div>
           <div className="row">
             <div className="col-sm-2">
-              <p>รายละเอียด</p>
+              <p>เวลาเริ่ม</p>
             </div>
-            <div className="col-sm-10">
-              <input type="text" className="form-control" id="email" defaultValue={userDetail.email} />
+            <div className="col-sm-4">
+              <input type="text" className="form-control" id="firstname" />
+            </div>
+            <div className="col-sm-2">
+              <p>เวลาสิ้นสุด</p>
+            </div>
+            <div className="col-sm-4">
+              <input type="text" className="form-control" id="firstname" />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-2">
+              <p>จำนวน</p>
+            </div>
+            <div className="col-sm-4">
+              <input type="text" className="form-control" id="firstname" />
+            </div>
+            <div className="col-sm-2">
+              <p>ครั้งต่อคน</p>
+            </div>
+            <div className="col-sm-4">
+              <input type="text" className="form-control" id="firstname" />
             </div>
           </div>
         </div>
@@ -135,7 +167,7 @@ class FieldModalEdit extends Component {
 
 function SaveButton() {
   return (
-    <button type="button" className="btn btn-success">บันทึก
+    <button type="button" className="btn btn-success">สร้าง
       <style jsx>{`
         button{
           width:100px;
@@ -178,7 +210,7 @@ function CancelButton(props) {
 
 function DeleteButton() {
   return (
-    <button type="button" className="btn btn-danger" data-dismiss="modal">ลบสนาม
+    <button type="button" className="btn btn-danger" data-dismiss="modal">ลบ
       <style jsx>{`
           button{
             width:100px;
@@ -189,4 +221,4 @@ function DeleteButton() {
   );
 }
 
-export default FieldModalEdit;
+export default GiftcodeModalEdit;

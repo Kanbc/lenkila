@@ -1,7 +1,7 @@
 import React from 'react';
-import { FieldModalEdit } from '../components';
+import { GiftcodeModalEdit } from '../components';
 
-function FieldModalBody(props) {
+function GiftcodeModalBody(props) {
   const typeForm = props.type;
   if (typeForm === 'add-user') {
     return (
@@ -10,7 +10,7 @@ function FieldModalBody(props) {
   }
   const userDetail = props.userData;
   return (
-    <FieldModalEdit userData={userDetail} />
+    <GiftcodeModalEdit userData={userDetail} />
   );
 }
 
@@ -20,39 +20,123 @@ function ModalBodyAdd() {
       <div className="modal-body">
         <div className="row">
           <div className="col-sm-2">
-            <p>ชื่อสนาม</p>
+            <p>ชื่อ</p>
           </div>
           <div className="col-sm-4">
             <input type="text" className="form-control" id="firstname" />
           </div>
           <div className="col-sm-2">
+            <p>วันสิ้นสุด</p>
+          </div>
+          <div className="col-sm-4">
+            <input type="text" className="form-control" id="firstname" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-2">
             <p>ประเภท</p>
           </div>
           <div className="col-sm-4">
             <select className="custom-select" defaultValue="0">
-              <option value="0">ฟุตบอล</option>
-              <option value="1">แบตมินตัน</option>
+              <option value="0">%</option>
+              <option value="1">เงิน</option>
             </select>
           </div>
-        </div>
-        <div className="row">
           <div className="col-sm-2">
-            <p>แบ่งครึ่งสนาม</p>
+            <p>ราคา</p>
           </div>
           <div className="col-sm-4">
-            <select className="custom-select" defaultValue="0">
-              <option value="0">ได้</option>
-              <option value="1">ไม่ได้</option>
-            </select>
+            <input type="text" className="form-control" id="firstname" />
           </div>
-          <div className="col-sm-6" />
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" htmlFor="inlineCheckbox6">
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                Mon
+              </label>
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" htmlFor="inlineCheckbox6">
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                Tue
+              </label>
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" htmlFor="inlineCheckbox6">
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                Wed
+              </label>
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" htmlFor="inlineCheckbox6">
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                Thu
+              </label>
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" htmlFor="inlineCheckbox6">
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                Fri
+              </label>
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" htmlFor="inlineCheckbox6">
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                Sat
+              </label>
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" htmlFor="inlineCheckbox6">
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                Sun
+              </label>
+            </div>
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" htmlFor="inlineCheckbox6">
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                Hol
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="form-check form-check-inline">
+              <label className="form-check-label" htmlFor="inlineCheckbox6">
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                ทั้งวัน
+              </label>
+            </div>
+          </div>
         </div>
         <div className="row">
           <div className="col-sm-2">
-            <p>รายละเอียด</p>
+            <p>เวลาเริ่ม</p>
           </div>
-          <div className="col-sm-10">
-            <input type="text" className="form-control" id="email" />
+          <div className="col-sm-4">
+            <input type="text" className="form-control" id="firstname" />
+          </div>
+          <div className="col-sm-2">
+            <p>เวลาสิ้นสุด</p>
+          </div>
+          <div className="col-sm-4">
+            <input type="text" className="form-control" id="firstname" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-2">
+            <p>จำนวน</p>
+          </div>
+          <div className="col-sm-4">
+            <input type="text" className="form-control" id="firstname" />
+          </div>
+          <div className="col-sm-2">
+            <p>ครั้งต่อคน</p>
+          </div>
+          <div className="col-sm-4">
+            <input type="text" className="form-control" id="firstname" />
           </div>
         </div>
       </div>
@@ -124,4 +208,4 @@ function AddButton() {
   );
 }
 
-export default FieldModalBody;
+export default GiftcodeModalBody;

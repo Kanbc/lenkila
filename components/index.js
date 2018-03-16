@@ -5,6 +5,9 @@ import UserManagementModalEdit from './UserManagementModalEdit';
 import FieldModal from './FieldModal';
 import FieldModalBody from './FieldModalBody';
 import FieldModalEdit from './FieldModalEdit';
+import GiftcodeModal from './GiftcodeModal';
+import GiftcodeModalBody from './GiftcodeModalBody';
+import GiftcodeModalEdit from './GiftcodeModalEdit';
 import HolidayModal from './HolidayModal';
 import HolidayModalBody from './HolidayModalBody';
 import HolidayModalEdit from './HolidayModalEdit';
@@ -42,6 +45,9 @@ export {
   FieldModal,
   FieldModalBody,
   FieldModalEdit,
+  GiftcodeModal,
+  GiftcodeModalBody,
+  GiftcodeModalEdit,
   HolidayModal,
   HolidayModalBody,
   HolidayModalEdit,

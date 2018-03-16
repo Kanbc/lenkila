@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FieldManagementLayout, UserManagementModal } from '../components';
+import { FieldManagementLayout, GiftcodeModal } from '../components';
 
 class FieldManagementGift extends Component {
   // [GET] - Users
@@ -51,9 +51,9 @@ class FieldManagementGift extends Component {
         </div>
 
         {/* Modal */}
-        <UserManagementModal title="สร้างผู้ใช้ใหม่" type="add-user" />
+        <GiftcodeModal title="เพิ่ม Gift Code" type="add-user" />
         {this.users.map(user => (
-          <UserManagementModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
+          <GiftcodeModal key={user.id} title="ข้อมูล Gift Code" type={`edit-user-${user.id}`} userData={user} />
         ))}
         <style jsx>{`
           .um-search{
