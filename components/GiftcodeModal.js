@@ -1,7 +1,7 @@
 import React from 'react';
-import { HolidayModalBody } from '../components';
+import { FieldModalBody } from '../components';
 
-function HolidayModal(props) {
+function FieldModal(props) {
   return (
     <ModalLayout title={props.title} type={props.type} userData={props.userData} />
   );
@@ -18,7 +18,7 @@ function ModalLayout(props) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <HolidayModalBody type={props.type} userData={props.userData} />
+          <FieldModalBody type={props.type} userData={props.userData} />
         </div>
       </div>
       <style jsx>{`
@@ -58,4 +58,4 @@ function ModalLayout(props) {
   );
 }
 
-export default HolidayModal;
+export default FieldModal;

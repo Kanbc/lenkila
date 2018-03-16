@@ -5,6 +5,9 @@ import UserManagementModalEdit from './UserManagementModalEdit';
 import FieldModal from './FieldModal';
 import FieldModalBody from './FieldModalBody';
 import FieldModalEdit from './FieldModalEdit';
+import HolidayModal from './HolidayModal';
+import HolidayModalBody from './HolidayModalBody';
+import HolidayModalEdit from './HolidayModalEdit';
 import CustomerModal from './CustomerModal';
 import CustomerMemberModal from './CustomerMemberModal';
 import CustomerHistoryModal from './CustomerHistoryModal';
@@ -39,6 +42,9 @@ export {
   FieldModal,
   FieldModalBody,
   FieldModalEdit,
+  HolidayModal,
+  HolidayModalBody,
+  HolidayModalEdit,
   FieldManagementLayout,
   CustomerLayout,
   CustomerFilterModal,

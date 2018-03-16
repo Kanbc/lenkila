@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FieldManagementLayout, UserManagementModal } from '../components';
+import { FieldManagementLayout, HolidayModal } from '../components';
 
 class FieldManagementHoliday extends Component {
   // [GET] - Users
@@ -48,9 +48,9 @@ class FieldManagementHoliday extends Component {
         </div>
 
         {/* Modal */}
-        <UserManagementModal title="สร้างผู้ใช้ใหม่" type="add-user" />
+        <HolidayModal title="เพิ่มวันหยุด" type="add-user" />
         {this.users.map(user => (
-          <UserManagementModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
+          <HolidayModal key={user.id} title="แก้ไขวันหยุด" type={`edit-user-${user.id}`} userData={user} />
         ))}
         <style jsx>{`
           .um-search{

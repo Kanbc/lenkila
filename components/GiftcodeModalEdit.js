@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class HolidayModalEdit extends Component {
+class FieldModalEdit extends Component {
   constructor(props) {
     super(props);
     this.state = { isEdit: false };
@@ -39,44 +39,39 @@ class HolidayModalEdit extends Component {
         <div className="modal-body">
           <div className="row">
             <div className="col-sm-2">
-              <p>ชื่อวันหยุด</p>
+              <p>ชื่อสนาม</p>
             </div>
             <div className="col-sm-4">
               <input type="text" className="form-control" id="firstname" defaultValue={userDetail.firstname} />
             </div>
             <div className="col-sm-2">
-              <p>เปิดทำการ</p>
+              <p>ประเภท</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" defaultValue={userDetail.firstname} />
+              <select className="custom-select" defaultValue="0">
+                <option value="0">ฟุตบอล</option>
+                <option value="1">แบตมินตัน</option>
+              </select>
             </div>
           </div>
           <div className="row">
             <div className="col-sm-2">
-              <p>วันที่เริ่ม</p>
+              <p>แบ่งครึ่งสนาม</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="email" defaultValue={userDetail.email} />
+              <select className="custom-select" defaultValue="0">
+                <option value="0">ได้</option>
+                <option value="1">ไม่ได้</option>
+              </select>
             </div>
-            <div className="col-sm-2">
-              <p>เวลาเริ่ม</p>
-            </div>
-            <div className="col-sm-4">
-              <input type="text" className="form-control" id="email" defaultValue={userDetail.email} />
-            </div>
+            <div className="col-sm-6" />
           </div>
           <div className="row">
             <div className="col-sm-2">
-              <p>วันสิ้นสุด</p>
+              <p>รายละเอียด</p>
             </div>
-            <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" defaultValue={userDetail.email} />
-            </div>
-            <div className="col-sm-2">
-              <p>เวลาสิ้นสุด</p>
-            </div>
-            <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" defaultValue={userDetail.email} />
+            <div className="col-sm-10">
+              <input type="text" className="form-control" id="email" defaultValue={userDetail.email} />
             </div>
           </div>
         </div>
@@ -183,7 +178,7 @@ function CancelButton(props) {
 
 function DeleteButton() {
   return (
-    <button type="button" className="btn btn-danger" data-dismiss="modal">ลบ
+    <button type="button" className="btn btn-danger" data-dismiss="modal">ลบสนาม
       <style jsx>{`
           button{
             width:100px;
@@ -194,4 +189,4 @@ function DeleteButton() {
   );
 }
 
-export default HolidayModalEdit;
+export default FieldModalEdit;

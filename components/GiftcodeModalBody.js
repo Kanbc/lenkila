@@ -1,7 +1,7 @@
 import React from 'react';
-import { HolidayModalEdit } from '../components';
+import { FieldModalEdit } from '../components';
 
-function HolidayModalBody(props) {
+function FieldModalBody(props) {
   const typeForm = props.type;
   if (typeForm === 'add-user') {
     return (
@@ -10,7 +10,7 @@ function HolidayModalBody(props) {
   }
   const userDetail = props.userData;
   return (
-    <HolidayModalEdit userData={userDetail} />
+    <FieldModalEdit userData={userDetail} />
   );
 }
 
@@ -20,44 +20,39 @@ function ModalBodyAdd() {
       <div className="modal-body">
         <div className="row">
           <div className="col-sm-2">
-            <p>ชื่อวันหยุด</p>
+            <p>ชื่อสนาม</p>
           </div>
           <div className="col-sm-4">
             <input type="text" className="form-control" id="firstname" />
           </div>
           <div className="col-sm-2">
-            <p>เปิดทำการ</p>
+            <p>ประเภท</p>
           </div>
           <div className="col-sm-4">
-            <input type="text" className="form-control" id="firstname" />
+            <select className="custom-select" defaultValue="0">
+              <option value="0">ฟุตบอล</option>
+              <option value="1">แบตมินตัน</option>
+            </select>
           </div>
         </div>
         <div className="row">
           <div className="col-sm-2">
-            <p>วันที่เริ่ม</p>
+            <p>แบ่งครึ่งสนาม</p>
           </div>
           <div className="col-sm-4">
-            <input type="text" className="form-control" id="firstname" />
+            <select className="custom-select" defaultValue="0">
+              <option value="0">ได้</option>
+              <option value="1">ไม่ได้</option>
+            </select>
           </div>
-          <div className="col-sm-2">
-            <p>เวลาเริ่ม</p>
-          </div>
-          <div className="col-sm-4">
-            <input type="text" className="form-control" id="firstname" />
-          </div>
+          <div className="col-sm-6" />
         </div>
         <div className="row">
           <div className="col-sm-2">
-            <p>วันสิ้นสุด</p>
+            <p>รายละเอียด</p>
           </div>
-          <div className="col-sm-4">
-            <input type="text" className="form-control" id="firstname" />
-          </div>
-          <div className="col-sm-2">
-            <p>เวลาสิ้นสุด</p>
-          </div>
-          <div className="col-sm-4">
-            <input type="text" className="form-control" id="firstname" />
+          <div className="col-sm-10">
+            <input type="text" className="form-control" id="email" />
           </div>
         </div>
       </div>
@@ -129,4 +124,4 @@ function AddButton() {
   );
 }
 
-export default HolidayModalBody;
+export default FieldModalBody;
