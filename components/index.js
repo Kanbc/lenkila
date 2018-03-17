@@ -2,6 +2,9 @@ import Layout from './Layout';
 import UserManagementModal from './UserManagementModal';
 import UserManagementModalBody from './UserManagementModalBody';
 import UserManagementModalEdit from './UserManagementModalEdit';
+import PriceModal from './PriceModal';
+import PriceModalBody from './PriceModalBody';
+import PriceModalEdit from './PriceModalEdit';
 import FieldModal from './FieldModal';
 import FieldModalBody from './FieldModalBody';
 import FieldModalEdit from './FieldModalEdit';
@@ -43,6 +46,9 @@ export {
   UserManagementModal,
   UserManagementModalBody,
   UserManagementModalEdit,
+  PriceModal,
+  PriceModalBody,
+  PriceModalEdit,
   FieldModal,
   FieldModalBody,
   FieldModalEdit,

@@ -142,17 +142,4 @@ function AddButton() {
   );
 }
 
-function CancelButton() {
-  return (
-    <button type="button" className="btn btn-danger" data-dismiss="modal">ยกเลิก
-      <style jsx>{`
-          button{
-            width:100px;
-          }
-        `}
-      </style>
-    </button>
-  );
-}
-
 export default UserManagementModal;
