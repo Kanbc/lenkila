@@ -11,7 +11,7 @@
         "build": "next build",
         "start": "next start -p $PORT",
         "dev": "next",
-        "heroku-postbuild": "npm run build"
+        "heroku-postbuild": "next build"
     },
     "repository": {
         "type": "git",
