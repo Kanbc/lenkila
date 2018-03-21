@@ -7,7 +7,7 @@
         "build": "next build",
         "start": "next start",
         "dev": "next",
-        "heroku-postbuild": "heroku-nextjs-build"
+        "heroku-postbuild": "next build"
     },
     "repository": {
         "type": "git",
