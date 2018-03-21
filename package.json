@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "description": "A stadium-reserving website.",
     "main": "index.js",
+    "engines": {
+        "node": "9.8.0"
+    },
     "scripts": {
         "build": "next build",
         "start": "next start -p $PORT",
