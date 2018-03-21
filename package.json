@@ -5,9 +5,9 @@
     "main": "index.js",
     "scripts": {
         "build": "next build",
-        "start": "next start",
+        "start": "next start -p $PORT",
         "dev": "next",
-        "heroku-postbuild": "next build"
+        "heroku-postbuild": "yarn run build"
     },
     "repository": {
         "type": "git",
