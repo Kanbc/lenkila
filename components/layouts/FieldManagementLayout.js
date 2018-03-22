@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'next/router';
 import Link from 'next/link';
-import { Layout } from '../components';
+import { Layout } from '../';
 
 
 const FieldManagementLayout = ({ children, title = 'ข้อมูลสนาม', router }) => (

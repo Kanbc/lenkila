@@ -1,4 +1,6 @@
-import Layout from './Layout';
+import Layout from './layouts/Layout';
+import CustomerLayout from './layouts/CustomerLayout';
+import FieldManagementLayout from './layouts/FieldManagementLayout';
 import UserManagementModal from './UserManagementModal';
 import UserManagementModalBody from './UserManagementModalBody';
 import UserManagementModalEdit from './UserManagementModalEdit';
@@ -31,8 +33,6 @@ import StadiumBookingColumn from './StadiumBookingColumn';
 import StadiumBookingColumnItem from './StadiumBookingColumnItem';
 import StadiumBookingModal from './StadiumBookingModal';
 import StadiumBookingTimetable from './StadiumBookingTimetable';
-import FieldManagementLayout from './FieldManagementLayout';
-import CustomerLayout from './CustomerLayout';
 import ColorButton from './ColorButton';
 
 
