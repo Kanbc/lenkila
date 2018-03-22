@@ -1,9 +1,8 @@
 import React from 'react';
-import { withRouter } from 'next/router';
-import Link from 'next/link';
 import Head from 'next/head';
 import moment from 'moment';
 import TopNavbar from './TopNavbar';
+import LeftNavbar from './LeftNavbar';
 
 moment.locale('th');
 
@@ -45,7 +44,7 @@ const MenuLists = [
   },
 ];
 
-const Layout = ({ children, title = 'ระบบจัดการสนาม', router }) => (
+const Layout = ({ children, title = 'ระบบจัดการสนาม' }) => (
   <div className="root">
     <Head>
       <title>{`Lenkila : ${title}`}</title>
@@ -57,65 +56,7 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
     </Head>
     <TopNavbar menulists={MenuLists} />
     <div className="content d-flex flex-row">
-      {/* Sidebar */}
-      <ul className="nav navbar-light flex-column d-none d-lg-block">
-        <li className="nav-item">
-          <Link href="/">
-            <a className={`nav-link ${router.pathname === '/' && 'active'}`}>
-              <i className="fa fa-newspaper-o" />
-              รายการวันนี้
-            </a>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/booking-table">
-            <a className={`nav-link ${router.pathname === '/booking-table' && 'active'}`}>
-              <i className="fa fa-calendar-plus-o" />
-              การจอง
-            </a>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/customer">
-            <a className={`nav-link ${router.pathname === '/customer' && 'active'}`}>
-              <i className="fa fa-users" />
-              ข้อมูลลูกค้า
-            </a>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/analysis">
-            <a className={`nav-link ${router.pathname === '/analysis' && 'active'}`}>
-              <i className="fa fa-line-chart" />
-              วิเคราะห์ข้อมูล
-            </a>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/field-management">
-            <a className={`nav-link ${router.pathname === '/field-management' && 'active'}`}>
-              <i className="fa fa-dashboard" />
-              จัดการสนาม
-            </a>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link href="/user-management">
-            <a className={`nav-link ${router.pathname === '/user-management' && 'active'}`}>
-              <i className="fa fa-address-book-o" />
-              การจัดการบัญชีผู้ใช้
-            </a>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <a className={`nav-link ${router.pathname === '/connect' && 'active'}`}>
-            <i className="fa fa-bug" />
-            แจ้งปัญหาการใช้งาน
-          </a>
-        </li>
-      </ul>
-
-      {/* Page */}
+      <LeftNavbar menulists={MenuLists} />
       <div className="page-container">
         {children}
       </div>
@@ -124,59 +65,6 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossOrigin="anonymous" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossOrigin="anonymous" />
     <style jsx>{`
-      .nav {
-        width: 220px;
-        height: 100vh;
-        background: linear-gradient(135deg,#000 0,#062a64 100%);
-        .nav-item {
-          transition: all 0.2s;
-          height: 50px;
-          font-size: 15px;
-          &:hover {
-            background-color: #062c69;
-          }
-          .fa {
-            margin-right: 10px;
-            width: 25px;
-            text-align: center;
-            font-size: 20px;
-          }
-        }
-        .nav-link {
-          color: #fff;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          &.active {
-            background-color: #062c69;
-          }
-        }
-      }
-      .navbar-nav{
-        .nav-item {
-          transition: all 0.2s;
-          height: 50px;
-          font-size: 15px;
-          &:hover {
-            background-color: #062c69;
-          }
-          .fa {
-            margin-right: 10px;
-            width: 25px;
-            text-align: center;
-            font-size: 20px;
-          }
-        }
-        .nav-link {
-          color: #fff;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          &.active {
-            background-color: #062c69;
-          }
-        }
-      }
       .root {
         width: 100vw;
         height: 100vh;
@@ -206,4 +94,4 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
   </div>
 );
 
-export default withRouter(Layout);
+export default Layout;
