@@ -8,36 +8,43 @@ moment.locale('th');
 
 const MenuLists = [
   {
+    id: 1,
     href: '/',
     name: 'รายการวันนี้',
     iconClass: 'fa-newspaper-o',
   },
   {
+    id: 2,
     href: '/booking-table',
     name: 'การจอง',
     iconClass: 'fa-calendar-plus-o',
   },
   {
+    id: 3,
     href: '/customer',
     name: 'ข้อมูลลูกค้า',
     iconClass: 'fa-users',
   },
   {
+    id: 4,
     href: '/analysis',
     name: 'วิเคราะห์ข้อมูล',
     iconClass: 'fa-line-chart',
   },
   {
+    id: 5,
     href: '/field-management',
     name: 'จัดการสนาม',
     iconClass: 'fa-dashboard',
   },
   {
+    id: 6,
     href: '/user-management',
     name: 'การจัดการบัญชีผู้ใช้',
     iconClass: 'fa-address-book-o',
   },
   {
+    id: 7,
     href: '/connect',
     name: 'แจ้งปัญหาการใช้งาน',
     iconClass: 'fa-bug',
