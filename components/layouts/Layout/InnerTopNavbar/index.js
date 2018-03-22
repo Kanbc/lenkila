@@ -6,7 +6,7 @@ const InnerTopNavbar = ({ tabs }) => (
     <div className="btn-group" role="group">
       {
         tabs.map(tab => (
-          <Tab key={tab.id} href={tab.href} name={tab.name} />
+          <Tab key={tab.id} number={tab.id} href={tab.href} name={tab.name} />
         ))
       }
     </div>

@@ -2,11 +2,13 @@ import React from 'react';
 import { withRouter } from 'next/router';
 import Link from 'next/link';
 
-const Tab = ({ href, name, router }) => (
+const Tab = ({
+  href, name, router, number,
+}) => (
   <div>
     <Link href={href}>
       <a className={`nav-link ${router.pathname === href && 'active'}`}>
-        <button type="button" className="btn btn-outline-primary around-box">{name}</button>
+        <button type="button" className={`btn btn-outline-primary ${number === 1 && 'around-box'}`}>{name}</button>
       </a>
     </Link>
     <style jsx>{`
