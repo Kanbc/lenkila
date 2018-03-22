@@ -1,7 +1,8 @@
+// Layout
 import Layout from './layouts/Layout';
-import CustomerLayout from './layouts/CustomerLayout';
-import FieldManagementLayout from './layouts/FieldManagementLayout';
+import TabsLayout from './layouts/TabsLayout';
 
+// Element
 import UserManagementModal from './UserManagementModal';
 import UserManagementModalBody from './UserManagementModalBody';
 import UserManagementModalEdit from './UserManagementModalEdit';
@@ -35,10 +36,12 @@ import StadiumBookingColumnItem from './StadiumBookingColumnItem';
 import StadiumBookingModal from './StadiumBookingModal';
 import StadiumBookingTimetable from './StadiumBookingTimetable';
 import ColorButton from './ColorButton';
-
+// Constant
+import * as Constant from './constants';
 
 export {
   Layout,
+  TabsLayout,
   DatePickerButton,
   StadiumBookingColumn,
   StadiumBookingColumnItem,
@@ -59,8 +62,6 @@ export {
   HolidayModal,
   HolidayModalBody,
   HolidayModalEdit,
-  FieldManagementLayout,
-  CustomerLayout,
   CustomerFilterModal,
   CustomerFilterModalBody,
   CustomerModal,
@@ -74,4 +75,5 @@ export {
   CustomerTypeModalEdit,
   CustomerTypeModalAdd,
   ColorButton,
+  Constant,
 };

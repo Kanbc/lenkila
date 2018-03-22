@@ -12,7 +12,12 @@ const TopNavbar = ({ menulists }) => (
       <ul className="navbar-nav d-lg-none d-xl-none">
         {
           menulists.map(menu => (
-            <CollapseMenu key={menu.id} href={menu.href} name={menu.name} iconClass={menu.iconClass} />
+            <CollapseMenu
+              key={menu.id}
+              href={menu.href}
+              name={menu.name}
+              iconClass={menu.iconClass}
+            />
           ))
         }
       </ul>

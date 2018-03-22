@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FieldManagementLayout, PriceModal, PriceImportModal } from '../components';
+import { TabsLayout, PriceModal, PriceImportModal, Constant } from '../components';
 
 class FieldManagementPrice extends Component {
   // [GET] - Users
@@ -7,7 +7,7 @@ class FieldManagementPrice extends Component {
 
   render() {
     return (
-      <FieldManagementLayout title="ราคา">
+      <TabsLayout title="ราคา" tabs={Constant.FieldTabs}>
         <div className="container">
           <div className="row um-one-row">
             <table className="table">
@@ -110,7 +110,7 @@ class FieldManagementPrice extends Component {
           }
         `}
         </style>
-      </FieldManagementLayout>
+      </TabsLayout>
     );
   }
 }

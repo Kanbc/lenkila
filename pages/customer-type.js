@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { CustomerLayout, CustomerTypeModal } from '../components';
+import { TabsLayout, Constant, CustomerTypeModal } from '../components';
 
 class CustomerType extends Component {
   // [GET] - Users
   users = userData();
   render() {
     return (
-      <CustomerLayout title="ประเภทลูกค้า">
+      <TabsLayout title="ประเภทลูกค้า" tabs={Constant.customerTabs}>
         <div className="container">
           <div className="row um-one-row">
             <table className="table">
@@ -101,7 +101,7 @@ class CustomerType extends Component {
           }
         `}
         </style>
-      </CustomerLayout>
+      </TabsLayout>
     );
   }
 }

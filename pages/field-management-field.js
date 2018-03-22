@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FieldManagementLayout, FieldModal } from '../components';
+import { TabsLayout, Constant, FieldModal } from '../components';
 
 class FieldManagementField extends Component {
   // [GET] - Users
@@ -7,7 +7,7 @@ class FieldManagementField extends Component {
 
   render() {
     return (
-      <FieldManagementLayout title="สนาม">
+      <TabsLayout title="สนาม" tabs={Constant.FieldTabs}>
         <div className="container">
           <div className="row um-one-row">
             <table className="table">
@@ -96,7 +96,7 @@ class FieldManagementField extends Component {
           }
         `}
         </style>
-      </FieldManagementLayout>
+      </TabsLayout>
     );
   }
 }

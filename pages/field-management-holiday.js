@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FieldManagementLayout, HolidayModal } from '../components';
+import { TabsLayout, Constant, HolidayModal } from '../components';
 
 class FieldManagementHoliday extends Component {
   // [GET] - Users
@@ -7,7 +7,7 @@ class FieldManagementHoliday extends Component {
 
   render() {
     return (
-      <FieldManagementLayout title="วันหยุด">
+      <TabsLayout title="วันหยุด" tabs={Constant.FieldTabs}>
         <div className="container">
           <div className="row um-one-row">
             <table className="table">
@@ -102,7 +102,7 @@ class FieldManagementHoliday extends Component {
           }
         `}
         </style>
-      </FieldManagementLayout>
+      </TabsLayout>
     );
   }
 }

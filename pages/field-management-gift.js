@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FieldManagementLayout, GiftcodeModal } from '../components';
+import { TabsLayout, Constant, GiftcodeModal } from '../components';
 
 class FieldManagementGift extends Component {
   // [GET] - Users
@@ -7,7 +7,7 @@ class FieldManagementGift extends Component {
 
   render() {
     return (
-      <FieldManagementLayout title="Gift Code">
+      <TabsLayout title="Gift Code" tabs={Constant.FieldTabs}>
         <div className="container">
           <div className="row um-one-row">
             <table className="table">
@@ -105,7 +105,7 @@ class FieldManagementGift extends Component {
           }
         `}
         </style>
-      </FieldManagementLayout>
+      </TabsLayout>
     );
   }
 }
