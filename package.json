@@ -11,7 +11,8 @@
         "build": "next build",
         "start": "next start -p $PORT",
         "dev": "next",
-        "heroku-postbuild": "next build"
+        "heroku-postbuild": "npm run build",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
         "type": "git",
