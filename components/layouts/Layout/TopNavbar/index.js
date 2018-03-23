@@ -3,8 +3,8 @@ import CollapseMenu from './CollapseMenu';
 
 const TopNavbar = ({ menulists }) => (
   <nav className="navbar navbar-expand-lg navbar-dark d-flex justify-content-space-between">
-    <a className="navbar-brand d-none d-sm-block" href="#">LENKILA Stadium</a>
-    <a className="navbar-brand d-sm-none" href="#">LENKILA</a>
+    <a className="navbar-brand d-none d-sm-block" href="/">LENKILA Stadium</a>
+    <a className="navbar-brand d-sm-none" href="/">LENKILA</a>
     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span className="navbar-toggler-icon" />
     </button>

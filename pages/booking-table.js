@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Layout } from '../components';
 
 class BookingTable extends Component {
   render() {
     return (
-      <div>ตารางจองสนาม</div>
+      <Layout title="การจอง" />
     );
   }
 }

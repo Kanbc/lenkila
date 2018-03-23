@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Layout } from '../components';
 
 class Connect extends Component {
   render() {
     return (
-      <div>lenkila connect</div>
+      <Layout title="แจ้งปัญหาการใช้งาน" />
     );
   }
 }
