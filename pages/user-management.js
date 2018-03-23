@@ -10,11 +10,11 @@ class UserManagement extends Component {
       <Layout title="การจัดการบัญชีผู้ใช้">
         <div className="container">
           <PageTitle title="การจัดการบัญชีผู้ใช้" />
-          <div className="row um-three-row">
+          <div className="row overall-table">
             <table className="table">
               <thead>
-                <tr className="um-two-row">
-                  <th scope="col"><input className="form-control um-search" type="text" placeholder="ค้นหา..." /></th>
+                <tr className="tools-row">
+                  <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th>
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" />
@@ -55,16 +55,16 @@ class UserManagement extends Component {
           </div>
         </div>
         <style jsx>{`
-          .um-search{
+          .search{
             background-color: #e9ecef;
           }
-          .um-two-row{
+          .tools-row{
             height:80px;
             th{
               border-top: none;
             }
           }
-          .um-three-row{
+          .overall-table{
             margin-top:0px;
             th{
               height:70px;
