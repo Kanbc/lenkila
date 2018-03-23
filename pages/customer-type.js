@@ -6,7 +6,7 @@ class CustomerType extends Component {
   users = userData();
   render() {
     return (
-      <TabsLayout title="ประเภทลูกค้า" tabs={Constant.customerTabs}>
+      <TabsLayout title="ประเภทลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">
           <div className="row um-one-row">
             <table className="table">

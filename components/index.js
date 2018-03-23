@@ -3,6 +3,9 @@ import Layout from './layouts/Layout';
 import TabsLayout from './layouts/TabsLayout';
 
 // Element
+import PageTitle from './elements/PageTitle';
+import Button from './elements/Buttons/Button';
+import ButtonModal from './elements/Buttons/ButtonModal';
 import UserManagementModal from './UserManagementModal';
 import UserManagementModalBody from './UserManagementModalBody';
 import UserManagementModalEdit from './UserManagementModalEdit';
@@ -40,8 +43,13 @@ import ColorButton from './ColorButton';
 import * as Constant from './constants';
 
 export {
+  // Layout
   Layout,
   TabsLayout,
+  // Element
+  PageTitle,
+  Button,
+  ButtonModal,
   DatePickerButton,
   StadiumBookingColumn,
   StadiumBookingColumnItem,

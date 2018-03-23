@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, UserManagementModal } from '../components';
+import { Layout, UserManagementModal, PageTitle, ButtonModal, Constant } from '../components';
 
 class UserManagement extends Component {
   // [GET] - Users
@@ -9,9 +9,7 @@ class UserManagement extends Component {
     return (
       <Layout title="การจัดการบัญชีผู้ใช้">
         <div className="container">
-          <div className="row um-one-row">
-            <p className="lenkila-header">การจัดการบัญชีผู้ใช้</p>
-          </div>
+          <PageTitle title="การจัดการบัญชีผู้ใช้" />
           <div className="row um-three-row">
             <table className="table">
               <thead>
@@ -21,7 +19,12 @@ class UserManagement extends Component {
                   <th scope="col" className="hide2" />
                   <th scope="col" />
                   <th scope="col" />
-                  <th scope="col"> <button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user"><i className="fa fa-plus" aria-hidden="true" /></button> </th>
+                  <th scope="col" >
+                    <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} modalName="#add-user">
+                      <i className="fa fa-plus" aria-hidden="true" />
+                      <UserManagementModal title="สร้างผู้ใช้ใหม่" type="add-user" />
+                    </ButtonModal>
+                  </th>
                 </tr>
                 <tr>
                   <th scope="col" className="hide1">ชื่อ - นามสกุล</th>
@@ -40,54 +43,38 @@ class UserManagement extends Component {
                     <td>{user.username}</td>
                     <td className="hide2">{user.email}</td>
                     <td>{user.role}</td>
-                    <td><button type="button" className="btn btn-secondary um-edit-button" data-toggle="modal" data-target={`#edit-user-${user.id}`}><i className="fa fa-pencil" /></button></td>
+                    <td>
+                      <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
+                        <i className="fa fa-pencil" aria-hidden="true" />
+                        <UserManagementModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
+                      </ButtonModal>
+                    </td>
                   </tr>))}
               </tbody>
             </table>
           </div>
         </div>
-
-        {/* Modal */}
-        <UserManagementModal title="สร้างผู้ใช้ใหม่" type="add-user" />
-        {this.users.map(user => (
-          <UserManagementModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
-        ))}
         <style jsx>{`
-          .lenkila-header {
-            margin: 30px auto 20px auto;
-            font-weight:bold;
-            font-size:20px;
-          }
           .um-search{
             background-color: #e9ecef;
           }
           .um-two-row{
             height:80px;
-          }
-          .um-two-row th{
-            border-top: none;
+            th{
+              border-top: none;
+            }
           }
           .um-three-row{
             margin-top:0px;
-          }
-          .um-three-row th{
-            height:70px;
-          }
-          .um-three-row th,.um-three-row td{
-            text-align:center;
-            vertical-align: middle;
-          }
-          .um-three-row button{
-            width: 100px;
-          }
-          .um-add-button{
-            background-color: #4A90E2;
-            cursor:pointer;
-          }
-          .um-edit-button{
-            background-color: #FD9226;
-            border-color:#f77e06;
-            cursor:pointer;
+            th{
+              height:70px;
+              text-align:center;
+              vertical-align: middle;
+            }
+            td{
+              text-align:center;
+              vertical-align: middle;
+            }
           }
           .container{
             max-width: 100%;
@@ -100,11 +87,6 @@ class UserManagement extends Component {
           @media (max-width: 768px) { 
             .hide2{
               display:none;
-            }
-          }
-          @media (max-width: 576px) { 
-            .um-three-row button{
-              width: 50px;
             }
           }
         `}

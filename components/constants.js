@@ -1,5 +1,16 @@
+// Colors
+const Red = 'sdsds';
+const Blue = '#4A90E2';
+const Green = 'Green';
+const Orange = '#FD9226';
+// Buttons
+const Buttons = {
+  default: '100px',
+  href: '/customer',
+  name: 'ข้อมูลลูกค้า',
+};
 // Tabs
-const customerTabs = [
+const CustomerTabs = [
   {
     id: 1,
     href: '/customer',
@@ -11,7 +22,6 @@ const customerTabs = [
     name: 'ประเภทลูกค้า',
   },
 ];
-
 const FieldTabs = [
   {
     id: 1,
@@ -41,7 +51,12 @@ const FieldTabs = [
 ];
 
 export {
-  customerTabs,
+  CustomerTabs,
   FieldTabs,
+  Red,
+  Green,
+  Blue,
+  Orange,
+  Buttons,
 };
 
