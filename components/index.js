@@ -6,6 +6,8 @@ import TabsLayout from './layouts/TabsLayout';
 import PageTitle from './elements/PageTitle';
 import Button from './elements/Buttons/Button';
 import ButtonModal from './elements/Buttons/ButtonModal';
+import DefaultModal from './elements/Modal/DefaultModal';
+import UMModal from './elements/Modal/UMModal';
 import UserManagementModal from './UserManagementModal';
 import UserManagementModalBody from './UserManagementModalBody';
 import UserManagementModalEdit from './UserManagementModalEdit';
@@ -50,6 +52,8 @@ export {
   PageTitle,
   Button,
   ButtonModal,
+  DefaultModal,
+  UMModal,
   DatePickerButton,
   StadiumBookingColumn,
   StadiumBookingColumnItem,

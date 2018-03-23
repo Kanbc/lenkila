@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, UserManagementModal, PageTitle, ButtonModal, Constant } from '../components';
+import { Layout, UserManagementModal, PageTitle, ButtonModal, Constant, UMModal } from '../components';
 
 class UserManagement extends Component {
   // [GET] - Users
@@ -22,7 +22,7 @@ class UserManagement extends Component {
                   <th scope="col" >
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} modalName="#add-user">
                       <i className="fa fa-plus" aria-hidden="true" />
-                      <UserManagementModal title="สร้างผู้ใช้ใหม่" type="add-user" />
+                      <UMModal title="สร้างผู้ใช้ใหม่" type="add-user" />
                     </ButtonModal>
                   </th>
                 </tr>
