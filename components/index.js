@@ -10,9 +10,6 @@ import CancelModal from './elements/Buttons/CancelModal';
 import DefaultModal from './elements/Modal/DefaultModal';
 import UMAddModal from './elements/Modal/UMAddModal';
 import UMEditModal from './elements/Modal/UMEditModal';
-import UserManagementModal from './UserManagementModal';
-import UserManagementModalBody from './UserManagementModalBody';
-import UserManagementModalEdit from './UserManagementModalEdit';
 import PriceModal from './PriceModal';
 import PriceModalBody from './PriceModalBody';
 import PriceModalEdit from './PriceModalEdit';
@@ -63,9 +60,6 @@ export {
   StadiumBookingColumnItem,
   StadiumBookingModal,
   StadiumBookingTimetable,
-  UserManagementModal,
-  UserManagementModalBody,
-  UserManagementModalEdit,
   PriceModal,
   PriceModalBody,
   PriceModalEdit,

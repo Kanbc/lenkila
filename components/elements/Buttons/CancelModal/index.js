@@ -5,8 +5,9 @@ const CancelModal = ({
   color,
   width,
   bstrap,
+  onClick,
 }) => (
-  <button type="button" className={`btn ${bstrap}`} data-dismiss="modal">
+  <button type="button" className={`btn ${bstrap}`} data-dismiss="modal" onClick={onClick} >
     {children}
     <style jsx>{`
       button{

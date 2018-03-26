@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, UserManagementModal, PageTitle, ButtonModal, Constant, UMAddModal } from '../components';
+import { Layout, PageTitle, ButtonModal, Constant, UMAddModal, UMEditModal } from '../components';
 
 class UserManagement extends Component {
   // [GET] - Users
@@ -46,7 +46,7 @@ class UserManagement extends Component {
                     <td>
                       <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
                         <i className="fa fa-pencil" aria-hidden="true" />
-                        <UserManagementModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
+                        <UMEditModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
                       </ButtonModal>
                     </td>
                   </tr>))}

@@ -6,9 +6,10 @@ const ButtonModal = ({
   width,
   modalName,
   bstrap,
+  onClick,
 }) => (
   <div>
-    <button type="button" className={`btn ${bstrap}`} data-toggle="modal" data-target={modalName}>
+    <button type="button" className={`btn ${bstrap}`} data-toggle="modal" data-target={modalName} onClick={onClick} >
       {children[0]}
     </button>
     {children[1]}
