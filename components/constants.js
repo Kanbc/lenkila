@@ -3,11 +3,10 @@ const Red = '#c82333';
 const Blue = '#4A90E2';
 const Green = '#28a745';
 const Orange = '#FD9226';
+const Grey = '#9B9B9B';
 // Buttons
 const Buttons = {
   default: '100px',
-  href: '/customer',
-  name: 'ข้อมูลลูกค้า',
 };
 // Tabs
 const CustomerTabs = [
@@ -57,6 +56,7 @@ export {
   Green,
   Blue,
   Orange,
+  Grey,
   Buttons,
 };
 

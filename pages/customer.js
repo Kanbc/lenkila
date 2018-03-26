@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, CustomerModal, CustomerFilterModal, Constant } from '../components';
+import { TabsLayout, CustomerModal, CustFilterModal, ButtonModal, Constant } from '../components';
 
 class Customer extends Component {
   // [GET] - Users
@@ -8,16 +8,26 @@ class Customer extends Component {
     return (
       <TabsLayout title="ข้อมูลลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">
-          <div className="row um-one-row">
+          <div className="row overall-table">
             <table className="table">
               <thead>
-                <tr className="um-two-row">
-                  <th scope="col"><input className="form-control um-search" type="text" placeholder="ค้นหา..." /></th>
+                <tr className="tools-row">
+                  <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th>
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" className="hide2" />
-                  <th scope="col"><button type="button" className="btn btn-secondary grey-button" data-toggle="modal" data-target="#filter-user">Filter</button></th>
-                  <th scope="col"><button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user"><i className="fa fa-plus" aria-hidden="true" /></button></th>
+                  <th scope="col">
+                    <ButtonModal color={Constant.Grey} width={Constant.Buttons.default} bstrap="btn-secondary" modalName="#filter-user">
+                      Filter
+                      <CustFilterModal title="Filter" type="filter-user" />
+                    </ButtonModal>
+                  </th>
+                  <th scope="col">
+                    <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
+                      <i className="fa fa-plus" aria-hidden="true" />
+                      <CustomerModal title="สร้างลูกค้า" type="add-user" />
+                    </ButtonModal>
+                  </th>
                 </tr>
                 <tr>
                   <th scope="col" className="hide1">ชื่อเล่น</th>
@@ -36,57 +46,41 @@ class Customer extends Component {
                     <td>{user.lastname}</td>
                     <td className="hide2">{user.role}</td>
                     <td className="hide2">{user.role}</td>
-                    <td><button type="button" className="btn btn-secondary um-edit-button" data-toggle="modal" data-target={`#edit-user-${user.id}`}><i className="fa fa-pencil" /></button></td>
+                    <td>
+                      <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} bstrap="btn-secondary" modalName={`#edit-user-${user.id}`}>
+                        <i className="fa fa-pencil" />
+                        <CustomerModal key={user.id} title="ข้อมูลลูกค้า" type={`edit-user-${user.id}`} userData={user} />
+                      </ButtonModal>
+                    </td>
                   </tr>))}
               </tbody>
             </table>
           </div>
         </div>
-
-        {/* Modal */}
-        <CustomerFilterModal title="Filter" type="filter-user" />
-        <CustomerModal title="สร้างลูกค้า" type="add-user" />
-        {this.users.map(user => (
-          <CustomerModal key={user.id} title="ข้อมูลลูกค้า" type={`edit-user-${user.id}`} userData={user} />
-        ))}
         <style jsx>{`
-          .um-search{
+          .search{
             background-color: #e9ecef;
           }
-          .grey-button{
-            background-color: #9B9B9B;
-          }
-          .um-two-row th{
+          .tools-row th{
             border-top: none;
             padding-bottom: 20px;
           }
-          .um-one-row{
+          .overall-table{
             margin-top:0px;
-          }
-          .um-one-row th{
-            height:70px;
-          }
-          .um-one-row th,.um-one-row td{
-            text-align:center;
-            vertical-align: middle;
-          }
-          .um-one-row button{
-            width: 100px;
-          }
-          .um-add-button{
-            background-color: #4A90E2;
-            cursor:pointer;
+            th{
+              height:70px;
+              text-align:center;
+              vertical-align: middle;
+            }
+            td{
+              text-align:center;
+              vertical-align: middle;
+            }
           }
           .um-edit-button{
             background-color: #FD9226;
             border-color:#f77e06;
             cursor:pointer;
-          }
-          .container{
-            max-width: 100%;
-          }
-          .price-color{
-            border:none;
           }
           @media (max-width: 992px) { 
             .hide1{
@@ -96,11 +90,6 @@ class Customer extends Component {
           @media (max-width: 768px) { 
             .hide2{
               display:none;
-            }
-          }
-          @media (max-width: 576px) { 
-            .um-one-row button{
-              width: 50px;
             }
           }
         `}

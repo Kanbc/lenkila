@@ -11,6 +11,7 @@ import CancelModal from './elements/Buttons/CancelModal';
 import DefaultModal from './elements/Modal/DefaultModal';
 import UMAddModal from './elements/Modal/UMAddModal';
 import UMEditModal from './elements/Modal/UMEditModal';
+import CustFilterModal from './elements/Modal/CustFilterModal';
 import PriceModal from './PriceModal';
 import PriceModalBody from './PriceModalBody';
 import PriceModalEdit from './PriceModalEdit';
@@ -55,6 +56,7 @@ export {
   DefaultModal,
   UMAddModal,
   UMEditModal,
+  CustFilterModal,
   DatePickerButton,
   StadiumBookingColumn,
   StadiumBookingColumnItem,
