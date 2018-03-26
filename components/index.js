@@ -1,3 +1,6 @@
+// Constant
+import * as Constant from './constants';
+
 // Layout
 import Layout from './layouts/Layout';
 import TabsLayout from './layouts/TabsLayout';
@@ -29,25 +32,21 @@ import HolidayModal from './HolidayModal';
 import HolidayModalBody from './HolidayModalBody';
 import HolidayModalEdit from './HolidayModalEdit';
 import PriceImportModal from './PriceImportModal';
-import CustomerTypeModal from './CustomerTypeModal';
-import CustomerTypeModalBody from './CustomerTypeModalBody';
-import CustomerTypeModalEdit from './CustomerTypeModalEdit';
-import CustomerTypeModalAdd from './CustomerTypeModalAdd';
 import DatePickerButton from './DatePickerButton';
 import StadiumBookingColumn from './StadiumBookingColumn';
 import StadiumBookingColumnItem from './StadiumBookingColumnItem';
 import StadiumBookingModal from './StadiumBookingModal';
 import StadiumBookingTimetable from './StadiumBookingTimetable';
-// Constant
-import * as Constant from './constants';
 
 export {
+  Constant,
   // Layout
   Layout,
   TabsLayout,
   // Element
   PageTitle,
   Button,
+  ColorButton,
   ButtonModal,
   CancelModal,
   DefaultModal,
@@ -76,10 +75,4 @@ export {
   HolidayModalBody,
   HolidayModalEdit,
   PriceImportModal,
-  CustomerTypeModal,
-  CustomerTypeModalBody,
-  CustomerTypeModalEdit,
-  CustomerTypeModalAdd,
-  ColorButton,
-  Constant,
 };
