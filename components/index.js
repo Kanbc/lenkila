@@ -24,9 +24,6 @@ import FMEditModal from './elements/Modal/FMEditModal';
 import PriceModal from './PriceModal';
 import PriceModalBody from './PriceModalBody';
 import PriceModalEdit from './PriceModalEdit';
-import FieldModal from './FieldModal';
-import FieldModalBody from './FieldModalBody';
-import FieldModalEdit from './FieldModalEdit';
 import GiftcodeModal from './GiftcodeModal';
 import GiftcodeModalBody from './GiftcodeModalBody';
 import GiftcodeModalEdit from './GiftcodeModalEdit';
@@ -69,9 +66,6 @@ export {
   PriceModal,
   PriceModalBody,
   PriceModalEdit,
-  FieldModal,
-  FieldModalBody,
-  FieldModalEdit,
   GiftcodeModal,
   GiftcodeModalBody,
   GiftcodeModalEdit,
