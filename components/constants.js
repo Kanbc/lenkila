@@ -1,7 +1,7 @@
 // Colors
-const Red = 'sdsds';
+const Red = '#c82333';
 const Blue = '#4A90E2';
-const Green = 'Green';
+const Green = '#28a745';
 const Orange = '#FD9226';
 // Buttons
 const Buttons = {

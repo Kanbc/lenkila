@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Button = ({
+const CancelModal = ({
   children,
   color,
   width,
   bstrap,
 }) => (
-  <button type="button" className={`btn ${bstrap}`} >
+  <button type="button" className={`btn ${bstrap}`} data-dismiss="modal">
     {children}
     <style jsx>{`
       button{
@@ -25,4 +25,4 @@ const Button = ({
   </button>
 );
 
-export default Button;
+export default CancelModal;

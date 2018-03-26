@@ -1,52 +1,38 @@
 import React from 'react';
-// import UserManagementModalBody from '../UmModal/UserManagementModalBody';
+import Header from './Header';
 
 const DefaultModal = ({
   children,
   title,
   type,
+  percentWidth,
 }) => (
   <div className="modal fade" id={type} tabIndex="-1" role="dialog" aria-labelledby="lenkilaModalCenterTitle" aria-hidden="true">
     <div className="modal-dialog modal-dialog-centered" role="document">
       <div className="modal-content">
-        <div className="modal-header">
-          <h5 className="modal-title" id="lenkilaModalLongTitle">{ title }</h5>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        {children}
+        <Header title={title} />
+        <form>
+          {children}
+        </form>
       </div>
     </div>
     <style jsx>{`
-      .modal-header{
-        border-bottom:none;
-      }
-      .modal-header .close {
-        margin:-1rem -1rem -1rem -1rem;
-      }
       .modal-dialog{
-        max-width:70%;
+        max-width:${percentWidth}%;
       } 
-      .modal-title{
-        margin-left:auto;
-        margin-right:auto;
-        font-weight:900;
-        font-size: 1.5rem;
-      }
       @media (max-width: 992px) { 
         .modal-dialog{
-          max-width:90%;
+          max-width:${parseInt(percentWidth, 10) + 20}%;
         }
       }
       @media (max-width: 768px) { 
         .modal-dialog{
-          max-width:95%;
+          max-width:${parseInt(percentWidth, 10) + 25}%;
         }
       }
       @media (max-width: 576px) { 
         .modal-dialog{
-          max-width:96%;
+          max-width:${parseInt(percentWidth, 10) + 26}%;
         }
       }
     `}
