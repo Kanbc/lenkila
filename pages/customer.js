@@ -47,7 +47,7 @@ class Customer extends Component {
                     <td className="hide2">{user.role}</td>
                     <td className="hide2">{user.role}</td>
                     <td>
-                      <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} bstrap="btn-secondary" modalName={`#edit-user-${user.id}`}>
+                      <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
                         <i className="fa fa-pencil" />
                         <CustEditModal key={user.id} title="ข้อมูลลูกค้า" type={`edit-user-${user.id}`} userData={user} />
                       </ButtonModal>
