@@ -5,6 +5,7 @@ import TabsLayout from './layouts/TabsLayout';
 // Element
 import PageTitle from './elements/PageTitle';
 import Button from './elements/Buttons/Button';
+import ColorButton from './elements/Buttons/ChooseColor';
 import ButtonModal from './elements/Buttons/ButtonModal';
 import CancelModal from './elements/Buttons/CancelModal';
 import DefaultModal from './elements/Modal/DefaultModal';
@@ -39,7 +40,6 @@ import StadiumBookingColumn from './StadiumBookingColumn';
 import StadiumBookingColumnItem from './StadiumBookingColumnItem';
 import StadiumBookingModal from './StadiumBookingModal';
 import StadiumBookingTimetable from './StadiumBookingTimetable';
-import ColorButton from './ColorButton';
 // Constant
 import * as Constant from './constants';
 

@@ -22,7 +22,7 @@ class ColorButton extends Component {
         </div>
         <style jsx>{`
           button{
-            width:100%;
+            width: ${this.props.width};
             cursor:pointer;
           }
         `}
