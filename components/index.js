@@ -28,8 +28,6 @@ import CustomerModal from './CustomerModal';
 import PriceImportModal from './PriceImportModal';
 import CustomerMemberModal from './CustomerMemberModal';
 import CustomerHistoryModal from './CustomerHistoryModal';
-import CustomerFilterModal from './CustomerFilterModal';
-import CustomerFilterModalBody from './CustomerFilterModalBody';
 import CustomerModalBody from './CustomerModalBody';
 import CustomerModalEdit from './CustomerModalEdit';
 import CustomerTypeModal from './CustomerTypeModal';
@@ -74,8 +72,6 @@ export {
   HolidayModal,
   HolidayModalBody,
   HolidayModalEdit,
-  CustomerFilterModal,
-  CustomerFilterModalBody,
   CustomerModal,
   PriceImportModal,
   CustomerMemberModal,
