@@ -26,12 +26,7 @@ import GiftcodeModalEdit from './GiftcodeModalEdit';
 import HolidayModal from './HolidayModal';
 import HolidayModalBody from './HolidayModalBody';
 import HolidayModalEdit from './HolidayModalEdit';
-import CustomerModal from './CustomerModal';
 import PriceImportModal from './PriceImportModal';
-import CustomerMemberModal from './CustomerMemberModal';
-import CustomerHistoryModal from './CustomerHistoryModal';
-import CustomerModalBody from './CustomerModalBody';
-import CustomerModalEdit from './CustomerModalEdit';
 import CustomerTypeModal from './CustomerTypeModal';
 import CustomerTypeModalBody from './CustomerTypeModalBody';
 import CustomerTypeModalEdit from './CustomerTypeModalEdit';
@@ -76,12 +71,7 @@ export {
   HolidayModal,
   HolidayModalBody,
   HolidayModalEdit,
-  CustomerModal,
   PriceImportModal,
-  CustomerMemberModal,
-  CustomerHistoryModal,
-  CustomerModalBody,
-  CustomerModalEdit,
   CustomerTypeModal,
   CustomerTypeModalBody,
   CustomerTypeModalEdit,
