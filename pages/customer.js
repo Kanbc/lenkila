@@ -25,7 +25,6 @@ class Customer extends Component {
                   <th scope="col">
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
                       <i className="fa fa-plus" aria-hidden="true" />
-                      <CustomerModal title="สร้างลูกค้า" type="add-user" />
                     </ButtonModal>
                   </th>
                 </tr>
@@ -57,6 +56,7 @@ class Customer extends Component {
             </table>
           </div>
         </div>
+        <CustomerModal title="สร้างลูกค้า" type="add-user" />
         <style jsx>{`
           .search{
             background-color: #e9ecef;
