@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, Constant, CustomerTypeModal } from '../components';
+import { TabsLayout, Constant, CustTypeAddModal, CustTypeEditModal, ButtonModal } from '../components';
 
 class CustomerType extends Component {
   // [GET] - Users
@@ -8,16 +8,21 @@ class CustomerType extends Component {
     return (
       <TabsLayout title="ประเภทลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">
-          <div className="row um-one-row">
+          <div className="row overall-table">
             <table className="table">
               <thead>
-                <tr className="um-two-row">
+                <tr className="tools-row">
                   <th scope="col" />
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" className="hide2" />
                   <th scope="col" />
-                  <th scope="col"><button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user"><i className="fa fa-plus" aria-hidden="true" /></button></th>
+                  <th scope="col">
+                    <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
+                      <i className="fa fa-plus" aria-hidden="true" />
+                      <CustTypeAddModal title="สร้างประเภทลูกค้าใหม่" type="add-user" />
+                    </ButtonModal>
+                  </th>
                 </tr>
                 <tr>
                   <th scope="col" className="hide1">ชื่อ</th>
@@ -35,51 +40,39 @@ class CustomerType extends Component {
                     <td style={{ color: `${user.color}` }}>{user.start}</td>
                     <td style={{ color: `${user.color}` }}>{user.end}</td>
                     <td className="hide2" style={{ color: `${user.color}` }}>{user.price}</td>
-                    <td className="hide2"><button type="button" style={{ color: `${user.color}`, backgroundColor: `${user.color}` }} className="btn btn-primary price-color">+</button></td>
-                    <td><button type="button" className="btn btn-secondary um-edit-button" data-toggle="modal" data-target={`#edit-user-${user.id}`}><i className="fa fa-pencil" /></button></td>
+                    <td className="hide2">
+                      <button type="button" style={{ color: `${user.color}`, backgroundColor: `${user.color}` }} className="btn btn-primary price-color">
+                        +
+                      </button>
+                    </td>
+                    <td>
+                      <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
+                        <i className="fa fa-pencil" />
+                        <CustTypeEditModal key={user.id} title="ดูประเภทลูกค้า" type={`edit-user-${user.id}`} userData={user} />
+                      </ButtonModal>
+                    </td>
                   </tr>))}
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* Modal */}
-        <CustomerTypeModal title="สร้างประเภทลูกค้าใหม่" type="add-user" />
-        {this.users.map(user => (
-          <CustomerTypeModal key={user.id} title="ดูประเภทลูกค้า" type={`edit-user-${user.id}`} userData={user} />
-        ))}
         <style jsx>{`
-          .um-search{
-            background-color: #e9ecef;
-          }
-          .um-two-row th{
+          .tools-row th{
             border-top: none;
             padding-bottom: 20px;
           }
-          .um-one-row{
+          .overall-table{
             margin-top:0px;
-          }
-          .um-one-row th{
-            height:70px;
-          }
-          .um-one-row th,.um-one-row td{
-            text-align:center;
-            vertical-align: middle;
-          }
-          .um-one-row button{
-            width: 100px;
-          }
-          .um-add-button{
-            background-color: #4A90E2;
-            cursor:pointer;
-          }
-          .um-edit-button{
-            background-color: #FD9226;
-            border-color:#f77e06;
-            cursor:pointer;
-          }
-          .container{
-            max-width: 100%;
+            th{
+              height:70px;
+              text-align:center;
+              vertical-align: middle;
+            }
+            td{
+              text-align:center;
+              vertical-align: middle;
+            }
           }
           .price-color{
             border:none;
@@ -92,11 +85,6 @@ class CustomerType extends Component {
           @media (max-width: 768px) { 
             .hide2{
               display:none;
-            }
-          }
-          @media (max-width: 576px) { 
-            .um-one-row button{
-              width: 50px;
             }
           }
         `}

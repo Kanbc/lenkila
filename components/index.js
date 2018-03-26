@@ -14,6 +14,8 @@ import UMEditModal from './elements/Modal/UMEditModal';
 import CustFilterModal from './elements/Modal/CustFilterModal';
 import CustAddModal from './elements/Modal/CustAddModal';
 import CustEditModal from './elements/Modal/CustEditModal';
+import CustTypeAddModal from './elements/Modal/CustTypeAddModal';
+import CustTypeEditModal from './elements/Modal/CustTypeEditModal';
 import PriceModal from './PriceModal';
 import PriceModalBody from './PriceModalBody';
 import PriceModalEdit from './PriceModalEdit';
@@ -54,6 +56,8 @@ export {
   CustFilterModal,
   CustAddModal,
   CustEditModal,
+  CustTypeAddModal,
+  CustTypeEditModal,
   DatePickerButton,
   StadiumBookingColumn,
   StadiumBookingColumnItem,
