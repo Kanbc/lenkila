@@ -19,6 +19,8 @@ import CustAddModal from './elements/Modal/CustAddModal';
 import CustEditModal from './elements/Modal/CustEditModal';
 import CustTypeAddModal from './elements/Modal/CustTypeAddModal';
 import CustTypeEditModal from './elements/Modal/CustTypeEditModal';
+import FMAddModal from './elements/Modal/FMAddModal';
+import FMEditModal from './elements/Modal/FMEditModal';
 import PriceModal from './PriceModal';
 import PriceModalBody from './PriceModalBody';
 import PriceModalEdit from './PriceModalEdit';
@@ -57,6 +59,8 @@ export {
   CustEditModal,
   CustTypeAddModal,
   CustTypeEditModal,
+  FMAddModal,
+  FMEditModal,
   DatePickerButton,
   StadiumBookingColumn,
   StadiumBookingColumnItem,

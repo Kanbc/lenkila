@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, Constant, FieldModal } from '../components';
+import { TabsLayout, Constant, FMAddModal, FMEditModal, ButtonModal } from '../components';
 
 class FieldManagementField extends Component {
   // [GET] - Users
@@ -9,15 +9,20 @@ class FieldManagementField extends Component {
     return (
       <TabsLayout title="สนาม" tabs={Constant.FieldTabs}>
         <div className="container">
-          <div className="row um-one-row">
+          <div className="row overall-table">
             <table className="table">
               <thead>
-                <tr className="um-two-row">
-                  <th scope="col"><input className="form-control um-search" type="text" placeholder="ค้นหา..." /></th>
+                <tr className="tools-row">
+                  <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th>
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" />
-                  <th scope="col"> <button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user"><i className="fa fa-plus" aria-hidden="true" /></button> </th>
+                  <th scope="col">
+                    <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
+                      <i className="fa fa-plus" aria-hidden="true" />
+                      <FMAddModal title="เพิ่มสนาม" type="add-user" />
+                    </ButtonModal>
+                  </th>
                 </tr>
                 <tr>
                   <th scope="col" className="hide1">ชื่อ</th>
@@ -34,50 +39,37 @@ class FieldManagementField extends Component {
                     <td>{user.nickname}</td>
                     <td>{user.username}</td>
                     <td className="hide2">{user.email}</td>
-                    <td><button type="button" className="btn btn-secondary um-edit-button" data-toggle="modal" data-target={`#edit-user-${user.id}`}><i className="fa fa-pencil" /></button></td>
+                    <td>
+                      <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
+                        <i className="fa fa-pencil" />
+                        <FMEditModal key={user.id} title="แก้ไขสนาม" type={`edit-user-${user.id}`} userData={user} />
+                      </ButtonModal>
+                    </td>
                   </tr>))}
               </tbody>
             </table>
           </div>
         </div>
 
-        {/* Modal */}
-        <FieldModal title="เพิ่มสนาม" type="add-user" />
-        {this.users.map(user => (
-          <FieldModal key={user.id} title="แก้ไขสนาม" type={`edit-user-${user.id}`} userData={user} />
-        ))}
         <style jsx>{`
-          .um-search{
+          .search{
             background-color: #e9ecef;
           }
-          .um-two-row th{
+          .tools-row th{
             border-top: none;
             padding-bottom: 20px;
           }
-          .um-one-row{
+          .overall-table{
             margin-top:0px;
-          }
-          .um-one-row th{
-            height:70px;
-          }
-          .um-one-row th,.um-one-row td{
-            text-align:center;
-            vertical-align: middle;
-          }
-          .um-one-row button{
-            width: 100px;
-          }
-          .um-add-button{
-            background-color: #4A90E2;
-            cursor:pointer;
-          }
-          .um-edit-button{
-            background-color: #FD9226;
-            border-color:#f77e06;
-            cursor:pointer;
-          }
-          .container{
-            max-width: 100%;
+            th{
+              height:70px;
+              text-align:center;
+              vertical-align: middle;
+            }
+            td{
+              text-align:center;
+              vertical-align: middle;
+            }
           }
           @media (max-width: 992px) { 
             .hide1{
@@ -87,11 +79,6 @@ class FieldManagementField extends Component {
           @media (max-width: 768px) { 
             .hide2{
               display:none;
-            }
-          }
-          @media (max-width: 576px) { 
-            .um-one-row button{
-              width: 50px;
             }
           }
         `}
