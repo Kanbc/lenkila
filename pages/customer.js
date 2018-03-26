@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, CustomerModal, CustFilterModal, ButtonModal, Constant } from '../components';
+import { TabsLayout, CustomerModal, CustFilterModal, CustAddModal, ButtonModal, Constant } from '../components';
 
 class Customer extends Component {
   // [GET] - Users
@@ -25,6 +25,7 @@ class Customer extends Component {
                   <th scope="col">
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
                       <i className="fa fa-plus" aria-hidden="true" />
+                      <CustAddModal title="สร้างลูกค้า" type="add-user" />
                     </ButtonModal>
                   </th>
                 </tr>
@@ -56,7 +57,6 @@ class Customer extends Component {
             </table>
           </div>
         </div>
-        <CustomerModal title="สร้างลูกค้า" type="add-user" />
         <style jsx>{`
           .search{
             background-color: #e9ecef;
