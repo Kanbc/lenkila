@@ -1,5 +1,5 @@
 import React from 'react';
-import { StadiumBookingColumnItem } from '../components';
+import { StadiumBookingColumnItem } from '../../../components';
 
 const StadiumBookingColumn = ({ stadium, booking }) => {
   return (

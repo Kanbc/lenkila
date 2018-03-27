@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
-import { StadiumBookingTimetable } from './index';
+import { StadiumBookingTimetable } from './../../index';
 
 const StadiumBookingModal = ({ isOpen, setIsOpen }) => {
   return (

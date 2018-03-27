@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StadiumBookingModal } from '../components';
+import { StadiumBookingModal } from '../../../components';
 
 class StadiumBookingColumnItem extends Component {
   state = {
