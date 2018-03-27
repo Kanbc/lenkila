@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, PriceModal, FMImportPriceModal, ButtonModal, Constant } from '../components';
+import { TabsLayout, FMImportPriceModal, FMPriceAddModal, FMPriceEditModal, ButtonModal, Constant } from '../components';
 
 class FieldManagementPrice extends Component {
   // [GET] - Users
@@ -31,9 +31,10 @@ class FieldManagementPrice extends Component {
                     </ButtonModal>
                   </th>
                   <th scope="col">
-                    <button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user">
+                    <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
                       <i className="fa fa-plus" aria-hidden="true" />
-                    </button>
+                      <FMPriceAddModal title="สร้างราคา" type="add-user" />
+                    </ButtonModal>
                   </th>
                 </tr>
                 <tr>
@@ -52,54 +53,41 @@ class FieldManagementPrice extends Component {
                     <td style={{ color: `${user.color}` }}>{user.start}</td>
                     <td style={{ color: `${user.color}` }}>{user.end}</td>
                     <td className="hide2" style={{ color: `${user.color}` }}>{user.price}</td>
-                    <td className="hide2"><button type="button" style={{ color: `${user.color}`, backgroundColor: `${user.color}` }} className="btn btn-primary price-color">+</button></td>
-                    <td><button type="button" className="btn btn-secondary um-edit-button" data-toggle="modal" data-target={`#edit-user-${user.id}`}><i className="fa fa-pencil" /></button></td>
+                    <td className="hide2">
+                      <button type="button" style={{ color: `${user.color}`, backgroundColor: `${user.color}` }} className="btn price-color">
+                        +
+                      </button>
+                    </td>
+                    <td>
+                      <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
+                        <i className="fa fa-pencil" />
+                        <FMPriceEditModal key={user.id} title="แก้ไขราคา" type={`edit-user-${user.id}`} userData={user} />
+                      </ButtonModal>
+                    </td>
                   </tr>))}
               </tbody>
             </table>
           </div>
         </div>
-
-        {/* Modal */}
-        <PriceModal title="สร้างราคา" type="add-user" />
-        {this.users.map(user => (
-          <PriceModal key={user.id} title="แก้ไขราคา" type={`edit-user-${user.id}`} userData={user} />
-        ))}
         <style jsx>{`
-          .um-search{
-            background-color: #e9ecef;
-          }
           .tools-row th{
             border-top: none;
             padding-bottom: 20px;
           }
           .overall-table{
             margin-top:0px;
-          }
-          .overall-table th{
-            height:70px;
-          }
-          .overall-table th,.overall-table td{
-            text-align:center;
-            vertical-align: middle;
-          }
-          .overall-table button{
-            width: 100px;
-          }
-          .um-add-button{
-            background-color: #4A90E2;
-            cursor:pointer;
-          }
-          .um-edit-button{
-            background-color: #FD9226;
-            border-color:#f77e06;
-            cursor:pointer;
-          }
-          .container{
-            max-width: 100%;
-          }
-          .price-color{
-            border:none;
+            th{
+              height:70px;
+              text-align:center;
+              vertical-align: middle;
+            }
+            td{
+              text-align:center;
+              vertical-align: middle;
+            }
+            .price-color{
+              width:100px;
+            }
           }
           @media (max-width: 992px) { 
             .hide1{
