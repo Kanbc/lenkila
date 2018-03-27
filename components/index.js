@@ -26,9 +26,8 @@ import FMPriceAddModal from './elements/Modal/FMPriceAddModal';
 import FMPriceEditModal from './elements/Modal/FMPriceEditModal';
 import FMHolidayAddModal from './elements/Modal/FMHolidayAddModal';
 import FMHolidayEditModal from './elements/Modal/FMHolidayEditModal';
-import GiftcodeModal from './GiftcodeModal';
-import GiftcodeModalBody from './GiftcodeModalBody';
-import GiftcodeModalEdit from './GiftcodeModalEdit';
+import FMGiftAddModal from './elements/Modal/FMGiftAddModal';
+import FMGiftEditModal from './elements/Modal/FMGiftEditModal';
 import DatePickerButton from './elements/DatePickerButton';
 import StadiumBookingColumn from './elements/Stadium/StadiumBookingColumn';
 import StadiumBookingColumnItem from './elements/Stadium/StadiumBookingColumnItem';
@@ -61,12 +60,11 @@ export {
   FMPriceEditModal,
   FMHolidayAddModal,
   FMHolidayEditModal,
+  FMGiftAddModal,
+  FMGiftEditModal,
   DatePickerButton,
   StadiumBookingColumn,
   StadiumBookingColumnItem,
   StadiumBookingModal,
   StadiumBookingTimetable,
-  GiftcodeModal,
-  GiftcodeModalBody,
-  GiftcodeModalEdit,
 };
