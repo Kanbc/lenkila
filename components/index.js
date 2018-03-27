@@ -21,6 +21,7 @@ import CustTypeAddModal from './elements/Modal/CustTypeAddModal';
 import CustTypeEditModal from './elements/Modal/CustTypeEditModal';
 import FMAddModal from './elements/Modal/FMAddModal';
 import FMEditModal from './elements/Modal/FMEditModal';
+import FMImportPriceModal from './elements/Modal/FMImportPriceModal';
 import PriceModal from './PriceModal';
 import PriceModalBody from './PriceModalBody';
 import PriceModalEdit from './PriceModalEdit';
@@ -30,7 +31,6 @@ import GiftcodeModalEdit from './GiftcodeModalEdit';
 import HolidayModal from './HolidayModal';
 import HolidayModalBody from './HolidayModalBody';
 import HolidayModalEdit from './HolidayModalEdit';
-import PriceImportModal from './PriceImportModal';
 import DatePickerButton from './DatePickerButton';
 import StadiumBookingColumn from './StadiumBookingColumn';
 import StadiumBookingColumnItem from './StadiumBookingColumnItem';
@@ -58,6 +58,7 @@ export {
   CustTypeEditModal,
   FMAddModal,
   FMEditModal,
+  FMImportPriceModal,
   DatePickerButton,
   StadiumBookingColumn,
   StadiumBookingColumnItem,
@@ -72,5 +73,4 @@ export {
   HolidayModal,
   HolidayModalBody,
   HolidayModalEdit,
-  PriceImportModal,
 };

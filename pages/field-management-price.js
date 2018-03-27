@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, PriceModal, PriceImportModal, Constant } from '../components';
+import { TabsLayout, PriceModal, FMImportPriceModal, ButtonModal, Constant } from '../components';
 
 class FieldManagementPrice extends Component {
   // [GET] - Users
@@ -9,10 +9,10 @@ class FieldManagementPrice extends Component {
     return (
       <TabsLayout title="ราคา" tabs={Constant.FieldTabs}>
         <div className="container">
-          <div className="row um-one-row">
+          <div className="row overall-table">
             <table className="table">
               <thead>
-                <tr className="um-two-row">
+                <tr className="tools-row">
                   <th scope="col">
                     <select className="custom-select" defaultValue="0">
                       <option value="0">F1</option>
@@ -24,8 +24,17 @@ class FieldManagementPrice extends Component {
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" className="hide2" />
-                  <th scope="col"><button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#import-field">Import</button></th>
-                  <th scope="col"><button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user"><i className="fa fa-plus" aria-hidden="true" /></button></th>
+                  <th scope="col">
+                    <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#import-field">
+                      Import
+                      <FMImportPriceModal title="Import" type="import-field" />
+                    </ButtonModal>
+                  </th>
+                  <th scope="col">
+                    <button type="button" className="btn btn-primary um-add-button" data-toggle="modal" data-target="#add-user">
+                      <i className="fa fa-plus" aria-hidden="true" />
+                    </button>
+                  </th>
                 </tr>
                 <tr>
                   <th scope="col" className="hide1">วัน</th>
@@ -53,7 +62,6 @@ class FieldManagementPrice extends Component {
 
         {/* Modal */}
         <PriceModal title="สร้างราคา" type="add-user" />
-        <PriceImportModal title="Import" type="import-field" />
         {this.users.map(user => (
           <PriceModal key={user.id} title="แก้ไขราคา" type={`edit-user-${user.id}`} userData={user} />
         ))}
@@ -61,21 +69,21 @@ class FieldManagementPrice extends Component {
           .um-search{
             background-color: #e9ecef;
           }
-          .um-two-row th{
+          .tools-row th{
             border-top: none;
             padding-bottom: 20px;
           }
-          .um-one-row{
+          .overall-table{
             margin-top:0px;
           }
-          .um-one-row th{
+          .overall-table th{
             height:70px;
           }
-          .um-one-row th,.um-one-row td{
+          .overall-table th,.overall-table td{
             text-align:center;
             vertical-align: middle;
           }
-          .um-one-row button{
+          .overall-table button{
             width: 100px;
           }
           .um-add-button{
@@ -104,7 +112,7 @@ class FieldManagementPrice extends Component {
             }
           }
           @media (max-width: 576px) { 
-            .um-one-row button{
+            .overall-table button{
               width: 50px;
             }
           }
