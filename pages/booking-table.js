@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Layout } from '../components';
+import { Layout, MyCalendar } from '../components';
 
 class BookingTable extends Component {
   render() {
     return (
-      <Layout title="การจอง" />
+      <Layout title="การจอง">
+        <MyCalendar />
+      </Layout>
     );
   }
 }
