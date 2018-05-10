@@ -61,6 +61,7 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
       <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet" />
       <link href="/static/react-datepicker.min.css" rel="stylesheet" />
       <link href="/static/fullcalendar/fullcalendar.min.css" rel="stylesheet" />
+      <link href="/static/fullcalendar-scheduler/scheduler.min.css" rel="stylesheet" />
       <link href="/static/fullcalendar/fullcalendar.print.min.css" rel="stylesheet" media="print" />
       <script type="text/javascript" src="/static/fullcalendar/lib/moment.min.js" />
     </Head>
@@ -75,6 +76,7 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossOrigin="anonymous" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossOrigin="anonymous" />
     <script type="text/javascript" src="/static/fullcalendar/fullcalendar.js" />
+    <script type="text/javascript" src="/static/fullcalendar-scheduler/scheduler.min.js" />
     <style jsx>{`
       .root {
         width: 100vw;

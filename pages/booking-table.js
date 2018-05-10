@@ -5,7 +5,9 @@ class BookingTable extends Component {
   render() {
     return (
       <Layout title="การจอง">
-        <MyCalendar />
+        <div className="container">
+          <MyCalendar />
+        </div>
       </Layout>
     );
   }
