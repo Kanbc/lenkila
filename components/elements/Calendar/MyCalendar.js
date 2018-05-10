@@ -28,6 +28,7 @@ class MyCalendar extends Component {
       // Data Get From API
       minTime: '05:00:00',
       maxTime: '29:00:00',
+      eventOverlap: false,
       businessHours: {
         // days of week. an array of zero-based day of week integers (0=Sunday)
         dow: [1, 2, 3, 4, 5], // Monday - Friday
@@ -41,22 +42,55 @@ class MyCalendar extends Component {
           width: 100,
         },
       ],
+      // resources: [
+      //   {
+      //     id: 'a',
+      //     field: 'A',
+      //   },
+      //   {
+      //     id: 'b',
+      //     field: 'B',
+      //   },
+      //   {
+      //     id: 'c',
+      //     field: 'C',
+      //   },
+      //   {
+      //     id: 'd',
+      //     field: 'D',
+      //   },
+      // ],
+      // resourceAreaWidth: '20%',
+      // resourceColumns: [
+        // {
+        //   group: true,
+        //   labelText: 'สนาม',
+        //   field: 'field',
+        // },
+      //   {
+      //     labelText: 'ฝั่ง',
+      //     field: 'side',
+      //   },
+      // ],
       resources: [
+        { id: 'a', field: 'A', side: 'Left' },
+        // { id: 'b', field: 'A', side: 'Right' },
+        { id: 'c', field: 'B', side: 'Left' },
+        // { id: 'd', field: 'B', side: 'Right' },
+        { id: 'e', field: 'C', side: '-' },
+        { id: 'f', field: 'D', side: '-' },
         {
-          id: 'a',
+          id: 'g',
           field: 'A',
-        },
-        {
-          id: 'b',
-          field: 'B',
-        },
-        {
-          id: 'c',
-          field: 'C',
-        },
-        {
-          id: 'd',
-          field: 'D',
+          children: [
+            {
+              id: 'g1',
+              field: 'Left A',
+            }, {
+              id: 'g2',
+              field: 'Right A',
+            },
+          ],
         },
       ],
       events: [
@@ -64,19 +98,47 @@ class MyCalendar extends Component {
           id: '1',
           resourceId: 'a',
           title: 'คุณกานต์',
-          start: '2018-05-10T09:00:00',
-          end: '2018-05-10T10:00:00',
+          start: '2018-05-11T09:00:00',
+          end: '2018-05-11T11:00:00',
+          color: 'yellow',
+          textColor: 'black',
+        },
+        {
+          id: '21',
+          resourceId: 'g',
+          title: 'คุณต้น',
+          start: '2018-05-11T09:00:00',
+          end: '2018-05-11T11:00:00',
           color: 'yellow',
           textColor: 'black',
         },
         {
           id: '2',
-          resourceId: 'a',
+          resourceId: 'c',
           title: 'คุณเอิท',
-          start: '2018-05-10T09:00:00',
-          end: '2018-05-10T13:00:00',
+          start: '2018-05-11T12:00:00',
+          end: '2018-05-11T15:00:00',
           color: 'yellow',
           textColor: 'black',
+        },
+        {
+          id: '3',
+          resourceId: 'e',
+          title: 'คุณจั๊ม',
+          start: '2018-05-11T13:00:00',
+          end: '2018-05-11T15:00:00',
+          color: 'yellow',
+          textColor: 'black',
+        },
+        {
+          id: '4',
+          resourceId: 'f',
+          title: 'คุณหลิ่ว',
+          start: '2018-05-11T08:00:00',
+          end: '2018-05-11T12:00:00',
+          color: 'red',
+          textColor: 'black',
+          overlap: false,
         },
         // more events here
       ],
