@@ -35,7 +35,7 @@ class FieldManagement extends Component {
           </div>
           <div className="row">
             <div className="col-sm-12">
-              <input type="text" className="form-control" id="about" />
+              <textarea className="form-control" rows="2" id="about" />
             </div>
           </div>
           <div className="row third-row">
@@ -45,7 +45,7 @@ class FieldManagement extends Component {
           </div>
           <div className="row">
             <div className="col-sm-12">
-              <input type="text" className="form-control" id="about" />
+              <textarea className="form-control" rows="2" id="transportation" />
             </div>
           </div>
           <div className="row fourt-row">
