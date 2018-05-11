@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 import MemberModal from './MemberModal';
 import HistoryModal from './HistoryModal';
 import DefaultModal from './../DefaultModal';
@@ -9,7 +11,7 @@ import { CancelModal, Button, Constant, ButtonModal } from '../../..';
 class CustEditModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { isEdit: false };
+    this.state = { isEdit: false, currentDate: moment() };
 
     this.editForm = this.editForm.bind(this);
     this.cancelEditForm = this.cancelEditForm.bind(this);
@@ -62,8 +64,18 @@ class CustEditModal extends Component {
               <p className="bold-text">วันเกิด</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{userDetail.nickname}</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue={userDetail.nickname} />
+              <p className={this.state.isEdit ? 'd-none' : ''}>{moment(this.state.currentDate, 'DD/MM/YYYY').format('DD/MM/YYYY')}</p>
+              <div className={this.state.isEdit ? '' : 'd-none'}>
+                <DatePicker
+                  showMonthDropdown
+                  showYearDropdown
+                  dropdownMode="select"
+                  disabledKeyboardNavigation
+                  selected={this.state.currentDate}
+                  onChange={currentDate => this.setState({ currentDate })}
+                  className="form-control"
+                />
+              </div>
             </div>
           </div>
           <div className="row">

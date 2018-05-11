@@ -4,7 +4,7 @@ import moment from 'moment';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
-import { Button, DatePickerInput } from '../..';
+import { Button } from '../..';
 
 class FMGiftAddModal extends Component {
   state = {
@@ -27,9 +27,13 @@ class FMGiftAddModal extends Component {
             </div>
             <div className="col-sm-4">
               <DatePicker
-                customInput={<DatePickerInput />}
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                disabledKeyboardNavigation
                 selected={this.state.currentDate}
                 onChange={currentDate => this.setState({ currentDate })}
+                className="form-control"
               />
             </div>
           </div>

@@ -4,7 +4,7 @@ import moment from 'moment';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
-import { CancelModal, Button, DatePickerInput } from '../..';
+import { CancelModal, Button } from '../..';
 
 class BookingAddModal extends Component {
   state = {
@@ -33,9 +33,13 @@ class BookingAddModal extends Component {
             </div>
             <div className="col-sm-4">
               <DatePicker
-                customInput={<DatePickerInput />}
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                disabledKeyboardNavigation
                 selected={this.state.currentDate}
                 onChange={currentDate => this.setState({ currentDate })}
+                className="form-control"
               />
             </div>
           </div>
