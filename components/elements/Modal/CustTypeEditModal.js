@@ -7,7 +7,7 @@ import { ColorButton, CancelModal, Button, Constant } from '../..';
 class CustTypeEditModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { isEdit: false, isDisableTime: true };
+    this.state = { isEdit: false, isDisableTime: true, numberOfDays: 0 };
 
     this.editForm = this.editForm.bind(this);
     this.cancelEditForm = this.cancelEditForm.bind(this);
@@ -30,10 +30,22 @@ class CustTypeEditModal extends Component {
     if (event.target.value === '0') {
       this.setState({
         isDisableTime: true,
+        numberOfDays: 0,
+      });
+    } else if (event.target.value === '2') {
+      this.setState({
+        isDisableTime: false,
+        numberOfDays: 30,
+      });
+    } else if (event.target.value === '3') {
+      this.setState({
+        isDisableTime: false,
+        numberOfDays: 365,
       });
     } else {
       this.setState({
         isDisableTime: false,
+        numberOfDays: 0,
       });
     }
   }
@@ -71,10 +83,10 @@ class CustTypeEditModal extends Component {
               </select>
             </div>
             <div className="col-sm-2">
-              <p>วันหมดอายุ</p>
+              <p>วันหมดอายุ (วัน)</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="nickname" defaultValue={userDetail.nickname} onChange={this.editForm} disabled={this.state.isDisableTime} />
+              <input type="text" className="form-control" id="nickname" defaultValue={userDetail.nickname} onChange={this.editForm} value={this.state.numberOfDays > 0 ? this.state.numberOfDays : ''} disabled={this.state.isDisableTime} />
             </div>
           </div>
           <div className="row">
@@ -82,7 +94,7 @@ class CustTypeEditModal extends Component {
               <p>จำนวนชั่วโมง</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="username" defaultValue={userDetail.username} onChange={this.editForm} disabled={this.state.isDisableTime} />
+              <input type="text" className="form-control" id="username" defaultValue={userDetail.username} onChange={this.editForm} />
             </div>
             <div className="col-sm-2">
               <p>ราคา</p>

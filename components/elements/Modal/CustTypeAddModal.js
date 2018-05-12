@@ -7,7 +7,7 @@ import { ColorButton, CancelModal, Button } from '../..';
 class CustTypeAddModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { isDisableTime: true };
+    this.state = { isDisableTime: true, numberOfDays: 0 };
 
     this.cancelDisableTime = this.cancelDisableTime.bind(this);
   }
@@ -16,10 +16,22 @@ class CustTypeAddModal extends Component {
     if (event.target.value === '0') {
       this.setState({
         isDisableTime: true,
+        numberOfDays: 0,
+      });
+    } else if (event.target.value === '2') {
+      this.setState({
+        isDisableTime: false,
+        numberOfDays: 30,
+      });
+    } else if (event.target.value === '3') {
+      this.setState({
+        isDisableTime: false,
+        numberOfDays: 365,
       });
     } else {
       this.setState({
         isDisableTime: false,
+        numberOfDays: 0,
       });
     }
   }
@@ -47,10 +59,10 @@ class CustTypeAddModal extends Component {
               </select>
             </div>
             <div className="col-sm-2">
-              <p>วันหมดอายุ</p>
+              <p>วันหมดอายุ (วัน)</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="nickname" disabled={this.state.isDisableTime} />
+              <input type="text" className="form-control" id="nickname" value={this.state.numberOfDays > 0 ? this.state.numberOfDays : ''} disabled={this.state.isDisableTime} />
             </div>
           </div>
           <div className="row">
@@ -58,7 +70,7 @@ class CustTypeAddModal extends Component {
               <p>จำนวนชั่วโมง</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="username" disabled={this.state.isDisableTime} />
+              <input type="text" className="form-control" id="username" />
             </div>
             <div className="col-sm-2">
               <p>ราคา</p>
