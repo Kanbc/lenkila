@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import TimePicker from 'react-bootstrap-time-picker';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
@@ -9,6 +10,8 @@ import { CancelModal, Button } from '../..';
 class BookingAddModal extends Component {
   state = {
     currentDate: moment(),
+    currentTime: moment(),
+    currentTime2: moment(),
   }
 
   render() {
@@ -48,13 +51,27 @@ class BookingAddModal extends Component {
               <p>เวลาเริ่มต้น</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
+              <TimePicker
+                format={24}
+                start="00:00"
+                end="24:00"
+                step={30}
+                value={this.state.currentTime2}
+                onChange={currentTime2 => this.setState({ currentTime2 })}
+              />
             </div>
             <div className="col-sm-2">
               <p>เวลาสิ้นสุด</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
+              <TimePicker
+                format={24}
+                start="00:00"
+                end="24:00"
+                step={30}
+                value={this.state.currentTime}
+                onChange={currentTime => this.setState({ currentTime })}
+              />
             </div>
           </div>
           <div className="row">
@@ -89,8 +106,8 @@ class BookingAddModal extends Component {
           </CancelModal>
         </Footer>
         <style jsx>
-          {
-            ` .row {
+          {` 
+            .row {
               margin-top: 10px;
               margin-bottom: 40px;
               p {
@@ -100,6 +117,19 @@ class BookingAddModal extends Component {
                 left: 0;
                 right: 0;
                 text-align: center;
+              }
+            }
+            .lenkila_time_picker {
+              font-size:100px;
+              .react-datepicker__time-container {
+                .react-datepicker__time {
+                  .react-datepicker__time-box {
+                    ul.react-datepicker__time-list {
+                      padding:0;
+                      background-color:black;      
+                    }
+                  }
+                }
               }
             }
             @media (max-width: 576px) {

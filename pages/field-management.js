@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import TimePicker from 'react-bootstrap-time-picker';
 import { TabsLayout, Constant } from '../components';
 
 class FieldManagement extends Component {
+  state = {
+    startTime: moment(),
+    endTime: moment(),
+  }
+
   // [GET] - Field
   field = 'GET API Field';
   render() {
@@ -13,13 +20,27 @@ class FieldManagement extends Component {
               <p>เวลาเปิด</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="open-time" />
+              <TimePicker
+                format={24}
+                start="00:00"
+                end="24:00"
+                step={15}
+                value={this.state.startTime}
+                onChange={startTime => this.setState({ startTime })}
+              />
             </div>
             <div className="col-sm-1">
               <p>เวลาปิด</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="closed-time" />
+              <TimePicker
+                format={24}
+                start="00:00"
+                end="24:00"
+                step={15}
+                value={this.state.endTime}
+                onChange={endTime => this.setState({ endTime })}
+              />
             </div>
             <div className="col-sm-1">
               <p>เบอร์โทร</p>

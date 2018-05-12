@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+import TimePicker from 'react-bootstrap-time-picker';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
@@ -7,7 +9,11 @@ import { ColorButton, Button, Constant, CancelModal } from '../..';
 class FMPriceEditModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { isEdit: false };
+    this.state = {
+      isEdit: false,
+      startTime: moment(),
+      endTime: moment(),
+    };
 
     this.editForm = this.editForm.bind(this);
     this.cancelEditForm = this.cancelEditForm.bind(this);
@@ -97,14 +103,28 @@ class FMPriceEditModal extends Component {
             <div className="col-sm-1">
               <p>เวลาที่เริ่ม</p>
             </div>
-            <div className="col-sm-1">
-              <input type="text" className="form-control" id="firstname" />
+            <div className="col-sm-2">
+              <TimePicker
+                format={24}
+                start="00:00"
+                end="24:00"
+                step={30}
+                value={this.state.startTime}
+                onChange={startTime => this.setState({ startTime })}
+              />
             </div>
             <div className="col-sm-1">
               <p>เวลาสิ้นสุด</p>
             </div>
-            <div className="col-sm-1">
-              <input type="text" className="form-control" id="lastname" />
+            <div className="col-sm-2">
+              <TimePicker
+                format={24}
+                start="00:00"
+                end="24:00"
+                step={30}
+                value={this.state.endTime}
+                onChange={endTime => this.setState({ endTime })}
+              />
             </div>
             <div className="col-sm-1">
               <p>สี</p>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import TimePicker from 'react-bootstrap-time-picker';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
@@ -10,6 +11,8 @@ class FMHolidayEditModal extends Component {
   state = {
     currentDate: moment(),
     currentDate2: moment(),
+    startTime: moment(),
+    endTime: moment(),
   }
 
   render() {
@@ -49,7 +52,14 @@ class FMHolidayEditModal extends Component {
               <p>เวลาเริ่ม</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="email" defaultValue={this.props.userData.email} />
+              <TimePicker
+                format={24}
+                start="00:00"
+                end="24:00"
+                step={15}
+                value={this.state.startTime}
+                onChange={startTime => this.setState({ startTime })}
+              />
             </div>
           </div>
           <div className="row">
@@ -71,7 +81,14 @@ class FMHolidayEditModal extends Component {
               <p>เวลาสิ้นสุด</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" defaultValue={this.props.userData.email} />
+              <TimePicker
+                format={24}
+                start="00:00"
+                end="24:00"
+                step={15}
+                value={this.state.endTime}
+                onChange={endTime => this.setState({ endTime })}
+              />
             </div>
           </div>
         </Body>
