@@ -11,6 +11,7 @@ import Button from './elements/Buttons/Button';
 import ColorButton from './elements/Buttons/ChooseColor';
 import ButtonModal from './elements/Buttons/ButtonModal';
 import CancelModal from './elements/Buttons/CancelModal';
+import GotoDate from './elements/Buttons/GotoDate';
 import DefaultModal from './elements/Modal/DefaultModal';
 import UMAddModal from './elements/Modal/UMAddModal';
 import UMEditModal from './elements/Modal/UMEditModal';
@@ -48,6 +49,7 @@ export {
   ColorButton,
   ButtonModal,
   CancelModal,
+  GotoDate,
   DefaultModal,
   UMAddModal,
   UMEditModal,

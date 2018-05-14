@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import Switch from 'react-switch';
-import { Layout, BookingCalendar, PageTitle, ButtonModal, Constant, BookingAddModal } from '../components';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import { Layout, BookingCalendar, PageTitle, ButtonModal, Constant, BookingAddModal /* GotoDate */ } from '../components';
 
 class BookingTable extends Component {
   constructor(props) {
     super(props);
-    this.state = { canDragBooking: false };
+    this.state = {
+      canDragBooking: false,
+      gotoDate: moment(),
+    };
 
     this.canBooking = this.canBooking.bind(this);
   }
@@ -57,8 +62,23 @@ class BookingTable extends Component {
                 id="normal-switch"
               />
             </div>
-            <div className="col-sm-6 right">
-              <ButtonModal color={Constant.Blue} width="48px" modalName="#add-booking">
+            <div className="col-sm-5 none-padding">
+              <DatePicker
+                // customInput={<GotoDate width="65px" color={Constant.Blue} />}
+                // selected={this.state.gotoDate}
+                // popperPlacement="top-end"
+                // onChange={gotoDate => this.setState({ gotoDate })}
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                disabledKeyboardNavigation
+                selected={this.state.gotoDate}
+                onChange={gotoDate => this.setState({ gotoDate })}
+                className="form-control"
+              />
+            </div>
+            <div className="col-sm-1 right">
+              <ButtonModal color={Constant.Blue} width="65px" modalName="#add-booking">
                 <i className="fa fa-plus" aria-hidden="true" />
                 <BookingAddModal title="จองสนาม" type="add-booking" fields={this.fields} />
               </ButtonModal>
@@ -69,6 +89,7 @@ class BookingTable extends Component {
             booking={this.booking}
             detail={this.fieldDetail}
             canbook={this.state.canDragBooking}
+            gotoDate={this.state.gotoDate}
           />
         </div>
         <style jsx>{`
@@ -82,6 +103,11 @@ class BookingTable extends Component {
             }
             .right{
               text-align:right;
+              padding-left:0;
+            }
+            .none-padding{
+              text-align:right;
+              z-index:999;
             }
           }
         `}
