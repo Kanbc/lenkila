@@ -29,6 +29,7 @@ import FMHolidayEditModal from './elements/Modal/FMHolidayEditModal';
 import FMGiftAddModal from './elements/Modal/FMGiftAddModal';
 import FMGiftEditModal from './elements/Modal/FMGiftEditModal';
 import BookingAddModal from './elements/Modal/BookingAddModal';
+import BookingDragAddModal from './elements/Modal/BookingDragAddModal';
 import BookingCalendar from './elements/Calendar/BookingCalendar';
 import DatePickerButton from './elements/DatePickerButton';
 import StadiumBookingColumn from './elements/Stadium/StadiumBookingColumn';
@@ -65,6 +66,7 @@ export {
   FMGiftAddModal,
   FMGiftEditModal,
   BookingAddModal,
+  BookingDragAddModal,
   BookingCalendar,
   DatePickerButton,
   StadiumBookingColumn,
