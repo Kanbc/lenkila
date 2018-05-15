@@ -8,10 +8,21 @@ import Footer from './DefaultModal/Footer';
 import { Button } from '../..';
 
 class FMGiftAddModal extends Component {
-  state = {
-    currentDate: moment(),
-    startTime: moment(),
-    endTime: moment(),
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentDate: moment(),
+      startTime: moment(),
+      endTime: moment(),
+      allDay: false,
+    };
+    this.allDay = this.allDay.bind(this);
+  }
+
+  allDay() {
+    this.setState({
+      allDay: !this.state.allDay,
+    });
   }
 
   render() {
@@ -113,7 +124,7 @@ class FMGiftAddModal extends Component {
             <div className="col-sm-12">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox6">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option1" />
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="allday" checked={this.state.allDay} onClick={this.allDay} />
                   ทั้งวัน
                 </label>
               </div>
@@ -131,6 +142,7 @@ class FMGiftAddModal extends Component {
                 step={15}
                 value={this.state.startTime}
                 onChange={startTime => this.setState({ startTime })}
+                disabled={this.state.allDay}
               />
             </div>
             <div className="col-sm-2">
@@ -144,6 +156,7 @@ class FMGiftAddModal extends Component {
                 step={15}
                 value={this.state.endTime}
                 onChange={endTime => this.setState({ endTime })}
+                disabled={this.state.allDay}
               />
             </div>
           </div>
