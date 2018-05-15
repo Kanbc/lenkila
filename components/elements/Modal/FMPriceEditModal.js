@@ -138,29 +138,37 @@ class FMPriceEditModal extends Component {
               <p>ทั่วไป</p>
             </div>
             <div className="col-sm-2 field-and-button">
-              <input type="text" className="form-control" id="user-id" />
-              <button type="button" className="btn btn-secondary">แบ่งครึ่ง</button>
+              <div className="input-group">
+                <input type="number" className="form-control" placeholder="เต็ม" />
+                <input type="number" className="form-control" placeholder="ครึ่ง" />
+              </div>
             </div>
             <div className="col-sm-1">
               <p>นักเรียน</p>
             </div>
             <div className="col-sm-2 field-and-button">
-              <input type="text" className="form-control" id="password" />
-              <button type="button" className="btn btn-secondary">แบ่งครึ่ง</button>
+              <div className="input-group">
+                <input type="number" className="form-control" placeholder="เต็ม" />
+                <input type="number" className="form-control" placeholder="ครึ่ง" />
+              </div>
             </div>
             <div className="col-sm-1">
               <p>นักศึกษา</p>
             </div>
             <div className="col-sm-2 field-and-button">
-              <input type="text" className="form-control" id="user-id" />
-              <button type="button" className="btn btn-secondary">แบ่งครึ่ง</button>
+              <div className="input-group">
+                <input type="number" className="form-control" placeholder="เต็ม" />
+                <input type="number" className="form-control" placeholder="ครึ่ง" />
+              </div>
             </div>
             <div className="col-sm-1">
               <p>สูงวัย</p>
             </div>
             <div className="col-sm-2 field-and-button">
-              <input type="text" className="form-control" id="password" />
-              <button type="button" className="btn btn-secondary">แบ่งครึ่ง</button>
+              <div className="input-group">
+                <input type="number" className="form-control" placeholder="เต็ม" />
+                <input type="number" className="form-control" placeholder="ครึ่ง" />
+              </div>
             </div>
           </div>
           <div className="row">
@@ -168,29 +176,37 @@ class FMPriceEditModal extends Component {
               <p>VIP</p>
             </div>
             <div className="col-sm-2 field-and-button">
-              <input type="text" className="form-control" id="user-id" />
-              <button type="button" className="btn btn-secondary">แบ่งครึ่ง</button>
+              <div className="input-group">
+                <input type="number" className="form-control" placeholder="เต็ม" />
+                <input type="number" className="form-control" placeholder="ครึ่ง" />
+              </div>
             </div>
             <div className="col-sm-1">
               <p>Silver</p>
             </div>
             <div className="col-sm-2 field-and-button">
-              <input type="text" className="form-control" id="password" />
-              <button type="button" className="btn btn-secondary">แบ่งครึ่ง</button>
+              <div className="input-group">
+                <input type="number" className="form-control" placeholder="เต็ม" />
+                <input type="number" className="form-control" placeholder="ครึ่ง" />
+              </div>
             </div>
             <div className="col-sm-1">
               <p>Gold</p>
             </div>
             <div className="col-sm-2 field-and-button">
-              <input type="text" className="form-control" id="user-id" />
-              <button type="button" className="btn btn-secondary">แบ่งครึ่ง</button>
+              <div className="input-group">
+                <input type="number" className="form-control" placeholder="เต็ม" />
+                <input type="number" className="form-control" placeholder="ครึ่ง" />
+              </div>
             </div>
             <div className="col-sm-1">
               <p>1</p>
             </div>
             <div className="col-sm-2 field-and-button">
-              <input type="text" className="form-control" id="password" />
-              <button type="button" className="btn btn-secondary">แบ่งครึ่ง</button>
+              <div className="input-group">
+                <input type="number" className="form-control" placeholder="เต็ม" />
+                <input type="number" className="form-control" placeholder="ครึ่ง" />
+              </div>
             </div>
           </div>
           <div className="row">
@@ -198,15 +214,19 @@ class FMPriceEditModal extends Component {
               <p>2</p>
             </div>
             <div className="col-sm-2 field-and-button">
-              <input type="text" className="form-control" id="user-id" />
-              <button type="button" className="btn btn-secondary">แบ่งครึ่ง</button>
+              <div className="input-group">
+                <input type="number" className="form-control" placeholder="เต็ม" />
+                <input type="number" className="form-control" placeholder="ครึ่ง" />
+              </div>
             </div>
             <div className="col-sm-1">
               <p>3</p>
             </div>
             <div className="col-sm-2 field-and-button">
-              <input type="text" className="form-control" id="password" />
-              <button type="button" className="btn btn-secondary">แบ่งครึ่ง</button>
+              <div className="input-group">
+                <input type="number" className="form-control" placeholder="เต็ม" />
+                <input type="number" className="form-control" placeholder="ครึ่ง" />
+              </div>
             </div>
             <div className="col-sm-6" />
           </div>

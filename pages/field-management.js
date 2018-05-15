@@ -4,10 +4,33 @@ import TimePicker from 'react-bootstrap-time-picker';
 import { TabsLayout, Constant } from '../components';
 
 class FieldManagement extends Component {
-  state = {
-    startTime: moment(),
-    endTime: moment(),
+  constructor(props) {
+    super(props);
+    this.state = {
+      startTime: moment(),
+      endTime: moment(),
+      // tags: ['0901019292'],
+    };
+
+    // this.onTagAdded = this.onTagAdded.bind(this);
+    // this.onTagRemoved = this.onTagRemoved.bind(this);
+    // this.handleUpdateTags = this.handleUpdateTags.bind(this);
   }
+
+  // onTagAdded(tag) {
+  //   this.setState({
+  //     tags: [...this.state.tags, tag],
+  //   });
+  // }
+
+  // onTagRemoved(tag, index) {
+  //   this.setState({
+  //     tags: this.state.tags.filter((tag, i) => i !== index),
+  //   });
+  // }
+  // handleUpdateTags = (tags) => {
+  //   this.setState({ tags });
+  // }
 
   // [GET] - Field
   field = 'GET API Field';
@@ -211,18 +234,18 @@ class FieldManagement extends Component {
           {`
             .first-row{
               margin-top:20px;
-            }
-            .first-row p{
-              position: absolute;
-              top: 50%;
-              transform: translateY(-50%);
-              font-weight: bold;
-            }
-            .first-row p{
-              position: absolute;
-              top: 50%;
-              transform: translateY(-50%);
-              font-weight: bold;
+              p{
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                font-weight: bold;
+              }
+              .phone-tags{
+                height:38px;
+                span{
+                  margin-right:15px;
+                }
+              }
             }
             .second-row{
               margin-top:1.2rem;
