@@ -7,10 +7,20 @@ import { CancelModal, Button, Constant } from '../..';
 class UMEditModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { isEdit: false };
+    this.state = { isEdit: false, changePass: false };
 
     this.editForm = this.editForm.bind(this);
     this.cancelEditForm = this.cancelEditForm.bind(this);
+    this.changePassword = this.changePassword.bind(this);
+    this.cancelChangePassword = this.cancelChangePassword.bind(this);
+  }
+
+  changePassword() {
+    this.setState({ changePass: true });
+  }
+
+  cancelChangePassword() {
+    this.setState({ changePass: false });
   }
 
   editForm() {
@@ -33,7 +43,7 @@ class UMEditModal extends Component {
       button1 = <Button width="100px" bstrap="btn-success" >บันทึก</Button>;
       button2 = <CancelModal width="100px" color={Constant.Red} onClick={() => this.cancelEditForm()}>ยกเลิก</CancelModal>;
     } else {
-      button1 = <Button width="100px" color={Constant.Orange} >แก้ไข</Button>;
+      button1 = <Button width="100px" color={Constant.Orange} onClick={this.editForm}>แก้ไข</Button>;
       button2 = <CancelModal width="100px" bstrap="btn-danger" >ลบ</CancelModal>;
     }
     return (
@@ -69,11 +79,16 @@ class UMEditModal extends Component {
             <div className="col-sm-2">
               <p>Password</p>
             </div>
-            <div className="col-sm-3">
-              <Button width="100%" color={Constant.Blue} >เปลี่ยนรหัส</Button>
+            <div className={this.state.changePass ? 'col-sm-2' : 'col-sm-3'}>
+              <input type="text" className={this.state.changePass ? 'form-control' : 'form-control d-none'} id="password" onChange={this.editForm} />
+              <Button width="100%" color={Constant.Blue} onClick={this.changePassword} bstrap={this.state.changePass ? 'd-none' : ''}>เปลี่ยนรหัส</Button>
             </div>
-            <div className="col-sm-1" />
-            <div className="col-sm-2" />
+            <div className="col-sm-2">
+              <Button width="100%" color={Constant.Green} onClick={this.cancelChangePassword} bstrap={this.state.changePass ? '' : 'd-none'} >บันทึก</Button>
+            </div>
+            <div className={this.state.changePass ? 'col-sm-2' : 'col-sm-1'}>
+              <Button width="100%" color={Constant.Red} onClick={this.cancelChangePassword} bstrap={this.state.changePass ? '' : 'd-none'} >ยกเลิก</Button>
+            </div>
           </div>
           <div className="row">
             <div className="col-sm-1">
