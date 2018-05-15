@@ -23,7 +23,7 @@ class CustAddModal extends Component {
               <input type="text" className="form-control" id="firstname" />
             </div>
             <div className="col-sm-2">
-              <p>เบอร์โทรศัพท์</p>
+              <p>เบอร์โทรศัพท์*</p>
             </div>
             <div className="col-sm-3">
               <input type="text" className="form-control" id="lastname" />
