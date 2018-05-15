@@ -31,6 +31,14 @@ class BookingCalendar extends Component {
       resourceId,
     });
   }
+  setOnBusinessHourBooking(startTime, resourceId) {
+    this.setState({
+      day: moment(startTime),
+      startTime: '',
+      endTime: '',
+      resourceId,
+    });
+  }
   updateEvents() {
     const that = this; // to fix react class method instead of callback of Jquery
     $('#calendar').fullCalendar('destroy');
@@ -60,8 +68,28 @@ class BookingCalendar extends Component {
       editable: false,
       selectable: that.props.canbook,
       select(startDate, endDate, jsEvent, view, resource) {
-        that.setDataBooking(startDate.format(), endDate.format(), resource.id);
-        // check start if
+        const start = startDate.format();
+        const end = endDate.format();
+        // const openTime = that.props.detail.open;
+        // const closeTime = that.props.detail.close;
+
+        // const a = moment(moment(start).format('LT'), 'HH:mm') < moment(openTime, 'HH:mm');
+        // const b = moment(moment(end).format('LT'), 'HH:mm') > (moment(closeTime, 'HH:mm') - moment('24:00', 'HH:mm'));
+        // const c = moment(closeTime).subtract({ hours: 24, minutes: 0, seconds: 0 });
+        
+        // console.log(moment(moment(start).format('LT'), 'HH:mm'));
+        // console.log(moment(openTime, 'HH:mm'));
+        // console.log(a);
+        // console.log(moment(moment(end).format('LT'), 'HH:mm'));
+        // console.log(moment(closeTime, 'HH:mm'));
+        
+        // console.log(b);
+        // console.log(c);
+        // if (a) {
+        //   that.setOnBusinessHourBooking(start, resource.id);
+        // } else {
+        that.setDataBooking(start, end, resource.id);
+        // }
         $('#add-drag-booking').modal('show');
       },
       // droppable: true, // this allows things to be dropped onto the calendar

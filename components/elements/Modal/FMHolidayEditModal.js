@@ -30,7 +30,10 @@ class FMHolidayEditModal extends Component {
               <p>เปิดทำการ</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" defaultValue={this.props.userData.firstname} />
+              <select className="custom-select" value={this.props.userData.firstname} id="open-close">
+                <option value="0">เปิด</option>
+                <option value="1">ปิด</option>
+              </select>
             </div>
           </div>
           <div className="row">
