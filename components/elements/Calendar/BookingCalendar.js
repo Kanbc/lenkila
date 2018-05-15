@@ -43,13 +43,7 @@ class BookingCalendar extends Component {
     const that = this; // to fix react class method instead of callback of Jquery
     $('#calendar').fullCalendar('destroy');
     $('#calendar').fullCalendar({
-      defaultView: 'timelineTwoDays',
-      views: {
-        timelineTwoDays: {
-          type: 'timeline',
-          duration: { days: 2 },
-        },
-      },
+      defaultView: 'timelineDay',
       nowIndicator: true,
       // customButtons: {
       //   datePickerButton: {
@@ -60,12 +54,12 @@ class BookingCalendar extends Component {
       // },
       header: {
         left: 'prev',
-        center: 'title',
-        right: 'datePickerButton, timelineDay,timelineTwoDays, next',
+        // center: 'title',
+        right: 'next',
       },
       height: 'auto',
       slotWidth: 30,
-      editable: false,
+      editable: true,
       selectable: that.props.canbook,
       select(startDate, endDate, jsEvent, view, resource) {
         const start = startDate.format();
@@ -98,7 +92,7 @@ class BookingCalendar extends Component {
       //     $(this).remove(); // if so, remove the element from the "Draggable Events" list
       //   }
       // },
-      eventOverlap: false,
+      eventOverlap: true,
       resourceColumns: [
         {
           labelText: 'สนาม',
