@@ -52,14 +52,10 @@ class BookingCalendar extends Component {
       //     },
       //   },
       // },
-      header: {
-        left: 'prev',
-        // center: 'title',
-        right: 'next',
-      },
+      header: false,
       height: 'auto',
       slotWidth: 30,
-      editable: true,
+      editable: false,
       selectable: that.props.canbook,
       select(startDate, endDate, jsEvent, view, resource) {
         const start = startDate.format();
