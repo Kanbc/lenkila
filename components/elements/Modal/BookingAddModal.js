@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
-import { CancelModal, Button, Constant } from '../..';
+import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '../..';
 
 class BookingAddModal extends Component {
   state = {}
@@ -131,9 +131,10 @@ class BookingAddModal extends Component {
             </div>
             <div className="col-sm-6">
               <div className="space-r">
-                <Button width="120px" color={Constant.Blue}>
+                <ButtonModal color={Constant.Blue} width="120px" modalName="#discount">
                   ส่วนลด
-                </Button>
+                  <DiscountAddModal title="ส่วนลด" type="discount" fields={this.fields} />
+                </ButtonModal>
               </div>
             </div>
           </div>

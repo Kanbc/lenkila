@@ -43,12 +43,6 @@ const MenuLists = [
     name: 'การจัดการบัญชีผู้ใช้',
     iconClass: 'fa-address-book-o',
   },
-  {
-    id: 7,
-    href: '/connect',
-    name: 'แจ้งปัญหาการใช้งาน',
-    iconClass: 'fa-bug',
-  },
 ];
 
 const Layout = ({ children, title = 'ระบบจัดการสนาม' }) => (

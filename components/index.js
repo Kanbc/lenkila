@@ -32,6 +32,7 @@ import FMGiftEditModal from './elements/Modal/FMGiftEditModal';
 import BookingAddModal from './elements/Modal/BookingAddModal';
 import NoteAddModal from './elements/Modal/NoteAddModal';
 import BoostAddModal from './elements/Modal/BoostAddModal';
+import DiscountAddModal from './elements/Modal/DiscountAddModal';
 import BookingDragAddModal from './elements/Modal/BookingDragAddModal';
 import BookingCalendar from './elements/Calendar/BookingCalendar';
 import DatePickerButton from './elements/DatePickerButton';
@@ -71,6 +72,7 @@ export {
   FMGiftEditModal,
   BookingAddModal,
   NoteAddModal,
+  DiscountAddModal,
   BoostAddModal,
   BookingDragAddModal,
   BookingCalendar,
