@@ -3,14 +3,37 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import { CancelModal, Button, Constant } from '../..';
 
-class BookingAddModal extends Component {
-  state = {}
+class BoostAddModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { boostType: 'boost' };
+
+    this.changeBoostType = this.changeBoostType.bind(this);
+  }
+
+  changeBoostType(el) {
+    this.setState({
+      boostType: el.target.value,
+    });
+  }
 
   render() {
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
         <Body>
           <div className="row">
+            <div className="col-sm-1">
+              <p>ประเภท</p>
+            </div>
+            <div className="col-sm-2">
+              <select className="custom-select" onChange={this.changeBoostType} defaultValue={this.state.boostType}>
+                <option value="boost">Boosts</option>
+                <option value="buffet">Buffet</option>
+              </select>
+            </div>
+            <div className="col-sm-9" />
+          </div>
+          <div className={this.state.boostType === 'buffet' ? 'row d-none' : 'row'}>
             <div className="col-sm-1">
               <p>ชื่อ</p>
             </div>
@@ -31,19 +54,25 @@ class BookingAddModal extends Component {
             </div>
           </div>
           <div className="row bottom-border">
+            <div className={this.state.boostType === 'buffet' ? 'col-sm-1' : 'col-sm-1 d-none'}>
+              <p>ราคาคนละ</p>
+            </div>
+            <div className={this.state.boostType === 'buffet' ? 'col-sm-2' : 'col-sm-2 d-none'}>
+              <input type="text" className="form-control" id="firstname" />
+            </div>
             <div className="col-sm-1">
               <p>จำนวนผู้เล่น</p>
             </div>
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
             </div>
-            <div className="col-sm-9">
+            <div className={this.state.boostType === 'buffet' ? 'col-sm-6' : 'col-sm-9'}>
               <div className="space-r">
                 <Button width="120px" color={Constant.Blue}>
                   แสดงผู้เล่น
                 </Button>
               </div>
-              <div className="space-r">
+              <div className={this.state.boostType === 'buffet' ? 'space-r d-none' : 'space-r'}>
                 <Button width="120px" color={Constant.Blue}>
                   ดูข้อมูลลูกค้า
                 </Button>
@@ -59,6 +88,15 @@ class BookingAddModal extends Component {
                 จองเพิ่ม/แก้ไข
               </Button>
             </div>
+            <div className={this.state.boostType === 'buffet' ? 'col-sm-1 d-none' : 'col-sm-1'}>
+              <p>ค่า Com.</p>
+            </div>
+            <div className={this.state.boostType === 'buffet' ? 'col-sm-1 d-none' : 'col-sm-1'}>
+              <input type="text" className="form-control red-text" id="firstname" defaultValue="20%" />
+            </div>
+            <div className={this.state.boostType === 'buffet' ? 'col-sm-1 d-none' : 'col-sm-1'}>
+              <input type="text" className="form-control red-text" id="firstname" defaultValue="200" />
+            </div>
           </div>
           <div className="row">
             <div className="col-sm-6">
@@ -71,21 +109,11 @@ class BookingAddModal extends Component {
                       <th scope="col">ราคา</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className={this.state.boostType === 'buffet' ? '' : 'red-text'}>
                     <tr>
                       <th scope="row">1</th>
                       <td>18.00-22.00</td>
                       <td>1,000</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>12.00-18.00</td>
-                      <td>500</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>17.00-21.00</td>
-                      <td>1,800</td>
                     </tr>
                   </tbody>
                 </table>
@@ -145,15 +173,15 @@ class BookingAddModal extends Component {
               <p>เก็บเงิน เอ</p>
             </div>
             <div className="col-sm-6 left-side">
-              <div className="space-l">
-                <Button width="100px" bstrap="btn-success">
-                  บันทีก
-                </Button>
+              <div className={this.state.boostType === 'buffet' ? 'space-l' : 'space-l d-none'}>
+                <CancelModal width="120px" bstrap="btn-danger" >
+                  ยกเลิกการจอง
+                </CancelModal>
               </div>
               <div className="space-l">
-                <CancelModal width="100px" bstrap="btn-danger">
-                  ยกเลิก
-                </CancelModal>
+                <Button width="120px" bstrap="btn-success">
+                  ชำระเงิน
+                </Button>
               </div>
             </div>
           </div>
@@ -191,6 +219,9 @@ class BookingAddModal extends Component {
               overflow-y: scroll;
               width: 100%;
             }
+            .red-text{
+              color: ${Constant.Red}
+            }
             .left-side{
               text-align:right;
             }
@@ -223,4 +254,4 @@ class BookingAddModal extends Component {
   }
 }
 
-export default BookingAddModal;
+export default BoostAddModal;

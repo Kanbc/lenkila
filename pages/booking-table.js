@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Switch from 'react-switch';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, BookingAddModal /* GotoDate */ } from '../components';
+import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, BookingAddModal /* GotoDate */ } from '../components';
 
 class BookingTable extends Component {
   constructor(props) {
@@ -99,9 +99,9 @@ class BookingTable extends Component {
           <div className="row">
             <div className="col-sm-12">
               <div className="lk-box space-r">
-                <ButtonModal color={Constant.Orange} width="100px" modalName="#add-booking">
+                <ButtonModal color={Constant.Orange} width="100px" modalName="#add-note">
                   Note
-                  <BookingAddModal title="จองสนาม" type="add-booking" fields={this.fields} />
+                  <NoteAddModal title="Note" type="add-note" fields={this.fields} />
                 </ButtonModal>
               </div>
               <div className="lk-box space-r">
@@ -128,13 +128,13 @@ class BookingTable extends Component {
                 <div className="lk-box space-r">
                   <ButtonModal color={Constant.Blue} width="100px" modalName="#add-booking">
                     <i className="fa fa-plus" aria-hidden="true" />
-                    <BookingAddModal title="จองสนาม" type="add-booking" fields={this.fields} />
+                    <BookingAddModal title="การจอง" type="add-booking" fields={this.fields} />
                   </ButtonModal>
                 </div>
                 <div className="lk-box space-r">
-                  <ButtonModal color={Constant.Red} width="100px" modalName="#add-booking">
+                  <ButtonModal color={Constant.Red} width="100px" modalName="#add-boost">
                     Boost
-                    <BookingAddModal title="จองสนาม" type="add-booking" fields={this.fields} />
+                    <BoostAddModal title="Boost" type="add-boost" fields={this.fields} />
                   </ButtonModal>
                 </div>
               </div>
