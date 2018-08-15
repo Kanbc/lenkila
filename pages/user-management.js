@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
-import { Layout, PageTitle, ButtonModal, Constant, UMAddModal, UMEditModal } from '../components';
+import { connect } from 'react-redux';
+import { Layout, PageTitle, ButtonModal, Constant, UMAddModal, UMEditModal, Loader } from '../components';
+import { setUsersData } from '../store';
 
 class UserManagement extends Component {
   // [GET] - Users
   users = userData();
 
+  componentDidMount() {
+    this.props.dispatch(setUsersData(this.users));
+  }
+
   render() {
+    const { users } = this.props;
+
+    console.log('render!', users);
     return (
       <Layout title="การจัดการบัญชีผู้ใช้">
         <div className="container">
@@ -36,22 +45,26 @@ class UserManagement extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.users.map(user => (
-                  <tr key={user.id}>
-                    <td className="hide1">{user.firstname} {user.lastname}</td>
-                    <td>{user.nickname}</td>
-                    <td>{user.username}</td>
-                    <td className="hide2">{user.email}</td>
-                    <td>{user.role}</td>
-                    <td>
-                      <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
-                        <i className="fa fa-pencil" aria-hidden="true" />
-                        <UMEditModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
-                      </ButtonModal>
-                    </td>
-                  </tr>))}
+                {users && users.map(user => {
+                  return (
+                    <tr key={user.id}>
+                      <td className="hide1">{user.firstname} {user.lastname}</td>
+                      <td>{user.nickname}</td>
+                      <td>{user.username}</td>
+                      <td className="hide2">{user.email}</td>
+                      <td>{user.role}</td>
+                      <td>
+                        <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
+                          <i className="fa fa-pencil" aria-hidden="true" />
+                          <UMEditModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
+                        </ButtonModal>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
+            {!users && <Loader></Loader>}
           </div>
         </div>
         <style jsx>{`
@@ -385,4 +398,10 @@ function userData() {
   return users;
 }
 
-export default UserManagement;
+function mapStateToProps(state) {
+  return {
+    users: state.users,
+  }
+}
+
+export default connect(mapStateToProps)(UserManagement);

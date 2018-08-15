@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 // import store from '../store/store';
 import { Layout } from '../components';
 
-class Analysis extends Component {
+class Payment extends Component {
   render() {
     return (
-      <Layout title="วิเคราะห์ข้อมูล" />
+      <Layout title="เติมเงิน/จ่ายเงิน" />
     );
   }
 }
 
-export default Analysis;
+export default Payment;
