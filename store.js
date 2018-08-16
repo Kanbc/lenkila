@@ -14,6 +14,8 @@ export const actionTypes = {
     SET_USERS_DATA: 'SET_USERS_DATA',
     ADD_USERS_DATA: 'ADD_USERS_DATA',
     EDIT_USERS_DATA: 'EDIT_USERS_DATA',
+    SET_ADMIN_DATA: 'SET_ADMIN_DATA',
+    EDIT_ADMIN_DATA: 'EDIT_ADMIN_DATA',
 }
 
 // 2. Action Creators
@@ -30,10 +32,22 @@ export const addUsersData = (newUser) => {
     }
 }
 export const editUsersData = (newUser) => {
-    console.log('Edit user data!: ', newUser);
     return {
         type: actionTypes.EDIT_USERS_DATA,
         newUser,
+    }
+}
+export const setAdminData = (admin) => {
+    console.log('Set admin data!: ', admin);
+    return {
+        type: actionTypes.SET_ADMIN_DATA,
+        admin,
+    }
+}
+export const editAdminData = (admin) => {
+    return {
+        type: actionTypes.EDIT_ADMIN_DATA,
+        admin,
     }
 }
 

@@ -14,6 +14,7 @@ import ButtonModal from './elements/Buttons/ButtonModal';
 import CancelModal from './elements/Buttons/CancelModal';
 import GotoDate from './elements/Buttons/GotoDate';
 import DefaultModal from './elements/Modal/DefaultModal';
+import AdminEditModal from './elements/Modal/AdminEditModal';
 import UMAddModal from './elements/Modal/UMAddModal';
 import UMEditModal from './elements/Modal/UMEditModal';
 import CustFilterModal from './elements/Modal/CustFilterModal';
@@ -56,6 +57,7 @@ export {
   CancelModal,
   GotoDate,
   DefaultModal,
+  AdminEditModal,
   UMAddModal,
   UMEditModal,
   CustFilterModal,

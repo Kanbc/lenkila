@@ -22,3 +22,17 @@ export const users = (oldState = null, newAction) => {
             break;
     }
 }
+
+export const admin = (oldState = null, newAction) => {
+    switch (newAction.type) {
+        case actionTypes.SET_ADMIN_DATA:
+            return newAction.admin;
+            break;
+        case actionTypes.EDIT_ADMIN_DATA:
+            return newAction.admin;
+            break;
+        default:
+            return oldState;
+            break;
+    }
+}
