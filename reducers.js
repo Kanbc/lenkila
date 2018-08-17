@@ -36,3 +36,17 @@ export const admin = (oldState = null, newAction) => {
             break;
     }
 }
+
+export const notes = (oldState = null, newAction) => {
+    switch (newAction.type) {
+        case actionTypes.SET_THIS_DAY_NOTE:
+            return newAction.newNote;
+            break;
+        // case actionTypes.EDIT_ADMIN_DATA:
+        //     return newAction.admin;
+        //     break;
+        default:
+            return oldState;
+            break;
+    }
+}

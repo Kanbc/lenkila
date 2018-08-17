@@ -25,7 +25,6 @@ const StadiumBookingModal = ({ isOpen, setIsOpen }) => {
       </div>
 
       <div className="modal-body">
-        <form>
           {/* Name and Phone */}
           <div className="form-row">
             <div className="form-group col-md-3">
@@ -68,7 +67,6 @@ const StadiumBookingModal = ({ isOpen, setIsOpen }) => {
             </div>
 
           </div>
-        </form>
         <hr />
         <div className="row">
           {/* All stadium */}

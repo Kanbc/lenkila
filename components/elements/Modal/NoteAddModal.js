@@ -1,73 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
-import { Button, Constant } from '../..';
+import { Button, Constant, NoteForm } from '../..';
+import { setThisDayNote } from '../../../store';
 
 class NoteAddModal extends Component {
-  state = {}
+  // [GET] notes of this day
+  notes = notes();
+
+  componentDidMount() {
+    this.props.dispatch(setThisDayNote(this.notes));
+  }
 
   render() {
+    const { notes } = this.props;
+    console.log('render!', notes);
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="45">
         <Body>
-          <div className="row">
-            <div className="col-sm-2">
-              <p>ชื่อ</p>
-            </div>
-            <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
-            <div className="col-sm-2">
-              <p>เบอร์โทร</p>
-            </div>
-            <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-2">
-              <p>รายละเอียด</p>
-            </div>
-            <div className="col-sm-7">
-              <textarea className="form-control" rows="2" id="comment" />
-            </div>
-            <div className="col-sm-3">
-              <Button width="100px" color={Constant.Red}>
-                ลบ
-              </Button>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-2">
-              <p>ชื่อ</p>
-            </div>
-            <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
-            <div className="col-sm-2">
-              <p>เบอร์โทร</p>
-            </div>
-            <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-2">
-              <p>รายละเอียด</p>
-            </div>
-            <div className="col-sm-7">
-              <textarea className="form-control" rows="2" id="comment" />
-            </div>
-            <div className="col-sm-3">
-              <Button width="100px" color={Constant.Red}>
-                ลบ
-              </Button>
-            </div>
-          </div>
+          {notes && notes.map(note => {
+            return (
+              <NoteForm key={note.id} name={note.name} tel={note.tel} note={note.note} />
+            );
+          })}
         </Body>
         <Footer>
-          <Button width="100px" bstrap="btn-success" color={Constant.Blue}>
+          <Button width="100px" color={Constant.Blue}>
             เพิ่ม
           </Button>
         </Footer>
@@ -115,4 +75,28 @@ class NoteAddModal extends Component {
   }
 }
 
-export default NoteAddModal;
+function notes() {
+  const notes = [
+    {
+      id: 1,
+      name: 'Archer',
+      tel: '941-715-4509',
+      note: 'Owner',
+    },
+    {
+      id: 2,
+      name: 'Sherilyn',
+      tel: '589-802-3451',
+      note: 'Owner',
+    },
+  ];
+  return notes;
+}
+
+function mapStateToProps(state) {
+  return {
+    notes: state.notes,
+  }
+}
+
+export default connect(mapStateToProps)(NoteAddModal);

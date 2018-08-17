@@ -11,9 +11,7 @@ const DefaultModal = ({
     <div className="modal-dialog modal-dialog-centered" role="document">
       <div className="modal-content">
         <Header title={title} />
-        <form>
           {children}
-        </form>
       </div>
     </div>
     <style jsx>{`

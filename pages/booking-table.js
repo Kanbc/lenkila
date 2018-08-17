@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Switch from 'react-switch';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, BookingAddModal /* GotoDate */ } from '../components';
+import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, BookingAddModal, ExportBookingModal /* GotoDate */ } from '../components';
 
 class BookingTable extends Component {
   constructor(props) {
@@ -139,9 +139,10 @@ class BookingTable extends Component {
                 </div>
               </div>
               <div className="lk-box float-right">
-                <Button color={Constant.Blue} width="100px">
+                <ButtonModal color={Constant.Blue} width="100px" modalName="#export-booking">
                   Export
-                </Button>
+                  <ExportBookingModal title="Export Booking" type="export-booking" fields={this.fields} />
+                </ButtonModal>
               </div>
             </div>
           </div>

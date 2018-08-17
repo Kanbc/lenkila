@@ -16,6 +16,7 @@ export const actionTypes = {
     EDIT_USERS_DATA: 'EDIT_USERS_DATA',
     SET_ADMIN_DATA: 'SET_ADMIN_DATA',
     EDIT_ADMIN_DATA: 'EDIT_ADMIN_DATA',
+    SET_THIS_DAY_NOTE: 'SET_THIS_DAY_NOTE',
 }
 
 // 2. Action Creators
@@ -48,6 +49,13 @@ export const editAdminData = (admin) => {
     return {
         type: actionTypes.EDIT_ADMIN_DATA,
         admin,
+    }
+}
+export const setThisDayNote = (newNote) => {
+    console.log('Set note data!: ', newNote);
+    return {
+        type: actionTypes.SET_THIS_DAY_NOTE,
+        newNote,
     }
 }
 
