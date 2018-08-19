@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CancelModal, Button, Constant } from '../..';
-import { editUsersData } from '../../../store';
+import { deleteThisDayNote, editThisDayNote } from '../../../store';
 
 class NoteForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.id,
-            name: this.props.name,
-            tel: this.props.tel,
-            note: this.props.note,
+            id: this.props.note.id,
+            name: this.props.note.name,
+            tel: this.props.note.tel,
+            note: this.props.note.note,
             isEdit: false,
         };
 
@@ -32,8 +32,8 @@ class NoteForm extends Component {
         if (this.state.isEdit === true) {
             button1 = <Button width="80px" bstrap="btn-success" onClick={() => {
                 // validation
-                // edit user api
-                this.props.dispatch(editUsersData({
+                // edit note api
+                this.props.dispatch(editThisDayNote({
                     id: this.state.id,
                     name: this.state.name,
                     tel: this.state.tel,
@@ -42,33 +42,46 @@ class NoteForm extends Component {
 
                 this.cancelEditNote();
             }}>บันทึก</Button>;
-            button2 = <CancelModal width="80px" color={Constant.Red} onClick={() => this.cancelEditNote()}>ยกเลิก</CancelModal>;
+            // button2 = <CancelModal width="80px" color={Constant.Red} onClick={() => this.cancelEditNote()}>ยกเลิก</CancelModal>;
+            button2 = "";
         } else {
             button1 = <Button width="80px" color={Constant.Orange} onClick={this.editNote}>แก้ไข</Button>;
-            button2 = <CancelModal width="80px" bstrap="btn-danger" >ลบ</CancelModal>;
+            button2 = <Button width="80px" bstrap="btn-danger" color={Constant.Red} onClick={() => {
+                // pop-upbefore delete();
+                // delete note api
+                this.props.dispatch(deleteThisDayNote({
+                    id: this.state.id,
+                    name: this.state.name,
+                    tel: this.state.tel,
+                    note: this.state.note
+                }));
+            }}>ลบ</Button>;
         }
         return (
             <div>
                 <div className="row">
                     <div className="col-sm-2">
-                        <p>ชื่อ</p>
+                        <p className="bold-text">ชื่อ</p>
                     </div>
                     <div className="col-sm-4">
-                        <input type="text" className="form-control" id="firstname" defaultValue={this.state.name} />
+                        <p className={this.state.isEdit ? 'd-none' : ''} >{this.state.name}</p>
+                        <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="name" defaultValue={this.state.name} onChange={e => this.setState({ name: e.target.value })} />
                     </div>
                     <div className="col-sm-2">
-                        <p>เบอร์โทร</p>
+                        <p className="bold-text">เบอร์โทร</p>
                     </div>
                     <div className="col-sm-4">
-                        <input type="text" className="form-control" id="firstname" defaultValue={this.state.tel} />
+                        <p className={this.state.isEdit ? 'd-none' : ''} >{this.state.tel}</p>
+                        <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="tel" defaultValue={this.state.tel} onChange={e => this.setState({ tel: e.target.value })} />
                     </div>
                 </div>
                 <div className="row">
                     <div className="col-sm-2">
-                        <p>รายละเอียด</p>
+                        <p className="bold-text">รายละเอียด</p>
                     </div>
                     <div className="col-sm-6">
-                        <textarea className="form-control" rows="2" id="comment" defaultValue={this.state.note} />
+                        <p className={this.state.isEdit ? 'd-none' : ''} >{this.state.note}</p>
+                        <textarea className={this.state.isEdit ? 'form-control' : 'form-control d-none'} rows="2" id="note" defaultValue={this.state.note} onChange={e => this.setState({ note: e.target.value })} />
                     </div>
                     <div className="col-sm-2">
                         {button1}
@@ -82,25 +95,26 @@ class NoteForm extends Component {
                         margin-top:10px;
                         margin-bottom:40px;
                         p{
-                        position: absolute;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        left: 0;
-                        right: 0;
-                        text-align: center;
+                            position: absolute;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            left: 0;
+                            right: 0;
+                            text-align: left;
                         }
+
                     }
                     .bold-text{
                         font-weight:bold;
                     }
                     @media (max-width: 576px) { 
                         .row{
-                        margin-top:0px;
-                        margin-bottom:0px;
-                        p{
-                            position: relative;
-                            text-align: left;
-                        }
+                            margin-top:0px;
+                            margin-bottom:0px;
+                            p{
+                                position: relative;
+                                text-align: left;
+                            }
                         }
                     }
                 `}

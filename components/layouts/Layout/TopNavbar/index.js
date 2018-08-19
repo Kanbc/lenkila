@@ -65,7 +65,7 @@ class TopNavbar extends Component {
                   <a className="dropdown-item" href="#">แจ้งปัญหา</a>
                 </div>
               </li>
-              <AdminEditModal title="สร้างผู้ใช้ใหม่" type="edit-admin" userData={admin} />
+              <AdminEditModal title="ข้อมูลส่วนตัว" type="edit-admin" userData={admin} />
             </ul>
           }
         </div>
