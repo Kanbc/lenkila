@@ -37,18 +37,7 @@ class BookingAddModal extends Component {
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
             </div>
-            <div className="col-sm-9">
-              <div className="space-r">
-                <Button width="120px" color={Constant.Blue}>
-                  แสดงผู้เล่น
-                </Button>
-              </div>
-              <div className="space-r">
-                <Button width="120px" color={Constant.Blue}>
-                  ดูข้อมูลลูกค้า
-                </Button>
-              </div>
-            </div>
+            <div className="col-sm-9"/>
           </div>
           <div className="row">
             <div className="col-sm-1">
@@ -68,7 +57,7 @@ class BookingAddModal extends Component {
                     <tr>
                       <th scope="col">สนาม</th>
                       <th scope="col">เวลา</th>
-                      <th scope="col">ราคา</th>
+                      <th scope="col">ราคารวม</th>
                     </tr>
                   </thead>
                   <tbody>

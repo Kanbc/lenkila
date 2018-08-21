@@ -109,7 +109,7 @@ class BoostAddModal extends Component {
                     <tr>
                       <th scope="col">สนาม</th>
                       <th scope="col">เวลา</th>
-                      <th scope="col">ราคา</th>
+                      <th scope="col">ราคารวม</th>
                     </tr>
                   </thead>
                   <tbody className={this.state.boostType === 'buffet' ? '' : 'red-text'}>

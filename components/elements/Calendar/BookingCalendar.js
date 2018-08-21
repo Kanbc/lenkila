@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Constant, ButtonModal, BookingAddModal } from '../..';
+import { Constant, ButtonModal, BookingAddModal, BookingEditModal } from '../..';
 
 class BookingCalendar extends Component {
   constructor(props) {
@@ -88,6 +88,14 @@ class BookingCalendar extends Component {
       //     $(this).remove(); // if so, remove the element from the "Draggable Events" list
       //   }
       // },
+
+      // Click at Booking Event
+      eventClick(calEvent, jsEvent, view) {
+        // alert('Event: ' + calEvent.title);
+        // alert('Booking ID: ' + calEvent.id);
+        // alert('View: ' + view.name);
+        $('#edit-booking-modal-' + calEvent.id).modal('show');
+      },
       eventOverlap: true,
       resourceColumns: [
         {
@@ -124,10 +132,12 @@ class BookingCalendar extends Component {
   }
 
   render() {
+    const bookings = this.props.booking;
+    console.log('render!', bookings);
     return (
       <div>
         <div id="calendar" />
-        <ButtonModal color={Constant.Blue} width="48px" modalName="#add-drag-booking" bstrap="invisible">
+        <ButtonModal modalName="#add-drag-booking" bstrap="invisible">
           <i className="fa fa-plus" aria-hidden="true" />
           <BookingAddModal
             title="การจอง"
@@ -140,6 +150,23 @@ class BookingCalendar extends Component {
             resourceId={this.state.resourceId}
           />
         </ButtonModal>
+
+        {/* Booking Modal */}
+        {bookings && bookings.map(booking => {
+          return (
+            <ButtonModal key={booking.id} modalName={`#edit-booking-modal-${booking.id}`} bstrap="invisible">
+              <i className="fa fa-plus" aria-hidden="true" />
+              <BookingEditModal
+                title="ข้อมูลการจอง"
+                type={`edit-booking-modal-${booking.id}`}
+                startTime={booking.start}
+                endTime={booking.end}
+                resourceId={booking.resourceId}
+              />
+            </ButtonModal>
+          );
+        })}
+        
       </div>
     );
   }
