@@ -46,55 +46,57 @@ class NoteAddModal extends Component {
     console.log('render!', notes);
     console.log('render!', this.state.isAdding);
     return (
-      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="45">
+      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="50">
         <Body>
-          {(!notes || notes.length == 0 && !this.state.isAdding) && <p className="nonote">กดปุ่ม เพิ่ม เพื่อเพิ่ม note</p>}
-          {notes && notes.map(note => {
-            return (
-              <NoteForm key={note.id} note={note}/>
-            );
-          })}
-          {this.state.isAdding && 
-            <div>
-              <div className="row">
-                <div className="col-sm-2">
-                  <p className="bold-text">ชื่อ</p>
+          <div className="container bodyNote" >
+            {(!notes || notes.length == 0 && !this.state.isAdding) && <p className="nonote">กดปุ่ม เพิ่ม เพื่อเพิ่ม note</p>}
+            {notes && notes.map(note => {
+              return (
+                <NoteForm key={note.id} note={note}/>
+              );
+            })}
+            {this.state.isAdding && 
+              <div>
+                <div className="row">
+                  <div className="col-sm-2">
+                    <p className="bold-text">ชื่อ</p>
+                  </div>
+                  <div className="col-sm-4">
+                    <input type="text" className='form-control' id="name" defaultValue={this.state.name} onChange={e => this.setState({ name: e.target.value })} />
+                  </div>
+                  <div className="col-sm-2">
+                    <p className="bold-text">เบอร์โทร</p>
+                  </div>
+                  <div className="col-sm-4">
+                    <input type="text" className='form-control' id="tel" defaultValue={this.state.tel} onChange={e => this.setState({ tel: e.target.value })} />
+                  </div>
                 </div>
-                <div className="col-sm-4">
-                  <input type="text" className='form-control' id="name" defaultValue={this.state.name} onChange={e => this.setState({ name: e.target.value })} />
-                </div>
-                <div className="col-sm-2">
-                  <p className="bold-text">เบอร์โทร</p>
-                </div>
-                <div className="col-sm-4">
-                  <input type="text" className='form-control' id="tel" defaultValue={this.state.tel} onChange={e => this.setState({ tel: e.target.value })} />
+                <div className="row">
+                  <div className="col-sm-2">
+                    <p className="bold-text">รายละเอียด</p>
+                  </div>
+                  <div className="col-sm-6">
+                    <textarea className='form-control' rows="2" id="note" defaultValue={this.state.note} onChange={e => this.setState({ note: e.target.value })} />
+                  </div>
+                  <div className="col-sm-2">
+                    <Button width="80px" bstrap="btn-success" onClick={() => {
+                      // validation
+                      // add note api
+                      this.props.dispatch(addThisDayNote({
+                        id: moment().format('dd/MM/YY_hh:mm:ss'),
+                        name: this.state.name,
+                        tel: this.state.tel,
+                        note: this.state.note
+                      }));
+                      
+                      this.cancelAddNote();
+                    }}>บันทึก</Button>
+                  </div>
+                  <div className="col-sm-2" />
                 </div>
               </div>
-              <div className="row">
-                <div className="col-sm-2">
-                  <p className="bold-text">รายละเอียด</p>
-                </div>
-                <div className="col-sm-6">
-                  <textarea className='form-control' rows="2" id="note" defaultValue={this.state.note} onChange={e => this.setState({ note: e.target.value })} />
-                </div>
-                <div className="col-sm-2">
-                  <Button width="80px" bstrap="btn-success" onClick={() => {
-                    // validation
-                    // add note api
-                    this.props.dispatch(addThisDayNote({
-                      id: moment().format('dd/MM/YY_hh:mm:ss'),
-                      name: this.state.name,
-                      tel: this.state.tel,
-                      note: this.state.note
-                    }));
-                    
-                    this.cancelAddNote();
-                  }}>บันทึก</Button>
-                </div>
-                <div className="col-sm-2" />
-              </div>
-            </div>
-          }
+            }
+          </div>
         </Body>
         <Footer>
           <Button width="100px" color={Constant.Blue} onClick={this.addNote}>
@@ -105,6 +107,12 @@ class NoteAddModal extends Component {
           </CancelModal>
         </Footer>
         <style jsx>{`
+          .bodyNote{
+            max-height:400px;
+            width:100%;
+            overflow-y: scroll;
+            overflow-x: visible;
+          }
           .nonote{
             text-align: center;
             color: ${Constant.Grey};

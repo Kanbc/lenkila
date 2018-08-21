@@ -31,12 +31,12 @@ const MenuLists = [
     name: 'ข้อมูลลูกค้า',
     iconClass: 'fa-users',
   },
-  // {
-  //   id: 5,
-  //   href: '/analysis',
-  //   name: 'วิเคราะห์ข้อมูล',
-  //   iconClass: 'fa-line-chart',
-  // },
+  {
+    id: 5,
+    href: '/analysis',
+    name: 'วิเคราะห์ข้อมูล',
+    iconClass: 'fa-line-chart',
+  },
   {
     id: 6,
     href: '/field-management',
@@ -45,6 +45,12 @@ const MenuLists = [
   },
   {
     id: 7,
+    href: '/connect',
+    name: 'Lenkila Connect',
+    iconClass: 'fa-plug',
+  },
+  {
+    id: 8,
     href: '/user-management',
     name: 'การจัดการบัญชีผู้ใช้',
     iconClass: 'fa-address-book-o',

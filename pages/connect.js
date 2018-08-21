@@ -4,7 +4,7 @@ import { Layout } from '../components';
 class Connect extends Component {
   render() {
     return (
-      <Layout title="แจ้งปัญหาการใช้งาน" />
+      <Layout title="Connect" />
     );
   }
 }
