@@ -4,7 +4,7 @@ import TimePicker from 'react-bootstrap-time-picker';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
-import { CancelModal, Button } from '../..';
+import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '../..';
 
 class BookingDragAddModal extends Component {
   // constructor(props) {

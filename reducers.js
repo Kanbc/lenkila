@@ -63,3 +63,30 @@ export const notes = (oldState = null, newAction) => {
             break;
     }
 }
+
+export const discounts = (oldState = null, newAction) => {
+    switch (newAction.type) {
+        case actionTypes.SET_THIS_BOOKING_DISCOUNT:
+            return newAction.newDiscount;
+            break;
+        case actionTypes.ADD_THIS_BOOKING_DISCOUNT:
+            return [...oldState, newAction.newDiscount];
+            break;
+        case actionTypes.EDIT_THIS_BOOKING_DISCOUNT:
+            const updatedItems = oldState.map(item => {
+                if (item.id === newAction.newDiscount.id) {
+                    return { ...item, ...newAction.newDiscount };
+                }
+                return item;
+            });
+            return updatedItems;
+            break;
+        case actionTypes.DELETE_THIS_BOOKING_DISCOUNT:
+            const discountId = newAction.newDiscount.id;
+            return oldState.filter(discount => discount.id !== discountId);
+            break;
+        default:
+            return oldState;
+            break;
+    }
+}

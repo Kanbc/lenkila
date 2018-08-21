@@ -22,6 +22,11 @@ export const actionTypes = {
     ADD_THIS_DAY_NOTE: 'ADD_THIS_DAY_NOTE',
     EDIT_THIS_DAY_NOTE: 'EDIT_THIS_DAY_NOTE',
     DELETE_THIS_DAY_NOTE: 'DELETE_THIS_DAY_NOTE',
+
+    SET_THIS_BOOKING_DISCOUNT: 'SET_THIS_BOOKING_DISCOUNT',
+    ADD_THIS_BOOKING_DISCOUNT: 'ADD_THIS_BOOKING_DISCOUNT',
+    EDIT_THIS_BOOKING_DISCOUNT: 'EDIT_THIS_BOOKING_DISCOUNT',
+    DELETE_THIS_BOOKING_DISCOUNT: 'DELETE_THIS_BOOKING_DISCOUNT',
 }
 
 // 2. Action Creators
@@ -79,6 +84,31 @@ export const deleteThisDayNote = (newNote) => {
     return {
         type: actionTypes.DELETE_THIS_DAY_NOTE,
         newNote,
+    }
+}
+export const setThisBookingDiscount = (newDiscount) => {
+    console.log('Set discount data!: ', newDiscount);
+    return {
+        type: actionTypes.SET_THIS_BOOKING_DISCOUNT,
+        newDiscount,
+    }
+}
+export const addThisBookingDiscount = (newDiscount) => {
+    return {
+        type: actionTypes.ADD_THIS_BOOKING_DISCOUNT,
+        newDiscount,
+    }
+}
+export const editThisBookingDiscount = (newDiscount) => {
+    return {
+        type: actionTypes.EDIT_THIS_BOOKING_DISCOUNT,
+        newDiscount,
+    }
+}
+export const deleteThisBookingDiscount = (newDiscount) => {
+    return {
+        type: actionTypes.DELETE_THIS_BOOKING_DISCOUNT,
+        newDiscount,
     }
 }
 

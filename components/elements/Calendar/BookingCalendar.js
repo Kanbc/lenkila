@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Constant, ButtonModal, BookingDragAddModal } from '../..';
+import { Constant, ButtonModal, BookingAddModal } from '../..';
 
 class BookingCalendar extends Component {
   constructor(props) {
@@ -129,10 +129,11 @@ class BookingCalendar extends Component {
         <div id="calendar" />
         <ButtonModal color={Constant.Blue} width="48px" modalName="#add-drag-booking" bstrap="invisible">
           <i className="fa fa-plus" aria-hidden="true" />
-          <BookingDragAddModal
-            title="จองสนาม"
+          <BookingAddModal
+            title="การจอง"
             type="add-drag-booking"
             fields={this.props.field}
+
             day={this.state.day}
             startTime={this.state.startTime}
             endTime={this.state.endTime}

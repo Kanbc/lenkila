@@ -125,12 +125,16 @@ class BookingTable extends Component {
                 </div>
               </div>
               <div className="lk-box">
-                <div className="lk-box space-r">
+                {/* <div className="lk-box space-r">
                   <ButtonModal color={Constant.Blue} width="100px" modalName="#add-booking">
                     <i className="fa fa-plus" aria-hidden="true" />
-                    <BookingAddModal title="การจอง" type="add-booking" fields={this.fields} />
+                    <BookingAddModal 
+                      title="การจอง" 
+                      type="add-booking" 
+                      fields={this.fields} 
+                    />
                   </ButtonModal>
-                </div>
+                </div> */}
                 <div className="lk-box space-r">
                   <ButtonModal color={Constant.Red} width="100px" modalName="#add-boost">
                     Boost
@@ -214,8 +218,8 @@ function bookingData() {
       id: '3',
       resourceId: 'a',
       title: 'B: Success',
-      start: '2018-06-01T15:00:00',
-      end: '2018-06-01T18:00:00',
+      start: moment().subtract(4, 'hour'),
+      end: moment().subtract(2, 'hour'),
       color: Constant.Red,
       textColor: 'white',
     },

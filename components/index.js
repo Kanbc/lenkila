@@ -38,6 +38,7 @@ import DiscountAddModal from './elements/Modal/DiscountAddModal';
 import BookingDragAddModal from './elements/Modal/BookingDragAddModal';
 import ExportBookingModal from './elements/Modal/ExportBookingModal';
 import NoteForm from './elements/Form/NoteForm';
+import DiscountForm from './elements/Form/DiscountForm';
 import BookingCalendar from './elements/Calendar/BookingCalendar';
 import DatePickerButton from './elements/DatePickerButton';
 import StadiumBookingColumn from './elements/Stadium/StadiumBookingColumn';
@@ -52,6 +53,7 @@ export {
   TabsLayout,
   // Element
   NoteForm,
+  DiscountForm,
   PageTitle,
   Button,
   Loader,
