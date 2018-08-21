@@ -48,7 +48,11 @@ class BookingTable extends Component {
   // [GET] - Field
   fields = fieldData();
 
+  // [GET] - Field
+  users = userData();
+
   // [GET] - Open/Closed, Business Hours
+  // ข้อมูลสนามภาพรวม
   fieldDetail = {
     open: '07:00',
     close: '26:00',
@@ -282,6 +286,10 @@ function bookingData() {
 }
 
 function fieldData() {
+  // name:
+  // type: (football,badminton)
+  // can_split: yes,no
+  // detail
   const fields = [
     {
       id: 'a',
@@ -320,6 +328,81 @@ function fieldData() {
     },
   ];
   return fields;
+}
+
+function fieldPriceData() {
+  const prices = [
+    // {
+      // weekday: [mon-fri,sat-sun],
+      // start:, 
+      // end:,
+      // color: ,
+      // full_price:,
+      // half_price: ,
+    // }
+  ];
+  return prices;
+}
+
+function userData() {
+  const users = [
+    {
+      id: 1,
+      firstname: 'Archer',
+      lastname: 'Traher',
+      email: 'atraher0@google.it',
+      nickname: 'Yellow',
+      username: 'atraher0',
+      password: '0K7d35r',
+      tel: '941-715-4509',
+      role: 'Owner',
+    },
+    {
+      id: 2,
+      firstname: 'Sherilyn',
+      lastname: 'Wooding',
+      email: 'swooding1@live.com',
+      nickname: 'Khaki',
+      username: 'swooding1',
+      password: 'W6wSVjGDVV',
+      tel: '589-802-3451',
+      role: 'Owner',
+    },
+    {
+      id: 3,
+      firstname: 'Erminie',
+      lastname: 'Georgiades',
+      email: 'egeorgiades2@diigo.com',
+      nickname: 'Blue',
+      username: 'egeorgiades2',
+      password: 'GdKAPoubYOIV',
+      tel: '177-268-9690',
+      role: 'Owner',
+    },
+    {
+      id: 4,
+      firstname: 'Dominik',
+      lastname: 'Switsur',
+      email: 'dswitsur3@wired.com',
+      nickname: 'Pink',
+      username: 'dswitsur3',
+      password: 'If6DgzXJPxg',
+      tel: '625-877-1952',
+      role: 'Admin',
+    },
+    {
+      id: 5,
+      firstname: 'Sharleen',
+      lastname: 'Bostick',
+      email: 'sbostick4@github.io',
+      nickname: 'Fuscia',
+      username: 'sbostick4',
+      password: 'UaXVPi',
+      tel: '892-646-7110',
+      role: 'Admin',
+    },
+  ];
+  return users;
 }
 
 export default BookingTable;

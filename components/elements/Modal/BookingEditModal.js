@@ -98,33 +98,38 @@ class BookingAddModal extends Component {
           </div>
           <div className="row">
             <div className="col-sm-1">
-              <p>ค่าสนามรวม</p>
+              <p className="bold-text">ค่าสนามรวม</p>
             </div>
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
             </div>
             <div className="col-sm-1">
-              <p>ค่ามัดจำ</p>
+              <p className="bold-text">ค่ามัดจำ</p>
             </div>
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
             </div>
-            <div className="col-sm-1">
+            <div className="col-sm-2">
+              <Button width="120px" bstrap="btn-success">
+                บันทีก
+              </Button>
+            </div>
+            {/* <div className="col-sm-1">
               <p>ค่าสินค้า</p>
             </div>
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
-            </div>
+            </div> */}
           </div>
           <div className="row">
             <div className="col-sm-1">
-              <p>ส่วนลดแอพ</p>
+              <p className="bold-text">ส่วนลดแอพ</p>
             </div>
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
             </div>
             <div className="col-sm-1">
-              <p>ส่วนลดอื่นๆ</p>
+              <p className="bold-text">ส่วนลดอื่นๆ</p>
             </div>
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
@@ -147,14 +152,14 @@ class BookingAddModal extends Component {
             </div>
             <div className="col-sm-6 left-side">
               <div className="space-l">
-                <Button width="100px" bstrap="btn-success">
-                  บันทีก
-                </Button>
+                <CancelModal width="120px" bstrap="btn-danger" >
+                  ยกเลิกการจอง
+                </CancelModal>
               </div>
               <div className="space-l">
-                <CancelModal width="100px" bstrap="btn-danger">
-                  ยกเลิก
-                </CancelModal>
+                <Button width="120px" bstrap="btn-success">
+                  ชำระเงิน
+                </Button>
               </div>
             </div>
           </div>
@@ -172,6 +177,9 @@ class BookingAddModal extends Component {
                 right: 0;
                 text-align: center;
               }
+            }
+            .bold-text{
+              font-weight:bold;
             }
             .lenkila_time_picker {
               font-size:100px;
