@@ -6,7 +6,7 @@ import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '..
 class BoostAddModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { boostType: 'boost' };
+    this.state = { boostType: 'buffet' };
 
     this.changeBoostType = this.changeBoostType.bind(this);
   }
@@ -19,10 +19,9 @@ class BoostAddModal extends Component {
 
   render() {
     return (
-      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="50">
+      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
         <Body>
-          <p className="nonote">บริการนี้ยังไม่พร้อมใช้งาน</p>
-          {/* <div className="row">
+          <div className="row">
             <div className="col-sm-1">
               <p>ประเภท</p>
             </div>
@@ -34,6 +33,9 @@ class BoostAddModal extends Component {
             </div>
             <div className="col-sm-9" />
           </div>
+          {!(this.state.boostType == 'buffet') && <p className="nonote">บริการนี้ยังไม่เปิดให้บริการ</p>}
+          {this.state.boostType == 'buffet' &&
+          <div>
           <div className={this.state.boostType === 'buffet' ? 'row d-none' : 'row'}>
             <div className="col-sm-1">
               <p>ชื่อ</p>
@@ -186,13 +188,16 @@ class BoostAddModal extends Component {
                 </Button>
               </div>
             </div>
-          </div> */}
+          </div>
+          </div>
+          }
         </Body>
         <style jsx>
           {` 
             .nonote{
               text-align: center;
               color: ${Constant.Grey};
+              height:300px;
             }
             .row {
               margin-top: 10px;
