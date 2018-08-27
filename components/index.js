@@ -19,6 +19,7 @@ import UMAddModal from './elements/Modal/UMAddModal';
 import UMEditModal from './elements/Modal/UMEditModal';
 import CustFilterModal from './elements/Modal/CustFilterModal';
 import CustAddModal from './elements/Modal/CustAddModal';
+import PaymentAddModal from './elements/Modal/PaymentAddModal';
 import CustEditModal from './elements/Modal/CustEditModal';
 import CustTypeAddModal from './elements/Modal/CustTypeAddModal';
 import CustTypeEditModal from './elements/Modal/CustTypeEditModal';
@@ -68,6 +69,7 @@ export {
   UMEditModal,
   CustFilterModal,
   CustAddModal,
+  PaymentAddModal,
   CustEditModal,
   CustTypeAddModal,
   CustTypeEditModal,

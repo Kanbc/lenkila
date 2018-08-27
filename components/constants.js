@@ -21,6 +21,18 @@ const CustomerTabs = [
     name: 'ประเภทลูกค้า',
   },
 ];
+const PaymentTabs = [
+  {
+    id: 1,
+    href: '/payment',
+    name: 'เติมเงิน',
+  },
+  {
+    id: 2,
+    href: '/pay-for-product',
+    name: 'ชำระสินค้า',
+  },
+];
 const FieldTabs = [
   {
     id: 1,
@@ -58,5 +70,6 @@ export {
   Orange,
   Grey,
   Buttons,
+  PaymentTabs,
 };
 
