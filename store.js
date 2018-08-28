@@ -27,6 +27,9 @@ export const actionTypes = {
     ADD_THIS_BOOKING_DISCOUNT: 'ADD_THIS_BOOKING_DISCOUNT',
     EDIT_THIS_BOOKING_DISCOUNT: 'EDIT_THIS_BOOKING_DISCOUNT',
     DELETE_THIS_BOOKING_DISCOUNT: 'DELETE_THIS_BOOKING_DISCOUNT',
+
+    SET_PAYMENT_DATA: 'SET_PAYMENT_DATA',
+    ADD_PAYMENT_DATA: 'ADD_PAYMENT_DATA',
 }
 
 // 2. Action Creators
@@ -49,7 +52,6 @@ export const editUsersData = (newUser) => {
     }
 }
 export const setAdminData = (admin) => {
-    console.log('Set admin data!: ', admin);
     return {
         type: actionTypes.SET_ADMIN_DATA,
         admin,
@@ -62,7 +64,6 @@ export const editAdminData = (admin) => {
     }
 }
 export const setThisDayNote = (newNote) => {
-    console.log('Set note data!: ', newNote);
     return {
         type: actionTypes.SET_THIS_DAY_NOTE,
         newNote,
@@ -109,6 +110,18 @@ export const deleteThisBookingDiscount = (newDiscount) => {
     return {
         type: actionTypes.DELETE_THIS_BOOKING_DISCOUNT,
         newDiscount,
+    }
+}
+export const setPaymentData = (newPayment) => {
+    return {
+        type: actionTypes.SET_PAYMENT_DATA,
+        newPayment,
+    }
+}
+export const addPaymentData = (newPayment) => {
+    return {
+        type: actionTypes.ADD_PAYMENT_DATA,
+        newPayment,
     }
 }
 

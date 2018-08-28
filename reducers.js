@@ -90,3 +90,17 @@ export const discounts = (oldState = null, newAction) => {
             break;
     }
 }
+
+export const payments = (oldState = null, newAction) => {
+    switch (newAction.type) {
+        case actionTypes.SET_PAYMENT_DATA:
+            return newAction.newPayment;
+            break;
+        case actionTypes.ADD_PAYMENT_DATA:
+            return [newAction.newPayment, ...oldState];
+            break;
+        default:
+            return oldState;
+            break;
+    }
+}

@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
-import { TabsLayout, PaymentAddModal, ButtonModal, Constant } from '../components';
+import moment from 'moment';
+import { TabsLayout, PaymentAddModal, ButtonModal, Constant, Loader } from '../components';
+import { setPaymentData } from '../store';
 
 class Payment extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: moment(),
+      endDate: moment(),
+    };
+
+  }
+
   // [GET] - Users
-  users = userData();
+  payments = paymentData();
+
+  componentDidMount() {
+    this.props.dispatch(setPaymentData(this.payments));
+  }
+
   render() {
+    const { payments } = this.props;
+
+    console.log('render!', payments);
     return (
       <TabsLayout title="เติมเงิน" tabs={Constant.PaymentTabs}>
         <div className="container">
@@ -16,7 +36,7 @@ class Payment extends Component {
                   <th scope="col" className="text-left">
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-payment">
                       เติมเงิน
-                      <PaymentAddModal title="เติมเงิน" type="add-payment" />
+                      <PaymentAddModal title="เติมเงิน" type="add-payment" payments={payments} />
                     </ButtonModal>
                   </th>
                   <th scope="col" className="hide1" />
@@ -30,7 +50,12 @@ class Payment extends Component {
                       <p>ยอดรวม :</p>
                     </div>
                     <div className="text-left">
-                      <p className="bignum">1,000</p>
+                      {!payments && <p className="bignum">0</p>}
+                      {payments && 
+                        <p className="bignum">
+                          {payments.reduce(function (cnt, o) { return cnt + o.price; }, 0)}
+                        </p>
+                      }
                     </div>
                   </th>
                   <th scope="col" />
@@ -41,16 +66,12 @@ class Payment extends Component {
                     </div>
                     <div className="text-right">
                       <DatePicker
-                        // customInput={<GotoDate width="65px" color={Constant.Blue} />}
-                        // selected={this.state.gotoDate}
-                        // popperPlacement="top-end"
-                        // onChange={gotoDate => this.setState({ gotoDate })}
                         showMonthDropdown
                         showYearDropdown
                         dropdownMode="select"
                         disabledKeyboardNavigation
-                        // selected={this.state.gotoDate}
-                        // onChange={gotoDate => this.setState({ gotoDate })}
+                        selected={this.state.startDate}
+                        onChange={startDate => this.setState({ startDate })}
                         className="form-control align-middle"
                       />
                     </div>
@@ -61,16 +82,13 @@ class Payment extends Component {
                     </div>
                     <div className="text-right">
                       <DatePicker
-                        // customInput={<GotoDate width="65px" color={Constant.Blue} />}
-                        // selected={this.state.gotoDate}
-                        popperPlacement="top-end"
-                        // onChange={gotoDate => this.setState({ gotoDate })}
+                        popperPlacement="bottom-end"
                         showMonthDropdown
                         showYearDropdown
                         dropdownMode="select"
                         disabledKeyboardNavigation
-                        // selected={this.state.gotoDate}
-                        // onChange={gotoDate => this.setState({ gotoDate })}
+                        selected={this.state.endDate}
+                        onChange={endDate => this.setState({ endDate })}
                         className="form-control align-middle"
                       />
                     </div>
@@ -85,16 +103,20 @@ class Payment extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.users.map(user => (
-                  <tr key={user.id}>
-                    <td className="hide1">{user.nickname}</td>
-                    <td>{user.tel}</td>
-                    <td>{user.lastname}</td>
-                    <td className="hide2">{user.role}</td>
-                    <td className="hide2">{user.role}</td>
-                  </tr>))}
+                {payments && payments.map(payment => {
+                  return (
+                    <tr key={payment.id}>
+                      <td className="hide1">{payment.date}</td>
+                      <td>{payment.time}</td>
+                      <td>{payment.username}</td>
+                      <td className="hide2">{payment.price}</td>
+                      <td className="hide2">{payment.admin}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
+            {!payments && <Loader></Loader>}
           </div>
         </div>
         <style jsx>{`
@@ -151,120 +173,72 @@ class Payment extends Component {
   }
 }
 
-function userData() {
-  const users = [
+function paymentData() {
+  const payments = [
     {
       id: 1,
-      firstname: 'Archer',
-      lastname: 'Traher',
-      email: 'atraher0@google.it',
-      nickname: 'Yellow',
-      username: 'atraher0',
-      password: '0K7d35r',
-      tel: '941-715-4509',
-      role: 'Owner',
+      date: moment().format('YYYY-MM-DD').toString(),
+      time: moment().add(4, 'hour').format('HH:mm:ss').toString(),
+      username: 'kanbc',
+      price: 700,
+      admin: 'Owner',
     },
     {
       id: 2,
-      firstname: 'Sherilyn',
-      lastname: 'Wooding',
-      email: 'swooding1@live.com',
-      nickname: 'Khaki',
-      username: 'swooding1',
-      password: 'W6wSVjGDVV',
-      tel: '589-802-3451',
-      role: 'Owner',
+      date: moment().format('YYYY-MM-DD').toString(),
+      time: moment().add(6, 'hour').format('HH:mm:ss').toString(),
+      username: 'demo',
+      price: 50,
+      admin: 'Owner',
     },
     {
       id: 3,
-      firstname: 'Erminie',
-      lastname: 'Georgiades',
-      email: 'egeorgiades2@diigo.com',
-      nickname: 'Blue',
-      username: 'egeorgiades2',
-      password: 'GdKAPoubYOIV',
-      tel: '177-268-9690',
-      role: 'Owner',
+      date: moment().format('YYYY-MM-DD').toString(),
+      time: moment().add(7, 'hour').format('HH:mm:ss').toString(),
+      username: 'atraher0',
+      price: 1000,
+      admin: 'Owner',
     },
     {
       id: 4,
-      firstname: 'Dominik',
-      lastname: 'Switsur',
-      email: 'dswitsur3@wired.com',
-      nickname: 'Pink',
-      username: 'dswitsur3',
-      password: 'If6DgzXJPxg',
-      tel: '625-877-1952',
-      role: 'Admin',
+      date: moment().format('YYYY-MM-DD').toString(),
+      time: moment().subtract(4, 'hour').format('HH:mm:ss').toString(),
+      username: 'atraher0',
+      price: 400,
+      admin: 'Owner',
     },
     {
       id: 5,
-      firstname: 'Sharleen',
-      lastname: 'Bostick',
-      email: 'sbostick4@github.io',
-      nickname: 'Fuscia',
-      username: 'sbostick4',
-      password: 'UaXVPi',
-      tel: '892-646-7110',
-      role: 'Admin',
+      date: moment().format('YYYY-MM-DD').toString(),
+      time: moment().add(12, 'hour').format('HH:mm:ss').toString(),
+      username: 'atraher0',
+      price: 300,
+      admin: 'Owner',
     },
     {
       id: 6,
-      firstname: 'Ford',
-      lastname: 'Chasier',
-      email: 'fchasier5@phoca.cz',
-      nickname: 'Aquamarine',
-      username: 'fchasier5',
-      password: 'mCLrLR',
-      tel: '179-637-9279',
-      role: 'Admin',
+      date: moment().format('YYYY-MM-DD').toString(),
+      time: moment().add(10, 'hour').format('HH:mm:ss').toString(),
+      username: 'atraher0',
+      price: 200,
+      admin: 'Owner',
     },
     {
       id: 7,
-      firstname: 'Maia',
-      lastname: 'Spurett',
-      email: 'mspurett6@joomla.org',
-      nickname: 'Teal',
-      username: 'mspurett6',
-      password: 'bMgyzA',
-      tel: '904-911-4607',
-      role: 'Admin',
-    },
-    {
-      id: 8,
-      firstname: 'Simona',
-      lastname: 'Acres',
-      email: 'sacres7@rambler.ru',
-      nickname: 'Orange',
-      username: 'sacres7',
-      password: 'WG7DpIKKWm',
-      tel: '907-273-8871',
-      role: 'Admin',
-    },
-    {
-      id: 9,
-      firstname: 'Aaron',
-      lastname: 'Crossingham',
-      email: 'acrossingham8@163.com',
-      nickname: 'Fuscia',
-      username: 'acrossingham8',
-      password: '7k0mnsvvdo',
-      tel: '381-990-2820',
-      role: 'Staff',
-    },
-    {
-      id: 10,
-      firstname: 'Niel',
-      lastname: 'Voelker',
-      email: 'nvoelker9@rakuten.co.jp',
-      nickname: 'Crimson',
-      username: 'nvoelker9',
-      password: '6DJdjBzcSWO',
-      tel: '767-174-0948',
-      role: 'Staff',
+      date: moment().format('YYYY-MM-DD').toString(),
+      time: moment().add(2, 'hour').format('HH:mm:ss').toString(),
+      username: 'atraher0',
+      price: 100,
+      admin: 'Owner',
     },
   ];
-  return users;
+  return payments;
 }
 
-export default Payment;
+function mapStateToProps(state) {
+  return {
+    payments: state.payments,
+  }
+}
+
+export default connect(mapStateToProps)(Payment);
