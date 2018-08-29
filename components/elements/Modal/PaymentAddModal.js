@@ -4,7 +4,7 @@ import moment from 'moment';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
-import { Button } from '../..';
+import { Button, CancelModal, Constant } from '../..';
 import { addPaymentData } from '../../../store';
 
 class PaymentAddModel extends Component {
@@ -16,6 +16,10 @@ class PaymentAddModel extends Component {
       username: '',
       price: '',
       admin: 'Demo',
+
+      checking: true,
+      reChecking: false,
+      confirming: false,
     };
 
     this.checkPayment = this.checkPayment.bind(this);
@@ -27,21 +31,22 @@ class PaymentAddModel extends Component {
     const payments = this.props.payments
     const instance = this.state.username
 
-    var matchUserName = payments.filter(function (payment) {
-      if (instance === ''){
-        // Not Search
-        return "False"
-      }else{
+    if (instance === '' || this.state.price === '' ) {
+      var matchUserName = [];
+    }else{
+      var matchUserName = payments.filter(function (payment) {
         return payment.username === instance;
-      }
-    });
+      });
+    }
 
     if (matchUserName.length > 0){
-      // Not found
-      return "False"
-    }else{
       // Found
-      return "True"
+      console.log('confirm')
+      this.setState({ reChecking: false, confirming: true, checking: false });
+    }else{
+      // Not Found
+      console.log('recheck')
+      this.setState({ reChecking: true, confirming: false, checking: false });
     }
   }
 
@@ -53,6 +58,10 @@ class PaymentAddModel extends Component {
       username: '',
       price: '',
       admin: 'Demo',
+
+      checking: true,
+      reChecking: false,
+      confirming: false,
     });
   }
 
@@ -71,6 +80,26 @@ class PaymentAddModel extends Component {
   }
 
   render() {
+    let button1 = null;
+    let text = null;
+    if (this.state.checking === true) {
+      button1 = <Button width="100px" bstrap="btn-success" onClick={() => this.checkPayment()} >
+        Check
+      </Button>;
+    } else if (this.state.reChecking === true) {
+      button1 = <Button width="100px" bstrap="btn-success" onClick={() => this.checkPayment()} >
+        Re-Check
+      </Button>;
+      text = <p style={{color:Constant.Red, margin: '0 auto'}}>รหัสหรือจำนวนเงินไม่ถูกต้อง โปรดลองอีกครั้ง</p>
+    } else {
+      button1 = <CancelModal width="100px" bstrap="btn-success" onClick={() => {
+        // validation
+        // add user api
+        this.addNewPayment();
+      }}>ยืนยัน</CancelModal>;
+      text = <p style={{color:Constant.Green, margin: '0 auto'}}>ข้อมูลถูกต้อง กดยืนยันเพื่อสำเร็จรายการ</p>
+    }
+
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="40" >
         <Body>
@@ -80,7 +109,7 @@ class PaymentAddModel extends Component {
               <p>จำนวนเงิน</p>
             </div>
             <div className="col-sm-4">
-              <input type="number" className="form-control" id="money" value={this.state.price} onChange={e => this.setState({ price: e.target.value })}/>
+              <input type="number" className="form-control" disabled={this.state.confirming ? true : false} id="money" value={this.state.price} onChange={e => this.setState({ price: e.target.value })} />
             </div>
             <div className="col-sm-2" />
             <div className="col-sm-2" />
@@ -91,17 +120,18 @@ class PaymentAddModel extends Component {
               <p>รหัส</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="code" value={this.state.username} onChange={e => this.setState({ username: e.target.value })}/>
+              <input type="text" className="form-control" disabled={this.state.confirming ? true : false} id="code" value={this.state.username} onChange={e => this.setState({ username: e.target.value })}/>
             </div>
             <div className="col-sm-2" />
             <div className="col-sm-2" />
           </div>
         </Body>
         <Footer>
-          <Button width="100px" bstrap="btn-success" onClick={() => this.checkPayment()} >
-            Check
-          </Button>
+          {button1}
         </Footer>
+        <div className="row">
+          {text}
+        </div>
         <style jsx>{`
           .row{
             margin-top:10px;
