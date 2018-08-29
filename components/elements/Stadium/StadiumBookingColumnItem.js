@@ -11,9 +11,9 @@ class StadiumBookingColumnItem extends Component {
       <div className="item">
         <a onClick={() => this.setState(prev => ({ isOpen: !prev.isOpen }))} >
           <div className="d-flex align-items-center">
-            <div className="time">8.00 - 9.00</div>
+            <div className="time">{this.props.booking.start} - {this.props.booking.end}</div>
             <div className="name">
-              <p>คุณเอ</p>
+              <p>{this.props.booking.title}</p>
             </div>
           </div>
         </a>

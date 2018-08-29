@@ -104,3 +104,26 @@ export const payments = (oldState = null, newAction) => {
             break;
     }
 }
+
+export const fields = (oldState = null, newAction) => {
+    switch (newAction.type) {
+        case actionTypes.SET_FIELD_DATA:
+            return newAction.newField;
+            break;
+        case actionTypes.ADD_FIELD_DATA:
+            return [newAction.newField, ...oldState];
+            break;
+        case actionTypes.EDIT_FIELD_DATA:
+            const updatedItems = oldState.map(item => {
+                if (item.id === newAction.newField.id) {
+                    return { ...item, ...newAction.newField };
+                }
+                return item;
+            });
+            return updatedItems;
+            break;
+        default:
+            return oldState;
+            break;
+    }
+}

@@ -30,6 +30,10 @@ export const actionTypes = {
 
     SET_PAYMENT_DATA: 'SET_PAYMENT_DATA',
     ADD_PAYMENT_DATA: 'ADD_PAYMENT_DATA',
+
+    SET_FIELD_DATA: 'SET_FIELD_DATA',
+    ADD_FIELD_DATA: 'ADD_FIELD_DATA',
+    EDIT_FIELD_DATA: 'EDIT_FIELD_DATA',
 }
 
 // 2. Action Creators
@@ -124,6 +128,25 @@ export const addPaymentData = (newPayment) => {
         newPayment,
     }
 }
+export const setFieldData = (newField) => {
+    return {
+        type: actionTypes.SET_FIELD_DATA,
+        newField,
+    }
+}
+export const addFieldData = (newField) => {
+    return {
+        type: actionTypes.ADD_FIELD_DATA,
+        newField,
+    }
+}
+export const editFieldData = (newField) => {
+    return {
+        type: actionTypes.EDIT_FIELD_DATA,
+        newField,
+    }
+}
+
 
 
 export function initializeStore(initialState = exampleInitialState) {
