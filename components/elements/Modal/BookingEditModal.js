@@ -3,7 +3,7 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '../..';
 
-class BookingAddModal extends Component {
+class BookingEditModal extends Component {
   state = {}
 
   render() {
@@ -232,4 +232,4 @@ class BookingAddModal extends Component {
   }
 }
 
-export default BookingAddModal;
+export default BookingEditModal;
