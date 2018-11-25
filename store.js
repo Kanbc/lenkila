@@ -37,10 +37,9 @@ export const actionTypes = {
 }
 
 // 2. Action Creators
-export const setUsersData = (newUsers) => {
+export const setUsersData = () => {
     return {
         type: actionTypes.SET_USERS_DATA,
-        newUsers,
     }
 }
 export const addUsersData = (newUser) => {
@@ -149,6 +148,6 @@ export const editFieldData = (newField) => {
 
 
 
-export function initializeStore(initialState = exampleInitialState) {
-    return createStore(combineReducers({ ...reducers }), initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
-}
+// export function initializeStore(initialState = exampleInitialState) {
+//     return createStore(combineReducers({ ...reducers }), initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+// }
