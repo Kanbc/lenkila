@@ -54,7 +54,7 @@ class UMAddModal extends Component {
       role: this.state.role,
       note: this.state.note
     }));
-    this.cancelAddUser();
+    // this.cancelAddUser();
   }
 
   render() {

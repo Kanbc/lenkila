@@ -5,14 +5,43 @@ import TimePicker from 'react-bootstrap-time-picker';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
-import { Button } from '../..';
+import { CancelModal,Button } from '../..';
+import {addFieldDataHoliday} from '../../../store'
+import {connect} from 'react-redux'
 
 class FMHolidayAddModal extends Component {
-  state = {
-    currentDate: moment(),
-    currentDate2: moment(),
-    startTime: moment(),
-    endTime: moment(),
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentDate: moment(),
+      currentDate2: moment(),
+      startTime: moment(),
+      endTime: moment(),
+      name:'',
+      flag:'0',
+    };
+    this.cancelAddUser = this.cancelAddUser.bind(this);
+    this.addNewField = this.addNewField.bind(this);
+  }
+
+  cancelAddUser() {
+    this.setState({
+      name: '',
+      flag: '0',
+    });
+  }
+  
+
+  addNewField() {
+    this.props.addFieldDataHoliday({
+      name:this.state.name,
+      end_date:this.state.currentDate2,
+      end_time:this.state.endTime,
+      start_date:this.state.currentDate,
+      start_time:this.state.startTime,
+      flag:this.state.flag,
+    });
+    this.cancelAddUser();
   }
 
   render() {
@@ -24,13 +53,13 @@ class FMHolidayAddModal extends Component {
               <p>ชื่อวันหยุด</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="name" value={this.state.name} onChange={e => this.setState({ name: e.target.value })} />
             </div>
             <div className="col-sm-2">
               <p>เปิดทำการ</p>
             </div>
             <div className="col-sm-4">
-              <select className="custom-select" defaultValue="0" id="open-close">
+              <select className="custom-select" defaultValue={this.state.flag} id="open-close" onChange={e => this.setState({ flag: e.target.value })}>
                 <option value="0">เปิด</option>
                 <option value="1">ปิด</option>
               </select>
@@ -47,7 +76,7 @@ class FMHolidayAddModal extends Component {
                 dropdownMode="select"
                 disabledKeyboardNavigation
                 selected={this.state.currentDate}
-                onChange={currentDate => this.setState({ currentDate })}
+                onChange={currentDate => this.setState({currentDate})}
                 className="form-control"
               />
             </div>
@@ -96,9 +125,9 @@ class FMHolidayAddModal extends Component {
           </div>
         </Body>
         <Footer>
-          <Button width="100px" bstrap="btn-success" >
+          <CancelModal width="100px" bstrap="btn-success" onClick={() => this.addNewField()}>
             สร้าง
-          </Button>
+          </CancelModal>
         </Footer>
         <style jsx>{`
           .row{
@@ -134,5 +163,8 @@ class FMHolidayAddModal extends Component {
     );
   }
 }
+const mapStateToProps=(state)=> (
+  {users: state.users,}
+)
 
-export default FMHolidayAddModal;
+export default connect(mapStateToProps,{addFieldDataHoliday})(FMHolidayAddModal);

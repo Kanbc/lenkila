@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Layout, PageTitle, ButtonModal, Constant, UMAddModal, UMEditModal, Loader } from '../components';
+import { connect } from 'react-redux';
 import { setUsersData,addUsersData } from '../store';
 
 class UserManagement extends Component {
