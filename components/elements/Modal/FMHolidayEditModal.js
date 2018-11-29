@@ -9,12 +9,14 @@ import { Button, Constant, CancelModal } from '../..';
 import {connect} from 'react-redux'
 import {editFieldDataHoliday,deleteFieldDataHoliday} from '../../../store'
 
+
 class FMHolidayEditModal extends Component {
   constructor(props) {
+   
     super(props);
     this.state = {
-      currentDate: moment(),
-      currentDate2: moment(),
+      currentDate: moment(props.userData.start_date),
+      currentDate2: moment(props.userData.end_date),
       startTime: moment(),
       endTime: moment(),
       name:this.props.userData.name,

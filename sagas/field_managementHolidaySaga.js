@@ -1,6 +1,7 @@
 import { call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects'
 import {actionTypes} from '../store'
 import axios from 'axios'
+import moment from 'moment';
 import {createReducer,Creator} from './helper'
 
 const SET_DATA = 'SET_DATA'
@@ -26,43 +27,20 @@ export function* setFieldDataSaga() {
     }
   }
 
-export function* setIdFieldDataSaga(){
-  try {
-    const response = yield axios.get(apiUrl, {
-        params: {
-          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-          code:'gdjxq',
-          action:'user_getall',
-        },
-      })
-    console.log('response =>',response.data.response_data)
-  yield put(setData({users:response.data.response_data}))
-} catch (err) {
-    console.log('error',err)
-}
-}
 
 export function* addFieldDataSaga({data}){
-    console.log('data Add fmHoliday',data)
-    
-    const startDate = data.start_date
-    const endDate = data.end_date._d.toLocaleDateString()
-    console.log('startTime',startDate)
-    console.log('endData',endDate)
-    // console.log('test data Time',data.end_time._d.toLocaleTimeString())
-
     try {
-      const response = yield axios.get(apiUrl, {
+      yield axios.get(apiUrl, {
           params: {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'holiday_add',
             name:data.name,
             flag:data.flag,
-            start_date:data.start_date,
-            end_date:data.end_date,
-            start_time:data.start_time,
-            end_time:data.end_time,
+            start_date:moment(data.start_date).format("YYYY-MM-DD"),
+            end_date:moment(data.end_date).format("YYYY-MM-DD"),
+            start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
+            end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
           },
         })
   
@@ -72,8 +50,9 @@ export function* addFieldDataSaga({data}){
   }
 }
 
+
+
 export function* editFieldDataSaga({data}){
-  console.log('data edit',data)
     try {
         yield axios.get(apiUrl, {
           params: {
@@ -83,10 +62,10 @@ export function* editFieldDataSaga({data}){
             id:data.id,
             name:data.name,
             flag:data.flag,
-            start_date:data.start_date,
-            end_date:data.end_date,
-            start_time:data.start_time,
-            end_time:data.end_time,
+            start_date:moment(data.start_date).format("YYYY-MM-DD"),
+            end_date:moment(data.end_date).format("YYYY-MM-DD"),
+            start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
+            end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
           },
         })
       
@@ -115,7 +94,6 @@ export function* deleteFieldDataSaga({id}){
 export function* fieldManagementHolidayWatcher() {
     yield all([
       takeLatest(actionTypes.SET_FIELD_DATA_HOLIDAY, setFieldDataSaga),
-      takeLatest(actionTypes.SETID_FIELD_DATA_HOLIDAY, setIdFieldDataSaga),
       takeLatest(actionTypes.ADD_FIELD_DATA_HOLIDAY, addFieldDataSaga),
       takeLatest(actionTypes.EDIT_FIELD_DATA_HOLIDAY, editFieldDataSaga),
       takeLatest(actionTypes.DELETE_FIELD_DATA_HOLIDAY, deleteFieldDataSaga),

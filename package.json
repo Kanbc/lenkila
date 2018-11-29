@@ -50,7 +50,6 @@
         "postcss-nested": "^2.1.2",
         "prop-types": "^15.6.2",
         "randomcolor": "^0.5.3",
-        "rc-time-picker": "^3.3.1",
         "react": "^16.4.1",
         "react-big-calendar": "^0.19.2",
         "react-bootstrap": "^0.32.1",
