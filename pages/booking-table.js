@@ -48,7 +48,11 @@ class BookingTable extends Component {
   // [GET] - Field
   fields = fieldData();
 
+  // [GET] - Field
+  users = userData();
+
   // [GET] - Open/Closed, Business Hours
+  // ข้อมูลสนามภาพรวม
   fieldDetail = {
     open: '07:00',
     close: '26:00',
@@ -125,12 +129,16 @@ class BookingTable extends Component {
                 </div>
               </div>
               <div className="lk-box">
-                <div className="lk-box space-r">
+                {/* <div className="lk-box space-r">
                   <ButtonModal color={Constant.Blue} width="100px" modalName="#add-booking">
                     <i className="fa fa-plus" aria-hidden="true" />
-                    <BookingAddModal title="การจอง" type="add-booking" fields={this.fields} />
+                    <BookingAddModal 
+                      title="การจอง" 
+                      type="add-booking" 
+                      fields={this.fields} 
+                    />
                   </ButtonModal>
-                </div>
+                </div> */}
                 <div className="lk-box space-r">
                   <ButtonModal color={Constant.Red} width="100px" modalName="#add-boost">
                     Boost
@@ -196,8 +204,8 @@ function bookingData() {
       id: '1',
       resourceId: 'a',
       title: 'B: Waiting',
-      start: '2018-06-01T09:00:00',
-      end: '2018-06-01T13:00:00',
+      start: moment().add(4, 'hour'),
+      end: moment().add(6, 'hour'),
       color: Constant.Red,
       textColor: 'white',
     },
@@ -205,8 +213,8 @@ function bookingData() {
       id: '2',
       resourceId: 'a',
       title: 'W: 2 กลุ่ม',
-      start: '2018-06-01T09:00:00',
-      end: '2018-06-01T11:00:00',
+      start: moment().add(7, 'hour'),
+      end: moment().subtract(10, 'hour'),
       color: Constant.Grey,
       textColor: 'white',
     },
@@ -214,8 +222,8 @@ function bookingData() {
       id: '3',
       resourceId: 'a',
       title: 'B: Success',
-      start: '2018-06-01T15:00:00',
-      end: '2018-06-01T18:00:00',
+      start: moment().subtract(4, 'hour'),
+      end: moment().subtract(2, 'hour'),
       color: Constant.Red,
       textColor: 'white',
     },
@@ -223,8 +231,8 @@ function bookingData() {
       id: '4',
       resourceId: 'b',
       title: 'BF: 4 คน',
-      start: '2018-06-01T07:00:00',
-      end: '2018-06-01T11:00:00',
+      start: moment(),
+      end: moment().subtract(4, 'hour'),
       color: Constant.Red,
       textColor: 'white',
     },
@@ -232,8 +240,8 @@ function bookingData() {
       id: '5',
       resourceId: 'g',
       title: 'คุณหลิ่ว',
-      start: '2018-06-01T08:00:00',
-      end: '2018-06-01T12:00:00',
+      start: moment().add(12, 'hour'),
+      end: moment().add(16, 'hour'),
       color: '#ecf0f1',
       textColor: 'black',
     },
@@ -241,8 +249,8 @@ function bookingData() {
       id: '6',
       resourceId: 'g1',
       title: 'คุณหลิ่ว',
-      start: '2018-06-01T08:00:00',
-      end: '2018-06-01T12:00:00',
+      start: moment().add(10, 'hour'),
+      end: moment().add(14, 'hour'),
       color: '#ecf0f1',
       textColor: 'black',
     },
@@ -250,8 +258,8 @@ function bookingData() {
       id: '7',
       resourceId: 'g',
       title: 'คุณนิด, คุณโหน่ง',
-      start: '2018-06-01T13:00:00',
-      end: '2018-06-01T19:00:00',
+      start: moment().add(2, 'hour'),
+      end: moment().add(6, 'hour'),
       color: '#ecf0f1',
       textColor: 'black',
     },
@@ -259,8 +267,8 @@ function bookingData() {
       id: '8',
       resourceId: 'g1',
       title: 'คุณนิด',
-      start: '2018-06-01T13:00:00',
-      end: '2018-06-01T16:00:00',
+      start: moment().add(16, 'hour'),
+      end: moment().add(19, 'hour'),
       color: '#ecf0f1',
       textColor: 'black',
     },
@@ -268,8 +276,8 @@ function bookingData() {
       id: '9',
       resourceId: 'g2',
       title: 'คุณโหน่ง',
-      start: '2018-06-01T15:00:00',
-      end: '2018-06-01T19:00:00',
+      start: moment().add(20, 'hour'),
+      end: moment().add(24, 'hour'),
       color: '#ecf0f1',
       textColor: 'black',
     },
@@ -278,6 +286,10 @@ function bookingData() {
 }
 
 function fieldData() {
+  // name:
+  // type: (football,badminton)
+  // can_split: yes,no
+  // detail
   const fields = [
     {
       id: 'a',
@@ -316,6 +328,81 @@ function fieldData() {
     },
   ];
   return fields;
+}
+
+function fieldPriceData() {
+  const prices = [
+    // {
+      // weekday: [mon-fri,sat-sun],
+      // start:, 
+      // end:,
+      // color: ,
+      // full_price:,
+      // half_price: ,
+    // }
+  ];
+  return prices;
+}
+
+function userData() {
+  const users = [
+    {
+      id: 1,
+      firstname: 'Archer',
+      lastname: 'Traher',
+      email: 'atraher0@google.it',
+      nickname: 'Yellow',
+      username: 'atraher0',
+      password: '0K7d35r',
+      tel: '941-715-4509',
+      role: 'Owner',
+    },
+    {
+      id: 2,
+      firstname: 'Sherilyn',
+      lastname: 'Wooding',
+      email: 'swooding1@live.com',
+      nickname: 'Khaki',
+      username: 'swooding1',
+      password: 'W6wSVjGDVV',
+      tel: '589-802-3451',
+      role: 'Owner',
+    },
+    {
+      id: 3,
+      firstname: 'Erminie',
+      lastname: 'Georgiades',
+      email: 'egeorgiades2@diigo.com',
+      nickname: 'Blue',
+      username: 'egeorgiades2',
+      password: 'GdKAPoubYOIV',
+      tel: '177-268-9690',
+      role: 'Owner',
+    },
+    {
+      id: 4,
+      firstname: 'Dominik',
+      lastname: 'Switsur',
+      email: 'dswitsur3@wired.com',
+      nickname: 'Pink',
+      username: 'dswitsur3',
+      password: 'If6DgzXJPxg',
+      tel: '625-877-1952',
+      role: 'Admin',
+    },
+    {
+      id: 5,
+      firstname: 'Sharleen',
+      lastname: 'Bostick',
+      email: 'sbostick4@github.io',
+      nickname: 'Fuscia',
+      username: 'sbostick4',
+      password: 'UaXVPi',
+      tel: '892-646-7110',
+      role: 'Admin',
+    },
+  ];
+  return users;
 }
 
 export default BookingTable;

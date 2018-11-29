@@ -20,7 +20,7 @@ class UMAddModal extends Component {
       role: "Owner",
       note: ''
     };
-
+    console.log('this prpos=>',this.props)
     this.cancelAddUser = this.cancelAddUser.bind(this);
     this.addNewUser = this.addNewUser.bind(this);
   }
@@ -54,7 +54,7 @@ class UMAddModal extends Component {
       role: this.state.role,
       note: this.state.note
     }));
-    this.cancelAddUser();
+    // this.cancelAddUser();
   }
 
   render() {
@@ -115,9 +115,11 @@ class UMAddModal extends Component {
             </div>
             <div className="col-sm-2">
               <select className="form-control" id="role" value={this.state.role} onChange={e => this.setState({ role: e.target.value })} >
-                <option>Owner</option>
+                {/* <option>Owner</option>
                 <option>Admin</option>
-                <option>Staff</option>
+                <option>Staff</option> */}
+                <option>Mod</option>
+                <option>User</option>
               </select>
             </div>
           </div>
@@ -167,5 +169,9 @@ class UMAddModal extends Component {
     );
   }
 }
+const mapStateToProps=(state)=> (
+    {users: state.users,}
+)
 
-export default connect()(UMAddModal);
+
+export default connect(mapStateToProps)(UMAddModal);

@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import { StadiumBookingModal } from '../../../components';
 
 class StadiumBookingColumnItem extends Component {
-  state = {
-    isOpen: false,
-  }
 
   render() {
     return (
       <div className="item">
-        <a onClick={() => this.setState(prev => ({ isOpen: !prev.isOpen }))} >
-          <div className="d-flex align-items-center">
-            <div className="time">8.00 - 9.00</div>
-            <div className="name">
-              <p>คุณเอ</p>
-            </div>
+        <div className="d-flex align-items-center">
+          <div className="time">{this.props.booking.start} - {this.props.booking.end}</div>
+          <div className="name">
+            <p>{this.props.booking.title}</p>
           </div>
-        </a>
+        </div>
         <style jsx>{`
           .item {
             width: 100%;
@@ -38,10 +32,6 @@ class StadiumBookingColumnItem extends Component {
           }
         `}
         </style>
-        <StadiumBookingModal
-          isOpen={this.state.isOpen}
-          setIsOpen={isOpen => this.setState({ isOpen })}
-        />
       </div>
     );
   }
