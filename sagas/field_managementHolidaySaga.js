@@ -29,6 +29,7 @@ export function* setFieldDataSaga() {
 
 
 export function* addFieldDataSaga({data}){
+    console.log('data add',data)
     try {
       yield axios.get(apiUrl, {
           params: {

@@ -17,8 +17,8 @@ class FMHolidayEditModal extends Component {
     this.state = {
       currentDate: moment(props.userData.start_date),
       currentDate2: moment(props.userData.end_date),
-      startTime: moment(),
-      endTime: moment(),
+      startTime: moment.duration(props.userData.start_time).asSeconds(),
+      endTime: moment.duration(props.userData.end_time).asSeconds(),
       name:this.props.userData.name,
       flag:'0',
     };

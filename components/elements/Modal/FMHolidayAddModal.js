@@ -15,8 +15,8 @@ class FMHolidayAddModal extends Component {
     this.state = {
       currentDate: moment(),
       currentDate2: moment(),
-      startTime: moment(),
-      endTime: moment(),
+      startTime: 0,
+      endTime: 0,
       name:'',
       flag:'0',
     };
@@ -28,6 +28,10 @@ class FMHolidayAddModal extends Component {
     this.setState({
       name: '',
       flag: '0',
+      currentDate: moment(),
+      currentDate2: moment(),
+      startTime: 0,
+      endTime: 0,
     });
   }
   
