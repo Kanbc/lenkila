@@ -48,6 +48,10 @@ export const actionTypes = {
     EDIT_FIELD_DATA_FIELD:'EDIT_FIELD_DATA_FIELD',
     DELETE_FIELD_DATA_FIELD:'DELETE_FIELD_DATA_FIELD',
     SETID_FIELD_DATA_FIELD:'SETID_FIELD_DATA_FIELD',
+    //field-management-stadium
+    SET_FIELD_DATA_STD:'SET_FIELD_DATA_STD',
+    ADD_FIELD_DATA_STD:'ADD_FIELD_DATA_STD',
+    EDIT_FIELD_DATA_STD:'EDIT_FIELD_DATA_STD',
 }
 
 // 2. Action Creators
@@ -211,6 +215,26 @@ export const deleteFieldDataField = (id) => {
         id,
     }
 }
+
+//field stadium
+export const setFieldDataSTD = () => {
+    return {
+        type: actionTypes.SET_FIELD_DATA_STD,
+    }
+}
+export const addFieldDataSTD = (data) => {
+    return {
+        type: actionTypes.ADD_FIELD_DATA_STD,
+        data,
+    }
+}
+export const editFieldDataSTD = (data) => {
+    return {
+        type: actionTypes.EDIT_FIELD_DATA_STD,
+        data,
+    }
+}
+
 
 
 
