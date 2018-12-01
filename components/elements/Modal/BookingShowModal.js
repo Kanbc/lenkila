@@ -1,50 +1,12 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '../..';
 
-class BookingAddModal extends Component {
+class BookingEditModal extends Component {
   state = {}
 
-  getFieldData(fields,fieldId){
-    // get fields data from object list
-    var field_data = new Object();
-    for (var key in fields) {
-      if (fields[key].id == fieldId) {
-        field_data = fields[key];
-      }
-    }
-    return field_data;
-  }
-
   render() {
-    const resourceData = this.getFieldData(this.props.fields, this.props.resourceId);
-    const date = this.props.day;
-
-    const fieldOpen = moment(this.props.fieldOpen, 'HH:mm');
-    // const fieldClose = this.props.fieldClose;
-    var startTime = moment(this.props.startTime, 'HH:mm');
-    var endTime = moment(this.props.endTime, 'HH:mm');
-
-    if (fieldOpen < startTime){
-      var string_start = date.format('YYYY-MM-DD') + startTime.format('HH:mm');
-    }else{
-      var string_start = date.add(1, 'days').format('YYYY-MM-DD') + startTime.format('HH:mm');
-    }
-    console.log(string_start);
-    // if ()
-    // Sent API for Booking
-
-    console.log(resourceData);
-    console.log(date);
-
-    console.log(fieldOpen);
-    // console.log(fieldClose);
-
-    console.log(startTime);
-    console.log(endTime);
-
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
         <Body>
@@ -75,16 +37,22 @@ class BookingAddModal extends Component {
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
             </div>
-            <div className="col-sm-9"/>
+            <div className="col-sm-9">
+              <div className="space-r">
+                <Button width="120px" color={Constant.Blue}>
+                  แสดงผู้เล่น
+                </Button>
+              </div>
+              <div className="space-r">
+                <Button width="120px" color={Constant.Blue}>
+                  ดูข้อมูลลูกค้า
+                </Button>
+              </div>
+            </div>
           </div>
           <div className="row">
-            <div className="col-sm-1">
+            <div className="col-sm-1 table-head">
               <p>จำนวนสนาม</p>
-            </div>
-            <div className="col-sm-2">
-              <Button width="120px" color={Constant.Green}>
-                จองเพิ่ม/แก้ไข
-              </Button>
             </div>
           </div>
           <div className="row">
@@ -100,9 +68,19 @@ class BookingAddModal extends Component {
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">{resourceData.field}</th>
-                      {/* <td>{startTime}-{endTime}</td> */}
+                      <th scope="row">1</th>
+                      <td>18.00-22.00</td>
                       <td>1,000</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>12.00-18.00</td>
+                      <td>500</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>17.00-21.00</td>
+                      <td>1,800</td>
                     </tr>
                   </tbody>
                 </table>
@@ -118,7 +96,7 @@ class BookingAddModal extends Component {
               <p className="bold-text">ค่าสนามรวม</p>
             </div>
             <div className="col-sm-2">
-              <p>-</p>
+              <input type="text" className="form-control" id="firstname" />
             </div>
             <div className="col-sm-1">
               <p className="bold-text">ค่ามัดจำ</p>
@@ -143,13 +121,13 @@ class BookingAddModal extends Component {
               <p className="bold-text">ส่วนลดแอพ</p>
             </div>
             <div className="col-sm-2">
-              <p>-</p>
+              <input type="text" className="form-control" id="firstname" />
             </div>
             <div className="col-sm-1">
               <p className="bold-text">ส่วนลดอื่นๆ</p>
             </div>
             <div className="col-sm-2">
-              <p>-</p>
+              <input type="text" className="form-control" id="firstname" />
             </div>
             <div className="col-sm-6">
               <div className="space-r">
@@ -169,14 +147,14 @@ class BookingAddModal extends Component {
             </div>
             <div className="col-sm-6 left-side">
               <div className="space-l">
-                <Button width="100px" bstrap="btn-success">
-                  บันทีก
-                </Button>
+                <CancelModal width="120px" bstrap="btn-danger" >
+                  ยกเลิกการจอง
+                </CancelModal>
               </div>
               <div className="space-l">
-                <CancelModal width="100px" bstrap="btn-danger">
-                  ยกเลิก
-                </CancelModal>
+                <Button width="120px" bstrap="btn-success">
+                  ชำระเงิน
+                </Button>
               </div>
             </div>
           </div>
@@ -193,6 +171,10 @@ class BookingAddModal extends Component {
                 left: 0;
                 right: 0;
                 text-align: center;
+              }
+              .table-head{
+                padding-top:18px;
+                padding-bottom:18px;
               }
             }
             .bold-text{
@@ -249,4 +231,4 @@ class BookingAddModal extends Component {
   }
 }
 
-export default BookingAddModal;
+export default BookingEditModal;

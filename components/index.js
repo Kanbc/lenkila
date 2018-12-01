@@ -34,6 +34,7 @@ import FMGiftAddModal from './elements/Modal/FMGiftAddModal';
 import FMGiftEditModal from './elements/Modal/FMGiftEditModal';
 import BookingAddModal from './elements/Modal/BookingAddModal';
 import BookingEditModal from './elements/Modal/BookingEditModal';
+import BookingShowModal from './elements/Modal/BookingShowModal';
 import NoteAddModal from './elements/Modal/NoteAddModal';
 import BoostAddModal from './elements/Modal/BoostAddModal';
 import DiscountAddModal from './elements/Modal/DiscountAddModal';
@@ -83,6 +84,7 @@ export {
   FMGiftAddModal,
   FMGiftEditModal,
   BookingAddModal,
+  BookingShowModal,
   BookingEditModal,
   NoteAddModal,
   DiscountAddModal,

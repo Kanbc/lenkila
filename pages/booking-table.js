@@ -295,34 +295,41 @@ function fieldData() {
       id: 'a',
       field: 'A',
       side: 'Left',
+      price: 300,
     },
     // { id: 'b', field: 'A', side: 'Right' },
     {
       id: 'b',
       field: 'B',
       side: 'Left',
+      price: 150,
     },
     // { id: 'd', field: 'B', side: 'Right' },
     {
       id: 'c',
       field: 'C',
       side: '-',
+      price: 200,
     },
     {
       id: 'd',
       field: 'D',
       side: '-',
+      price: 200,
     },
     {
       id: 'g',
       field: 'G',
+      price: 300,
       children: [
         {
           id: 'g1',
           field: 'Left G',
+          price: 200,
         }, {
           id: 'g2',
           field: 'Right G',
+          price: 200,
         },
       ],
     },

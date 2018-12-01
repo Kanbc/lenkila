@@ -143,6 +143,9 @@ class BookingCalendar extends Component {
             title="การจอง"
             type="add-drag-booking"
             fields={this.props.field}
+            
+            fieldOpen={this.props.detail.minTime}
+            fieldClose={this.props.detail.maxTime}
 
             day={this.state.day}
             startTime={this.state.startTime}
