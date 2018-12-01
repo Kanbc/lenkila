@@ -3,8 +3,11 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { Button, Constant, CancelModal } from '../..';
+import {connect} from 'react-redux'
+import {editFieldDataField,deleteFieldDataField} from '../../../store'
+import {compose,withState,lifecycle} from 'recompose'
 
-const FMEditModal = ({ title, type, userData }) => (
+const FMEditModal = ({ title , type,userData,deleteFieldDataField,editFieldDataField,data,setData}) => (
   <DefaultModal title={title} type={type} percentWidth="50" >
     <Body>
       <div className="row">
@@ -12,13 +15,13 @@ const FMEditModal = ({ title, type, userData }) => (
           <p>ชื่อสนาม</p>
         </div>
         <div className="col-sm-4">
-          <input type="text" className="form-control" id="firstname" defaultValue={userData.firstname} />
+          <input type="text" className="form-control" id="firstname" defaultValue={userData.name} onChange={e=>setData({...data,name:e.target.value})}/>
         </div>
         <div className="col-sm-2">
           <p>ประเภท</p>
         </div>
         <div className="col-sm-4">
-          <select className="custom-select" defaultValue="0">
+          <select className="custom-select" defaultValue={userData.type} onChange={e => setData({...data,type:e.target.value})}>
             <option value="0">ฟุตบอล</option>
             <option value="1">แบตมินตัน</option>
           </select>
@@ -29,7 +32,7 @@ const FMEditModal = ({ title, type, userData }) => (
           <p>แบ่งครึ่งสนาม</p>
         </div>
         <div className="col-sm-4">
-          <select className="custom-select" defaultValue="0">
+          <select className="custom-select" defaultValue={userData.is_dividable} onChange={e => setData({...data,is_dividable:e.target.value})}>
             <option value="0">ได้</option>
             <option value="1">ไม่ได้</option>
           </select>
@@ -41,20 +44,20 @@ const FMEditModal = ({ title, type, userData }) => (
           <p>รายละเอียด</p>
         </div>
         <div className="col-sm-10">
-          <input type="text" className="form-control" id="email" defaultValue={userData.email} />
+          <input type="text" className="form-control" id="email" defaultValue={userData.description} onChange={e => setData({...data,description:e.target.value})}/>
         </div>
       </div>
     </Body>
     <Footer>
-      <Button width={Constant.Buttons.default} bstrap="btn-success" >
+      <CancelModal width={Constant.Buttons.default} bstrap="btn-success" onClick={()=>editFieldDataField(data)}>
         บันทึก
-      </Button>
+      </CancelModal>
       <CancelModal width={Constant.Buttons.default} color={Constant.Orange}>
         ยกเลิก
       </CancelModal>
-      <Button width={Constant.Buttons.default} bstrap="btn-danger" >
+      <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>deleteFieldDataField(userData.id)}>
         ลบสนาม
-      </Button>
+      </CancelModal>
     </Footer>
     <style jsx>{`
       .row{
@@ -89,4 +92,19 @@ const FMEditModal = ({ title, type, userData }) => (
   </DefaultModal>
 );
 
-export default FMEditModal;
+export default compose(
+  connect(null,{editFieldDataField,deleteFieldDataField}),
+  withState('data','setData',{}),
+  lifecycle({
+    componentDidMount(){
+      this.props.setData({
+        id:this.props.userData.id,
+        name:this.props.userData.name,
+        type:this.props.userData.type,
+        is_dividable: this.props.userData.is_dividable,
+        description:this.props.userData.description,
+      })
+    }
+  })
+)
+(FMEditModal);

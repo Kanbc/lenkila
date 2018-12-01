@@ -64,6 +64,7 @@
         "react-switch": "^2.3.2",
         "react-tagging-input": "^2.1.2",
         "react-tagsinput": "^3.19.0",
+        "recompose": "^0.30.0",
         "redux": "^3.7.2",
         "redux-devtools-extension": "^2.13.5",
         "redux-logger": "^3.0.6",
