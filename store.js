@@ -42,6 +42,16 @@ export const actionTypes = {
     EDIT_FIELD_DATA_HOLIDAY:'EDIT_FIELD_DATA_HOLIDAY',
     DELETE_FIELD_DATA_HOLIDAY:'DELETE_FIELD_DATA_HOLIDAY',
     SETID_FIELD_DATA_HOLIDAY:'SETID_FIELD_DATA_HOLIDAY',
+    //field-management-field
+    SET_FIELD_DATA_FIELD:'SET_FIELD_DATA_FIELD',
+    ADD_FIELD_DATA_FIELD:'ADD_FIELD_DATA_FIELD',
+    EDIT_FIELD_DATA_FIELD:'EDIT_FIELD_DATA_FIELD',
+    DELETE_FIELD_DATA_FIELD:'DELETE_FIELD_DATA_FIELD',
+    SETID_FIELD_DATA_FIELD:'SETID_FIELD_DATA_FIELD',
+    //field-management-stadium
+    SET_FIELD_DATA_STD:'SET_FIELD_DATA_STD',
+    ADD_FIELD_DATA_STD:'ADD_FIELD_DATA_STD',
+    EDIT_FIELD_DATA_STD:'EDIT_FIELD_DATA_STD',
 }
 
 // 2. Action Creators
@@ -178,11 +188,54 @@ export const deleteFieldDataHoliday = (id) => {
         id,
     }
 }
-export const setIdFieldDataHoliday = () => {
+
+
+//field document
+
+export const setFieldDataField = () => {
     return {
-        type: actionTypes.SETID_FIELD_DATA_HOLIDAY,
+        type: actionTypes.SET_FIELD_DATA_FIELD,
     }
 }
+export const addFieldDataField = (data) => {
+    return {
+        type: actionTypes.ADD_FIELD_DATA_FIELD,
+        data,
+    }
+}
+export const editFieldDataField = (data) => {
+    return {
+        type: actionTypes.EDIT_FIELD_DATA_FIELD,
+        data,
+    }
+}
+export const deleteFieldDataField = (id) => {
+    return {
+        type: actionTypes.DELETE_FIELD_DATA_FIELD,
+        id,
+    }
+}
+
+//field stadium
+export const setFieldDataSTD = () => {
+    return {
+        type: actionTypes.SET_FIELD_DATA_STD,
+    }
+}
+export const addFieldDataSTD = (data) => {
+    return {
+        type: actionTypes.ADD_FIELD_DATA_STD,
+        data,
+    }
+}
+export const editFieldDataSTD = (data) => {
+    return {
+        type: actionTypes.EDIT_FIELD_DATA_STD,
+        data,
+    }
+}
+
+
 
 
 // export function initializeStore(initialState = exampleInitialState) {

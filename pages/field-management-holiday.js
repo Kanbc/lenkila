@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TabsLayout, Constant, FMHolidayAddModal, FMHolidayEditModal, ButtonModal } from '../components';
 import { connect } from 'react-redux';
-import { setFieldDataHoliday,addFieldDataHoliday,editFieldDataHoliday,deleteFieldDataHoliday,setIdFieldDataHoliday } from '../store';
+import { setFieldDataHoliday} from '../store';
 
 class FieldManagementHoliday extends Component {
   // [GET] - Users
