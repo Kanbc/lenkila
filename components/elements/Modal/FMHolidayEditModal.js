@@ -6,16 +6,45 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { Button, Constant, CancelModal } from '../..';
+import {connect} from 'react-redux'
+import {editFieldDataHoliday,deleteFieldDataHoliday} from '../../../store'
+
 
 class FMHolidayEditModal extends Component {
-  state = {
-    currentDate: moment(),
-    currentDate2: moment(),
-    startTime: moment(),
-    endTime: moment(),
+  constructor(props) {
+   
+    super(props);
+    this.state = {
+      currentDate: moment(props.userData.start_date),
+      currentDate2: moment(props.userData.end_date),
+      startTime: moment.duration(props.userData.start_time).asSeconds(),
+      endTime: moment.duration(props.userData.end_time).asSeconds(),
+      name:this.props.userData.name,
+      flag:'0',
+    };
+ 
+    this.editNewField = this.editNewField.bind(this);
   }
 
+ 
+
+  editNewField() {
+    this.props.editFieldDataHoliday({
+      id:this.props.userData.id,
+      name:this.state.name,
+      end_date:this.state.currentDate2,
+      end_time:this.state.endTime,
+      start_date:this.state.currentDate,
+      start_time:this.state.startTime,
+      flag:this.state.flag,
+    });
+
+  }
+  
+
+ 
   render() {
+    
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="50" >
         <Body>
@@ -24,13 +53,13 @@ class FMHolidayEditModal extends Component {
               <p>ชื่อวันหยุด</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" defaultValue={this.props.userData.firstname} />
+              <input type="text" className="form-control" id="firstname" defaultValue={this.props.userData.name} onChange={e => this.setState({ name: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p>เปิดทำการ</p>
             </div>
             <div className="col-sm-4">
-              <select className="custom-select" value={this.props.userData.firstname} id="open-close">
+              <select className="custom-select" defaultValue={this.props.userData.flag} id="open-close" onChange={e => this.setState({ flag: e.target.value })}>
                 <option value="0">เปิด</option>
                 <option value="1">ปิด</option>
               </select>
@@ -96,15 +125,15 @@ class FMHolidayEditModal extends Component {
           </div>
         </Body>
         <Footer>
-          <Button width={Constant.Buttons.default} bstrap="btn-success" >
+          <CancelModal width={Constant.Buttons.default} bstrap="btn-success" onClick={()=>this.editNewField()}>
             บันทึก
-          </Button>
+          </CancelModal>
           <CancelModal width={Constant.Buttons.default} color={Constant.Orange}>
             ยกเลิก
           </CancelModal>
-          <Button width={Constant.Buttons.default} bstrap="btn-danger" >
+          <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>this.props.deleteFieldDataHoliday(this.props.userData.id)}>
             ลบ
-          </Button>
+          </CancelModal>
         </Footer>
         <style jsx>{`
           .row{
@@ -140,5 +169,8 @@ class FMHolidayEditModal extends Component {
     );
   }
 }
+const mapStateToProps=(state)=> (
+  {users: state.users,}
+)
 
-export default FMHolidayEditModal;
+export default connect(mapStateToProps,{editFieldDataHoliday,deleteFieldDataHoliday})(FMHolidayEditModal);

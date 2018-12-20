@@ -1,24 +1,61 @@
-import React from 'react';
+import React , {Component} from 'react';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
-import { Button } from '../..';
+import { CancelModal,Button } from '../..';
+import {addFieldDataField} from '../../../store'
+import {connect} from 'react-redux'
 
-const FMAddModal = ({ title, type }) => (
-  <DefaultModal title={title} type={type} percentWidth="50" >
+
+class FMAddModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name:'',
+      description:'',
+      typeField:"0",
+      is_dividable:"0",
+    };
+    this.cancelAddUser = this.cancelAddUser.bind(this);
+    this.addNewField = this.addNewField.bind(this);
+  }
+
+  cancelAddUser() {
+    this.setState({
+      name:'',
+      description:'',
+      typeField:"0",
+      is_dividable:"0",
+    });
+  }
+  
+
+  addNewField() {
+    this.props.addFieldDataField({
+      name:this.state.name,
+      description:this.state.description,
+      typeField:this.state.typeField,
+      is_dividable:this.state.is_dividable,
+    });
+    this.cancelAddUser();
+  }
+
+  render() {
+    return (
+      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="50" >
     <Body>
       <div className="row">
         <div className="col-sm-2">
           <p>ชื่อสนาม</p>
         </div>
         <div className="col-sm-4">
-          <input type="text" className="form-control" id="firstname" />
+          <input type="text" className="form-control" id="name" value={this.state.name} onChange={e => this.setState({ name: e.target.value })} />
         </div>
         <div className="col-sm-2">
           <p>ประเภท</p>
         </div>
         <div className="col-sm-4">
-          <select className="custom-select" defaultValue="0">
+          <select className="custom-select" defaultValue="0" onChange={e => this.setState({ typeField: e.target.value })}>
             <option value="0">ฟุตบอล</option>
             <option value="1">แบตมินตัน</option>
           </select>
@@ -29,7 +66,7 @@ const FMAddModal = ({ title, type }) => (
           <p>แบ่งครึ่งสนาม</p>
         </div>
         <div className="col-sm-4">
-          <select className="custom-select" defaultValue="0">
+          <select className="custom-select" defaultValue="0" onChange={e => this.setState({ is_dividable: e.target.value })}>
             <option value="0">ได้</option>
             <option value="1">ไม่ได้</option>
           </select>
@@ -41,14 +78,14 @@ const FMAddModal = ({ title, type }) => (
           <p>รายละเอียด</p>
         </div>
         <div className="col-sm-10">
-          <input type="text" className="form-control" id="email" />
+          <input type="text" className="form-control" id="email" onChange={e => this.setState({ description: e.target.value })}/>
         </div>
       </div>
     </Body>
     <Footer>
-      <Button width="100px" bstrap="btn-success" >
+      <CancelModal width="100px" bstrap="btn-success" onClick={()=>this.addNewField()}>
         สร้าง
-      </Button>
+      </CancelModal>
     </Footer>
     <style jsx>{`
       .row{
@@ -81,6 +118,7 @@ const FMAddModal = ({ title, type }) => (
     `}
     </style>
   </DefaultModal>
-);
-
-export default FMAddModal;
+    );
+  }
+}
+export default connect(null,{addFieldDataField})(FMAddModal);

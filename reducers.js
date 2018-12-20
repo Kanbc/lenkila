@@ -1,6 +1,8 @@
 import { actionTypes } from './store';
 
-export const users = (oldState = null, newAction) => {
+
+
+export const users = (oldState=null, newAction) => {
     switch (newAction.type) {
         case actionTypes.SET_USERS_DATA:
             return newAction.newUsers;

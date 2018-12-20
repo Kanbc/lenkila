@@ -11,6 +11,7 @@ const exampleInitialState = {
 
 // 1. Action Types
 export const actionTypes = {
+    //user-management
     SET_USERS_DATA: 'SET_USERS_DATA',
     ADD_USERS_DATA: 'ADD_USERS_DATA',
     EDIT_USERS_DATA: 'EDIT_USERS_DATA',
@@ -34,13 +35,29 @@ export const actionTypes = {
     SET_FIELD_DATA: 'SET_FIELD_DATA',
     ADD_FIELD_DATA: 'ADD_FIELD_DATA',
     EDIT_FIELD_DATA: 'EDIT_FIELD_DATA',
+
+    //field-management-holiday
+    SET_FIELD_DATA_HOLIDAY:'SET_FIELD_DATA_HOLIDAY',
+    ADD_FIELD_DATA_HOLIDAY:'ADD_FIELD_DATA_HOLIDAY',
+    EDIT_FIELD_DATA_HOLIDAY:'EDIT_FIELD_DATA_HOLIDAY',
+    DELETE_FIELD_DATA_HOLIDAY:'DELETE_FIELD_DATA_HOLIDAY',
+    SETID_FIELD_DATA_HOLIDAY:'SETID_FIELD_DATA_HOLIDAY',
+    //field-management-field
+    SET_FIELD_DATA_FIELD:'SET_FIELD_DATA_FIELD',
+    ADD_FIELD_DATA_FIELD:'ADD_FIELD_DATA_FIELD',
+    EDIT_FIELD_DATA_FIELD:'EDIT_FIELD_DATA_FIELD',
+    DELETE_FIELD_DATA_FIELD:'DELETE_FIELD_DATA_FIELD',
+    SETID_FIELD_DATA_FIELD:'SETID_FIELD_DATA_FIELD',
+    //field-management-stadium
+    SET_FIELD_DATA_STD:'SET_FIELD_DATA_STD',
+    ADD_FIELD_DATA_STD:'ADD_FIELD_DATA_STD',
+    EDIT_FIELD_DATA_STD:'EDIT_FIELD_DATA_STD',
 }
 
 // 2. Action Creators
-export const setUsersData = (newUsers) => {
+export const setUsersData = () => {
     return {
         type: actionTypes.SET_USERS_DATA,
-        newUsers,
     }
 }
 export const addUsersData = (newUser) => {
@@ -147,8 +164,80 @@ export const editFieldData = (newField) => {
     }
 }
 
-
-
-export function initializeStore(initialState = exampleInitialState) {
-    return createStore(combineReducers({ ...reducers }), initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+//field holiday
+export const setFieldDataHoliday = () => {
+    return {
+        type: actionTypes.SET_FIELD_DATA_HOLIDAY,
+    }
 }
+export const addFieldDataHoliday = (data) => {
+    return {
+        type: actionTypes.ADD_FIELD_DATA_HOLIDAY,
+        data,
+    }
+}
+export const editFieldDataHoliday = (data) => {
+    return {
+        type: actionTypes.EDIT_FIELD_DATA_HOLIDAY,
+        data,
+    }
+}
+export const deleteFieldDataHoliday = (id) => {
+    return {
+        type: actionTypes.DELETE_FIELD_DATA_HOLIDAY,
+        id,
+    }
+}
+
+
+//field document
+
+export const setFieldDataField = () => {
+    return {
+        type: actionTypes.SET_FIELD_DATA_FIELD,
+    }
+}
+export const addFieldDataField = (data) => {
+    return {
+        type: actionTypes.ADD_FIELD_DATA_FIELD,
+        data,
+    }
+}
+export const editFieldDataField = (data) => {
+    return {
+        type: actionTypes.EDIT_FIELD_DATA_FIELD,
+        data,
+    }
+}
+export const deleteFieldDataField = (id) => {
+    return {
+        type: actionTypes.DELETE_FIELD_DATA_FIELD,
+        id,
+    }
+}
+
+//field stadium
+export const setFieldDataSTD = () => {
+    return {
+        type: actionTypes.SET_FIELD_DATA_STD,
+    }
+}
+export const addFieldDataSTD = (data) => {
+    return {
+        type: actionTypes.ADD_FIELD_DATA_STD,
+        data,
+    }
+}
+export const editFieldDataSTD = (data) => {
+    return {
+        type: actionTypes.EDIT_FIELD_DATA_STD,
+        data,
+    }
+}
+
+
+
+
+// export function initializeStore(initialState = exampleInitialState) {
+//     return createStore(combineReducers({ ...reducers }), initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)))
+// }
