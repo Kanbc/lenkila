@@ -71,58 +71,6 @@ class FMGiftAddModal extends Component {
           <div className="row">
             <div className="col-sm-12">
               <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="monday">
-                  <input className="form-check-input" type="checkbox" id="monday" value="monday" />
-                  Mon
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="tuesday">
-                  <input className="form-check-input" type="checkbox" id="tuesday" value="tuesday" />
-                  Tue
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="wednesday">
-                  <input className="form-check-input" type="checkbox" id="wednesday" value="wednesday" />
-                  Wed
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="thrday">
-                  <input className="form-check-input" type="checkbox" id="thrday" value="thrday" />
-                  Thu
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="friday">
-                  <input className="form-check-input" type="checkbox" id="friday" value="friday" />
-                  Fri
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="satday">
-                  <input className="form-check-input" type="checkbox" id="satday" value="satday" />
-                  Sat
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="sunday">
-                  <input className="form-check-input" type="checkbox" id="sunday" value="sunday" />
-                  Sun
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="holday">
-                  <input className="form-check-input" type="checkbox" id="holday" value="holday" />
-                  Hol
-                </label>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox6">
                   <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="allday" checked={this.state.allDay} onClick={this.allDay} />
                   ทั้งวัน
