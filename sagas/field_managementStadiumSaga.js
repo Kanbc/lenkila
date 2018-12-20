@@ -9,7 +9,7 @@ export const setData = Creator(SET_DATA,'data')
 
 
 
-const apiUrl = 'http://wolvescorp.com/lenkila/api/main/call.php'
+const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* setFieldDataSaga() {
     try {
@@ -52,7 +52,7 @@ export function* setFieldDataSaga() {
 
 
 export function* editFieldDataSaga({data}){
-  console.log('data',data)
+    console.log('data',data)
     try {
         const response =  yield axios.get(apiUrl, {
           params: {
@@ -66,8 +66,8 @@ export function* editFieldDataSaga({data}){
             description: data.description,
             facilities:data.facilities,
             name:"lenkila",
-            start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
-            end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
+            open_time:moment.utc(data.open_time*1000).format('HH:mm:ss'),
+            close_time:moment.utc(data.close_time*1000).format('HH:mm:ss'),
           },
         })
         console.log('response',response)

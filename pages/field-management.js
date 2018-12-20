@@ -11,12 +11,12 @@ class FieldManagement extends Component {
     
     super(props);
     this.state = {
-      startTime: 0,
-      endTime: 0,  
+      closeTime: 0,
+      openTime: 0,  
       phone:'',
       location:'',
       description:'',
-      facilities:'',
+      facilities:{},
     };
 
  
@@ -25,15 +25,16 @@ class FieldManagement extends Component {
     this.props.setFieldDataSTD();
   }
   componentWillReceiveProps(nextProps){
+    console.log('next props sss',nextProps)
     this.setState({
       phone:nextProps.users.phone,
       description:nextProps.users.description,
       location:nextProps.users.location,
-      facilities:nextProps.users.facilities,
+      facilities: JSON.parse(nextProps.users.facilities),
       id:nextProps.users.id,
       stadium_doc_id:nextProps.users.stadium_doc_id,
-      start_time:nextProps.users.start_time,
-      end_time:nextProps.users.end_time,
+      openTime: moment.duration(nextProps.users.open_time).asSeconds(),
+      closeTime:moment.duration(nextProps.users.close_time).asSeconds(),
 
     })
   }
@@ -53,8 +54,8 @@ class FieldManagement extends Component {
                 start="00:00"
                 end="24:00"
                 step={15}
-                value={this.state.startTime}
-                onChange={startTime => this.setState({ startTime })}
+                value={this.state.openTime}
+                onChange={openTime => this.setState({ openTime })}
               />
             </div>
             <div className="col-sm-1">
@@ -66,8 +67,8 @@ class FieldManagement extends Component {
                 start="00:00"
                 end="24:00"
                 step={15}
-                value={this.state.endTime}
-                onChange={endTime => this.setState({ endTime })}
+                value={this.state.closeTime}
+                onChange={closeTime => this.setState({ closeTime })}
               />
             </div>
             <div className="col-sm-1">
@@ -106,7 +107,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox1">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" onClick={e=> this.setState({facilities:{option1:document.getElementById("inlineCheckbox1").checked}})} />
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" checked={this.state.facilities.option1} onClick={e=> this.setState({facilities:{...this.state.facilities,option1:document.getElementById("inlineCheckbox1").checked}})} />
                   อุปกรณ์ให้เช่า
                 </label>
               </div>
@@ -114,7 +115,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox2">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" onClick={e=> this.setState({facilities:{option2:document.getElementById("inlineCheckbox2").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" checked={this.state.facilities.option2} onClick={e=> this.setState({facilities:{...this.state.facilities,option2:document.getElementById("inlineCheckbox2").checked}})}/>
                   อุปกรณ์ขาย
                 </label>
               </div>
@@ -122,7 +123,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox3">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3" onClick={e=> this.setState({facilities:{option3:document.getElementById("inlineCheckbox3").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3"  checked={this.state.facilities.option3} onClick={e=> this.setState({facilities:{...this.state.facilities,option3:document.getElementById("inlineCheckbox3").checked}})}/>
                   เสื้อเอี๊ยม
                 </label>
               </div>
@@ -130,7 +131,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox4">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4" onClick={e=> this.setState({facilities:{option4:document.getElementById("inlineCheckbox4").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox4" value="option4"  checked={this.state.facilities.option4} onClick={e=> this.setState({facilities:{...this.state.facilities,option4:document.getElementById("inlineCheckbox4").checked}})}/>
                   อุปกรณ์สนาม
                 </label>
               </div>
@@ -140,7 +141,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox5">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5" onClick={e=> this.setState({facilities:{option5:document.getElementById("inlineCheckbox5").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox5" value="option5"  checked={this.state.facilities.option5} onClick={e=> this.setState({facilities:{...this.state.facilities,option5:document.getElementById("inlineCheckbox5").checked}})}/>
                   กรรมการ
                 </label>
               </div>
@@ -148,7 +149,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox6">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6" onClick={e=> this.setState({facilities:{option6:document.getElementById("inlineCheckbox6").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox6" value="option6"  checked={this.state.facilities.option6} onClick={e=> this.setState({facilities:{...this.state.facilities,option6:document.getElementById("inlineCheckbox6").checked}})}/>
                   ห้องอาบน้ำ
                 </label>
               </div>
@@ -156,7 +157,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox7">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7" onClick={e=> this.setState({facilities:{option7:document.getElementById("inlineCheckbox7").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox7" value="option7"  checked={this.state.facilities.option7} onClick={e=> this.setState({facilities:{...this.state.facilities,option7:document.getElementById("inlineCheckbox7").checked}})}/>
                   ผ้าเช็ดตัว
                 </label>
               </div>
@@ -164,7 +165,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox8">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox8" value="option8" onClick={e=> this.setState({facilities:{option8:document.getElementById("inlineCheckbox8").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox8" value="option8" checked={this.state.facilities.option8} onClick={e=> this.setState({facilities:{...this.state.facilities,option8:document.getElementById("inlineCheckbox8").checked}})}/>
                   สบู่
                 </label>
               </div>
@@ -174,7 +175,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox9">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox9" value="option9" onClick={e=> this.setState({facilities:{option9:document.getElementById("inlineCheckbox9").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox9" value="option9" checked={this.state.facilities.option9} onClick={e=> this.setState({facilities:{...this.state.facilities,option9:document.getElementById("inlineCheckbox9").checked}})}/>
                   ตู้ล็อคเกอร์
                 </label>
               </div>
@@ -182,7 +183,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox10">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox10" value="option10" onClick={e=> this.setState({facilities:{option10:document.getElementById("inlineCheckbox10").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox10" value="option10" checked={this.state.facilities.option10} onClick={e=> this.setState({facilities:{...this.state.facilities,option10:document.getElementById("inlineCheckbox10").checked}})}/>
                   ห้องแอร์
                 </label>
               </div>
@@ -190,7 +191,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox11">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox11" value="option11" onClick={e=> this.setState({facilities:{option11:document.getElementById("inlineCheckbox11").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox11" value="option11" checked={this.state.facilities.option11} onClick={e=> this.setState({facilities:{...this.state.facilities,option11:document.getElementById("inlineCheckbox11").checked}})}/>
                   Free-Wifi
                 </label>
               </div>
@@ -198,7 +199,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox12">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox12" value="option12" onClick={e=> this.setState({facilities:{option12:document.getElementById("inlineCheckbox12").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox12" value="option12" checked={this.state.facilities.option12} onClick={e=> this.setState({facilities:{...this.state.facilities,option12:document.getElementById("inlineCheckbox12").checked}})}/>
                   แอลกอฮอล์
                 </label>
               </div>
@@ -208,7 +209,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox13">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox13" value="option13" onClick={e=> this.setState({facilities:{option13:document.getElementById("inlineCheckbox13").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox13" value="option13" checked={this.state.facilities.option13} onClick={e=> this.setState({facilities:{...this.state.facilities,option13:document.getElementById("inlineCheckbox13").checked}})}/>
                   ของกิน
                 </label>
               </div>
@@ -216,7 +217,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox14">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox14" value="option14" onClick={e=> this.setState({facilities:{option14:document.getElementById("inlineCheckbox14").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox14" value="option14" checked={this.state.facilities.option14} onClick={e=> this.setState({facilities:{...this.state.facilities,option14:document.getElementById("inlineCheckbox14").checked}})}/>
                   ที่จอดรถ
                 </label>
               </div>
@@ -224,7 +225,7 @@ class FieldManagement extends Component {
             <div className="col-sm-3">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineCheckbox15">
-                  <input className="form-check-input" type="checkbox" id="inlineCheckbox15" value="option15" onClick={e=> this.setState({facilities:{option15:document.getElementById("inlineCheckbox15").checked}})}/>
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox15" value="option15" checked={this.state.facilities.option15} onClick={e=> this.setState({facilities:{...this.state.facilities,option15:document.getElementById("inlineCheckbox15").checked}})}/>
                   Arcade
                 </label>
               </div>
@@ -239,8 +240,8 @@ class FieldManagement extends Component {
             description={this.state.description}
             location={this.state.location}
             facilities={this.state.facilities}
-            startTime={this.state.startTime}
-            endTime={this.state.endTime}
+            openTime={this.state.openTime}
+            closeTime={this.state.closeTime}
             list={this.state.list}
              />
           </div>
@@ -284,7 +285,7 @@ class FieldManagement extends Component {
   }
 }
 
-const SaveButton=({id,stadium_doc_id,phone,description,location,facilities,editFieldDataSTD,startTime,endTime})=> {
+const SaveButton=({id,stadium_doc_id,phone,description,location,facilities,editFieldDataSTD,openTime,closeTime})=> {
   return (
     <button type="button" className="btn btn-primary" onClick={()=>editFieldDataSTD({
       id:id,
@@ -293,8 +294,8 @@ const SaveButton=({id,stadium_doc_id,phone,description,location,facilities,editF
       description:description,
       location:location,
       facilities:facilities,
-      start_time:startTime,
-      end_time:endTime,
+      open_time:openTime,
+      close_time:closeTime,
     })} >บันทึก
       <style jsx>{`
         button{
