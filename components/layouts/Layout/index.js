@@ -62,6 +62,13 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
     <Head>
       <title>{`Lenkila : ${title}`}</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+      <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png" />
+      <link rel="manifest" href="/static/img/favicon/site.webmanifest" />
+      <link rel="mask-icon" href="/static/img/favicon/safari-pinned-tab.svg" color="#d58d5b" />
+      <meta name="msapplication-TileColor" content="#2b5797" />
+      <meta name="theme-color" content="#ffffff" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous" />
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
       <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet" />
