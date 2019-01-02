@@ -16,16 +16,15 @@ class Index extends Component {
   // [GET] - Fields & Booking
   fields = fieldData();
 
-  // componentDidMount(){
-  //   if(!this.props.isLogin) Router.push({ pathname: '/login' })
-  // }
+  componentDidMount(){
+    if(!this.props.isLogin) Router.push({ pathname: '/login' })
+  }
 
   render() {
     const { fields,isLogin} = this.props;
     console.log('render!', fields);
 
     return (
-      isLogin?
       <Layout title="รายการวันนี้">
         <div className="d-flex align-items-center header">
           <h5 style={{ margin: '0 10px' }}>รายการของ : </h5>
@@ -76,8 +75,6 @@ class Index extends Component {
           `}
         </style>
       </Layout>
-      :
-      <Login/>
     );
   }
 }
