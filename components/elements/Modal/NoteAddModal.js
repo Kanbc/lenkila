@@ -5,7 +5,7 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal, Button, Constant, NoteForm } from '../..';
-import { setThisDayNote, addThisDayNote } from '../../../store';
+import {addNote } from '../../../store';
 
 class NoteAddModal extends Component {
   constructor(props) {
@@ -33,13 +33,11 @@ class NoteAddModal extends Component {
       note: null, 
     });
   }
-
   componentDidMount() {
-    this.props.dispatch(setThisDayNote(this.notes));
+    console.log('this props =>>>', this.props)
   }
 
   // [GET] notes of this day
-  notes = notes();
 
   render() {
     const { notes } = this.props;
@@ -149,28 +147,11 @@ class NoteAddModal extends Component {
   }
 }
 
-function notes() {
-  const notes = [
-    {
-      id: 1,
-      name: 'Archer',
-      tel: '941-715-4509',
-      note: 'คนนี้รอเข้ามาตอนสามโมง กับเพื่อนสองคน',
-    },
-    {
-      id: 2,
-      name: 'Sherilyn',
-      tel: '589-802-3451',
-      note: 'คนนี้รอเข้ามาตอนสามโมง',
-    },
-  ];
-  return notes;
-}
 
 function mapStateToProps(state) {
   return {
-    notes: state.notes,
+    notes: state.booking_noteSaga.notes,
   }
 }
 
-export default connect(mapStateToProps)(NoteAddModal);
+export default connect(mapStateToProps,{addNote})(NoteAddModal);
