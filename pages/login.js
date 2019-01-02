@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
 import Router from 'next/router';
+import {login} from '../store'
+import {connect} from 'react-redux'
 
 
 class Login extends Component {
@@ -13,6 +15,15 @@ class Login extends Component {
     };
 
     this.handleValidation = this.handleValidation.bind(this);
+  }
+  componentDidMount() {
+  
+  }
+  componentWillReceiveProps(nextProps){
+    if(!nextProps.errMessage)
+    this.setState({
+      errorMessage: 'Username หรือ Password ไม่ถูกต้อง กรุณากรอกอีกครั้งหรือติดต่อเจ้าหน้าที่',
+    });
   }
 
   handleValidation() {
@@ -28,17 +39,8 @@ class Login extends Component {
       // ถ้า success ไปหน้าแรกของระบบ(รายการวันนี้)
       // ถ้า fail set state errorMessage แบบข้างล่าง
       // ===== Example =====
-      console.log(username);
-      console.log(password);
-      if (username === '123' && password === '123') {
-        console.log('success');
-        Router.push({ pathname: '/' });
-      } else {
-        console.log('fail');
-        this.setState({
-          errorMessage: 'Username หรือ Password ไม่ถูกต้อง กรุณากรอกอีกครั้งหรือติดต่อเจ้าหน้าที่',
-        });
-      }
+      this.props.login({username:username,password:password})
+   
     }
   }
 
@@ -86,7 +88,7 @@ class Login extends Component {
                   {errorMessage}
                 </div>
               }
-              <button type="submit" className="btn btn-primary" onClick={this.handleValidation}>
+              <button type="submit" className="btn btn-primary" onClick={()=>this.handleValidation()}>
                 Login
               </button>
             </div>
@@ -151,4 +153,11 @@ class Login extends Component {
   }
 }
 
-export default Login;
+function mapStateToProps(state) {
+  return {
+    isLogin: state.auth.isLogin,
+    errMessage:state.auth.errorMessage,
+  }
+}
+
+export default connect(mapStateToProps,{login})(Login);

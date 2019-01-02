@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Switch from 'react-switch';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import {connect} from 'react-redux'
+import {setNote} from '../store'
 import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, BookingAddModal, ExportBookingModal /* GotoDate */ } from '../components';
 
 class BookingTable extends Component {
@@ -60,6 +62,10 @@ class BookingTable extends Component {
     minTime: '05:00:00',
     maxTime: '29:00:00',
   };
+
+  componentDidMount() {
+    this.props.setNote();
+  }
 
   render() {
     return (
@@ -405,4 +411,11 @@ function userData() {
   return users;
 }
 
-export default BookingTable;
+const mapStateToProps= (state) => (
+   {
+    notes: state.booking_noteSaga.notes,
+  }
+)
+
+
+export default connect(mapStateToProps,{setNote})(BookingTable);

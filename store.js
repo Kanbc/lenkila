@@ -52,6 +52,16 @@ export const actionTypes = {
     SET_FIELD_DATA_STD:'SET_FIELD_DATA_STD',
     ADD_FIELD_DATA_STD:'ADD_FIELD_DATA_STD',
     EDIT_FIELD_DATA_STD:'EDIT_FIELD_DATA_STD',
+
+    SET_NOTE:'SET_NOTE',
+    SET_NOTE_ID:'SET_NOTE_ID',
+    SET_NOTE_DATE:'SET_NOTE_DATE',
+    ADD_NOTE:'ADD_NOTE',
+    EDIT_NOTE:'EDIT_NOTE',
+    DELETE_NOTE:'DELETE_NOTE',
+
+    LOGIN:'LOGIN'
+
 }
 
 // 2. Action Creators
@@ -235,6 +245,51 @@ export const editFieldDataSTD = (data) => {
     }
 }
 
+//note
+
+export const setNote = () => {
+    return {
+        type: actionTypes.SET_NOTE,
+    }
+}
+
+export const setNoteId = () => {
+    return {
+        type: actionTypes.SET_NOTE_ID,
+    }
+}
+
+export const setNoteDate = () => {
+    return {
+        type: actionTypes.SET_NOTE_DATE,
+    }
+}
+export const addNote = (data) => {
+    return {
+        type: actionTypes.ADD_NOTE,
+        data,
+    }
+}
+export const editNote = (data) => {
+    return {
+        type: actionTypes.EDIT_NOTE,
+        data,
+    }
+}
+
+export const deleteNote = (id) => {
+    return {
+        type: actionTypes.DELETE_NOTE,
+        id,
+    }
+}
+
+export const login = (data) => {
+    return {
+        type: actionTypes.LOGIN,
+        data,
+    }
+}
 
 
 

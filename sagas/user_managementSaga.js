@@ -8,7 +8,7 @@ const SET_DATA = 'SET_DATA'
 export const setData = Creator(SET_DATA,'data')
 
 
-const apiUrl = 'http://wolvescorp.com/lenkila/api/main/call.php'
+const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* addUesrDataSaga({newUser}) {
   console.log('newUser',newUser)
@@ -59,7 +59,6 @@ export function* userManagementWatcher() {
     yield all([
       takeLatest(actionTypes.ADD_USERS_DATA, addUesrDataSaga),
       takeLatest(actionTypes.SET_USERS_DATA, setUsersDataSaga),
-      
     ])
 }
 

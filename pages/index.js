@@ -5,6 +5,8 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { Layout, DatePickerButton, StadiumBookingColumn, Loader, Constant } from '../components';
 import { setFieldData } from '../store';
+import Router from 'next/router';
+import Login from './login'
 
 class Index extends Component {
   state = {
@@ -14,15 +16,16 @@ class Index extends Component {
   // [GET] - Fields & Booking
   fields = fieldData();
 
-  componentDidMount() {
-    this.props.dispatch(setFieldData(this.fields));
-  }
+  // componentDidMount(){
+  //   if(!this.props.isLogin) Router.push({ pathname: '/login' })
+  // }
 
   render() {
-    const { fields } = this.props;
+    const { fields,isLogin} = this.props;
     console.log('render!', fields);
 
     return (
+      isLogin?
       <Layout title="รายการวันนี้">
         <div className="d-flex align-items-center header">
           <h5 style={{ margin: '0 10px' }}>รายการของ : </h5>
@@ -73,6 +76,8 @@ class Index extends Component {
           `}
         </style>
       </Layout>
+      :
+      <Login/>
     );
   }
 }
@@ -212,6 +217,7 @@ function fieldData() {
 function mapStateToProps(state) {
   return {
     fields: state.fields,
+    isLogin:state.auth.isLogin,
   }
 }
 
