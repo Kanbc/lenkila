@@ -25,7 +25,7 @@ export function* loginSaga({data}) {
           console.log('response auth',response)
           if(response.data.response_status){
             yield put(setData({isLogin:true}))
-            Router.push({ pathname: '/' })
+            Router.pushRoute({ pathname: '/' })
           }else{
             yield put(setData({errorMessage:response.data.response_status}))
           }
