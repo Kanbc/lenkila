@@ -3,23 +3,32 @@ import React from 'react'
 // import withReduxStore from '../libs/with-redux-store'
 import { Provider,connect } from 'react-redux'
 import store from '../sagas'
-import {compose} from 'recompose'
-import Login from './login'
+import {compose,lifecycle} from 'recompose'
+import Router from 'next/router';
 
 
 const bodyEnhancer = compose(
   connect(
-    state => ({
+    state => {
+      return({
       isLogin: state.auth.isLogin,
-    }),
+    })
+  },
     {},
   ),
-
+  lifecycle({
+    componentDidMount() {
+      var checkLogin = window.sessionStorage.getItem('LenkilaLogin')
+      if(!checkLogin) Router.push({pathname:'/login'})
+    }
+  }),
 )
 
-const Body = bodyEnhancer(({isLogin, Component, ...OtherProps}) => console.log('islogin',isLogin) ||(
-  isLogin?<Component {...OtherProps} />:<Login/>
-))
+const Body = bodyEnhancer(({Component,...OtherProps}) => {
+  return(
+  <Component {...OtherProps} />
+)})
+
 class MyApp extends App {
   render () {
     return (

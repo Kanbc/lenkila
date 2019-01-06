@@ -24,8 +24,9 @@ export function* loginSaga({data}) {
           })
           console.log('response auth',response)
           if(response.data.response_status){
-            yield put(setData({isLogin:true}))
-            Router.pushRoute({ pathname: '/' })
+            // yield put(setData({isLogin:true}))
+            window.sessionStorage.setItem("LenkilaLogin", true);
+            Router.push({ pathname: '/' })
           }else{
             yield put(setData({errorMessage:response.data.response_status}))
           }
