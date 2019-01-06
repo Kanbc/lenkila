@@ -27,10 +27,11 @@ class BookingTable extends Component {
   }
 
   today() {
+    let today = moment(new Date());
     this.setState({
-      gotoDate: moment().toDate(),
+      gotoDate: today,
     });
-    this.props.setNoteDate(this.state.gotoDate.format('YYYY-MM-DD'));
+    this.props.setNoteDate(today.format("YYYY-MM-DD"));
   }
 
   nextDay() {
