@@ -5,7 +5,7 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal, Button, Constant, NoteForm } from '../..';
-import {addNote } from '../../../store';
+import {addNote as addNoteApi} from '../../../store';
 
 class NoteAddModal extends Component {
   constructor(props) {
@@ -17,12 +17,23 @@ class NoteAddModal extends Component {
       note: null,
     };
 
+    this.addNewNote = this.addNewNote.bind(this);
     this.addNote = this.addNote.bind(this);
     this.cancelAddNote = this.cancelAddNote.bind(this);
   }
 
   addNote() {
     this.setState({ isAdding: true });
+  }
+
+  addNewNote() {
+    this.props.addNoteApi({
+      doc_date:this.props.gotoDate.format("YYYY-MM-DD"),
+      name:this.state.name,
+      tel:this.state.tel,
+      note:this.state.note,
+    });
+    this.cancelAddNote();
   }
 
   cancelAddNote() {
@@ -41,8 +52,8 @@ class NoteAddModal extends Component {
 
   render() {
     const { notes } = this.props;
-    console.log('render!', notes);
-    console.log('render!', this.state.isAdding);
+    // console.log('render! notes', notes);
+    // console.log('render!', this.state.isAdding);
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="50">
         <Body>
@@ -50,7 +61,7 @@ class NoteAddModal extends Component {
             {(!notes || notes.length == 0 && !this.state.isAdding) && <p className="nonote">กดปุ่ม เพิ่ม เพื่อเพิ่ม note</p>}
             {notes && notes.map(note => {
               return (
-                <NoteForm key={note.id} note={note}/>
+                <NoteForm gotoDate={this.props.gotoDate} key={note.id} note={note}/>
               );
             })}
             {this.state.isAdding && 
@@ -80,14 +91,8 @@ class NoteAddModal extends Component {
                     <Button width="80px" bstrap="btn-success" onClick={() => {
                       // validation
                       // add note api
-                      this.props.dispatch(addThisDayNote({
-                        id: moment().format('dd/MM/YY_hh:mm:ss'),
-                        name: this.state.name,
-                        tel: this.state.tel,
-                        note: this.state.note
-                      }));
+                      this.addNewNote();
                       
-                      this.cancelAddNote();
                     }}>บันทึก</Button>
                   </div>
                   <div className="col-sm-2" />
@@ -154,4 +159,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps,{addNote})(NoteAddModal);
+export default connect(mapStateToProps,{addNoteApi})(NoteAddModal);
