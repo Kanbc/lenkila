@@ -3,7 +3,7 @@ import Switch from 'react-switch';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import {connect} from 'react-redux'
-import {setNote} from '../store'
+import {setNote,setNoteDate} from '../store'
 import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, BookingAddModal, ExportBookingModal /* GotoDate */ } from '../components';
 
 class BookingTable extends Component {
@@ -28,20 +28,23 @@ class BookingTable extends Component {
 
   today() {
     this.setState({
-      gotoDate: moment(),
+      gotoDate: moment().toDate(),
     });
+    this.props.setNoteDate(this.state.gotoDate.format('YYYY-MM-DD'));
   }
 
   nextDay() {
     this.setState({
       gotoDate: moment(this.state.gotoDate).add(1, 'days'),
     });
+    this.props.setNoteDate(this.state.gotoDate.add(1, 'days').format("YYYY-MM-DD"));
   }
 
   previousDay() {
     this.setState({
       gotoDate: moment(this.state.gotoDate).subtract(1, 'days'),
     });
+    this.props.setNoteDate(this.state.gotoDate.subtract(1, 'days').format("YYYY-MM-DD"));
   }
 
   // [GET] - Bookings
@@ -64,9 +67,10 @@ class BookingTable extends Component {
   };
 
   componentDidMount() {
-    this.props.setNote();
-  }
+    // this.props.setNote();
+    this.props.setNoteDate(this.state.gotoDate.format("YYYY-MM-DD"));
 
+  }
   render() {
     return (
       <Layout title="การจอง">
@@ -111,7 +115,7 @@ class BookingTable extends Component {
               <div className="lk-box space-r">
                 <ButtonModal color={Constant.Orange} width="100px" modalName="#add-note">
                   Note
-                  <NoteAddModal title="Note" type="add-note" fields={this.fields} />
+                  <NoteAddModal title="Note" type="add-note" fields={this.fields} gotoDate={this.state.gotoDate}/>
                 </ButtonModal>
               </div>
               <div className="lk-box space-r">
@@ -418,4 +422,4 @@ const mapStateToProps= (state) => (
 )
 
 
-export default connect(mapStateToProps,{setNote})(BookingTable);
+export default connect(mapStateToProps,{setNote,setNoteDate})(BookingTable);

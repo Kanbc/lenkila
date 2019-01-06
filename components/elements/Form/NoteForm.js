@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, Constant } from '../..';
-import { deleteThisDayNote, editThisDayNote } from '../../../store';
+import { editNote as editNoteApi, deleteNote } from '../../../store';
 
 class NoteForm extends Component {
     constructor(props) {
@@ -10,7 +10,7 @@ class NoteForm extends Component {
             id: this.props.note.id,
             name: this.props.note.name,
             tel: this.props.note.tel,
-            note: this.props.note.note,
+            note: this.props.note.detail,
             isEdit: false,
         };
 
@@ -33,13 +33,13 @@ class NoteForm extends Component {
             button1 = <Button width="80px" bstrap="btn-success" onClick={() => {
                 // validation
                 // edit note api
-                this.props.dispatch(editThisDayNote({
-                    id: this.state.id,
+                this.props.editNoteApi({
+                    id:this.state.id,
                     name: this.state.name,
                     tel: this.state.tel,
-                    note: this.state.note
-                }));
-
+                    detail: this.state.note,
+                    doc_date:this.props.gotoDate.format("YYYY-MM-DD"),
+                })
                 this.cancelEditNote();
             }}>บันทึก</Button>;
             // button2 = <CancelModal width="80px" color={Constant.Red} onClick={() => this.cancelEditNote()}>ยกเลิก</CancelModal>;
@@ -49,12 +49,7 @@ class NoteForm extends Component {
             button2 = <Button width="80px" bstrap="btn-danger" color={Constant.Red} onClick={() => {
                 // pop-upbefore delete();
                 // delete note api
-                this.props.dispatch(deleteThisDayNote({
-                    id: this.state.id,
-                    name: this.state.name,
-                    tel: this.state.tel,
-                    note: this.state.note
-                }));
+                this.props.deleteNote({id:this.state.id,doc_date:this.props.gotoDate.format("YYYY-MM-DD")})
             }}>ลบ</Button>;
         }
         return (
@@ -124,4 +119,4 @@ class NoteForm extends Component {
     }
 }
 
-export default connect()(NoteForm);
+export default connect(null,{editNoteApi,deleteNote})(NoteForm);

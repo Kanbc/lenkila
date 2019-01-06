@@ -259,9 +259,10 @@ export const setNoteId = () => {
     }
 }
 
-export const setNoteDate = () => {
+export const setNoteDate = (date) => {
     return {
         type: actionTypes.SET_NOTE_DATE,
+        date,
     }
 }
 export const addNote = (data) => {
