@@ -3,15 +3,38 @@ import React from 'react'
 // import withReduxStore from '../libs/with-redux-store'
 import { Provider,connect } from 'react-redux'
 import store from '../sagas'
+import {compose,lifecycle} from 'recompose'
+import Router from 'next/router';
 
+
+const bodyEnhancer = compose(
+  connect(
+    state => {
+      return({
+      isLogin: state.auth.isLogin,
+    })
+  },
+    {},
+  ),
+  lifecycle({
+    componentDidMount() {
+      var checkLogin = window.sessionStorage.getItem('LenkilaLogin')
+      if(!checkLogin) Router.push({pathname:'/login'})
+    }
+  }),
+)
+
+const Body = bodyEnhancer(({Component,...OtherProps}) => {
+  return(
+  <Component {...OtherProps} />
+)})
 
 class MyApp extends App {
   render () {
-    const {Component, pageProps, reduxStore} = this.props
     return (
       <Container>
         <Provider store={store}>
-         <Component {...pageProps} />
+         <Body  {...this.props}/>
         </Provider>
       </Container>
     )

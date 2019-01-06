@@ -17,11 +17,11 @@ class Index extends Component {
   fields = fieldData();
 
   componentDidMount(){
-    if(!this.props.isLogin) Router.push({ pathname: '/login' })
+  
   }
 
   render() {
-    const { fields,isLogin} = this.props;
+    const { fields} = this.props;
     console.log('render!', fields);
 
     return (
