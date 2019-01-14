@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import CollapseMenu from './CollapseMenu';
-import { AdminEditModal, ButtonModal, Constant } from '../../../index';
-import { setAdminData } from '../../../../store';
+import { AdminEditModal } from '../../../index';
 
 class TopNavbar extends Component {
   // [GET] - admin
@@ -20,12 +18,8 @@ class TopNavbar extends Component {
     role: 'Owner',
   };
 
-  componentDidMount() {
-    this.props.dispatch(setAdminData(this.adminData));
-  }
-
   render() {
-    const { admin } = this.props;
+    const admin = this.adminData;
 
     console.log('render!', admin);
     return (
@@ -102,10 +96,4 @@ class TopNavbar extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    admin: state.admin,
-  }
-}
-
-export default connect(mapStateToProps)(TopNavbar);
+export default TopNavbar;
