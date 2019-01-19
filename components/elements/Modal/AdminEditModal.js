@@ -10,7 +10,7 @@ class AdminEditModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: this.props.userData.firstname,
+      firstname: this.props.userData.username,
       lastname: this.props.userData.lastname,
       password: this.props.userData.password,
       email: this.props.userData.email,

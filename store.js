@@ -60,7 +60,9 @@ export const actionTypes = {
     EDIT_NOTE:'EDIT_NOTE',
     DELETE_NOTE:'DELETE_NOTE',
 
-    LOGIN:'LOGIN'
+    LOGIN:'LOGIN',
+    LOGOUT:'LOGOUT',
+    GETUSER_INFO:'GETUSER_INFO'
 
 }
 
@@ -289,6 +291,18 @@ export const login = (data) => {
     return {
         type: actionTypes.LOGIN,
         data,
+    }
+}
+export const logout = () => {
+    return {
+        type: actionTypes.LOGOUT,
+    }
+}
+
+export const getUserInfo = (id) => {
+    return{
+        type: actionTypes.GETUSER_INFO,
+        id,
     }
 }
 

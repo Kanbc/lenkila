@@ -24,8 +24,9 @@ export function* loginSaga({data}) {
           })
           console.log('response auth',response)
           if(response.data.response_status){
-            // yield put(setData({isLogin:true}))
+            yield put(setData({user:response.data.response_data}))
             window.sessionStorage.setItem("LenkilaLogin", true);
+            window.sessionStorage.setItem("LenkilaLoginID", response.data.response_data[0].user_id);
             Router.push({ pathname: '/' })
           }else{
             yield put(setData({errorMessage:response.data.response_status}))
@@ -36,13 +37,44 @@ export function* loginSaga({data}) {
       console.log('loginSaga error', error)
       const {status} = error.response
     }
+}
+
+
+export function* logOutSaga() {
+    try {
+       window.sessionStorage.removeItem('LenkilaLogin');
+       window.sessionStorage.removeItem('LenkilaLoginID');
+       Router.push({ pathname: '/login' })
+    } catch (error) {
+      console.log('logOutSaga error', error)
+      
+    }
+}
+
+export function* getUserInfoSaga({id}) {
+  console.log('userInfo',id)
+  try {
+    const response = yield axios.get(apiUrl, {
+      params: {
+        apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+        code:'gdjxq',
+        action:'user_getbyid',
+        user_id:id,
+      },
+    })
+    yield put(setData({user:response.data.response_data}))
+  } catch (error) {
+    console.log('getUserInfoSaga error', error)
   }
+}
 
 
 
 
 export function* authWatcher() {
         yield takeLatest(actionTypes.LOGIN, loginSaga)
+        yield takeLatest(actionTypes.LOGOUT, logOutSaga)
+        yield takeLatest(actionTypes.GETUSER_INFO, getUserInfoSaga)
 }
 
 
@@ -51,6 +83,7 @@ export function* authWatcher() {
 const initial = {
   isLogin: false,
   errorMessage: true,
+  user:[],
 }
 
 export default createReducer(initial, state => ({

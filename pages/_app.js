@@ -5,6 +5,7 @@ import { Provider,connect } from 'react-redux'
 import store from '../sagas'
 import {compose,lifecycle} from 'recompose'
 import Router from 'next/router';
+import {getUserInfo} from '../store'
 
 
 const bodyEnhancer = compose(
@@ -14,12 +15,18 @@ const bodyEnhancer = compose(
       isLogin: state.auth.isLogin,
     })
   },
-    {},
+    {getUserInfo},
   ),
   lifecycle({
     componentDidMount() {
       var checkLogin = window.sessionStorage.getItem('LenkilaLogin')
-      if(!checkLogin) Router.push({pathname:'/login'})
+      var idLogin = window.sessionStorage.getItem('LenkilaLoginID')
+      if(!checkLogin) {
+        Router.push({pathname:'/login'})
+      }
+      else {
+        this.props.getUserInfo(idLogin)
+      } 
     }
   }),
 )
