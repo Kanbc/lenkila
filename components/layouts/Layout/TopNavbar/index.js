@@ -1,25 +1,17 @@
 import React, { Component } from 'react';
 import CollapseMenu from './CollapseMenu';
 import { AdminEditModal } from '../../../index';
+import { connect } from 'react-redux';
+import {logout} from '../../../../store'
 
 class TopNavbar extends Component {
   // [GET] - admin
-  adminData = {
-    id: 1,
-    firstname: 'Demo',
-    lastname: 'Lenkila',
-    email: 'demo@lenkila.com',
-    nickname: 'Jump',
-    username: 'demojump',
-    password: 'test123',
-    tel: '0901010029',
-    birthdate: '12-07-1997',
-    gender: 'Male',
-    role: 'Owner',
-  };
-
+  componentDidMount() {
+    console.log('adminporps',this.props)
+  }
   render() {
-    const admin = this.adminData;
+    const admin = this.props.userAdmin[0];
+    const logout = this.props.logout
 
     console.log('render!', admin);
     return (
@@ -49,10 +41,10 @@ class TopNavbar extends Component {
             <ul className="navbar-nav d-none d-sm-block">
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {admin.firstname + ' '}
+                  {admin.username + ' '}
                 </a>
                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a className="dropdown-item" href="#">ลงชื่อออก</a>
+                  <a className="dropdown-item" href="#" onClick={()=>logout()}>ลงชื่อออก</a>
                   <div className="dropdown-divider" />
                   <a className="dropdown-item" href="#" data-toggle="modal" data-target="#edit-admin">ข้อมูลส่วนตัว</a>
                   <a className="dropdown-item" href="#">คำถามที่พบบ่อย</a>
@@ -96,4 +88,10 @@ class TopNavbar extends Component {
   }
 }
 
-export default TopNavbar;
+function mapStateToProps(state) {
+  return {
+    userAdmin: state.auth.user,
+  }
+}
+
+export default connect(mapStateToProps,{logout})(TopNavbar);
