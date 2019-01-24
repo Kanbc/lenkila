@@ -18,19 +18,19 @@ export function* addUesrDataSaga({newUser}) {
               apikey: 'da1ee23f12812a19dc57fa4cf3115519',
               code:'gdjxq',
               action:'register',
-              // email: newUser.email,
-              // firstname: newUser.firstname,
-              // id: newUser.id,
-              // lastname: newUser.lastname,
-              // nickname: newUser.nickname,
-              // note: newUser.note,
-              // tel: newUser.tel,
+              email: newUser.email,
+              name: newUser.firstname,
+              username: newUser.username,
+              surname: newUser.lastname,
+              nickname: newUser.nickname,
+              address: newUser.note,
+              tel: newUser.tel,
               password: newUser.password,
               role: newUser.role,
-              username: newUser.username,
+             
             },
           })
-      console.log('response',response)
+      console.log('response Add',response)
       yield call(setUsersDataSaga)
     } catch (err) {
         console.log('error',err)
@@ -53,12 +53,58 @@ export function* setUsersDataSaga(){
 }
 }
 
+export function* deleteUsersDataSaga({id}){
+  console.log('id',id)
+  try {
+    const response = yield axios.get(apiUrl, {
+        params: {
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'gdjxq',
+          action:'permanentdelete',
+          user_id:id
+        },
+      })
+      console.log('delete',response)
+  yield call(setUsersDataSaga)
+} catch (err) {
+    console.log('error',err)
+}
+}
+
+
+export function* editUesrDataSaga({newUser}) {
+  console.log('newUser',newUser)
+    try {
+       const response = yield axios.get(apiUrl, {
+            params: {
+              apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+              code:'gdjxq',
+              action:'edit',
+              email: newUser.email,
+              name: newUser.firstname,
+              username: newUser.username,
+              surname: newUser.lastname,
+              nickname: newUser.nickname,
+              address: newUser.note,
+              tel: newUser.tel,
+              role: newUser.role,
+            },
+          })
+      console.log('response Edit',response)
+      yield call(setUsersDataSaga)
+    } catch (err) {
+        console.log('error',err)
+    }
+  }
+
 
 
 export function* userManagementWatcher() {
     yield all([
       takeLatest(actionTypes.ADD_USERS_DATA, addUesrDataSaga),
       takeLatest(actionTypes.SET_USERS_DATA, setUsersDataSaga),
+      takeLatest(actionTypes.EDIT_USERS_DATA, editUesrDataSaga),
+      takeLatest(actionTypes.DELETE_USERS_DATA, deleteUsersDataSaga),
     ])
 }
 

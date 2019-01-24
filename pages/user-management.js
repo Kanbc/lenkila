@@ -48,15 +48,15 @@ class UserManagement extends Component {
                   console.log('new=>>>>>',user)
                   return (
                     <tr key={user.user_id}>
-                      <td className="hide1">{user.firstname} {user.lastname}</td>
+                      <td className="hide1">{user.name} {user.surname}</td>
                       <td>{user.nickname}</td>
                       <td>{user.username}</td>
                       <td className="hide2">{user.email}</td>
                       <td>{user.role}</td>
                       <td>
-                        <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
+                        <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.user_id}`}>
                           <i className="fa fa-pencil" aria-hidden="true" />
-                          <UMEditModal key={user.id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.id}`} userData={user} />
+                          <UMEditModal key={user.user_id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.user_id}`} userData={user} />
                         </ButtonModal>
                       </td>
                     </tr>

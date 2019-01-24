@@ -15,6 +15,7 @@ export const actionTypes = {
     SET_USERS_DATA: 'SET_USERS_DATA',
     ADD_USERS_DATA: 'ADD_USERS_DATA',
     EDIT_USERS_DATA: 'EDIT_USERS_DATA',
+    DELETE_USERS_DATA: 'DELETE_USERS_DATA',
     
     SET_ADMIN_DATA: 'SET_ADMIN_DATA',
     EDIT_ADMIN_DATA: 'EDIT_ADMIN_DATA',
@@ -84,6 +85,14 @@ export const editUsersData = (newUser) => {
         newUser,
     }
 }
+
+export const deleteUsersData = (id) => {
+    return {
+        type: actionTypes.DELETE_USERS_DATA,
+        id,
+    }
+}
+
 export const setAdminData = (admin) => {
     return {
         type: actionTypes.SET_ADMIN_DATA,

@@ -43,7 +43,6 @@ class UMAddModal extends Component {
     // validation
     // add user api
     this.props.dispatch(addUsersData({
-      id: this.state.userid,
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       nickname: this.state.nickname,
@@ -54,7 +53,9 @@ class UMAddModal extends Component {
       role: this.state.role,
       note: this.state.note
     }));
-    // this.cancelAddUser();
+    this.cancelAddUser();
+
+
   }
 
   render() {
@@ -115,9 +116,6 @@ class UMAddModal extends Component {
             </div>
             <div className="col-sm-2">
               <select className="form-control" id="role" value={this.state.role} onChange={e => this.setState({ role: e.target.value })} >
-                {/* <option>Owner</option>
-                <option>Admin</option>
-                <option>Staff</option> */}
                 <option>Mod</option>
                 <option>User</option>
               </select>
