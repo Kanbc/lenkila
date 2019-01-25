@@ -16,6 +16,7 @@ export const actionTypes = {
     ADD_USERS_DATA: 'ADD_USERS_DATA',
     EDIT_USERS_DATA: 'EDIT_USERS_DATA',
     DELETE_USERS_DATA: 'DELETE_USERS_DATA',
+    RESET_PASSWORD: 'RESET_PASSWORD',
     
     SET_ADMIN_DATA: 'SET_ADMIN_DATA',
     EDIT_ADMIN_DATA: 'EDIT_ADMIN_DATA',
@@ -90,6 +91,13 @@ export const deleteUsersData = (id) => {
     return {
         type: actionTypes.DELETE_USERS_DATA,
         id,
+    }
+}
+
+export const resetUsersData = (data) => {
+    return {
+        type: actionTypes.DELETE_USERS_DATA,
+        data,
     }
 }
 

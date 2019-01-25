@@ -4,19 +4,19 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal, Button, Constant } from '../..';
-import { editAdminData } from '../../../store';
+import { editUsersData } from '../../../store';
 
 class AdminEditModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: this.props.userData.username,
-      lastname: this.props.userData.lastname,
+      firstname: this.props.userData.name,
+      lastname: this.props.userData.surname,
       password: this.props.userData.password,
       email: this.props.userData.email,
       tel: this.props.userData.tel,
       role: this.props.userData.role, 
-
+      id:this.props.userData.user_id,
       isEdit: false, 
       changePass: false 
     };
@@ -52,14 +52,15 @@ class AdminEditModal extends Component {
       button1 = <Button width="100px" bstrap="btn-success" onClick={() => {
         // validation
         // add user api
-        this.props.dispatch(editAdminData({
+        this.props.editUsersData({
           firstname: this.state.firstname,
           lastname: this.state.lastname,
           password: this.state.password,
           email: this.state.email,
           tel: this.state.tel,
           role: this.state.role,
-        }));
+          id:this.state.id,
+        });
 
         this.cancelEditForm();
       }}>บันทึก</Button>;
@@ -92,9 +93,8 @@ class AdminEditModal extends Component {
             <div className="col-sm-2">
               <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.role}</p>
               <select className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="role" defaultValue={this.state.role} onChange={e => this.setState({ role: e.target.value })} >
-                <option>Owner</option>
-                <option>Admin</option>
-                <option>Staff</option>
+                <option>Mod</option>
+                <option>User</option>
               </select>
             </div>
           </div>
@@ -173,4 +173,4 @@ class AdminEditModal extends Component {
   }
 }
 
-export default connect()(AdminEditModal);
+export default connect(null,{editUsersData})(AdminEditModal);

@@ -11,19 +11,7 @@ class UMEditModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
-      isEdit: false, 
-      changePass: false 
-    };
-
-    this.editForm = this.editForm.bind(this);
-    this.cancelEditForm = this.cancelEditForm.bind(this);
-    this.changePassword = this.changePassword.bind(this);
-    this.cancelChangePassword = this.cancelChangePassword.bind(this);
-  }
-  componentDidMount(){
-    this.props.setData({
-      id:this.props.userData.id,
+      id:this.props.userData.user_id,
       firstname: this.props.userData.name,
       lastname: this.props.userData.surname,
       nickname: this.props.userData.nickname,
@@ -33,7 +21,14 @@ class UMEditModal extends Component {
       tel: this.props.userData.tel,
       role: this.props.userData.role,
       note: this.props.userData.address, 
-    })
+      isEdit: false, 
+      changePass: false 
+    };
+
+    this.editForm = this.editForm.bind(this);
+    this.cancelEditForm = this.cancelEditForm.bind(this);
+    this.changePassword = this.changePassword.bind(this);
+    this.cancelChangePassword = this.cancelChangePassword.bind(this);
   }
   changePassword() {
     this.setState({ changePass: true });
@@ -60,7 +55,7 @@ class UMEditModal extends Component {
       button1 = <Button width="100px" bstrap="btn-success" onClick={() => {
         // validation
         // add user api
-        this.props.dispatch(editUsersData({
+        this.props.editUsersData({
           id: this.state.id,
           firstname: this.state.firstname,
           lastname: this.state.lastname,
@@ -71,7 +66,7 @@ class UMEditModal extends Component {
           tel: this.state.tel,
           role: this.state.role,
           note: this.state.note
-        }));
+        });
 
         this.cancelEditForm();
       }}>บันทึก</Button>;
@@ -203,5 +198,4 @@ class UMEditModal extends Component {
 
 export default compose(
   connect(null,{editUsersData,deleteUsersData}),
-  withState('data','setData',{}),
 )(UMEditModal);

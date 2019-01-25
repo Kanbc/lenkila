@@ -71,6 +71,8 @@ export function* getUserInfoSaga({id}) {
 
 
 
+
+
 export function* authWatcher() {
         yield takeLatest(actionTypes.LOGIN, loginSaga)
         yield takeLatest(actionTypes.LOGOUT, logOutSaga)

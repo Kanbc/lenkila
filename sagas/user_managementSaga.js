@@ -60,7 +60,7 @@ export function* deleteUsersDataSaga({id}){
         params: {
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'gdjxq',
-          action:'permanentdelete',
+          action:'userban',
           user_id:id
         },
       })
@@ -72,7 +72,7 @@ export function* deleteUsersDataSaga({id}){
 }
 
 
-export function* editUesrDataSaga({newUser}) {
+export function* editUserDataSaga({newUser}) {
   console.log('newUser',newUser)
     try {
        const response = yield axios.get(apiUrl, {
@@ -88,6 +88,7 @@ export function* editUesrDataSaga({newUser}) {
               address: newUser.note,
               tel: newUser.tel,
               role: newUser.role,
+              user_id:newUser.id,
             },
           })
       console.log('response Edit',response)
@@ -97,14 +98,33 @@ export function* editUesrDataSaga({newUser}) {
     }
   }
 
+  export function* resetPasswordUserSaga({data}) {
+    console.log('password',data)
+    try {
+      // const response = yield axios.get(apiUrl, {
+      //   params: {
+      //     apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+      //     code:'gdjxq',
+      //     action:'user_getbyid',
+      //     user_id:data.id,
+      //     //newpassword
+      //   },
+      // })
+      yield call(setUsersDataSaga)
+    } catch (error) {
+      console.log('resetPasswordUserSaga error', error)
+    }
+  }
+
 
 
 export function* userManagementWatcher() {
     yield all([
       takeLatest(actionTypes.ADD_USERS_DATA, addUesrDataSaga),
       takeLatest(actionTypes.SET_USERS_DATA, setUsersDataSaga),
-      takeLatest(actionTypes.EDIT_USERS_DATA, editUesrDataSaga),
+      takeLatest(actionTypes.EDIT_USERS_DATA, editUserDataSaga),
       takeLatest(actionTypes.DELETE_USERS_DATA, deleteUsersDataSaga),
+      takeLatest(actionTypes.RESET_PASSWORD, resetPasswordUserSaga),
     ])
 }
 
