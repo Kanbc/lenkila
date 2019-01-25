@@ -4,23 +4,23 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal, Button, Constant } from '../..';
-import { editUsersData } from '../../../store';
+import { editUsersData,deleteUsersData } from '../../../store';
+import {compose,withState,lifecycle} from 'recompose'
 
 class UMEditModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: this.props.userData.id,
-      firstname: this.props.userData.firstname,
-      lastname: this.props.userData.lastname,
+      id:this.props.userData.user_id,
+      firstname: this.props.userData.name,
+      lastname: this.props.userData.surname,
       nickname: this.props.userData.nickname,
       username: this.props.userData.username,
       password: this.props.userData.password,
       email: this.props.userData.email,
       tel: this.props.userData.tel,
       role: this.props.userData.role,
-      note: this.props.userData.note, 
-
+      note: this.props.userData.address, 
       isEdit: false, 
       changePass: false 
     };
@@ -30,7 +30,6 @@ class UMEditModal extends Component {
     this.changePassword = this.changePassword.bind(this);
     this.cancelChangePassword = this.cancelChangePassword.bind(this);
   }
-
   changePassword() {
     this.setState({ changePass: true });
   }
@@ -56,7 +55,7 @@ class UMEditModal extends Component {
       button1 = <Button width="100px" bstrap="btn-success" onClick={() => {
         // validation
         // add user api
-        this.props.dispatch(editUsersData({
+        this.props.editUsersData({
           id: this.state.id,
           firstname: this.state.firstname,
           lastname: this.state.lastname,
@@ -67,14 +66,14 @@ class UMEditModal extends Component {
           tel: this.state.tel,
           role: this.state.role,
           note: this.state.note
-        }));
+        });
 
         this.cancelEditForm();
       }}>บันทึก</Button>;
       button2 = <CancelModal width="100px" color={Constant.Red} onClick={() => this.cancelEditForm()}>ยกเลิก</CancelModal>;
     } else {
       button1 = <Button width="100px" color={Constant.Orange} onClick={this.editForm}>แก้ไข</Button>;
-      button2 = <CancelModal width="100px" bstrap="btn-danger" >ลบ</CancelModal>;
+      button2 = <CancelModal width="100px" bstrap="btn-danger" onClick={() => this.props.deleteUsersData(this.props.userData.user_id)} >ลบ</CancelModal>;
     }
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="70" >
@@ -84,22 +83,22 @@ class UMEditModal extends Component {
               <p className="bold-text">ชื่อ</p>
             </div>
             <div className="col-sm-3">
-              <p className={this.state.isEdit ? 'd-none' : ''} >{this.state.firstname}</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'}  id="firstname" defaultValue={this.state.firstname} onChange={e => this.setState({ firstname: e.target.value })} />
+              <p className={this.state.isEdit ? 'd-none' : ''} >{this.props.userData.name}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'}  id="firstname" defaultValue={this.props.userData.name} onChange={e => this.setState({ firstname: e.target.value })} />
             </div>
             <div className="col-sm-2">
               <p className="bold-text">นามสกุล</p>
             </div>
             <div className="col-sm-3">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.lastname}</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="lastname" defaultValue={this.state.lastname} onChange={e => this.setState({ lastname: e.target.value })} />
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.surname}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="lastname" defaultValue={this.props.userData.surname} onChange={e => this.setState({ lastname: e.target.value })} />
             </div>
             <div className="col-sm-1">
               <p className="bold-text">ชื่อเล่น</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.nickname}</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue={this.state.nickname} onChange={e => this.setState({ nickname: e.target.value })} />
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.nickname}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue={this.props.userData.nickname} onChange={e => this.setState({ nickname: e.target.value })} />
             </div>
           </div>
           <div className="row">
@@ -107,8 +106,8 @@ class UMEditModal extends Component {
               <p className="bold-text">ID</p>
             </div>
             <div className="col-sm-3">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.username}</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="username" defaultValue={this.state.username} onChange={e => this.setState({ username: e.target.value })} />
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.username}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="username" defaultValue={this.props.userData.username} onChange={e => this.setState({ username: e.target.value })} />
             </div>
             <div className="col-sm-2">
               <p className="bold-text">Password</p>
@@ -129,25 +128,24 @@ class UMEditModal extends Component {
               <p className="bold-text">Email</p>
             </div>
             <div className="col-sm-3">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.email}</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="email" defaultValue={this.state.email} onChange={e => this.setState({ email: e.target.value })} />
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.email}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="email" defaultValue={this.props.userData.email} onChange={e => this.setState({ email: e.target.value })} />
             </div>
             <div className="col-sm-2">
               <p className="bold-text">เบอร์โทร</p>
             </div>
             <div className="col-sm-3">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.tel}</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="tel" defaultValue={this.state.tel} onChange={e => this.setState({ tel: e.target.value })} />
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.tel}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="tel" defaultValue={this.props.userData.tel} onChange={e => this.setState({ tel: e.target.value })} />
             </div>
             <div className="col-sm-1">
               <p className="bold-text">Role</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.role}</p>
-              <select className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="role" defaultValue={this.state.role} onChange={e => this.setState({ role: e.target.value })} >
-                <option>Owner</option>
-                <option>Admin</option>
-                <option>Staff</option>
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.role}</p>
+              <select className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="role" defaultValue={this.props.userData.role} onChange={e => this.setState({ role: e.target.value })} >
+                <option>Mod</option>
+                <option>User</option>
               </select>
             </div>
           </div>
@@ -156,8 +154,8 @@ class UMEditModal extends Component {
               <p className="bold-text">โน้ต</p>
             </div>
             <div className="col-sm-11">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.note}</p>
-              <textarea className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="note" rows="3" defaultValue={this.state.note} onChange={e => this.setState({ note: e.target.value })} />
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.address}</p>
+              <textarea className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="note" rows="3" defaultValue={this.props.userData.address} onChange={e => this.setState({ note: e.target.value })} />
             </div>
           </div>
         </Body>
@@ -198,4 +196,6 @@ class UMEditModal extends Component {
   }
 }
 
-export default connect()(UMEditModal);
+export default compose(
+  connect(null,{editUsersData,deleteUsersData}),
+)(UMEditModal);
