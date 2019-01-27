@@ -52,7 +52,7 @@ class UserManagement extends Component {
                       <td>{user.nickname}</td>
                       <td>{user.username}</td>
                       <td className="hide2">{user.email}</td>
-                      <td>{user.role}</td>
+                      <td>{user.role === "Mod"?"Owner":user.role}</td>
                       <td>
                         <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.user_id}`}>
                           <i className="fa fa-pencil" aria-hidden="true" />

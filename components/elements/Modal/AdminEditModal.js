@@ -91,10 +91,12 @@ class AdminEditModal extends Component {
               <p className="bold-text">Role</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.role}</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.role==="Mod"?"Owner":this.state.role}</p>
               <select className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="role" defaultValue={this.state.role} onChange={e => this.setState({ role: e.target.value })} >
-                <option>Mod</option>
-                <option>User</option>
+                <option value="Mod">Owner</option>
+                <option>Dev</option>
+                <option>Employee</option>
+                <option>Manager</option>
               </select>
             </div>
           </div>
