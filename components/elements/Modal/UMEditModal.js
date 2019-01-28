@@ -4,7 +4,7 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal, Button, Constant } from '../..';
-import { editUsersData,deleteUsersData } from '../../../store';
+import { editUsersData,deleteUsersData,resetpasswordUsersData } from '../../../store';
 import {compose,withState,lifecycle} from 'recompose'
 
 class UMEditModal extends Component {
@@ -117,7 +117,13 @@ class UMEditModal extends Component {
               <Button width="100%" color={Constant.Blue} onClick={this.changePassword} bstrap={this.state.changePass ? 'd-none' : ''}>เปลี่ยนรหัส</Button>
             </div>
             <div className="col-sm-2">
-              <Button width="100%" color={Constant.Green} onClick={this.cancelChangePassword} bstrap={this.state.changePass ? '' : 'd-none'} >บันทึก</Button>
+              <Button width="100%" color={Constant.Green} onClick={()=>
+              {
+                this.props.resetpasswordUsersData({id:this.state.id,password: this.state.password})
+                this.setState({ changePass: false })
+              }
+              }
+                 bstrap={this.state.changePass ? '' : 'd-none'} >บันทึก</Button>
             </div>
             <div className={this.state.changePass ? 'col-sm-2' : 'col-sm-1'}>
               <Button width="100%" color={Constant.Red} onClick={this.cancelChangePassword} bstrap={this.state.changePass ? '' : 'd-none'} >ยกเลิก</Button>
@@ -142,10 +148,12 @@ class UMEditModal extends Component {
               <p className="bold-text">Role</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.role}</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.role==="Mod"?"Owner":this.props.userData.role}</p>
               <select className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="role" defaultValue={this.props.userData.role} onChange={e => this.setState({ role: e.target.value })} >
-                <option>Mod</option>
-                <option>User</option>
+                <option value="Mod">Owner</option>
+                <option>Dev</option>
+                <option>Employee</option>
+                <option>Manager</option>
               </select>
             </div>
           </div>
@@ -197,5 +205,5 @@ class UMEditModal extends Component {
 }
 
 export default compose(
-  connect(null,{editUsersData,deleteUsersData}),
+  connect(null,{editUsersData,deleteUsersData,resetpasswordUsersData}),
 )(UMEditModal);

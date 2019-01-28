@@ -4,7 +4,7 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal, Button, Constant } from '../..';
-import { editUsersData } from '../../../store';
+import { editUsersData,resetpasswordUsersData } from '../../../store';
 
 class AdminEditModal extends Component {
   constructor(props) {
@@ -91,10 +91,12 @@ class AdminEditModal extends Component {
               <p className="bold-text">Role</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.role}</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.role==="Mod"?"Owner":this.state.role}</p>
               <select className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="role" defaultValue={this.state.role} onChange={e => this.setState({ role: e.target.value })} >
-                <option>Mod</option>
-                <option>User</option>
+                <option value="Mod">Owner</option>
+                <option>Dev</option>
+                <option>Employee</option>
+                <option>Manager</option>
               </select>
             </div>
           </div>
@@ -125,7 +127,13 @@ class AdminEditModal extends Component {
               <Button width="100%" color={Constant.Blue} onClick={this.changePassword} bstrap={this.state.changePass ? 'd-none' : ''}>เปลี่ยนรหัส</Button>
             </div>
             <div className="col-sm-2">
-              <Button width="100%" color={Constant.Green} onClick={this.cancelChangePassword} bstrap={this.state.changePass ? '' : 'd-none'} >บันทึก</Button>
+            <Button width="100%" color={Constant.Green} onClick={()=>
+              {
+                this.props.resetpasswordUsersData({id:this.state.id,password: this.state.password})
+                this.setState({ changePass: false })
+              }
+              }
+                 bstrap={this.state.changePass ? '' : 'd-none'} >บันทึก</Button>
             </div>
             <div className={this.state.changePass ? 'col-sm-2' : 'col-sm-1'}>
               <Button width="100%" color={Constant.Red} onClick={this.cancelChangePassword} bstrap={this.state.changePass ? '' : 'd-none'} >ยกเลิก</Button>
@@ -173,4 +181,4 @@ class AdminEditModal extends Component {
   }
 }
 
-export default connect(null,{editUsersData})(AdminEditModal);
+export default connect(null,{editUsersData,resetpasswordUsersData})(AdminEditModal);

@@ -101,15 +101,16 @@ export function* editUserDataSaga({newUser}) {
   export function* resetPasswordUserSaga({data}) {
     console.log('password',data)
     try {
-      // const response = yield axios.get(apiUrl, {
-      //   params: {
-      //     apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-      //     code:'gdjxq',
-      //     action:'user_getbyid',
-      //     user_id:data.id,
-      //     //newpassword
-      //   },
-      // })
+      const response = yield axios.get(apiUrl, {
+        params: {
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'gdjxq',
+          action:'resetpassword_editpassword',
+          user_id:data.id,
+          newpassword:data.password,
+          //newpassword
+        },
+      })
       yield call(setUsersDataSaga)
     } catch (error) {
       console.log('resetPasswordUserSaga error', error)
