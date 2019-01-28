@@ -94,9 +94,9 @@ export const deleteUsersData = (id) => {
     }
 }
 
-export const resetUsersData = (data) => {
+export const resetpasswordUsersData = (data) => {
     return {
-        type: actionTypes.DELETE_USERS_DATA,
+        type: actionTypes.RESET_PASSWORD,
         data,
     }
 }

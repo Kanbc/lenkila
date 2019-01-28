@@ -4,7 +4,7 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal, Button, Constant } from '../..';
-import { editUsersData } from '../../../store';
+import { editUsersData,resetpasswordUsersData } from '../../../store';
 
 class AdminEditModal extends Component {
   constructor(props) {
@@ -127,7 +127,13 @@ class AdminEditModal extends Component {
               <Button width="100%" color={Constant.Blue} onClick={this.changePassword} bstrap={this.state.changePass ? 'd-none' : ''}>เปลี่ยนรหัส</Button>
             </div>
             <div className="col-sm-2">
-              <Button width="100%" color={Constant.Green} onClick={this.cancelChangePassword} bstrap={this.state.changePass ? '' : 'd-none'} >บันทึก</Button>
+            <Button width="100%" color={Constant.Green} onClick={()=>
+              {
+                this.props.resetpasswordUsersData({id:this.state.id,password: this.state.password})
+                this.setState({ changePass: false })
+              }
+              }
+                 bstrap={this.state.changePass ? '' : 'd-none'} >บันทึก</Button>
             </div>
             <div className={this.state.changePass ? 'col-sm-2' : 'col-sm-1'}>
               <Button width="100%" color={Constant.Red} onClick={this.cancelChangePassword} bstrap={this.state.changePass ? '' : 'd-none'} >ยกเลิก</Button>
@@ -175,4 +181,4 @@ class AdminEditModal extends Component {
   }
 }
 
-export default connect(null,{editUsersData})(AdminEditModal);
+export default connect(null,{editUsersData,resetpasswordUsersData})(AdminEditModal);
