@@ -150,10 +150,8 @@ class UMEditModal extends Component {
             <div className="col-sm-2">
               <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.role==="Mod"?"Owner":this.props.userData.role}</p>
               <select className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="role" defaultValue={this.props.userData.role} onChange={e => this.setState({ role: e.target.value })} >
-                <option value="Mod">Owner</option>
-                <option>Dev</option>
-                <option>Employee</option>
                 <option>Manager</option>
+                <option>Employee</option>
               </select>
             </div>
           </div>
@@ -204,6 +202,13 @@ class UMEditModal extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    roleUser: state.auth.roleUser,
+  }
+}
+
+
 export default compose(
-  connect(null,{editUsersData,deleteUsersData,resetpasswordUsersData}),
+  connect(mapStateToProps,{editUsersData,deleteUsersData,resetpasswordUsersData}),
 )(UMEditModal);

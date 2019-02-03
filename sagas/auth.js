@@ -25,6 +25,8 @@ export function* loginSaga({data}) {
           console.log('response auth',response)
           if(response.data.response_status){
             yield put(setData({user:response.data.response_data}))
+            yield put(setData({roleUser:response.data.response_data[0].role}))
+
             window.sessionStorage.setItem("LenkilaLogin", true);
             window.sessionStorage.setItem("LenkilaLoginID", response.data.response_data[0].user_id);
             Router.push({ pathname: '/' })
@@ -63,6 +65,7 @@ export function* getUserInfoSaga({id}) {
       },
     })
     yield put(setData({user:response.data.response_data}))
+    yield put(setData({roleUser:response.data.response_data[0].role}))
   } catch (error) {
     console.log('getUserInfoSaga error', error)
   }
@@ -86,6 +89,7 @@ const initial = {
   isLogin: false,
   errorMessage: true,
   user:[],
+  roleUser:"",
 }
 
 export default createReducer(initial, state => ({
