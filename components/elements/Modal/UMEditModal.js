@@ -72,8 +72,10 @@ class UMEditModal extends Component {
       }}>บันทึก</Button>;
       button2 = <CancelModal width="100px" color={Constant.Red} onClick={() => this.cancelEditForm()}>ยกเลิก</CancelModal>;
     } else {
+      
       button1 = <Button width="100px" color={Constant.Orange} onClick={this.editForm}>แก้ไข</Button>;
       button2 = <CancelModal width="100px" bstrap="btn-danger" onClick={() => this.props.deleteUsersData(this.props.userData.user_id)} >ลบ</CancelModal>;
+      
     }
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="70" >
@@ -109,13 +111,18 @@ class UMEditModal extends Component {
               <p className={this.state.isEdit ? 'd-none' : ''}>{this.props.userData.username}</p>
               <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="username" defaultValue={this.props.userData.username} onChange={e => this.setState({ username: e.target.value })} />
             </div>
-            <div className="col-sm-2">
-              <p className="bold-text">Password</p>
-            </div>
-            <div className={this.state.changePass ? 'col-sm-2' : 'col-sm-3'}>
-              <input type="text" className={this.state.changePass ? 'form-control' : 'form-control d-none'} id="password" onChange={e => this.setState({ password: e.target.value })} />
-              <Button width="100%" color={Constant.Blue} onClick={this.changePassword} bstrap={this.state.changePass ? 'd-none' : ''}>เปลี่ยนรหัส</Button>
-            </div>
+            {
+             this.props.roleUser !== "Mod" && this.props.userData.role === "Manager" || this.props.userData.role === "Mod" ? null:
+            <React.Fragment>
+              <div className="col-sm-2">
+                <p className="bold-text">Password</p>
+              </div>
+              <div className={this.state.changePass ? 'col-sm-2' : 'col-sm-3'}>
+                <input type="text" className={this.state.changePass ? 'form-control' : 'form-control d-none'} id="password" onChange={e => this.setState({ password: e.target.value })} />
+                <Button width="100%" color={Constant.Blue} onClick={this.changePassword} bstrap={this.state.changePass ? 'd-none' : ''}>เปลี่ยนรหัส</Button>
+              </div>
+           </React.Fragment>
+            }
             <div className="col-sm-2">
               <Button width="100%" color={Constant.Green} onClick={()=>
               {
@@ -165,10 +172,13 @@ class UMEditModal extends Component {
             </div>
           </div>
         </Body>
+        {
+        this.props.roleUser !== "Mod" && this.props.userData.role === "Manager" || this.props.userData.role === "Mod" ? null:
         <Footer>
           {button1}
           {button2}
         </Footer>
+        }
         <style jsx>{`
           .row{
             margin-top:10px;
