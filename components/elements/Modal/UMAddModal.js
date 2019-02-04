@@ -17,7 +17,7 @@ class UMAddModal extends Component {
       password: '',
       email: '',
       tel: '',
-      role: "Owner",
+      role: 'Manager',
       note: ''
     };
     console.log('this prpos=>',this.props)
@@ -34,7 +34,7 @@ class UMAddModal extends Component {
       password: '',
       email: '',
       tel: '',
-      role: "Owner",
+      role: 'Manager',
       note: ''
     });
   }
@@ -116,10 +116,8 @@ class UMAddModal extends Component {
             </div>
             <div className="col-sm-2">
               <select className="form-control" id="role" value={this.state.role} onChange={e => this.setState({ role: e.target.value })} >
-                <option value="Mod">Owner</option>
-                <option>Dev</option>
-                <option>Employee</option>
                 <option>Manager</option>
+                <option>Employee</option>
               </select>
             </div>
           </div>

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import moment from 'moment';
 import TopNavbar from './TopNavbar';
 import LeftNavbar from './LeftNavbar';
+import {connect} from 'react-redux'
 
 moment.locale('th');
 
@@ -57,7 +58,53 @@ const MenuLists = [
   },
 ];
 
-const Layout = ({ children, title = 'ระบบจัดการสนาม' }) => (
+
+const MenuListsEmployee = [
+  {
+    id: 1,
+    href: '/',
+    name: 'รายการวันนี้',
+    iconClass: 'fa-newspaper-o',
+  },
+  {
+    id: 2,
+    href: '/payment',
+    name: 'เติมเงิน/จ่ายเงิน',
+    iconClass: 'fa-money',
+  },
+  {
+    id: 3,
+    href: '/booking-table',
+    name: 'การจอง',
+    iconClass: 'fa-calendar-plus-o',
+  },
+  {
+    id: 4,
+    href: '/customer',
+    name: 'ข้อมูลลูกค้า',
+    iconClass: 'fa-users',
+  },
+  {
+    id: 5,
+    href: '/analysis',
+    name: 'วิเคราะห์ข้อมูล',
+    iconClass: 'fa-line-chart',
+  },
+  {
+    id: 6,
+    href: '/field-management',
+    name: 'จัดการสนาม',
+    iconClass: 'fa-dashboard',
+  },
+  {
+    id: 7,
+    href: '/connect',
+    name: 'Lenkila Connect',
+    iconClass: 'fa-plug',
+  },
+];
+
+const Layout = ({ children, title = 'ระบบจัดการสนาม',roleUser}) => console.log('roleUser',roleUser)||(
   <div className="root">
     <Head>
       <title>{`Lenkila : ${title}`}</title>
@@ -80,7 +127,7 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
     </Head>
     <TopNavbar menulists={MenuLists} />
     <div className="content d-flex flex-row">
-      <LeftNavbar menulists={MenuLists} />
+      <LeftNavbar menulists={roleUser==="Employee" ? MenuListsEmployee : MenuLists} />
       <div className="page-container">
         {children}
       </div>
@@ -120,4 +167,10 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
   </div>
 );
 
-export default Layout;
+function mapStateToProps(state) {
+  return {
+    roleUser: state.auth.roleUser,
+  }
+}
+
+export default connect(mapStateToProps,{}) (Layout);
