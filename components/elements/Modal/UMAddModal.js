@@ -17,7 +17,7 @@ class UMAddModal extends Component {
       password: '',
       email: '',
       tel: '',
-      role: "Owner",
+      role: 'Manager',
       note: ''
     };
     console.log('this prpos=>',this.props)
@@ -34,7 +34,7 @@ class UMAddModal extends Component {
       password: '',
       email: '',
       tel: '',
-      role: "Owner",
+      role: 'Manager',
       note: ''
     });
   }
