@@ -12,7 +12,7 @@ class FieldManagementGift extends Component {
 
   render() {
 
-    const { users } = this.props;
+    const { gifcode } = this.props;
     return (
       <TabsLayout title="Gift Code" tabs={Constant.FieldTabs}>
         <div className="container">
@@ -46,9 +46,9 @@ class FieldManagementGift extends Component {
                 </tr>
               </thead>
               <tbody>
-                {users.map(user => (
+                {gifcode.map(user => (
                   <tr key={user.id}>
-                    <td className="hide1">{user.firstname} {user.lastname}</td>
+                    <td className="hide1">{user.name}</td>
                     <td>{user.nickname}</td>
                     <td>{user.username}</td>
                     <td className="hide2">{user.email}</td>
@@ -105,7 +105,7 @@ class FieldManagementGift extends Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.field_managementGiftCodeSaga.fields,
+    gifcode: state.field_managementGiftCodeSaga.fields,
   }
 }
 
