@@ -55,6 +55,12 @@ export const actionTypes = {
     ADD_FIELD_DATA_STD:'ADD_FIELD_DATA_STD',
     EDIT_FIELD_DATA_STD:'EDIT_FIELD_DATA_STD',
 
+    //field-management-giftcode
+    SET_FIELD_DATA_GIFT:'SET_FIELD_DATA_GIFT',
+    ADD_FIELD_DATA_GIFT:'ADD_FIELD_DATA_GIFT',
+    EDIT_FIELD_DATA_GIFT:'EDIT_FIELD_DATA_GIFT',
+    DELETE_FIELD_DATA_GIFT:'DELETE_FIELD_DATA_GIFT',
+
     SET_NOTE:'SET_NOTE',
     SET_NOTE_ID:'SET_NOTE_ID',
     SET_NOTE_DATE:'SET_NOTE_DATE',
@@ -261,6 +267,32 @@ export const editFieldDataSTD = (data) => {
     return {
         type: actionTypes.EDIT_FIELD_DATA_STD,
         data,
+    }
+}
+
+//field stadium GIFT 
+
+export const setFieldDataGift = () => {
+    return {
+        type: actionTypes.SET_FIELD_DATA_GIFT,
+    }
+}
+export const addFieldDataGift = (data) => {
+    return {
+        type: actionTypes.ADD_FIELD_DATA_GIFT,
+        data,
+    }
+}
+export const editFieldDataGift = (data) => {
+    return {
+        type: actionTypes.EDIT_FIELD_DATA_GIFT,
+        data,
+    }
+}
+export const deleteFieldDataGift = (id) => {
+    return {
+        type: actionTypes.DELETE_FIELD_DATA_GIFT,
+        id,
     }
 }
 
