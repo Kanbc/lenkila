@@ -12,6 +12,7 @@ const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* addUesrDataSaga({newUser}) {
   console.log('newUser',newUser)
+  const upline = yield select(state => state.auth.user[0].upline_id)
     try {
        const response = yield axios.get(apiUrl, {
             params: {
@@ -27,6 +28,7 @@ export function* addUesrDataSaga({newUser}) {
               tel: newUser.tel,
               password: newUser.password,
               role: newUser.role,
+              upline_id:upline,
              
             },
           })

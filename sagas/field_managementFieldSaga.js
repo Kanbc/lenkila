@@ -11,6 +11,7 @@ export const setData = Creator(SET_DATA,'data')
 const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* setFieldDataSaga() {
+  console.log('here')
     try {
        const response = yield axios.get(apiUrl, {
             params: {
@@ -19,6 +20,7 @@ export function* setFieldDataSaga() {
               action:'field_doc_getlist',
             },
           })
+      console.log('response field',response)
       yield put(setData({fields:response.data.response_data}))
     } catch (err) {
         console.log('error',err)

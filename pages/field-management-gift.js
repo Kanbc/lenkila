@@ -105,7 +105,7 @@ class FieldManagementGift extends Component {
 
 function mapStateToProps(state) {
   return {
-    gifcode: state.field_managementGiftCodeSaga.fields,
+    gifcode: state.field_managementGiftCodeSaga.fieldsGift,
   }
 }
 

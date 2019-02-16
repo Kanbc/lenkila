@@ -21,7 +21,7 @@ export function* setFieldDataSaga() {
             },
           })
       console.log('response',response)
-      yield put(setData({fields:response.data.response_data}))
+      yield put(setData({fieldsHLD:response.data.response_data}))
     } catch (err) {
         console.log('error',err)
     }
@@ -101,7 +101,7 @@ export function* fieldManagementHolidayWatcher() {
     ])
 }
 const initial = {
-  fields: [],
+  fieldsHLD: [],
 }
 
 export default createReducer(initial, state => ({

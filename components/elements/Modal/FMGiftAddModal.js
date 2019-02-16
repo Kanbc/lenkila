@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import TimePicker from 'react-bootstrap-time-picker';
@@ -6,6 +7,7 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { Button } from '../..';
+import {addFieldDataGift} from '../../../store'
 
 class FMGiftAddModal extends Component {
   constructor(props) {
@@ -215,4 +217,5 @@ class FMGiftAddModal extends Component {
   }
 }
 
-export default FMGiftAddModal;
+
+export default connect(null,{addFieldDataGift})(FMGiftAddModal);

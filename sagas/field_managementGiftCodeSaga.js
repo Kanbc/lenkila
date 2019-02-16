@@ -19,7 +19,7 @@ export function* setFieldDataSaga() {
               action:'gift_code_getlist',
             },
           })
-      yield put(setData({fields:response.data.response_data}))
+      yield put(setData({fieldsGift:response.data.response_data}))
       console.log('gift',response.data.response_data)
 
      
@@ -103,7 +103,7 @@ export function* fieldManagementGiftCodeWatcher() {
     ])
 }
 const initial = {
-  fields: [],
+  fieldsGift: [],
 }
 
 export default createReducer(initial, state => ({
