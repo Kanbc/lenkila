@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import { TwitterPicker } from 'react-color';
+import {connect} from 'react-redux'
+import {setData} from '../../../../sagas/field_managementPriceSaga'
+
 
 class ColorButton extends Component {
   state = {
-    background: '#CA0813',
+    background: this.props.userDatacolor || '#CA0813',
   };
 
   handleChangeComplete = (color) => {
     this.setState({ background: color.hex });
+
+    this.props.setData({colorPriceEdit:color.hex})
+    if(this.props.typeColor === "add") this.props.setData({colorPrice:color.hex})
   };
 
   render() {
@@ -32,4 +38,4 @@ class ColorButton extends Component {
   }
 }
 
-export default ColorButton;
+export default connect(null,{setData})(ColorButton);

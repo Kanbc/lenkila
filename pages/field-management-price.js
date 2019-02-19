@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { TabsLayout, FMImportPriceModal, FMPriceAddModal, FMPriceEditModal, ButtonModal, Constant } from '../components';
+import {connect} from 'react-redux'
+import {setData} from '../sagas/field_managementPriceSaga'
+
+import { setFieldDataPrice } from '../store';
 
 class FieldManagementPrice extends Component {
   // [GET] - Users
-  users = userData();
+  componentDidMount(){
+    this.props.setFieldDataPrice()
+   
+  }
 
   render() {
+    
     return (
       <TabsLayout title="ราคา" tabs={Constant.FieldTabs}>
         <div className="container">
@@ -14,7 +22,7 @@ class FieldManagementPrice extends Component {
               <thead>
                 <tr className="tools-row">
                   <th scope="col">
-                    <select className="custom-select" defaultValue="0">
+                    <select className="custom-select" defaultValue="0" id="fieldID" onChange={e=>this.props.setData({fieldIdPrice:e.target.value})}>
                       <option value="0">F1</option>
                       <option value="1">F2</option>
                       <option value="2">F3</option>
@@ -47,12 +55,21 @@ class FieldManagementPrice extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.users.map(user => (
+                {this.props.fieldsPrice.map(user => (
                   <tr key={user.id}>
-                    <td className="hide1" style={{ color: `${user.color}` }}>{user.weekday}</td>
-                    <td style={{ color: `${user.color}` }}>{user.start}</td>
-                    <td style={{ color: `${user.color}` }}>{user.end}</td>
-                    <td className="hide2" style={{ color: `${user.color}` }}>{user.price}</td>
+                    <td className="hide1" style={{ color: `${user.color}` }}>
+                    {user.is_mon === "0" && "Mon "}	
+                    {user.is_tue === "0" && "Tue "}
+                    {user.is_wed === "0" && "Wed "}
+                    {user.is_thu === "0" && "Thu "}
+                    {user.is_fri === "0" && "Fri "}
+                    {user.is_sat === "0" && "Sat "}
+                    {user.is_sun === "0" && "Sun "}
+                    {user.is_hol === "0" && "Hol "}
+                    </td>
+                    <td style={{ color: `${user.color}` }}>{user.start_time}</td>
+                    <td style={{ color: `${user.color}` }}>{user.end_time}</td>
+                    <td className="hide2" style={{ color: `${user.color}` }}>{parseInt(user.normal_class)}</td>
                     <td className="hide2">
                       <button type="button" style={{ color: `${user.color}`, backgroundColor: `${user.color}` }} className="btn price-color">
                         +
@@ -111,34 +128,12 @@ class FieldManagementPrice extends Component {
   }
 }
 
-function userData() {
-  const users = [
-    {
-      id: 1,
-      weekday: 'Rhynyx',
-      start: '10:24',
-      end: '13:44',
-      price: 734,
-      color: '#FD9226',
-    },
-    {
-      id: 2,
-      weekday: 'Aimbu',
-      start: '7:44',
-      end: '13:03',
-      price: 999,
-      color: '#9013FE',
-    },
-    {
-      id: 3,
-      weekday: 'DabZ',
-      start: '5:58',
-      end: '6:37',
-      price: 664,
-      color: '#D0021B',
-    },
-  ];
-  return users;
+
+
+function mapStateToProps(state) {
+  return {
+    fieldsPrice: state.field_managementPriceSaga.fieldsPrice,
+  }
 }
 
-export default FieldManagementPrice;
+export default connect(mapStateToProps,{setFieldDataPrice,setData})(FieldManagementPrice);
