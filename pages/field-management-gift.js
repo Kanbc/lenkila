@@ -49,12 +49,12 @@ class FieldManagementGift extends Component {
                 {gifcode.map(user => (
                   <tr key={user.id}>
                     <td className="hide1">{user.name}</td>
-                    <td>{user.nickname}</td>
-                    <td>{user.username}</td>
-                    <td className="hide2">{user.email}</td>
-                    <td className="hide1">{user.firstname}</td>
-                    <td>{user.id % 3 === 0 ? 100 : 10}</td>
-                    <td>{user.id % 3 === 0 ? 10 : 1}</td>
+                    <td>{user.is_allday}</td>
+                    <td>{user.start_time}-{user.end_time}</td>
+                    <td className="hide2">{user.expired_at}</td>
+                    <td className="hide1">{user.discount_amount}</td>
+                    <td>{user.used_amount}</td>
+                    <td>{user.per_person_limit_amount}</td>
                     <td>
                       <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
                         <i className="fa fa-pencil" />

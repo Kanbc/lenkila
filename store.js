@@ -296,6 +296,32 @@ export const deleteFieldDataGift = (id) => {
     }
 }
 
+//field price 
+
+export const setFieldDataPrice = () => {
+    return {
+        type: actionTypes.SET_FIELD_DATA_PRICE,
+    }
+}
+export const addFieldDataPrice = (data) => {
+    return {
+        type: actionTypes.ADD_FIELD_DATA_PRICE,
+        data,
+    }
+}
+export const editFieldDataPrice = (data) => {
+    return {
+        type: actionTypes.EDIT_FIELD_DATA_PRICE,
+        data,
+    }
+}
+export const deleteFieldDataPrice = (id) => {
+    return {
+        type: actionTypes.DELETE_FIELD_DATA_PRICE,
+        id,
+    }
+}
+
 //note
 
 export const setNote = () => {

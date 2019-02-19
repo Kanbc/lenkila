@@ -6,6 +6,7 @@ import field_managementHolidaySaga,{fieldManagementHolidayWatcher} from './field
 import field_managementFieldSaga,{fieldManagementFieldWatcher} from './field_managementFieldSaga'
 import field_managementStadiumSaga,{fieldManagementStadiumWatcher} from './field_managementStadiumSaga'
 import field_managementGiftCodeSaga,{fieldManagementGiftCodeWatcher} from './field_managementGiftCodeSaga'
+// import field_managementPriceSaga,{fieldManagementPriceWatcher} from './field_managementPriceSaga'
 import booking_noteSaga,{noteWatcher} from './booking_noteSaga'
 import auth,{authWatcher} from './auth'
 
@@ -18,6 +19,7 @@ export const reducers = combineReducers(
     field_managementFieldSaga,
     field_managementStadiumSaga,
     field_managementGiftCodeSaga,
+    // field_managementPriceSaga,
     booking_noteSaga,
     auth,
   }
@@ -33,6 +35,7 @@ function* rootSaga() {
     fieldManagementFieldWatcher(),
     fieldManagementStadiumWatcher(),
     fieldManagementGiftCodeWatcher(),
+    // fieldManagementPriceWatcher(),
     noteWatcher(),
     authWatcher(),
   ])
