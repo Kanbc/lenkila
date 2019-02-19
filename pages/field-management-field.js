@@ -7,7 +7,6 @@ import { setFieldDataField } from '../store';
 class FieldManagementField extends Component {
   // [GET] - Users
   componentDidMount() {
-    console.log('thisprops',this.props)
     this.props.setFieldDataField();
     
   }
@@ -15,7 +14,9 @@ class FieldManagementField extends Component {
 
   render() {
 
-    const { users } = this.props;
+    const { items } = this.props;
+    console.log('thisproprender',this.props)
+    // console.log('users map',items)
 
     return (
       <TabsLayout title="สนาม" tabs={Constant.FieldTabs}>
@@ -44,7 +45,7 @@ class FieldManagementField extends Component {
                 </tr>
               </thead>
               <tbody>
-                {users.map(user => (
+                {items.map(user => (
                   <tr key={user.id}>
                     <td className="hide1">{user.name}</td>
                     <td>{user.type === "0" ? "ฟุตบอล":"แบตมินตัน"}</td>
@@ -100,7 +101,7 @@ class FieldManagementField extends Component {
 }
 function mapStateToProps(state) {
   return {
-    users: state.field_managementFieldSaga.fields,
+    items: state.field_managementFieldSaga.fields,
   }
 }
 

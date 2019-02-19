@@ -25,12 +25,11 @@ class FieldManagement extends Component {
     this.props.setFieldDataSTD();
   }
   componentWillReceiveProps(nextProps){
-    console.log('next props sss',nextProps)
     this.setState({
       phone:nextProps.users.phone,
       description:nextProps.users.description,
       location:nextProps.users.location,
-      facilities: JSON.parse(nextProps.users.facilities),
+      facilities: nextProps.users.facilities!==""&&JSON.parse(nextProps.users.facilities),
       id:nextProps.users.id,
       stadium_doc_id:nextProps.users.stadium_doc_id,
       openTime: moment.duration(nextProps.users.open_time).asSeconds(),
@@ -40,7 +39,6 @@ class FieldManagement extends Component {
   }
   
   render() {
-
     return (
       <TabsLayout title="ข้อมูลสนาม" tabs={Constant.FieldTabs}>
         <div className="container">
@@ -312,7 +310,7 @@ const SaveButton=({id,stadium_doc_id,phone,description,location,facilities,editF
 
 function mapStateToProps(state) {
   return {
-    users: state.field_managementStadiumSaga.fields[0],
+    users: state.field_managementStadiumSaga.fieldsSTD,
   }
 }
 

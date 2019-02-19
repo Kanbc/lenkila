@@ -1,22 +1,36 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
+import {connect} from 'react-redux'
+
 import moment from 'moment';
 import TimePicker from 'react-bootstrap-time-picker';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { Button, Constant, CancelModal } from '../..';
+import {editFieldDataGift,deleteFieldDataGift} from '../../../store'
+
 
 class FMGiftEditModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentDate: moment(),
-      startTime: moment(),
-      endTime: moment(),
-      allDay: false,
+      expiredAt: moment(this.props.userData.expired_at),
+      name:this.props.userData.name,
+      startTime: moment.duration(props.userData.start_time).asSeconds(),
+      endTime: moment.duration(props.userData.end_time).asSeconds(),
+
+      allDay:this.props.userData.is_allday === "0"?true:false,
+      type:this.props.userData.type,
+  
+      discount_amount:this.props.userData.discount_amount,
+      used_amount:this.props.userData.used_amount,
+      per_person_limit_amount:this.props.userData.per_person_limit_amount,
     };
     this.allDay = this.allDay.bind(this);
+  }
+  componentDidMount(){
+    console.log('this.props',this.props.userData.expired_at)
   }
 
   allDay() {
@@ -34,7 +48,7 @@ class FMGiftEditModal extends Component {
               <p>ชื่อ</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" defaultValue={this.props.userData.name} onChange={e => this.setState({ name: e.target.value })} />
             </div>
             <div className="col-sm-2">
               <p>วันสิ้นสุด</p>
@@ -45,8 +59,8 @@ class FMGiftEditModal extends Component {
                 showYearDropdown
                 dropdownMode="select"
                 disabledKeyboardNavigation
-                selected={this.state.currentDate}
-                onChange={currentDate => this.setState({ currentDate })}
+                selected={this.state.expiredAt}
+                onChange={expiredAt => this.setState({ expiredAt })}
                 className="form-control"
               />
             </div>
@@ -56,7 +70,7 @@ class FMGiftEditModal extends Component {
               <p>ประเภท</p>
             </div>
             <div className="col-sm-4">
-              <select className="custom-select" defaultValue="0">
+              <select className="custom-select" defaultValue={this.props.userData.type} onChange={e => this.setState({ type: e.target.value })}>
                 <option value="0">%</option>
                 <option value="1">เงิน</option>
               </select>
@@ -65,7 +79,7 @@ class FMGiftEditModal extends Component {
               <p>ราคา</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" defaultValue={this.props.userData.discount_amount} onChange={e => this.setState({ discount_amount: e.target.value })}/>
             </div>
           </div>
           <div className="row">
@@ -113,26 +127,41 @@ class FMGiftEditModal extends Component {
               <p>จำนวน</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" defaultValue={this.props.userData.used_amount}  onChange={e => this.setState({ used_amount: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p>ครั้งต่อคน</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" defaultValue={this.props.userData.per_person_limit_amount} onChange={e => this.setState({ per_person_limit_amount: e.target.value })}/>
             </div>
           </div>
         </Body>
         <Footer>
-          <Button width={Constant.Buttons.default} bstrap="btn-success" >
+          <CancelModal width={Constant.Buttons.default} bstrap="btn-success" 
+          onClick={()=>this.props.editFieldDataGift(
+            {
+              id:this.props.userData.id,
+              name:this.state.name,
+              expired_at:this.state.expiredAt,
+              type:this.state.type,
+              discount_amount:this.state.discount_amount,
+              start_time:this.state.startTime,
+              end_time:this.state.endTime,
+              used_amount:this.state.used_amount,
+              per_person_limit_amount:this.state.per_person_limit_amount,
+              day:this.state.day,
+              is_allday:this.state.allDay,
+            }
+          )} >
             สร้าง
-          </Button>
+          </CancelModal>
           <CancelModal width={Constant.Buttons.default} color={Constant.Orange}>
             ยกเลิก
           </CancelModal>
-          <Button width={Constant.Buttons.default} bstrap="btn-danger" >
+          <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>this.props.deleteFieldDataGift(this.props.userData.id)} >
             ลบ
-          </Button>
+          </CancelModal>
         </Footer>
         <style jsx>{`
           .row{
@@ -169,4 +198,4 @@ class FMGiftEditModal extends Component {
   }
 }
 
-export default FMGiftEditModal;
+export default  connect(null,{deleteFieldDataGift,editFieldDataGift})(FMGiftEditModal);

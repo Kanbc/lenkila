@@ -26,8 +26,6 @@ class FMHolidayEditModal extends Component {
     this.editNewField = this.editNewField.bind(this);
   }
 
- 
-
   editNewField() {
     this.props.editFieldDataHoliday({
       id:this.props.userData.id,

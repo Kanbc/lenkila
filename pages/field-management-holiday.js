@@ -103,7 +103,7 @@ class FieldManagementHoliday extends Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.field_managementHolidaySaga.fields,
+    users: state.field_managementHolidaySaga.fieldsHLD,
   }
 }
 

@@ -1,4 +1,5 @@
 import { call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects'
+import {delay} from 'redux-saga'
 import {actionTypes} from '../store'
 import axios from 'axios'
 import {createReducer,Creator} from './helper'
@@ -12,15 +13,19 @@ export const setData = Creator(SET_DATA,'data')
 const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* setFieldDataSaga() {
+  yield delay(1000)
+  const id = yield select(state => state.auth.user[0].stadium_doc.id)
+  console.log('id',id)
     try {
        const response = yield axios.get(apiUrl, {
             params: {
               apikey: 'da1ee23f12812a19dc57fa4cf3115519',
               code:'piluj',
-              action:'stadium_doc_getlist',
+              action:'stadium_doc_getbyid',
+              id:id,
             },
           })
-      yield put(setData({fields:response.data.response_data}))
+      yield put(setData({fieldsSTD:response.data.response_data}))
     } catch (err) {
         console.log('error',err)
     }
@@ -88,7 +93,7 @@ export function* fieldManagementStadiumWatcher() {
     ])
 }
 const initial = {
-  fields: [],
+  fieldsSTD: [],
 }
 
 export default createReducer(initial, state => ({

@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { TabsLayout, Constant, ButtonModal, FMGiftEditModal, FMGiftAddModal } from '../components';
+import {connect} from 'react-redux'
+import { setFieldDataGift } from '../store';
 
 class FieldManagementGift extends Component {
-  // [GET] - Users
-  users = userData();
+
+
+  componentDidMount() {
+    this.props.setFieldDataGift();
+  }
 
   render() {
+
+    const { gifcode } = this.props;
     return (
       <TabsLayout title="Gift Code" tabs={Constant.FieldTabs}>
         <div className="container">
@@ -39,15 +46,15 @@ class FieldManagementGift extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.users.map(user => (
+                {gifcode.map(user => (
                   <tr key={user.id}>
-                    <td className="hide1">{user.firstname} {user.lastname}</td>
-                    <td>{user.nickname}</td>
-                    <td>{user.username}</td>
-                    <td className="hide2">{user.email}</td>
-                    <td className="hide1">{user.firstname}</td>
-                    <td>{user.id % 3 === 0 ? 100 : 10}</td>
-                    <td>{user.id % 3 === 0 ? 10 : 1}</td>
+                    <td className="hide1">{user.name}</td>
+                    <td>{user.is_allday}</td>
+                    <td>{user.start_time}-{user.end_time}</td>
+                    <td className="hide2">{user.expired_at}</td>
+                    <td className="hide1">{user.discount_amount}</td>
+                    <td>{user.used_amount}</td>
+                    <td>{user.per_person_limit_amount}</td>
                     <td>
                       <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
                         <i className="fa fa-pencil" />
@@ -96,120 +103,10 @@ class FieldManagementGift extends Component {
   }
 }
 
-function userData() {
-  const users = [
-    {
-      id: 1,
-      firstname: 'Archer',
-      lastname: 'Traher',
-      email: 'atraher0@google.it',
-      nickname: 'Yellow',
-      username: 'atraher0',
-      password: '0K7d35r',
-      tel: '941-715-4509',
-      role: 'Owner',
-    },
-    {
-      id: 2,
-      firstname: 'Sherilyn',
-      lastname: 'Wooding',
-      email: 'swooding1@live.com',
-      nickname: 'Khaki',
-      username: 'swooding1',
-      password: 'W6wSVjGDVV',
-      tel: '589-802-3451',
-      role: 'Owner',
-    },
-    {
-      id: 3,
-      firstname: 'Erminie',
-      lastname: 'Georgiades',
-      email: 'egeorgiades2@diigo.com',
-      nickname: 'Blue',
-      username: 'egeorgiades2',
-      password: 'GdKAPoubYOIV',
-      tel: '177-268-9690',
-      role: 'Owner',
-    },
-    {
-      id: 4,
-      firstname: 'Dominik',
-      lastname: 'Switsur',
-      email: 'dswitsur3@wired.com',
-      nickname: 'Pink',
-      username: 'dswitsur3',
-      password: 'If6DgzXJPxg',
-      tel: '625-877-1952',
-      role: 'Admin',
-    },
-    {
-      id: 5,
-      firstname: 'Sharleen',
-      lastname: 'Bostick',
-      email: 'sbostick4@github.io',
-      nickname: 'Fuscia',
-      username: 'sbostick4',
-      password: 'UaXVPi',
-      tel: '892-646-7110',
-      role: 'Admin',
-    },
-    {
-      id: 6,
-      firstname: 'Ford',
-      lastname: 'Chasier',
-      email: 'fchasier5@phoca.cz',
-      nickname: 'Aquamarine',
-      username: 'fchasier5',
-      password: 'mCLrLR',
-      tel: '179-637-9279',
-      role: 'Admin',
-    },
-    {
-      id: 7,
-      firstname: 'Maia',
-      lastname: 'Spurett',
-      email: 'mspurett6@joomla.org',
-      nickname: 'Teal',
-      username: 'mspurett6',
-      password: 'bMgyzA',
-      tel: '904-911-4607',
-      role: 'Admin',
-    },
-    {
-      id: 8,
-      firstname: 'Simona',
-      lastname: 'Acres',
-      email: 'sacres7@rambler.ru',
-      nickname: 'Orange',
-      username: 'sacres7',
-      password: 'WG7DpIKKWm',
-      tel: '907-273-8871',
-      role: 'Admin',
-    },
-    {
-      id: 9,
-      firstname: 'Aaron',
-      lastname: 'Crossingham',
-      email: 'acrossingham8@163.com',
-      nickname: 'Fuscia',
-      username: 'acrossingham8',
-      password: '7k0mnsvvdo',
-      tel: '381-990-2820',
-      role: 'Staff',
-    },
-    {
-      id: 10,
-      firstname: 'Niel',
-      lastname: 'Voelker',
-      email: 'nvoelker9@rakuten.co.jp',
-      nickname: 'Crimson',
-      username: 'nvoelker9',
-      password: '6DJdjBzcSWO',
-      tel: '767-174-0948',
-      role: 'Staff',
-    },
-  ];
-  return users;
+function mapStateToProps(state) {
+  return {
+    gifcode: state.field_managementGiftCodeSaga.fieldsGift,
+  }
 }
 
-export default FieldManagementGift;
+export default connect(mapStateToProps,{setFieldDataGift})(FieldManagementGift);
