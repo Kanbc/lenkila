@@ -4,7 +4,7 @@ import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { Button } from '../..';
 
-const FMImportPriceModal = ({ title, type }) => (
+const FMImportPriceModal = ({ title, type,fieldOptions }) => (
   <DefaultModal title={title} type={type} percentWidth="36" >
     <Body>
       <div className="row">
@@ -13,9 +13,9 @@ const FMImportPriceModal = ({ title, type }) => (
         </div>
         <div className="col-sm-9">
           <select className="form-control" id="role">
-            <option>F1</option>
-            <option>F2</option>
-            <option>F3</option>
+          {fieldOptions.map(item=>
+          <option value={item.id}>{item.name}</option>)
+          }
           </select>
         </div>
       </div>

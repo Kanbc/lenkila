@@ -29,6 +29,8 @@ export function* setFieldDataSaga() {
 
 
 export function* addFieldDataSaga({data}){
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+  console.log('id',stadiumId)
     try {
       yield axios.get(apiUrl, {
           params: {
@@ -39,7 +41,7 @@ export function* addFieldDataSaga({data}){
             description: data.description,
             is_dividable: data.is_dividable,
             type: data.typeField,
-            stadium_doc_id:0,
+            stadium_doc_id:stadiumId,
             field_id:0,
           },
         })

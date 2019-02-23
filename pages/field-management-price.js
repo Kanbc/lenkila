@@ -3,17 +3,18 @@ import { TabsLayout, FMImportPriceModal, FMPriceAddModal, FMPriceEditModal, Butt
 import {connect} from 'react-redux'
 import {setData} from '../sagas/field_managementPriceSaga'
 
-import { setFieldDataPrice } from '../store';
+import { setFieldDataPrice,setFieldDataField } from '../store';
 
 class FieldManagementPrice extends Component {
   // [GET] - Users
   componentDidMount(){
     this.props.setFieldDataPrice()
+    this.props.setFieldDataField()
    
   }
 
   render() {
-    
+    console.log('fields',this.props.fields)
     return (
       <TabsLayout title="ราคา" tabs={Constant.FieldTabs}>
         <div className="container">
@@ -23,10 +24,9 @@ class FieldManagementPrice extends Component {
                 <tr className="tools-row">
                   <th scope="col">
                     <select className="custom-select" defaultValue="0" id="fieldID" onChange={e=>this.props.setData({fieldIdPrice:e.target.value})}>
-                      <option value="0">F1</option>
-                      <option value="1">F2</option>
-                      <option value="2">F3</option>
-                      <option value="3">F4</option>
+                      {this.props.fields.map(item=>
+                      <option value={item.id}>{item.name}</option>)
+                      }
                     </select>
                   </th>
                   <th scope="col" className="hide1" />
@@ -35,7 +35,7 @@ class FieldManagementPrice extends Component {
                   <th scope="col">
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#import-field">
                       Import
-                      <FMImportPriceModal title="Import" type="import-field" />
+                      <FMImportPriceModal title="Import" type="import-field" fieldOptions={this.props.fields} />
                     </ButtonModal>
                   </th>
                   <th scope="col">
@@ -133,7 +133,8 @@ class FieldManagementPrice extends Component {
 function mapStateToProps(state) {
   return {
     fieldsPrice: state.field_managementPriceSaga.fieldsPrice,
+    fields: state.field_managementFieldSaga.fields,
   }
 }
 
-export default connect(mapStateToProps,{setFieldDataPrice,setData})(FieldManagementPrice);
+export default connect(mapStateToProps,{setFieldDataPrice,setData,setFieldDataField})(FieldManagementPrice);
