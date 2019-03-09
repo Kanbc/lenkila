@@ -6,16 +6,16 @@ import {setData} from '../../../../sagas/field_managementPriceSaga'
 
 class ColorButton extends Component {
   state = {
-    background: this.props.userDatacolor || '#CA0813',
+    background: this.props.typeColor === "add" ? '#CA0813':this.props.userDatacolor,
   };
-
+  
   handleChangeComplete = (color) => {
     this.setState({ background: color.hex });
-
+    
     this.props.setData({colorPriceEdit:color.hex})
     if(this.props.typeColor === "add") this.props.setData({colorPrice:color.hex})
   };
-
+  
   render() {
     return (
       <div className="dropdown">

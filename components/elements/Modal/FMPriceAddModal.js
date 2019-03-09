@@ -60,25 +60,25 @@ class FMPriceAddModal extends Component {
       is_sat:false,	
       is_sun:false,	
       is_hol:false,
-      normal_class:null,
-      student_class:null,
-      student_class_half:null,	
-      college_class:null,	
-      college_class_half:null,	
-      aged_class:null,	
-      aged_class_half:null,	
-      vip_class:null,	
-      vip_class_half:null,	
-      silver_class:null,	
-      silver_class_half:null,	
-      gold_class:null,	
-      gold_class_half:null,	
-      one_class:null,	
-      one_class_half:null,	
-      two_class:null,	
-      two_class_half:null,	
-      three_class:null,	
-      three_class_half:null,
+      normal_class:'',
+      student_class:'',
+      student_class_half:'',	
+      college_class:'',	
+      college_class_half:'',	
+      aged_class:'',	
+      aged_class_half:'',	
+      vip_class:'',	
+      vip_class_half:'',	
+      silver_class:'',	
+      silver_class_half:'',	
+      gold_class:'',	
+      gold_class_half:'',	
+      one_class:'',	
+      one_class_half:'',	
+      two_class:'',	
+      two_class_half:'',	
+      three_class:'',	
+      three_class_half:'',
     });
   }
 
@@ -273,7 +273,7 @@ class FMPriceAddModal extends Component {
         <Footer>
           <CancelModal width="100px" bstrap="btn-success" onClick={()=> {
             this.props.addFieldDataPrice({
-            field_id:this.props.fieldIdPrice,
+            field_id:this.props.fieldId,
             is_mon:this.state.is_mon,
             is_tue:this.state.is_tue,
             is_wed:this.state.is_wed,
@@ -354,7 +354,7 @@ class FMPriceAddModal extends Component {
 function mapStateToProps(state) {
   return {
     colorPrice: state.field_managementPriceSaga.colorPrice,
-    fieldIdPrice: state.field_managementPriceSaga.fieldIdPrice,
+    fieldId: state.field_managementPriceSaga.fieldId,
   }
 }
 

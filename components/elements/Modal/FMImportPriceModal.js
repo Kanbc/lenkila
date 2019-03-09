@@ -2,9 +2,9 @@ import React from 'react';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
-import { Button } from '../..';
+import { CancelModal } from '../..';
 
-const FMImportPriceModal = ({ title, type }) => (
+const FMImportPriceModal = ({ title, type,fieldOptions,importPrice,setData,fieldId}) => (
   <DefaultModal title={title} type={type} percentWidth="36" >
     <Body>
       <div className="row">
@@ -12,10 +12,10 @@ const FMImportPriceModal = ({ title, type }) => (
           <p>เลือกสนาม</p>
         </div>
         <div className="col-sm-9">
-          <select className="form-control" id="role">
-            <option>F1</option>
-            <option>F2</option>
-            <option>F3</option>
+          <select className="form-control" id="role" onChange={e=>setData({fieldIdImport:e.target.value})}>
+          {fieldOptions.map(item=>
+          <option value={item.id}>{item.name}</option>)
+          }
           </select>
         </div>
       </div>
@@ -24,9 +24,9 @@ const FMImportPriceModal = ({ title, type }) => (
       </div>
     </Body>
     <Footer>
-      <Button width="100px" bstrap="btn-success" >
+      <CancelModal width="100px" bstrap="btn-success" onClick={()=>importPrice({fieldId:fieldId})}>
         ยืนยัน
-      </Button>
+      </CancelModal>
     </Footer>
     <style jsx>{`
       .row{

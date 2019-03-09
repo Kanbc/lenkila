@@ -1,5 +1,6 @@
 import { call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects'
 import {actionTypes} from '../store'
+import {delay} from 'redux-saga'
 import axios from 'axios'
 import moment from 'moment';
 import {createReducer,Creator} from './helper'
@@ -12,12 +13,16 @@ export const setData = Creator(SET_DATA,'data')
 const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* setFieldDataSaga() {
+
+    yield delay(100)
+    const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
        const response = yield axios.get(apiUrl, {
             params: {
               apikey: 'da1ee23f12812a19dc57fa4cf3115519',
               code:'piluj',
               action:'holiday_getlist',
+              stadium_id:stadiumId,
             },
           })
       console.log('response',response)
@@ -30,12 +35,14 @@ export function* setFieldDataSaga() {
 
 export function* addFieldDataSaga({data}){
     console.log('data add',data)
+    const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
       yield axios.get(apiUrl, {
           params: {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'holiday_add',
+            stadium_id:stadiumId,
             name:data.name,
             flag:data.flag,
             start_date:moment(data.start_date).format("YYYY-MM-DD"),
@@ -54,6 +61,7 @@ export function* addFieldDataSaga({data}){
 
 
 export function* editFieldDataSaga({data}){
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
         yield axios.get(apiUrl, {
           params: {
@@ -61,6 +69,7 @@ export function* editFieldDataSaga({data}){
             code:'piluj',
             action:'holiday_edit',
             id:data.id,
+            stadium_id:stadiumId,
             name:data.name,
             flag:data.flag,
             start_date:moment(data.start_date).format("YYYY-MM-DD"),

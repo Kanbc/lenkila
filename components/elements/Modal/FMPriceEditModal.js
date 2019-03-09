@@ -69,7 +69,6 @@ class FMPriceEditModal extends Component {
   }
 
   render() {
-    // const userDetail = this.props.userData;
     let button1 = null;
     let button2 = null;
     let button3 = null;

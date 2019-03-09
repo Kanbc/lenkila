@@ -22,7 +22,6 @@ class FMGiftAddModal extends Component {
       discount_amount:'',
       used_amount:'',
       per_person_limit_amount:'',
-      day:{monday:false,tuesday:false,wednesday:false,thrday:false,friday:false,satday:false,sunday:false,holday:false},
     };
     this.allDay = this.allDay.bind(this);
     this.cancelAddUser = this.cancelAddUser.bind(this);
@@ -40,7 +39,6 @@ class FMGiftAddModal extends Component {
       discount_amount:'',
       used_amount:'',
       per_person_limit_amount:'',
-      day:{monday:false,tuesday:false,wednesday:false,thrday:false,friday:false,satday:false,sunday:false,holday:false},
     });
   }
 
@@ -91,58 +89,6 @@ class FMGiftAddModal extends Component {
             </div>
             <div className="col-sm-4">
               <input type="text" className="form-control" id="firstname" value={this.state.discount_amount} onChange={e => this.setState({ discount_amount: e.target.value })}/>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-12">
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="monday">
-                  <input className="form-check-input" type="checkbox" id="monday" value="monday" checked={this.state.day.monday} onClick={e=> this.setState({day:{...this.state.day,monday:document.getElementById("monday").checked}})}/>
-                  Mon
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="tuesday">
-                  <input className="form-check-input" type="checkbox" id="tuesday" value="tuesday" checked={this.state.day.tuesday}  onClick={e=> this.setState({day:{...this.state.day,tuesday:document.getElementById("tuesday").checked}})} />
-                  Tue
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="wednesday">
-                  <input className="form-check-input" type="checkbox" id="wednesday" value="wednesday" checked={this.state.day.wednesday} onClick={e=> this.setState({day:{...this.state.day,wednesday:document.getElementById("wednesday").checked}})}/>
-                  Wed
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="thrday">
-                  <input className="form-check-input" type="checkbox" id="thrday" value="thrday" checked={this.state.day.thrday} onClick={e=> this.setState({day:{...this.state.day,thrday:document.getElementById("thrday").checked}})}/>
-                  Thu
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="friday">
-                  <input className="form-check-input" type="checkbox" id="friday" value="friday" checked={this.state.day.friday} onClick={e=> this.setState({day:{...this.state.day,friday:document.getElementById("friday").checked}})} />
-                  Fri
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="satday">
-                  <input className="form-check-input" type="checkbox" id="satday" value="satday" checked={this.state.day.satday} onClick={e=> this.setState({day:{...this.state.day,satday:document.getElementById("satday").checked}})}/>
-                  Sat
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="sunday">
-                  <input className="form-check-input" type="checkbox" id="sunday" value="sunday" checked={this.state.day.sunday} onClick={e=> this.setState({day:{...this.state.day,sunday:document.getElementById("sunday").checked}})}/>
-                  Sun
-                </label>
-              </div>
-              <div className="form-check form-check-inline">
-                <label className="form-check-label" htmlFor="holday">
-                  <input className="form-check-input" type="checkbox" id="holday" value="holday" checked={this.state.day.holday} onClick={e=> this.setState({day:{...this.state.day,holday:document.getElementById("holday").checked}})}/>
-                  Hol
-                </label>
-              </div>
             </div>
           </div>
           <div className="row">
@@ -211,7 +157,6 @@ class FMGiftAddModal extends Component {
             end_time:this.state.endTime,
             used_amount:this.state.used_amount,
             per_person_limit_amount:this.state.per_person_limit_amount,
-            day:this.state.day,
             is_allday:this.state.allDay,
             })
             this.cancelAddUser()

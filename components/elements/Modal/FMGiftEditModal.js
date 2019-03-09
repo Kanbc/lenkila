@@ -150,7 +150,6 @@ class FMGiftEditModal extends Component {
               end_time:this.state.endTime,
               used_amount:this.state.used_amount,
               per_person_limit_amount:this.state.per_person_limit_amount,
-              day:this.state.day,
               is_allday:this.state.allDay,
             }
           )} >
