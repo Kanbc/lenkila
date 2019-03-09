@@ -55,7 +55,7 @@ class FMAddModal extends Component {
           <p>ประเภท</p>
         </div>
         <div className="col-sm-4">
-          <select className="custom-select" defaultValue="0" onChange={e => this.setState({ typeField: e.target.value })}>
+          <select className="custom-select" defaultValue="0" value={this.state.typeField}  onChange={e => this.setState({ typeField: e.target.value })}>
             <option value="0">ฟุตบอล</option>
             <option value="1">แบตมินตัน</option>
           </select>
@@ -66,7 +66,7 @@ class FMAddModal extends Component {
           <p>แบ่งครึ่งสนาม</p>
         </div>
         <div className="col-sm-4">
-          <select className="custom-select" defaultValue="0" onChange={e => this.setState({ is_dividable: e.target.value })}>
+          <select className="custom-select" defaultValue="0" value={this.state.is_dividable} onChange={e => this.setState({ is_dividable: e.target.value })}>
             <option value="0">ได้</option>
             <option value="1">ไม่ได้</option>
           </select>
@@ -78,7 +78,7 @@ class FMAddModal extends Component {
           <p>รายละเอียด</p>
         </div>
         <div className="col-sm-10">
-          <input type="text" className="form-control" id="email" onChange={e => this.setState({ description: e.target.value })}/>
+          <input type="text" className="form-control" id="email" value={this.state.description} onChange={e => this.setState({ description: e.target.value })}/>
         </div>
       </div>
     </Body>

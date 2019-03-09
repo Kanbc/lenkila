@@ -1,4 +1,5 @@
 import { call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects'
+import {delay} from 'redux-saga'
 import {actionTypes} from '../store'
 import axios from 'axios'
 import {createReducer,Creator} from './helper'
@@ -10,14 +11,17 @@ export const setData = Creator(SET_DATA,'data')
 
 const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
+
 export function* setFieldDataSaga() {
-  console.log('here')
+  yield delay(100)
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
        const response = yield axios.get(apiUrl, {
             params: {
               apikey: 'da1ee23f12812a19dc57fa4cf3115519',
               code:'piluj',
               action:'field_doc_getlist',
+              stadium_doc_id:stadiumId,
             },
           })
       console.log('response field',response)
@@ -30,7 +34,6 @@ export function* setFieldDataSaga() {
 
 export function* addFieldDataSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-  console.log('id',stadiumId)
     try {
       yield axios.get(apiUrl, {
           params: {
@@ -42,7 +45,6 @@ export function* addFieldDataSaga({data}){
             is_dividable: data.is_dividable,
             type: data.typeField,
             stadium_doc_id:stadiumId,
-            field_id:0,
           },
         })
   
@@ -55,6 +57,8 @@ export function* addFieldDataSaga({data}){
 
 
 export function* editFieldDataSaga({data}){
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+
    console.log('edit data',data)
     try {
         const response =  yield axios.get(apiUrl, {
@@ -67,8 +71,7 @@ export function* editFieldDataSaga({data}){
             description: data.description,
             is_dividable: data.is_dividable,
             type: data.type,
-            stadium_doc_id:0,
-            field_id:0,
+            stadium_doc_id:stadiumId,
           },
         })
         console.log('response',response)

@@ -66,6 +66,7 @@ export const actionTypes = {
     ADD_FIELD_DATA_PRICE:'ADD_FIELD_DATA_PRICE',
     EDIT_FIELD_DATA_PRICE:'EDIT_FIELD_DATA_PRICE',
     DELETE_FIELD_DATA_PRICE:'DELETE_FIELD_DATA_PRICE',
+    IMPORT_FIELD_PRICE:'IMPORT_FIELD_PRICE',
 
     SET_NOTE:'SET_NOTE',
     SET_NOTE_ID:'SET_NOTE_ID',
@@ -325,6 +326,13 @@ export const deleteFieldDataPrice = (id) => {
     return {
         type: actionTypes.DELETE_FIELD_DATA_PRICE,
         id,
+    }
+}
+
+export const importPrice = (data) => {
+    return {
+        type: actionTypes.IMPORT_FIELD_PRICE,
+        data
     }
 }
 

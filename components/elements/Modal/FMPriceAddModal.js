@@ -273,7 +273,7 @@ class FMPriceAddModal extends Component {
         <Footer>
           <CancelModal width="100px" bstrap="btn-success" onClick={()=> {
             this.props.addFieldDataPrice({
-            field_id:this.props.fieldIdPrice,
+            field_id:this.props.fieldId,
             is_mon:this.state.is_mon,
             is_tue:this.state.is_tue,
             is_wed:this.state.is_wed,
@@ -354,7 +354,7 @@ class FMPriceAddModal extends Component {
 function mapStateToProps(state) {
   return {
     colorPrice: state.field_managementPriceSaga.colorPrice,
-    fieldIdPrice: state.field_managementPriceSaga.fieldIdPrice,
+    fieldId: state.field_managementPriceSaga.fieldId,
   }
 }
 
