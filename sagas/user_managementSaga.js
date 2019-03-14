@@ -1,6 +1,7 @@
 import { call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects'
 import {actionTypes} from '../store'
 import axios from 'axios'
+import {delay} from 'redux-saga'
 import {createReducer,Creator} from './helper'
 
 const SET_DATA = 'SET_DATA'
@@ -40,12 +41,15 @@ export function* addUesrDataSaga({newUser}) {
   }
 
 export function* setUsersDataSaga(){
+  yield delay(500)
+  const stadium_doc_id = yield select(state => state.auth.user[0].stadium_doc.id)
   try {
     const response = yield axios.get(apiUrl, {
         params: {
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'gdjxq',
           action:'user_getall',
+          stadium_doc_id:stadium_doc_id,
         },
       })
     console.log('response =>',response.data.response_data)
