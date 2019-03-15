@@ -13,7 +13,7 @@ export const setData = Creator(SET_DATA,'data')
 const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* setFieldDataSaga() {
-  yield delay(500)
+  yield delay(1000)
   const id = yield select(state => state.auth.user[0].stadium_doc.id)
   console.log('id',id)
     try {
