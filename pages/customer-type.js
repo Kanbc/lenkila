@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import { TabsLayout, Constant, CustTypeAddModal, CustTypeEditModal, ButtonModal } from '../components';
+import {connect} from 'react-redux'
+import { getCustomerType } from '../store';
+
 
 class CustomerType extends Component {
+
+  componentDidMount() {
+    this.props.getCustomerType();
+  }
   // [GET] - Users
-  users = userData();
+  users = this.props.customerType
   render() {
     return (
       <TabsLayout title="ประเภทลูกค้า" tabs={Constant.CustomerTabs}>
@@ -94,34 +101,13 @@ class CustomerType extends Component {
   }
 }
 
-function userData() {
-  const users = [
-    {
-      id: 1,
-      weekday: 'Rhynyx',
-      start: '10:24',
-      end: '13:44',
-      price: 734,
-      color: '#FD9226',
-    },
-    {
-      id: 2,
-      weekday: 'Aimbu',
-      start: '7:44',
-      end: '13:03',
-      price: 999,
-      color: '#9013FE',
-    },
-    {
-      id: 3,
-      weekday: 'DabZ',
-      start: '5:58',
-      end: '6:37',
-      price: 664,
-      color: '#D0021B',
-    },
-  ];
-  return users;
+
+function mapStateToProps(state) {
+  return {
+    customerType: state.customer_typeSaga.customerType,
+  }
 }
 
-export default CustomerType;
+export default connect(mapStateToProps,{getCustomerType})(CustomerType);
+
+
