@@ -43,6 +43,7 @@ export function* addCustomerTypeSaga({data}){
             code:'piluj',
             action:'_customer_type_insert',
             stadium_id:stadiumId,
+            ...data,
           },
         })
       yield call(getCustomerTypeSaga)

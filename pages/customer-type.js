@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TabsLayout, Constant, CustTypeAddModal, CustTypeEditModal, ButtonModal } from '../components';
 import {connect} from 'react-redux'
-import { getCustomerType } from '../store';
+import { getCustomerType,addCustomerType,editCustomerType,deleteCustomerType } from '../store';
 
 
 class CustomerType extends Component {
@@ -10,8 +10,8 @@ class CustomerType extends Component {
     this.props.getCustomerType();
   }
   // [GET] - Users
-  users = this.props.customerType
   render() {
+    console.log('test',this.props.customerType)
     return (
       <TabsLayout title="ประเภทลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">
@@ -27,7 +27,7 @@ class CustomerType extends Component {
                   <th scope="col">
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
                       <i className="fa fa-plus" aria-hidden="true" />
-                      <CustTypeAddModal title="สร้างประเภทลูกค้าใหม่" type="add-user" />
+                      <CustTypeAddModal title="สร้างประเภทลูกค้าใหม่" type="add-user" addCustomerType={this.props.addCustomerType}/>
                     </ButtonModal>
                   </th>
                 </tr>
@@ -41,11 +41,11 @@ class CustomerType extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.users.map(user => (
+                {this.props.customerType.map(user => (
                   <tr key={user.id}>
-                    <td className="hide1" style={{ color: `${user.color}` }}>{user.weekday}</td>
-                    <td style={{ color: `${user.color}` }}>{user.start}</td>
-                    <td style={{ color: `${user.color}` }}>{user.end}</td>
+                    <td className="hide1" style={{ color: `${user.color}` }}>{user.name}</td>
+                    <td style={{ color: `${user.color}` }}>{user.type}</td>
+                    <td style={{ color: `${user.color}` }}>{user.hour_amount}</td>
                     <td className="hide2" style={{ color: `${user.color}` }}>{user.price}</td>
                     <td className="hide2">
                       <button type="button" style={{ color: `${user.color}`, backgroundColor: `${user.color}` }} className="btn btn-primary price-color">
@@ -108,6 +108,6 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps,{getCustomerType})(CustomerType);
+export default connect(mapStateToProps,{getCustomerType,addCustomerType,editCustomerType,deleteCustomerType})(CustomerType);
 
 

@@ -6,12 +6,13 @@ import { ColorButton, CancelModal, Button } from '../..';
 
 class CustTypeAddModal extends Component {
   constructor(props) {
+    console.log('props',props)
     super(props);
     this.state = { isDisableTime: true, numberOfDays: 0 };
-
+  
     this.cancelDisableTime = this.cancelDisableTime.bind(this);
   }
-
+  
   cancelDisableTime(event) {
     if (event.target.value === '0') {
       this.setState({
@@ -45,7 +46,7 @@ class CustTypeAddModal extends Component {
               <p>ชื่อ</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="name" value={this.state.name} onChange={e => this.setState({ name: e.target.value })} />
             </div>
             <div className="col-sm-2">
               <p>ประเภท</p>
@@ -70,13 +71,13 @@ class CustTypeAddModal extends Component {
               <p>จำนวนชั่วโมง</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="username" />
+              <input type="text" className="form-control" id="hour_amount" value={this.state.hour_amount} onChange={e => this.setState({ hour_amount: e.target.value })} />
             </div>
             <div className="col-sm-2">
               <p>ราคา</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="username" />
+              <input type="text" className="form-control" id="price" value={this.state.price} onChange={e => this.setState({ price: e.target.value })} />
             </div>
             <div className="col-sm-2">
               <p>สี</p>
@@ -95,9 +96,13 @@ class CustTypeAddModal extends Component {
           </div>
         </Body>
         <Footer>
-          <Button width="100px" bstrap="btn-success" >
+          <CancelModal width="100px" bstrap="btn-success" onClick={()=>this.props.addCustomerType({
+            name:this.state.name,
+            price:this.state.price,
+            hour_amount:this.state.hour_amount,
+          })} >
             สร้าง
-          </Button>
+          </CancelModal>
           <CancelModal width="100px" bstrap="btn-danger" >
             ยกเลิก
           </CancelModal>
