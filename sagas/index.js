@@ -9,6 +9,7 @@ import field_managementGiftCodeSaga,{fieldManagementGiftCodeWatcher} from './fie
 import field_managementPriceSaga,{fieldManagementPriceWatcher} from './field_managementPriceSaga'
 import booking_noteSaga,{noteWatcher} from './booking_noteSaga'
 import auth,{authWatcher} from './auth'
+import customer_typeSaga,{CustomerTypeWatcher} from './customer_typeSaga'
 
 
 const saga = createSagaMiddleware()
@@ -22,6 +23,7 @@ export const reducers = combineReducers(
     field_managementPriceSaga,
     booking_noteSaga,
     auth,
+    customer_typeSaga,
   }
 )
 
@@ -38,6 +40,7 @@ function* rootSaga() {
     fieldManagementPriceWatcher(),
     noteWatcher(),
     authWatcher(),
+    CustomerTypeWatcher(),
   ])
 }
 

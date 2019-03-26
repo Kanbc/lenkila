@@ -77,7 +77,13 @@ export const actionTypes = {
 
     LOGIN:'LOGIN',
     LOGOUT:'LOGOUT',
-    GETUSER_INFO:'GETUSER_INFO'
+    GETUSER_INFO:'GETUSER_INFO',
+
+    //customer type
+    GET_CUSTOMER_TYPE:'GET_CUSTOMER_TYPE',
+    ADD_CUSTOMER_TYPE:'ADD_CUSTOMER_TYPE',
+    EDIT_CUSTOMER_TYPE:'EDIT_CUSTOMER_TYPE',
+    DELETE_CUSTOMER_TYPE:'DELETE_CUSTOMER_TYPE',
 
 }
 
@@ -391,6 +397,31 @@ export const logout = () => {
 export const getUserInfo = (id) => {
     return{
         type: actionTypes.GETUSER_INFO,
+        id,
+    }
+}
+//customer_type
+
+export const getCustomerType = () => {
+    return {
+        type: actionTypes.GET_CUSTOMER_TYPE,
+    }
+}
+export const addCustomerType = (data) => {
+    return {
+        type: actionTypes.ADD_CUSTOMER_TYPE,
+        data,
+    }
+}
+export const editCustomerType = (data) => {
+    return {
+        type: actionTypes.EDIT_CUSTOMER_TYPE,
+        data,
+    }
+}
+export const deleteCustomerType = (id) => {
+    return {
+        type: actionTypes.DELETE_CUSTOMER_TYPE,
         id,
     }
 }

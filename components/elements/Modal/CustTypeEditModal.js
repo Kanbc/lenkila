@@ -7,45 +7,49 @@ import { ColorButton, CancelModal, Button, Constant } from '../..';
 class CustTypeEditModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { isEdit: false, isDisableTime: true, numberOfDays: 0 };
+    this.state = {
+      isDisableTime: true,
+      numberOfDays: 0,
+      name:this.props.userData.name,
+      type:this.props.userData.type,
+      date_amount:this.props.userData.date_amount,
+      hour_amount:this.props.userData.hour_amount,
+      price:this.props.userData.price,
+      color:this.props.userData.color,
+      note:this.props.userData.note,
+      id:this.props.userData.id,
+    };
 
-    this.editForm = this.editForm.bind(this);
-    this.cancelEditForm = this.cancelEditForm.bind(this);
     this.cancelDisableTime = this.cancelDisableTime.bind(this);
+    this.setColorCustomerType = this.setColorCustomerType.bind(this);
   }
 
-  editForm() {
-    this.setState({
-      isEdit: true,
-    });
+  setColorCustomerType = (color) => {
+    return this.setState({color:color})
   }
 
-  cancelEditForm() {
-    this.setState({
-      isEdit: false,
-    });
-  }
 
   cancelDisableTime(event) {
-    if (event.target.value === '0') {
+    if (event.target.value === 'ถาวร') {
       this.setState({
-        isDisableTime: true,
         numberOfDays: 0,
+        hourDisabled:true,
       });
-    } else if (event.target.value === '2') {
+    } else if (event.target.value === 'รายเดือน') {
       this.setState({
-        isDisableTime: false,
         numberOfDays: 30,
+        hourDisabled:true,
       });
-    } else if (event.target.value === '3') {
+    } else if (event.target.value === 'รายปี') {
       this.setState({
-        isDisableTime: false,
         numberOfDays: 365,
+        hourDisabled:true,
       });
     } else {
       this.setState({
-        isDisableTime: false,
         numberOfDays: 0,
+        hourDisabled:false,
+
       });
     }
   }
@@ -54,13 +58,12 @@ class CustTypeEditModal extends Component {
     const userDetail = this.props.userData;
     let button1 = null;
     let button2 = null;
-    if (this.state.isEdit === true) {
-      button1 = <Button width={Constant.Buttons.default} bstrap="btn-success" >บันทึก</Button>;
-      button2 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={() => this.cancelEditForm()}>ยกเลิก</CancelModal>;
-    } else {
-      button1 = <Button width={Constant.Buttons.default} color={Constant.Orange}>แก้ไข</Button>;
-      button2 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" >ลบ</CancelModal>;
-    }
+    let button3 = null;
+
+      button1 = <CancelModal width={Constant.Buttons.default} bstrap="btn-success" onClick={()=>this.props.editCustomerType(this.state)} >บันทึก</CancelModal>;
+      button2 = <CancelModal width={Constant.Buttons.default} color={Constant.Orange} >ยกเลิก</CancelModal>;
+      button3 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>this.props.deleteCustomerType(userDetail.id)} >ลบ</CancelModal>;
+  
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="70" >
         <Body>
@@ -69,24 +72,28 @@ class CustTypeEditModal extends Component {
               <p>ชื่อ</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" defaultValue={userDetail.firstname} onChange={this.editForm} />
+              <input type="text" className="form-control" id="firstname" defaultValue={this.state.name} onChange={(e)=>this.setState({ name: e.target.value })} />
             </div>
             <div className="col-sm-2">
               <p>ประเภท</p>
             </div>
             <div className="col-sm-2">
-              <select className="custom-select" defaultValue="0" value={this.state.inputValue} onChange={(e) => { this.cancelDisableTime(e); }}>
-                <option value="0">ถาวร</option>
-                <option value="1">ชั่วโมง</option>
-                <option value="2">รายเดือน</option>
-                <option value="3">รายปี</option>
+              <select className="custom-select" defaultValue={this.state.type} value={this.state.type} onChange={(e) =>{
+                { this.cancelDisableTime(e); }
+                this.setState({ type: e.target.value })
+                this.setState({ date_amount: e.target.value==="ถาวร" ? 0 : e.target.value==="ชั่วโมง"? 0 : e.target.value==="รายเดือน" ? 30 : 365  })
+              } }>
+                <option value="ถาวร">ถาวร</option>
+                <option value="ชั่วโมง">ชั่วโมง</option>
+                <option value="รายเดือน">รายเดือน</option>
+                <option value="รายปี">รายปี</option>
               </select>
             </div>
             <div className="col-sm-2">
               <p>วันหมดอายุ (วัน)</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="nickname" defaultValue={userDetail.nickname} onChange={this.editForm} value={this.state.numberOfDays > 0 ? this.state.numberOfDays : ''} disabled={this.state.isDisableTime} />
+              <input type="text" className="form-control" id="nickname" defaultValue={this.state.date_amount}  value={this.state.date_amount} disabled />
             </div>
           </div>
           <div className="row">
@@ -94,19 +101,19 @@ class CustTypeEditModal extends Component {
               <p>จำนวนชั่วโมง</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="username" defaultValue={userDetail.username} onChange={this.editForm} />
+              <input type="text" className="form-control" id="username" defaultValue={this.state.hour_amount} onChange={e => this.setState({ hour_amount: e.target.value })} disabled={this.state.type!=="ชั่วโมง"} />
             </div>
             <div className="col-sm-2">
               <p>ราคา</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="username" defaultValue={userDetail.username} onChange={this.editForm} />
+              <input type="text" className="form-control" id="username" defaultValue={parseInt(this.state.price)} onChange={e => this.setState({ price: e.target.value })}  />
             </div>
             <div className="col-sm-2">
               <p>สี</p>
             </div>
             <div className="col-sm-2">
-              <ColorButton width="100%" />
+              <ColorButton width="100%" userDatacolor={this.state.color} setStateCustomerType={this.setColorCustomerType} />
             </div>
           </div>
           <div className="row">
@@ -114,13 +121,14 @@ class CustTypeEditModal extends Component {
               <p>โน้ต</p>
             </div>
             <div className="col-sm-10">
-              <textarea className="form-control" id="note" rows="3" onChange={this.editForm} />
+              <textarea className="form-control" id="note" rows="3" defaultValue={this.state.note} onChange={e => this.setState({ note: e.target.value })} />
             </div>
           </div>
         </Body>
         <Footer>
           {button1}
           {button2}
+          {button3}
         </Footer>
         <style jsx>{`
           .row{

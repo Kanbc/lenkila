@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { TabsLayout, Constant, CustTypeAddModal, CustTypeEditModal, ButtonModal } from '../components';
+import {connect} from 'react-redux'
+import { getCustomerType,addCustomerType,editCustomerType,deleteCustomerType } from '../store';
+
 
 class CustomerType extends Component {
+
+  componentDidMount() {
+    this.props.getCustomerType();
+  }
   // [GET] - Users
-  users = userData();
   render() {
+    console.log('test',this.props.customerType)
     return (
       <TabsLayout title="ประเภทลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">
@@ -20,26 +27,26 @@ class CustomerType extends Component {
                   <th scope="col">
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
                       <i className="fa fa-plus" aria-hidden="true" />
-                      <CustTypeAddModal title="สร้างประเภทลูกค้าใหม่" type="add-user" />
+                      <CustTypeAddModal title="สร้างประเภทลูกค้าใหม่" type="add-user" addCustomerType={this.props.addCustomerType}/>
                     </ButtonModal>
                   </th>
                 </tr>
                 <tr>
                   <th scope="col" className="hide1">ชื่อ</th>
                   <th scope="col">ประเภท</th>
-                  <th scope="col">จำนวนชั่วโมง</th>
+                  <th scope="col">จำนวนชั่วโมง/จำนวนวัน</th>
                   <th scope="col" className="hide2">ราคา</th>
                   <th scope="col" className="hide2">สี</th>
                   <th scope="col" />
                 </tr>
               </thead>
               <tbody>
-                {this.users.map(user => (
+                {this.props.customerType.map(user => (
                   <tr key={user.id}>
-                    <td className="hide1" style={{ color: `${user.color}` }}>{user.weekday}</td>
-                    <td style={{ color: `${user.color}` }}>{user.start}</td>
-                    <td style={{ color: `${user.color}` }}>{user.end}</td>
-                    <td className="hide2" style={{ color: `${user.color}` }}>{user.price}</td>
+                    <td className="hide1" style={{ color: `${user.color}` }}>{user.name}</td>
+                    <td style={{ color: `${user.color}` }}>{user.type}</td>
+                    <td style={{ color: `${user.color}` }}>{user.type==="ชั่วโมง"?user.hour_amount:user.date_amount}</td>
+                    <td className="hide2" style={{ color: `${user.color}` }}>{parseInt(user.price)}</td>
                     <td className="hide2">
                       <button type="button" style={{ color: `${user.color}`, backgroundColor: `${user.color}` }} className="btn btn-primary price-color">
                         +
@@ -48,7 +55,7 @@ class CustomerType extends Component {
                     <td>
                       <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
                         <i className="fa fa-pencil" />
-                        <CustTypeEditModal key={user.id} title="ดูประเภทลูกค้า" type={`edit-user-${user.id}`} userData={user} />
+                        <CustTypeEditModal key={user.id} title="ดูประเภทลูกค้า" type={`edit-user-${user.id}`} userData={user} deleteCustomerType={this.props.deleteCustomerType} editCustomerType={this.props.editCustomerType} />
                       </ButtonModal>
                     </td>
                   </tr>))}
@@ -94,34 +101,13 @@ class CustomerType extends Component {
   }
 }
 
-function userData() {
-  const users = [
-    {
-      id: 1,
-      weekday: 'Rhynyx',
-      start: '10:24',
-      end: '13:44',
-      price: 734,
-      color: '#FD9226',
-    },
-    {
-      id: 2,
-      weekday: 'Aimbu',
-      start: '7:44',
-      end: '13:03',
-      price: 999,
-      color: '#9013FE',
-    },
-    {
-      id: 3,
-      weekday: 'DabZ',
-      start: '5:58',
-      end: '6:37',
-      price: 664,
-      color: '#D0021B',
-    },
-  ];
-  return users;
+
+function mapStateToProps(state) {
+  return {
+    customerType: state.customer_typeSaga.customerType,
+  }
 }
 
-export default CustomerType;
+export default connect(mapStateToProps,{getCustomerType,addCustomerType,editCustomerType,deleteCustomerType})(CustomerType);
+
+
