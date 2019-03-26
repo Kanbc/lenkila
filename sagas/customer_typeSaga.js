@@ -55,7 +55,7 @@ export function* addCustomerTypeSaga({data}){
 export function* editCustomerTypeSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     console.log('edit data',data)
-
+   
     try {
         yield axios.get(apiUrl, {
           params: {
@@ -63,6 +63,7 @@ export function* editCustomerTypeSaga({data}){
             code:'piluj',
             action:'_customer_type_get_edit',
             stadium_id:stadiumId,
+            ...data,
           },
         })
       yield call(getCustomerTypeSaga)
@@ -72,6 +73,7 @@ export function* editCustomerTypeSaga({data}){
 }
 
 export function* deleteCustomerTypeSaga({id}){
+  console.log('delete')
     try {
       yield axios.get(apiUrl, {
           params: {

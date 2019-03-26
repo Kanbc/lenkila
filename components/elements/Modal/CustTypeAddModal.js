@@ -8,34 +8,41 @@ class CustTypeAddModal extends Component {
   constructor(props) {
     console.log('props',props)
     super(props);
-    this.state = { isDisableTime: true, numberOfDays: 0 };
-  
+    this.state = { hourDisabled:true,numberOfDays: 0 ,type:"ถาวร" };
+    
     this.cancelDisableTime = this.cancelDisableTime.bind(this);
+    this.setColorCustomerType = this.setColorCustomerType.bind(this);
   }
   
   cancelDisableTime(event) {
-    if (event.target.value === '0') {
+    if (event.target.value === 'ถาวร') {
       this.setState({
-        isDisableTime: true,
         numberOfDays: 0,
+        hourDisabled:true,
       });
-    } else if (event.target.value === '2') {
+    } else if (event.target.value === 'รายเดือน') {
       this.setState({
-        isDisableTime: false,
         numberOfDays: 30,
+        hourDisabled:true,
       });
-    } else if (event.target.value === '3') {
+    } else if (event.target.value === 'รายปี') {
       this.setState({
-        isDisableTime: false,
         numberOfDays: 365,
+        hourDisabled:true,
       });
     } else {
       this.setState({
-        isDisableTime: false,
         numberOfDays: 0,
+        hourDisabled:false,
+
       });
     }
   }
+
+  setColorCustomerType = (color) => {
+    return this.setState({color:color})
+  }
+
 
   render() {
     return (
@@ -52,18 +59,22 @@ class CustTypeAddModal extends Component {
               <p>ประเภท</p>
             </div>
             <div className="col-sm-2">
-              <select className="custom-select" defaultValue="0" value={this.state.inputValue} onChange={(e) => { this.cancelDisableTime(e); }}>
-                <option value="0">ถาวร</option>
-                <option value="1">ชั่วโมง</option>
-                <option value="2">รายเดือน</option>
-                <option value="3">รายปี</option>
+              <select className="custom-select" defaultValue={this.state.type} value={this.state.type} onChange={(e) => {
+                this.setState({ type: e.target.value })
+                { this.cancelDisableTime(e); }
+              }
+              }>
+                <option value="ถาวร">ถาวร</option>
+                <option value="ชั่วโมง">ชั่วโมง</option>
+                <option value="รายเดือน">รายเดือน</option>
+                <option value="รายปี">รายปี</option>
               </select>
             </div>
             <div className="col-sm-2">
               <p>วันหมดอายุ (วัน)</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="nickname" value={this.state.numberOfDays > 0 ? this.state.numberOfDays : ''} disabled={this.state.isDisableTime} />
+              <input type="text" className="form-control" id="nickname" value={this.state.numberOfDays > 0 ? this.state.numberOfDays : ''} disabled />
             </div>
           </div>
           <div className="row">
@@ -71,7 +82,7 @@ class CustTypeAddModal extends Component {
               <p>จำนวนชั่วโมง</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="hour_amount" value={this.state.hour_amount} onChange={e => this.setState({ hour_amount: e.target.value })} />
+              <input type="text" className="form-control" id="hour_amount" value={this.state.hour_amount} onChange={e => this.setState({ hour_amount: e.target.value })} disabled={this.state.hourDisabled}/>
             </div>
             <div className="col-sm-2">
               <p>ราคา</p>
@@ -83,7 +94,7 @@ class CustTypeAddModal extends Component {
               <p>สี</p>
             </div>
             <div className="col-sm-2">
-              <ColorButton width="100%" />
+              <ColorButton width="100%" setStateCustomerType={this.setColorCustomerType} />
             </div>
           </div>
           <div className="row">
@@ -91,16 +102,25 @@ class CustTypeAddModal extends Component {
               <p>โน้ต</p>
             </div>
             <div className="col-sm-10">
-              <textarea className="form-control" id="note" rows="3" />
+              <textarea className="form-control" id="note" rows="3" value={this.state.note} onChange={e => this.setState({ note: e.target.value })} />
             </div>
           </div>
         </Body>
         <Footer>
-          <CancelModal width="100px" bstrap="btn-success" onClick={()=>this.props.addCustomerType({
-            name:this.state.name,
-            price:this.state.price,
-            hour_amount:this.state.hour_amount,
-          })} >
+          <CancelModal width="100px" bstrap="btn-success" onClick={()=>{   
+            this.props.addCustomerType({
+              name:this.state.name,
+              price:this.state.price,
+              hour_amount:this.state.hour_amount,
+              date_amount:this.state.numberOfDays,
+              note:this.state.note,
+              type:this.state.type,
+              color:this.state.color,
+            })
+            this.setState({name:'',price:'',hour_amount:'',date_amount:'',note:'',type:'ถาวร',color:''})
+          }
+          }
+          >
             สร้าง
           </CancelModal>
           <CancelModal width="100px" bstrap="btn-danger" >
