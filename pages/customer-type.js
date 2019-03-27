@@ -34,7 +34,7 @@ class CustomerType extends Component {
                 <tr>
                   <th scope="col" className="hide1">ชื่อ</th>
                   <th scope="col">ประเภท</th>
-                  <th scope="col">จำนวนชั่วโมง/จำนวนวัน</th>
+                  <th scope="col">จำนวนชั่วโมง</th>
                   <th scope="col" className="hide2">ราคา</th>
                   <th scope="col" className="hide2">สี</th>
                   <th scope="col" />
@@ -45,7 +45,7 @@ class CustomerType extends Component {
                   <tr key={user.id}>
                     <td className="hide1" style={{ color: `${user.color}` }}>{user.name}</td>
                     <td style={{ color: `${user.color}` }}>{user.type}</td>
-                    <td style={{ color: `${user.color}` }}>{user.type==="ชั่วโมง"?user.hour_amount:user.date_amount}</td>
+                    <td style={{ color: `${user.color}` }}>{user.type==="ชั่วโมง"?user.hour_amount:"-"}</td>
                     <td className="hide2" style={{ color: `${user.color}` }}>{parseInt(user.price)}</td>
                     <td className="hide2">
                       <button type="button" style={{ color: `${user.color}`, backgroundColor: `${user.color}` }} className="btn btn-primary price-color">
