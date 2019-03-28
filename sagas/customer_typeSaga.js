@@ -26,7 +26,7 @@ export function* getCustomerTypeSaga() {
               stadium_id:stadiumId,
             },
           })
-      console.log('response customer',response)
+      console.log('response customer type',response)
       yield put(setData({customerType:response.data.response_data}))
     } catch (err) {
         console.log('error',err)

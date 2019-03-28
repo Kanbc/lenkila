@@ -30,7 +30,6 @@ class CustEditModal extends Component {
   }
 
   render() {
-    console.log('this.props.userData',this.props.userData.date_of_birth)
     let button1 = null;
     let button2 = null;
     let button3 = null;
