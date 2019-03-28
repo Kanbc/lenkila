@@ -91,6 +91,10 @@ export const actionTypes = {
     EDIT_CUSTOMER:'EDIT_CUSTOMER',
     DELETE_CUSTOMER:'DELETE_CUSTOMER',
 
+    //customer history
+    GET_CUSTOMER_HISTORY:'GET_CUSTOMER_HISTORY',
+    ADD_CUSTOMER_HISTORY:'ADD_CUSTOMER_HISTORY',
+
 }
 
 // 2. Action Creators
@@ -454,6 +458,21 @@ export const editCustomer = (data) => {
 export const deleteCustomer = (id) => {
     return {
         type: actionTypes.DELETE_CUSTOMER,
+        id,
+    }
+}
+
+
+export const addCustomerHistory = (data) => {
+    return {
+        type: actionTypes.ADD_CUSTOMER_HISTORY,
+        data,
+    }
+}
+
+export const getCustomerHistory = (id) => {
+    return {
+        type: actionTypes.GET_CUSTOMER_HISTORY,
         id,
     }
 }

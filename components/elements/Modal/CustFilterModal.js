@@ -311,63 +311,6 @@ class CustFilterModal extends Component {
                 VIP Member
               </label>
             </div>
-            <div className="col-sm-2">
-              <label className="form-check-label" htmlFor="checkbox11">
-                <input className="form-check-input" type="checkbox" id="checkbox11" value="option11" onClick={this.toggleCheck11} checked={this.state.isCheck11} />
-                Special
-              </label>
-            </div>
-            <div className="col-sm-2">
-              <label className="form-check-label" htmlFor="checkbox12">
-                <input className="form-check-input" type="checkbox" id="checkbox12" value="option12" onClick={this.toggleCheck12} checked={this.state.isCheck12} />
-                Gold
-              </label>
-            </div>
-            <div className="col-sm-2">
-              <label className="form-check-label" htmlFor="checkbox13">
-                <input className="form-check-input" type="checkbox" id="checkbox13" value="option13" onClick={this.toggleCheck13} checked={this.state.isCheck13} />
-                Red
-              </label>
-            </div>
-            <div className="col-sm-2">
-              <label className="form-check-label" htmlFor="checkbox14">
-                <input className="form-check-input" type="checkbox" id="checkbox14" value="option14" onClick={this.toggleCheck14} checked={this.state.isCheck14} />
-                Silver
-              </label>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-2" />
-            <div className="col-sm-2">
-              <label className="form-check-label" htmlFor="checkbox15">
-                <input className="form-check-input" type="checkbox" id="checkbox15" value="option15" onClick={this.toggleCheck15} checked={this.state.isCheck15} />
-                Blue
-              </label>
-            </div>
-            <div className="col-sm-2">
-              <label className="form-check-label" htmlFor="checkbox16">
-                <input className="form-check-input" type="checkbox" id="checkbox16" value="option16" onClick={this.toggleCheck16} checked={this.state.isCheck16} />
-                Green
-              </label>
-            </div>
-            <div className="col-sm-2">
-              <label className="form-check-label" htmlFor="checkbox17">
-                <input className="form-check-input" type="checkbox" id="checkbox17" value="option17" onClick={this.toggleCheck17} checked={this.state.isCheck17} />
-                Yellow
-              </label>
-            </div>
-            <div className="col-sm-2">
-              <label className="form-check-label" htmlFor="checkbox18">
-                <input className="form-check-input" type="checkbox" id="checkbox18" value="option18" onClick={this.toggleCheck18} checked={this.state.isCheck18} />
-                Mars
-              </label>
-            </div>
-            <div className="col-sm-2">
-              <label className="form-check-label" htmlFor="checkbox19">
-                <input className="form-check-input" type="checkbox" id="checkbox19" value="option19" onClick={this.toggleCheck19} checked={this.state.isCheck19} />
-                Pluto
-              </label>
-            </div>
           </div>
           <div className="row">
             <div className="col-sm-2" />

@@ -7,56 +7,34 @@ import { CancelModal, Constant, Button } from '../../../..';
 class MemberModal extends Component {
   constructor(props) {
     super(props);
-    const datas = userTypes();
     this.state = {
       isAdding: false,
-      memberTypeId: datas[0].id,
-      memberTypeName: datas[0].name,
-      memberTypeNumHour: datas[0].numHour,
-      memberTypeDistanceTime: datas[0].timeDistance,
-      memberTypePrice: datas[0].price,
+      ...this.props.customerType[0],
     };
 
     this.addMember = this.addMember.bind(this);
-    this.cancelAddMember = this.cancelAddMember.bind(this);
+    this.selectValue = this.selectValue.bind(this);
   }
 
   addMember() {
     this.setState({ isAdding: true });
   }
 
-  cancelAddMember() {
-    const datas = userTypes();
-    this.setState({
-      isAdding: false,
-      memberTypeId: datas[0].id,
-      memberTypeName: datas[0].name,
-      memberTypeNumHour: datas[0].numHour,
-      memberTypeDistanceTime: datas[0].timeDistance,
-      memberTypePrice: datas[0].price,
-    });
+  selectValue(value){
+    const newValue = this.props.customerType.find(val=>val.id===value)
+    console.log('valueee',newValue)
+    this.setState(
+      {
+        ...newValue
+      }
+    );
   }
-
-  selectMember(id) {
-    const datas = userTypes();
-    this.setState({
-      memberTypeId: id,
-      memberTypeName: datas[id - 1].name,
-      memberTypeNumHour: datas[id - 1].numHour,
-      memberTypeDistanceTime: datas[id - 1].timeDistance,
-      memberTypePrice: datas[id - 1].price,
-    });
-  }
-
-  // [GET] get all user types
-  types = userTypes();
-  // [GET] get user type
-  userData = userType();
+ 
 
   render() {
-    const { types } = this;
-    const { userData } = this;
-
+    const { customerType } = this.props;
+    const { userData } = this.props;
+    console.log('customerType',customerType)
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="70" >
         <Body>
@@ -65,13 +43,13 @@ class MemberModal extends Component {
               <p className="bold-text">Default:</p>
             </div>
             <div className="col-sm-4">
-              <p>{userData.default}</p>
+              <p>{userData.customer_type_default}</p>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">ปัจจุบัน:</p>
             </div>
             <div className="col-sm-4">
-              <p>{userData.now}</p>
+              <p>{"-"}</p>
             </div>
           </div>
           <div className="row">
@@ -79,13 +57,13 @@ class MemberModal extends Component {
               <p className="bold-text">จำนวนชั่วโมง:</p>
             </div>
             <div className="col-sm-4">
-              <p>{userData.numHour}</p>
+              <p>{userData.type_default.hour_amount}</p>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">หมดอายุ:</p>
             </div>
             <div className="col-sm-4">
-              <p>{userData.expireDate}</p>
+              <p>{"-"}</p>
             </div>
           </div>
           <div className="row">
@@ -93,13 +71,13 @@ class MemberModal extends Component {
               <p className="bold-text">Next :</p>
             </div>
             <div className="col-sm-4">
-              <p>{userData.next}</p>
+              <p>{"-"}</p>
             </div>
             <div className="col-sm-2" />
             <div className="col-sm-4" />
           </div>
           {
-            (this.state.isAdding && types.length !== 0) &&
+            (this.state.isAdding && customerType.length !== 0) &&
             <div>
               <div className="row" />
               <div className="row">
@@ -107,10 +85,12 @@ class MemberModal extends Component {
                   <p className="bold-text">ซื้อ Member เพิ่ม:</p>
                 </div>
                 <div className="col-sm-4">
-                  <select className="form-control" id="exampleFormControlSelect1" onChange={e => this.selectMember(e.target.value)}>
+                  <select className="form-control" id="exampleFormControlSelect1" onChange={e => 
+                    this.selectValue(e.target.value)
+                  }>
                     {
-                      types && types.map(type => (
-                        <option key={type.id} value={type.id}>{type.name}</option>
+                      customerType && customerType.map(type =>(
+                        <option key={type.id} value={type.id} >{type.name}</option>
                       ))
                     }
                   </select>
@@ -122,13 +102,13 @@ class MemberModal extends Component {
                   <p className="bold-text">ประเภท:</p>
                 </div>
                 <div className="col-sm-4">
-                  <p>{this.state.memberTypeName}</p>
+                  <p>{this.state.type}</p>
                 </div>
                 <div className="col-sm-2">
                   <p className="bold-text">จำนวนชั่วโมง:</p>
                 </div>
                 <div className="col-sm-4">
-                  <p>{this.state.memberTypeNumHour}</p>
+                  <p>{this.state.hour_amount}</p>
                 </div>
               </div>
               <div className="row">
@@ -136,13 +116,13 @@ class MemberModal extends Component {
                   <p className="bold-text">ระยะเวลา:</p>
                 </div>
                 <div className="col-sm-4">
-                  <p>{this.state.memberTypeDistanceTime}</p>
+                  <p>{this.state.date_amount}</p>
                 </div>
                 <div className="col-sm-2">
                   <p className="bold-text">ราคา</p>
                 </div>
                 <div className="col-sm-4">
-                  <p>{this.state.memberTypePrice}</p>
+                  <p>{parseInt(this.state.price)}</p>
                 </div>
               </div>
               <div className="row">
@@ -158,7 +138,6 @@ class MemberModal extends Component {
                         // - member_type_id
                       // 2 ถ้ามี ซื้อไม่ได้ ต้องรอของเก่าหมดอายุก่อน
 
-                      this.cancelAddMember();
                     }}
                   >
                     ซื้อ
@@ -211,46 +190,5 @@ class MemberModal extends Component {
   }
 }
 
-function userTypes() {
-  const typesData = [
-    {
-      id: 1,
-      name: 'Silver',
-      type: 'ชั่วโมง',
-      numHour: '30',
-      timeDistance: '-',
-      price: '1,000',
-    },
-    {
-      id: 2,
-      name: 'Gold',
-      type: 'ชั่วโมง',
-      numHour: '50',
-      timeDistance: '-',
-      price: '1,500',
-    },
-    {
-      id: 3,
-      name: 'Platinum',
-      type: 'ชั่วโมง',
-      numHour: '80',
-      timeDistance: '-',
-      price: '2,000',
-    },
-  ];
-  return typesData;
-}
-
-function userType() {
-  const userData = {
-    id: 1,
-    default: 'ทั่วไป',
-    now: 'Silver',
-    numHour: '6',
-    expireDate: '10/04/61',
-    next: 'Gold(รอใช้งาน)',
-  };
-  return userData;
-}
 
 export default MemberModal;

@@ -1,6 +1,7 @@
 import { call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects'
 import {delay} from 'redux-saga'
 import {actionTypes} from '../store'
+import moment from 'moment';
 import axios from 'axios'
 import {createReducer,Creator} from './helper'
 
@@ -35,7 +36,8 @@ export function* getCustomerSaga() {
 
 export function* addCustomerSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-    console.log('data add',data)
+    const newData = {...data,date_of_birth:moment(data.date_of_birth).format("YYYY-MM-DD")}
+    console.log('data add',newData)
     try {
       yield axios.get(apiUrl, {
           params: {
@@ -43,7 +45,7 @@ export function* addCustomerSaga({data}){
             code:'piluj',
             action:'_customer_insert',
             stadium_id:stadiumId,
-            ...data,
+            ...newData,
           },
         })
       yield call(getCustomerSaga)
@@ -54,8 +56,8 @@ export function* addCustomerSaga({data}){
 
 export function* editCustomerSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-    console.log('edit data',data)
-   
+    const newData = {...data,date_of_birth:moment(data.date_of_birth).format("YYYY-MM-DD")}
+    console.log('edit data',newData)
     try {
         yield axios.get(apiUrl, {
           params: {
@@ -63,7 +65,7 @@ export function* editCustomerSaga({data}){
             code:'piluj',
             action:'_customer_get_edit',
             stadium_id:stadiumId,
-            ...data,
+            ...newData,
           },
         })
       yield call(getCustomerSaga)
@@ -89,6 +91,40 @@ export function* deleteCustomerSaga({id}){
   }
 }
 
+export function* addCustomerTypeHistorySaga({data}){
+  console.log('data add',data)
+  try {
+    yield axios.get(apiUrl, {
+        params: {
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'_customer_type_history_insert',
+          ...data,
+        },
+      })
+    yield call(getCustomerSaga)
+} catch (err) {
+    console.log('error',err)
+}
+}
+
+export function* getCustomerTypeHistorySaga({id}){
+  console.log('delete')
+    try {
+      yield axios.get(apiUrl, {
+          params: {
+            apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+            code:'piluj',
+            action:'_customer_type_history_get_list',
+            customer_id:id
+          },
+        })
+    yield call(getCustomerSaga)
+  } catch (err) {
+      console.log('error',err)
+  }
+}
+
 
 export function* CustomerWatcher() {
     yield all([
@@ -96,6 +132,8 @@ export function* CustomerWatcher() {
       takeLatest(actionTypes.ADD_CUSTOMER, addCustomerSaga),
       takeLatest(actionTypes.EDIT_CUSTOMER, editCustomerSaga),
       takeLatest(actionTypes.DELETE_CUSTOMER, deleteCustomerSaga),
+      takeLatest(actionTypes.ADD_CUSTOMER_HISTORY, addCustomerTypeHistorySaga),
+      takeLatest(actionTypes.GET_CUSTOMER_HISTORY, deleteCustomerSaga),
     ])
 }
 const initial = {
