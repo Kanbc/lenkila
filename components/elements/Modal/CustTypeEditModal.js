@@ -72,13 +72,13 @@ class CustTypeEditModal extends Component {
               <p>ชื่อ</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" defaultValue={this.state.name} onChange={(e)=>this.setState({ name: e.target.value })} />
+              <input type="text" className="form-control" id="firstname" defaultValue={this.state.name} onChange={(e)=>this.setState({ name: e.target.value })} disabled={this.state.type==="default"} />
             </div>
             <div className="col-sm-2">
               <p>ประเภท</p>
             </div>
             <div className="col-sm-2">
-              <select className="custom-select" defaultValue={this.state.type} value={this.state.type} onChange={(e) =>{
+              <select className="custom-select" defaultValue={this.state.type} disabled={this.state.type==="default"} value={this.state.type} onChange={(e) =>{
                 { this.cancelDisableTime(e); }
                 this.setState({ type: e.target.value })
                 this.setState({ date_amount: e.target.value==="ถาวร" ? 0 : e.target.value==="ชั่วโมง"? 0 : e.target.value==="รายเดือน" ? 30 : 365  })
@@ -101,13 +101,13 @@ class CustTypeEditModal extends Component {
               <p>จำนวนชั่วโมง</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="username" defaultValue={this.state.hour_amount} onChange={e => this.setState({ hour_amount: e.target.value })} disabled={this.state.type!=="ชั่วโมง"} />
+              <input type="text" className="form-control" id="username" defaultValue={this.state.hour_amount} onChange={e => this.setState({ hour_amount: e.target.value })} disabled={this.state.type!=="ชั่วโมง" || this.state.type==="default"} />
             </div>
             <div className="col-sm-2">
               <p>ราคา</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="username" defaultValue={parseInt(this.state.price)} onChange={e => this.setState({ price: e.target.value })}  />
+              <input type="text" className="form-control" id="username" defaultValue={parseInt(this.state.price)} onChange={e => this.setState({ price: e.target.value })} disabled={this.state.type==="default"} />
             </div>
             <div className="col-sm-2">
               <p>สี</p>
@@ -121,14 +121,14 @@ class CustTypeEditModal extends Component {
               <p>โน้ต</p>
             </div>
             <div className="col-sm-10">
-              <textarea className="form-control" id="note" rows="3" defaultValue={this.state.note} onChange={e => this.setState({ note: e.target.value })} />
+              <textarea className="form-control" id="note" rows="3" defaultValue={this.state.note} onChange={e => this.setState({ note: e.target.value })} disabled={this.state.type==="default"} />
             </div>
           </div>
         </Body>
         <Footer>
           {button1}
           {button2}
-          {button3}
+          {this.state.type !=="default" && button3 }
         </Footer>
         <style jsx>{`
           .row{

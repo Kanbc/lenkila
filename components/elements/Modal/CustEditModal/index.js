@@ -11,7 +11,7 @@ import { CancelModal, Button, Constant, ButtonModal } from '../../..';
 class CustEditModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { isEdit: false, currentDate: moment() };
+    this.state = { isEdit: false,...this.props.userData,date_of_birth: moment(this.props.userData.date_of_birth)};
 
     this.editForm = this.editForm.bind(this);
     this.cancelEditForm = this.cancelEditForm.bind(this);
@@ -30,18 +30,23 @@ class CustEditModal extends Component {
   }
 
   render() {
-    const userDetail = this.props.userData;
+    console.log('this.props.userData',this.props.userData.date_of_birth)
     let button1 = null;
     let button2 = null;
     let button3 = null;
     if (this.state.isEdit === true) {
-      button1 = <Button width={Constant.Buttons.default} bstrap="btn-success" >บันทึก</Button>;
+      button1 = <CancelModal width={Constant.Buttons.default} bstrap="btn-success" onClick={()=>
+        {
+          this.props.editCustomer(this.state)
+          this.cancelEditForm()
+        }
+       } >บันทึก</CancelModal>;
       button2 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={() => this.cancelEditForm()}>ยกเลิก</CancelModal>;
       button3 = null;
     } else {
-      button1 = <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName="#history">ประวัติ<HistoryModal title="ประวัติ" type="history" /></ButtonModal>;
+      button1 = <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName="#history" > ประวัติ<HistoryModal title="ประวัติ" type="history" /></ButtonModal>;
       button2 = <Button width={Constant.Buttons.default} color={Constant.Blue} bstrap="btn-primary" onClick={() => this.editForm()}>แก้ไข</Button>;
-      button3 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" >ลบ</CancelModal>;
+      button3 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>this.props.deleteCustomer(this.props.userData.id)}>ลบ</CancelModal>;
     }
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="70" >
@@ -51,28 +56,29 @@ class CustEditModal extends Component {
               <p className="bold-text">ชื่อเล่น*</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''} >{userDetail.firstname}</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="firstname" defaultValue={userDetail.firstname} />
+              <p className={this.state.isEdit ? 'd-none' : ''} >{this.state.nick_name}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="firstname" defaultValue={this.state.nick_name} onChange={e => this.setState({ nick_name: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">เบอร์โทรศัพท์*</p>
             </div>
             <div className="col-sm-2">
-              <p>{userDetail.lastname}</p>
+            <p className={this.state.isEdit ? 'd-none' : ''} >{this.state.tel}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="firstname" defaultValue={this.state.tel} onChange={e => this.setState({ tel: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">วันเกิด</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{moment(this.state.currentDate, 'DD/MM/YYYY').format('DD/MM/YYYY')}</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>{moment(this.state.date_of_birth).format('DD/MM/YYYY')}</p>
               <div className={this.state.isEdit ? '' : 'd-none'}>
                 <DatePicker
                   showMonthDropdown
                   showYearDropdown
                   dropdownMode="select"
                   disabledKeyboardNavigation
-                  selected={this.state.currentDate}
-                  onChange={currentDate => this.setState({ currentDate })}
+                  selected={this.state.date_of_birth}
+                  onChange={date_of_birth => this.setState({ date_of_birth })}
                   className="form-control"
                 />
               </div>
@@ -83,24 +89,24 @@ class CustEditModal extends Component {
               <p className="bold-text">ชื่อจริง</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>{userDetail.username}</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue={userDetail.username} />
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.name}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue={this.state.name} onChange={e => this.setState({ name: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">นามสกุล</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>xxxx</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue="xxxx" />
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.surname}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue={this.state.surname} onChange={e => this.setState({ surname: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">เพศ</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>ชาย</p>
-              <select className={this.state.isEdit ? 'custom-select' : 'custom-select d-none'} defaultValue="0">
-                <option value="0">ชาย</option>
-                <option value="1">หญิง</option>
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.gender}</p>
+              <select className={this.state.isEdit ? 'custom-select' : 'custom-select d-none'} defaultValue={this.state.gender} onChange={e => this.setState({ gender: e.target.value })}>
+                <option value="ชาย">ชาย</option>
+                <option value="หญิง">หญิง</option>
               </select>
             </div>
           </div>
@@ -109,20 +115,20 @@ class CustEditModal extends Component {
               <p className="bold-text">หน้าที่:</p>
             </div>
             <div className="col-sm-2">
-              <p>{userDetail.username}</p>
+              <p>{this.state.customer_duty}</p>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">ความสัมพันธ์:</p>
             </div>
             <div className="col-sm-2">
-              <p>ขาประจำ</p>
+              <p>{this.state.customer_relationship}</p>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">Free Credits:</p>
             </div>
             <div className="col-sm-2">
-              <p className={this.state.isEdit ? 'd-none' : ''}>50</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue="50" />
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.customer_freecredits}</p>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="nickname" defaultValue={this.state.customer_freecredits} onChange={e => this.setState({ customer_freecredits: e.target.value })}/>
             </div>
           </div>
           <div className="row">
@@ -130,12 +136,12 @@ class CustEditModal extends Component {
               <p className="bold-text">ประเภท:</p>
             </div>
             <div className="col-sm-2">
-              <p>{userDetail.username}</p>
+              <p>{this.state.customer_type_default}</p>
             </div>
             <div className="col-sm-2">
-              <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName="#member">
+              <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#member`}  >
                 Member
-                <MemberModal title="Member" type="member" />
+                <MemberModal title="Member" type="member"  userData={this.props.userData} customerType={this.props.customerType} addCustomerHistory={this.props.addCustomerHistory}/>
               </ButtonModal>
             </div>
             <div className="col-sm-2" />
@@ -147,7 +153,7 @@ class CustEditModal extends Component {
               <p className="bold-text">โน้ต</p>
             </div>
             <div className="col-sm-10">
-              <textarea className="form-control" id="note" rows="3" />
+              <textarea className="form-control" id="note" rows="3" defaultValue={this.state.note} onChange={e => this.setState({ note: e.target.value })}/>
             </div>
           </div>
           <div className="row">
