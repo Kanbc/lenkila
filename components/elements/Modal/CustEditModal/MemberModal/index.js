@@ -22,7 +22,6 @@ class MemberModal extends Component {
 
   selectValue(value){
     const newValue = this.props.customerType.find(val=>val.id===value)
-    console.log('valueee',newValue)
     this.setState(
       {
         ...newValue
@@ -34,7 +33,6 @@ class MemberModal extends Component {
   render() {
     const { customerType } = this.props;
     const { userData } = this.props;
-    console.log('customerType',customerType)
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="70" >
         <Body>

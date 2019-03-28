@@ -9,6 +9,7 @@ import { CancelModal, Button } from '../..';
 class CustAddModal extends Component {
   state = {
     date_of_birth: moment(),
+    gender:'ชาย',
   }
 
   render() {
@@ -20,13 +21,13 @@ class CustAddModal extends Component {
               <p>ชื่อเล่น*</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" onChange={e => this.setState({ nick_name: e.target.value })} />
+              <input type="text" className="form-control" id="firstname" value={this.state.nick_name} onChange={e => this.setState({ nick_name: e.target.value })} />
             </div>
             <div className="col-sm-2">
               <p>เบอร์โทรศัพท์*</p>
             </div>
             <div className="col-sm-3">
-              <input type="text" className="form-control" id="lastname" onChange={e => this.setState({ tel: e.target.value })}/>
+              <input type="text" className="form-control" id="lastname" value={this.state.tel} onChange={e => this.setState({ tel: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p>วันเกิด</p>
@@ -48,19 +49,19 @@ class CustAddModal extends Component {
               <p>ชื่อจริง</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="user-id" onChange={e => this.setState({ name: e.target.value })}/>
+              <input type="text" className="form-control" id="user-id" value={this.state.name} onChange={e => this.setState({ name: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p>นามสกุล</p>
             </div>
             <div className="col-sm-3">
-              <input type="text" className="form-control" id="password" onChange={e => this.setState({ surname: e.target.value })}/>
+              <input type="text" className="form-control" id="password" value={this.state.surname} onChange={e => this.setState({ surname: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p>เพศ</p>
             </div>
             <div className="col-sm-2">
-              <select className="custom-select" defaultValue="0" onChange={e => this.setState({ gender: e.target.value })}>
+              <select className="custom-select" defaultValue="0" value={this.state.gender} onChange={e => this.setState({ gender: e.target.value })}>
                 <option value="ชาย">ชาย</option>
                 <option value="หญิง">หญิง</option>
               </select>
@@ -71,12 +72,16 @@ class CustAddModal extends Component {
               <p>โน้ต</p>
             </div>
             <div className="col-sm-11">
-              <textarea className="form-control" id="note" rows="3" onChange={e => this.setState({ note: e.target.value })}/>
+              <textarea className="form-control" id="note" rows="3" value={this.state.note} onChange={e => this.setState({ note: e.target.value })}/>
             </div>
           </div>
         </Body>
         <Footer>
-          <CancelModal width="100px" bstrap="btn-success" onClick={()=>this.props.addCustomer(this.state)} >
+          <CancelModal width="100px" bstrap="btn-success" onClick={()=>{
+            this.props.addCustomer(this.state)
+            this.setState({nick_name:'',tel:'',date_of_birth:moment(),name:'',surname:'',gender:"ชาย",note:''})
+          }
+          } >
             สร้าง
           </CancelModal>
           <CancelModal width="100px" bstrap="btn-danger" >
