@@ -3,8 +3,9 @@ import DefaultModal from './../../DefaultModal';
 import Body from './../../DefaultModal/Body';
 import Footer from './../../DefaultModal/Footer';
 import { CancelModal } from '../../../..';
+import moment from 'moment'
 
-const HistoryModal = ({ title, type }) => (
+const HistoryModal = ({ title, type,history }) => (
   <DefaultModal title={title} type={type} percentWidth="70" >
     <Body customStyle="overflow-y:scroll;margin-bottom:20px;max-height: 300px;">
       <div className="row">
@@ -18,48 +19,15 @@ const HistoryModal = ({ title, type }) => (
             </tr>
           </thead>
           <tbody>
+            {history && history.map(value=>
             <tr >
-              <td className="hide1">10/01/61</td>
-              <td>เล่นกีฬา</td>
+              <td className="hide1">{moment(value.insertdatetime).format('DD/MM/YY')}</td>
+              <td>{value.name}</td>
               <td>เงินสด</td>
-              <td className="hide2">1,000</td>
+              <td className="hide2">{parseInt(value.price)}</td>
             </tr>
-            <tr >
-              <td className="hide1">10/01/61</td>
-              <td>เล่นกีฬา</td>
-              <td>เงินสด</td>
-              <td className="hide2">1,000</td>
-            </tr>
-            <tr >
-              <td className="hide1">10/01/61</td>
-              <td>เล่นกีฬา</td>
-              <td>เงินสด</td>
-              <td className="hide2">1,000</td>
-            </tr>
-            <tr >
-              <td className="hide1">10/01/61</td>
-              <td>เล่นกีฬา</td>
-              <td>เงินสด</td>
-              <td className="hide2">1,000</td>
-            </tr>
-            <tr >
-              <td className="hide1">10/01/61</td>
-              <td>เล่นกีฬา</td>
-              <td>เงินสด</td>
-              <td className="hide2">1,000</td>
-            </tr>
-            <tr >
-              <td className="hide1">10/01/61</td>
-              <td>เล่นกีฬา</td>
-              <td>เงินสด</td>
-              <td className="hide2">1,000</td>
-            </tr>
-            <tr >
-              <td className="hide1">10/01/61</td>
-              <td>เล่นกีฬา</td>
-              <td>เงินสด</td>
-              <td className="hide2">1,000</td>
-            </tr>
+            )
+          }
           </tbody>
         </table>
       </div>
