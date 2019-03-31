@@ -1,16 +1,32 @@
 import React, { Component } from 'react';
 import { TabsLayout, CustFilterModal, CustAddModal, CustEditModal, ButtonModal, Constant } from '../components';
 import {connect} from 'react-redux'
-import { getCustomer,addCustomer,editCustomer,deleteCustomer,getCustomerType,addCustomerHistory,getCustomerHistory } from '../store';
+import { getCustomer,addCustomer,editCustomer,deleteCustomer,getCustomerType,addCustomerHistory,getCustomerHistory,getCustomerTypeId } from '../store';
 
 class Customer extends Component {
   // [GET] - Users
-
-  componentDidMount() {
-    this.props.getCustomer();
-    this.props.getCustomerType();
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      fillterOptions:{หัวกลุ่ม:true,ลูกกลุ่ม:true,ขาประจำ:true,ขาเก่า:true,ขาจร:true,นักเรียน:true,นักศึกษา:true,ทั่วไป:true,สูงวัย:true},
+      firstFill:true,
+    };
+    
+    this.setFillterOptions = this.setFillterOptions.bind(this);
+    
   }
-
+  
+  setFillterOptions = (obj) => {
+    console.log('obje',obj)
+    return this.setState(obj)
+  }
+  
+  componentDidMount() {
+     this.props.getCustomer();
+     this.props.getCustomerType();
+  }
+  
   render() {
     return (
       <TabsLayout title="ข้อมูลลูกค้า" tabs={Constant.CustomerTabs}>
@@ -24,9 +40,23 @@ class Customer extends Component {
                   <th scope="col" className="hide2" />
                   <th scope="col" className="hide2" />
                   <th scope="col">
-                    <ButtonModal color={Constant.Grey} width={Constant.Buttons.default} bstrap="btn-secondary" modalName="#filter-user">
+                    <ButtonModal color={Constant.Grey} width={Constant.Buttons.default} bstrap="btn-secondary" modalName="#filter-user" 
+                      onClick={()=> {
+                        if(this.state.firstFill){
+                          const {fillterOptions} = this.state
+                          const typeOption={}
+                          this.props.customerType.map((value=> typeOption[value.name]=true))
+                          this.setFillterOptions({fillterOptions:{...fillterOptions,...typeOption,หัวกลุ่ม:true,ลูกกลุ่ม:true,ขาประจำ:true,ขาเก่า:true,ขาจร:true,}})
+                          this.setState({firstFill:false})
+                        }
+                      }        
+                      }>
                       Filter
-                      <CustFilterModal title="Filter" type="filter-user" customerType={this.props.customerType}/>
+                      <CustFilterModal title="Filter" type="filter-user" customerType={this.props.customerType}
+                        fillterOptions={this.state.fillterOptions}
+                        setFillterOptions={this.setFillterOptions}
+                        
+                      />
                     </ButtonModal>
                   </th>
                   <th scope="col">
@@ -46,27 +76,43 @@ class Customer extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.props.customer.map(user => (
-                  <tr key={user.id}>
-                    <td className="hide1">{user.nick_name}</td>
-                    <td>{user.tel}</td>
-                    <td>{user.customer_relationship}</td>
-                    <td className="hide2">{user.role}</td>
-                    <td className="hide2">{user.role}</td>
-                    <td>
-                      <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
-                        <i className="fa fa-pencil" />
-                        <CustEditModal key={user.id} title="ข้อมูลลูกค้า" type={`edit-user-${user.id}`} 
-                        userData={user} editCustomer={this.props.editCustomer}
-                        deleteCustomer={this.props.deleteCustomer} 
-                        customerType={this.props.customerType}
-                        addCustomerHistory={this.props.addCustomerHistory}
-                        getCustomerHistory={this.props.getCustomerHistory}
-                        
-                        />
-                      </ButtonModal>
-                    </td>
-                  </tr>))}
+                {this.props.customer.map(user => {
+                  const relation = user.customer_relationship
+                  const duty = user.customer_duty
+                  const type = user.customer_type_default
+                  if (this.state.fillterOptions[relation] || this.state.fillterOptions[duty] || this.state.fillterOptions[type]){
+                    return(
+                    <tr key={user.id}>
+                      <td className="hide1">{user.nick_name}</td>
+                      <td>{user.tel}</td>
+                      <td>{user.customer_relationship}</td>
+                      <td className="hide2">{user.role}</td>
+                      <td className="hide2">{user.role}</td>
+                      <td>
+                        <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}
+                        onClick={()=>{
+                          
+                          this.props.getCustomerHistory(user.id)
+                          this.props.getCustomerTypeId(user.customer_type_history[user.customer_type_history.length-1].customer_type_id)
+                        }
+                      }
+                        >
+                          <i className="fa fa-pencil" />
+                          <CustEditModal key={user.id} title="ข้อมูลลูกค้า" type={`edit-user-${user.id}`} 
+                          userData={user} editCustomer={this.props.editCustomer}
+                          deleteCustomer={this.props.deleteCustomer} 
+                          customerType={this.props.customerType}
+                          addCustomerHistory={this.props.addCustomerHistory}
+                          history={this.props.history}
+                          customerTypeId={this.props.customerTypeId}
+                          />
+                        </ButtonModal>
+                      </td>
+                    </tr>
+                  )
+                  }
+                }
+              )}
               </tbody>
             </table>
           </div>
@@ -118,7 +164,9 @@ function mapStateToProps(state) {
   return {
     customer: state.customerSaga.customer,
     customerType: state.customer_typeSaga.customerType,
+    customerTypeId: state.customer_typeSaga.customerTypeId,
+    history:state.customerSaga.history,
   }
 }
 
-export default connect(mapStateToProps,{getCustomer,addCustomer,editCustomer,deleteCustomer,getCustomerType,addCustomerHistory,getCustomerHistory})(Customer);
+export default connect(mapStateToProps,{getCustomer,addCustomer,editCustomer,deleteCustomer,getCustomerType,addCustomerHistory,getCustomerHistory,getCustomerTypeId})(Customer);

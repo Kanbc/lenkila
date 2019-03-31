@@ -28,11 +28,13 @@ class MemberModal extends Component {
       }
     );
   }
+
  
 
   render() {
-    const { customerType } = this.props;
-    const { userData } = this.props;
+    const { customerType,customerTypeId,userData } = this.props;
+    console.log('userData',userData,'customerType',customerType)
+    
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="70" >
         <Body>
@@ -47,7 +49,7 @@ class MemberModal extends Component {
               <p className="bold-text">ปัจจุบัน:</p>
             </div>
             <div className="col-sm-4">
-              <p>{"-"}</p>
+              <p>{customerTypeId.name || "-"}</p>
             </div>
           </div>
           <div className="row">
@@ -55,13 +57,13 @@ class MemberModal extends Component {
               <p className="bold-text">จำนวนชั่วโมง:</p>
             </div>
             <div className="col-sm-4">
-              <p>{userData.type_default.hour_amount}</p>
+              <p>{customerTypeId.hour_amount || "-"}</p>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">หมดอายุ:</p>
             </div>
             <div className="col-sm-4">
-              <p>{"-"}</p>
+              <p>{userData.customer_type_history.length!==0 && moment(userData.customer_type_history[userData.customer_type_history.length-1].expried_date).format("DD/MM/YY")} </p>
             </div>
           </div>
           <div className="row">
@@ -125,7 +127,8 @@ class MemberModal extends Component {
               </div>
               <div className="row">
                 <div className="col-sm-12">
-                  <Button
+
+                  <CancelModal
                     width="80px"
                     bstrap="btn-success"
                     onClick={() => {
@@ -135,11 +138,14 @@ class MemberModal extends Component {
                         // - user_id
                         // - member_type_id
                       // 2 ถ้ามี ซื้อไม่ได้ ต้องรอของเก่าหมดอายุก่อน
-
+                     this.props.addCustomerHistory({
+                      customer_id:userData.id,
+                      customer_type_id:this.state.id,
+                     }) 
                     }}
                   >
                     ซื้อ
-                  </Button>
+                  </CancelModal>
                 </div>
               </div>
             </div>

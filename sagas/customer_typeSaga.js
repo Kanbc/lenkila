@@ -89,6 +89,24 @@ export function* deleteCustomerTypeSaga({id}){
   }
 }
 
+export function* getCustomerTypeIdSaga({id}) {
+  console.log('id type',id)
+  try {
+     const response = yield axios.get(apiUrl, {
+          params: {
+            apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+            code:'piluj',
+            action:'_customer_type_get_by_id',
+            id:id,
+          },
+        })
+    console.log('response customer ID type',response)
+    yield put(setData({customerTypeId:response.data.response_data}))
+  } catch (err) {
+      console.log('error',err)
+  }
+}
+
 
 export function* CustomerTypeWatcher() {
     yield all([
@@ -96,10 +114,12 @@ export function* CustomerTypeWatcher() {
       takeLatest(actionTypes.ADD_CUSTOMER_TYPE, addCustomerTypeSaga),
       takeLatest(actionTypes.EDIT_CUSTOMER_TYPE, editCustomerTypeSaga),
       takeLatest(actionTypes.DELETE_CUSTOMER_TYPE, deleteCustomerTypeSaga),
+      takeLatest(actionTypes.GET_CUSTOMER_TYPE_ID, getCustomerTypeIdSaga),
     ])
 }
 const initial = {
   customerType: [],
+  customerTypeId:[],
 }
 
 export default createReducer(initial, state => ({
