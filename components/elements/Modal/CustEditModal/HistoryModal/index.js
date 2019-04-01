@@ -20,7 +20,7 @@ const HistoryModal = ({ title, type,history }) => (
           </thead>
           <tbody>
             {history && history.map(value=>
-            <tr >
+            <tr key={value.id}>
               <td className="hide1">{moment(value.insertdatetime).format('DD/MM/YY')}</td>
               <td>{value.name}</td>
               <td>เงินสด</td>

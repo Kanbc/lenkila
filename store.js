@@ -85,6 +85,7 @@ export const actionTypes = {
     EDIT_CUSTOMER_TYPE:'EDIT_CUSTOMER_TYPE',
     DELETE_CUSTOMER_TYPE:'DELETE_CUSTOMER_TYPE',
     GET_CUSTOMER_TYPE_ID:'GET_CUSTOMER_TYPE_ID',
+    GET_CUSTOMER_TYPE_ID_NEXT:'GET_CUSTOMER_TYPE_ID_NEXT',
 
     //customer 
     GET_CUSTOMER:'GET_CUSTOMER',
@@ -440,7 +441,14 @@ export const deleteCustomerType = (id) => {
 export const getCustomerTypeId = (id) => {
     return {
         type: actionTypes.GET_CUSTOMER_TYPE_ID,
-        id,
+        id:id,
+    }
+}
+
+export const getCustomerTypeIdNext = (id) => {
+    return {
+        type: actionTypes.GET_CUSTOMER_TYPE_ID_NEXT,
+        id:id,
     }
 }
 

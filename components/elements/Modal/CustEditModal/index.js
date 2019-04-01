@@ -140,7 +140,11 @@ class CustEditModal extends Component {
             <div className="col-sm-2">
               <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#member`}  >
                 Member
-                <MemberModal title="Member" type="member"  userData={this.props.userData} customerType={this.props.customerType} addCustomerHistory={this.props.addCustomerHistory} customerTypeId={this.props.customerTypeId}/>
+                <MemberModal title="Member" type="member"  userData={this.props.userData} customerType={this.props.customerType} 
+                addCustomerHistory={this.props.addCustomerHistory} 
+                customerTypeId={this.props.customerTypeId}
+                customerTypeIdNext={this.props.customerTypeIdNext}
+                />
               </ButtonModal>
             </div>
             <div className="col-sm-2" />
@@ -159,7 +163,7 @@ class CustEditModal extends Component {
             <div className="col-sm-10" />
             <div className="col-sm-2">
               <label className={this.state.isEdit ? 'form-check-label red-label' : 'form-check-label red-label d-none'} htmlFor="inlineCheckbox5">
-                <input className="form-check-input" type="checkbox" id="inlineCheckbox5" value="0" />
+                <input className="form-check-input" type="checkbox" id="inlineCheckbox5" value="0" defaultValue={this.state.is_blacklist} onChange={()=>this.setState({is_blacklist:this.state.is_blacklist==="0"?"1":"0"})} checked={this.state.is_blacklist==="1"}/>
                 Blacklist
               </label>
             </div>

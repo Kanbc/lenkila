@@ -110,8 +110,8 @@ class CustFilterModal extends Component {
           <div className="row">
             <div className="col-sm-2" />
             <div className="col-sm-2">
-              <label className="form-check-label red-label" htmlFor="checkbox20">
-                <input className="form-check-input" type="checkbox" id="checkbox20" value="option20"  />
+              <label className="form-check-label red-label" htmlFor="checkboxBlacklist">
+                <input className="form-check-input" type="checkbox" id="checkboxBlackList"  onChange={()=>setFillterOptions({fillterOptions:{...fillterOptions,is_blacklist:!fillterOptions.is_blacklist}})} />
                 Blacklist
               </label>
             </div>

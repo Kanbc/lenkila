@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TabsLayout, CustFilterModal, CustAddModal, CustEditModal, ButtonModal, Constant } from '../components';
 import {connect} from 'react-redux'
-import { getCustomer,addCustomer,editCustomer,deleteCustomer,getCustomerType,addCustomerHistory,getCustomerHistory,getCustomerTypeId } from '../store';
+import { getCustomer,addCustomer,editCustomer,deleteCustomer,getCustomerType,addCustomerHistory,getCustomerHistory,getCustomerTypeId,getCustomerTypeIdNext } from '../store';
 
 class Customer extends Component {
   // [GET] - Users
@@ -18,7 +18,6 @@ class Customer extends Component {
   }
   
   setFillterOptions = (obj) => {
-    console.log('obje',obj)
     return this.setState(obj)
   }
   
@@ -28,6 +27,7 @@ class Customer extends Component {
   }
   
   render() {
+    console.log('filter',this.state.fillterOptions)
     return (
       <TabsLayout title="ข้อมูลลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">
@@ -80,7 +80,8 @@ class Customer extends Component {
                   const relation = user.customer_relationship
                   const duty = user.customer_duty
                   const type = user.customer_type_default
-                  if (this.state.fillterOptions[relation] || this.state.fillterOptions[duty] || this.state.fillterOptions[type]){
+                  const isBlackList = user.is_blacklist === "1" && 'is_blacklist'
+                  if (this.state.fillterOptions[relation] || this.state.fillterOptions[duty] || this.state.fillterOptions[type] || this.state.fillterOptions[isBlackList]){
                     return(
                     <tr key={user.id}>
                       <td className="hide1">{user.nick_name}</td>
@@ -93,7 +94,8 @@ class Customer extends Component {
                         onClick={()=>{
                           
                           this.props.getCustomerHistory(user.id)
-                          this.props.getCustomerTypeId(user.customer_type_history[user.customer_type_history.length-1].customer_type_id)
+                          user.customer_type_history.length !== 0 && this.props.getCustomerTypeId(user.customer_type_history[0].customer_type_id)
+                          user.customer_type_history.length >= 1 && this.props.getCustomerTypeIdNext(user.customer_type_history[1].customer_type_id)
                         }
                       }
                         >
@@ -105,6 +107,7 @@ class Customer extends Component {
                           addCustomerHistory={this.props.addCustomerHistory}
                           history={this.props.history}
                           customerTypeId={this.props.customerTypeId}
+                          customerTypeIdNext={this.props.customerTypeIdNext}
                           />
                         </ButtonModal>
                       </td>
@@ -165,8 +168,9 @@ function mapStateToProps(state) {
     customer: state.customerSaga.customer,
     customerType: state.customer_typeSaga.customerType,
     customerTypeId: state.customer_typeSaga.customerTypeId,
+    customerTypeIdNext: state.customer_typeSaga.customerTypeIdNext,
     history:state.customerSaga.history,
   }
 }
 
-export default connect(mapStateToProps,{getCustomer,addCustomer,editCustomer,deleteCustomer,getCustomerType,addCustomerHistory,getCustomerHistory,getCustomerTypeId})(Customer);
+export default connect(mapStateToProps,{getCustomer,addCustomer,editCustomer,deleteCustomer,getCustomerType,addCustomerHistory,getCustomerHistory,getCustomerTypeId,getCustomerTypeIdNext})(Customer);
