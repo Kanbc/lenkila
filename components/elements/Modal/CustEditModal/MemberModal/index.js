@@ -32,9 +32,8 @@ class MemberModal extends Component {
  
 
   render() {
-    const { customerType,customerTypeId,userData } = this.props;
-    console.log('userData',userData,'customerType',customerType)
-    
+    const { customerType,customerTypeId,userData,customerTypeIdNext } = this.props;
+  
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="70" >
         <Body>
@@ -63,7 +62,7 @@ class MemberModal extends Component {
               <p className="bold-text">หมดอายุ:</p>
             </div>
             <div className="col-sm-4">
-              <p>{userData.customer_type_history.length!==0 && moment(userData.customer_type_history[userData.customer_type_history.length-1].expried_date).format("DD/MM/YY")} </p>
+              <p>{userData.customer_type_history.length!==0 && moment(userData.customer_type_history[0].expried_date).format("DD/MM/YY")} </p>
             </div>
           </div>
           <div className="row">
@@ -71,7 +70,7 @@ class MemberModal extends Component {
               <p className="bold-text">Next :</p>
             </div>
             <div className="col-sm-4">
-              <p>{"-"}</p>
+              <p>{customerTypeIdNext.name || "-"}</p>
             </div>
             <div className="col-sm-2" />
             <div className="col-sm-4" />
