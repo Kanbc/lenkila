@@ -35,8 +35,8 @@ export function* setFieldDataSaga() {
 export function* addFieldDataSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
-      yield axios.get(apiUrl, {
-          params: {
+      yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'field_doc_add',
@@ -46,7 +46,7 @@ export function* addFieldDataSaga({data}){
             type: data.typeField,
             stadium_doc_id:stadiumId,
           },
-        })
+        )
   
       yield call(setFieldDataSaga)
   } catch (err) {
@@ -61,8 +61,8 @@ export function* editFieldDataSaga({data}){
 
    console.log('edit data',data)
     try {
-        const response =  yield axios.get(apiUrl, {
-          params: {
+        const response =  yield axios.post(apiUrl, {
+        
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'field_doc_edit',
@@ -73,7 +73,7 @@ export function* editFieldDataSaga({data}){
             type: data.type,
             stadium_doc_id:stadiumId,
           },
-        })
+        )
         console.log('response',response)
       
       yield call(setFieldDataSaga)

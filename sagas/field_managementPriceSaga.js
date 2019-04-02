@@ -48,8 +48,8 @@ export function* addFieldDataSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     console.log('data add',data)
     try {
-      yield axios.get(apiUrl, {
-          params: {
+      yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'field_price_add',
@@ -86,7 +86,7 @@ export function* addFieldDataSaga({data}){
             three_class:data.three_class,	
             three_class_half:data.three_class_half,
           },
-        })
+        )
       yield setData({colorPrice:"#CA0813"})
       yield call(setFieldDataSaga)
   } catch (err) {
@@ -99,8 +99,8 @@ export function* addFieldDataSaga({data}){
 export function* editFieldDataSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
-        yield axios.get(apiUrl, {
-          params: {
+        yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'field_price_edit',
@@ -138,7 +138,7 @@ export function* editFieldDataSaga({data}){
             three_class:data.three_class,	
             three_class_half:data.three_class_half,
           },
-        })
+        )
       yield call(setFieldDataSaga)
   } catch (err) {
       console.log('error',err)

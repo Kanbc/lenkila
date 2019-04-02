@@ -37,15 +37,15 @@ export function* addCustomerTypeSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     console.log('data add',data)
     try {
-      yield axios.get(apiUrl, {
-          params: {
+      yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'_customer_type_insert',
             stadium_id:stadiumId,
             ...data,
           },
-        })
+        )
       yield call(getCustomerTypeSaga)
   } catch (err) {
       console.log('error',err)
@@ -57,15 +57,15 @@ export function* editCustomerTypeSaga({data}){
     console.log('edit data',data)
    
     try {
-        yield axios.get(apiUrl, {
-          params: {
+        yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'_customer_type_get_edit',
             stadium_id:stadiumId,
             ...data,
           },
-        })
+        )
       yield call(getCustomerTypeSaga)
   } catch (err) {
       console.log('error',err)

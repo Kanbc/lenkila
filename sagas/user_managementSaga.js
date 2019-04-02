@@ -15,8 +15,8 @@ export function* addUesrDataSaga({newUser}) {
   console.log('newUser',newUser)
   const upline = yield select(state => state.auth.user[0].user_id)
     try {
-       const response = yield axios.get(apiUrl, {
-            params: {
+       const response = yield axios.post(apiUrl, {
+            
               apikey: 'da1ee23f12812a19dc57fa4cf3115519',
               code:'gdjxq',
               action:'register',
@@ -32,7 +32,7 @@ export function* addUesrDataSaga({newUser}) {
               upline_id:upline,
              
             },
-          })
+          )
       console.log('response Add',response)
       yield call(setUsersDataSaga)
     } catch (err) {
@@ -81,8 +81,8 @@ export function* deleteUsersDataSaga({id}){
 export function* editUserDataSaga({newUser}) {
   console.log('newUser',newUser)
     try {
-       const response = yield axios.get(apiUrl, {
-            params: {
+       const response = yield axios.post(apiUrl, {
+            
               apikey: 'da1ee23f12812a19dc57fa4cf3115519',
               code:'gdjxq',
               action:'edit',
@@ -96,7 +96,7 @@ export function* editUserDataSaga({newUser}) {
               role: newUser.role,
               user_id:newUser.id,
             },
-          })
+          )
       console.log('response Edit',response)
       yield call(setUsersDataSaga)
     } catch (err) {
