@@ -13,8 +13,8 @@ const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 export function* addNoteSaga({data}) {
   console.log('addnote Saga',data)
     try {
-       const response = yield axios.get(apiUrl, {
-            params: {
+       const response = yield axios.post(apiUrl, {
+            
               apikey: 'da1ee23f12812a19dc57fa4cf3115519',
               code:'piluj',
               action:'note_add',
@@ -24,7 +24,7 @@ export function* addNoteSaga({data}) {
               doc_date:data.doc_date,
               // stadium_id:xxxx
             },
-      })
+      )
       yield call(setNoteDateSaga, {date:data.doc_date})
     } catch (err) {
         console.log('error',err)
@@ -83,8 +83,8 @@ export function* setNoteDateSaga({date}){
 
 export function* editNoteSaga({data}){
     try {
-      const response = yield axios.get(apiUrl, {
-          params: {
+      const response = yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'note_edit',
@@ -94,7 +94,7 @@ export function* editNoteSaga({data}){
             detail:data.detail,
             doc_date:data.doc_date,
           },
-        })
+        )
       console.log('response => edit' ,response)
       yield call(setNoteDateSaga, {date:data.doc_date})
   } catch (err) {

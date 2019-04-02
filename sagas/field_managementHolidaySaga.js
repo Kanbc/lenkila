@@ -37,8 +37,8 @@ export function* addFieldDataSaga({data}){
     console.log('data add',data)
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
-      yield axios.get(apiUrl, {
-          params: {
+      yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'holiday_add',
@@ -50,7 +50,7 @@ export function* addFieldDataSaga({data}){
             start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
             end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
           },
-        })
+        )
   
       yield call(setFieldDataSaga)
   } catch (err) {
@@ -63,8 +63,8 @@ export function* addFieldDataSaga({data}){
 export function* editFieldDataSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
-        yield axios.get(apiUrl, {
-          params: {
+        yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'holiday_edit',
@@ -77,7 +77,7 @@ export function* editFieldDataSaga({data}){
             start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
             end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
           },
-        })
+        )
       
       yield call(setFieldDataSaga)
   } catch (err) {

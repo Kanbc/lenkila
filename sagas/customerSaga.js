@@ -39,15 +39,15 @@ export function* addCustomerSaga({data}){
     const newData = {...data,date_of_birth:moment(data.date_of_birth).format("YYYY-MM-DD")}
     console.log('data add',newData)
     try {
-      yield axios.get(apiUrl, {
-          params: {
+      yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'_customer_insert',
             stadium_id:stadiumId,
             ...newData,
           },
-        })
+        )
       yield call(getCustomerSaga)
   } catch (err) {
       console.log('error',err)
@@ -59,15 +59,15 @@ export function* editCustomerSaga({data}){
     const newData = {...data,date_of_birth:moment(data.date_of_birth).format("YYYY-MM-DD")}
     console.log('edit data',newData)
     try {
-        yield axios.get(apiUrl, {
-          params: {
+        yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'_customer_get_edit',
             stadium_id:stadiumId,
             ...newData,
           },
-        })
+        )
       yield call(getCustomerSaga)
   } catch (err) {
       console.log('error',err)
@@ -94,14 +94,14 @@ export function* deleteCustomerSaga({id}){
 export function* addCustomerTypeHistorySaga({data}){
   console.log('data add',data)
   try {
-    const response = yield axios.get(apiUrl, {
-        params: {
+    const response = yield axios.post(apiUrl, {
+        
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'piluj',
           action:'_customer_type_history_insert',
           ...data,
         },
-      })
+      )
     console.log('response add history',response)
     yield call(getCustomerSaga)
 } catch (err) {

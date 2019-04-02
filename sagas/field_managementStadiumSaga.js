@@ -59,8 +59,8 @@ export function* setFieldDataSaga() {
 export function* editFieldDataSaga({data}){
     console.log('data',data)
     try {
-        const response =  yield axios.get(apiUrl, {
-          params: {
+        const response =  yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'stadium_doc_edit',
@@ -74,7 +74,7 @@ export function* editFieldDataSaga({data}){
             open_time:moment.utc(data.open_time*1000).format('HH:mm:ss'),
             close_time:moment.utc(data.close_time*1000).format('HH:mm:ss'),
           },
-        })
+        )
         console.log('response',response)
       
       yield call(setFieldDataSaga)

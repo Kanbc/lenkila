@@ -40,8 +40,8 @@ export function* addFieldDataSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
     try {
-      yield axios.get(apiUrl, {
-          params: {
+      yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'gift_code_add',
@@ -56,7 +56,7 @@ export function* addFieldDataSaga({data}){
             end_time:data.is_allday?"00:00:00":moment.utc(data.end_time*1000).format('HH:mm:ss'),
             is_allday:data.is_allday?"0":"1",
           },
-        })
+        )
   
       yield call(setFieldDataSaga)
   } catch (err) {
@@ -70,8 +70,8 @@ export function* editFieldDataSaga({data}){
    console.log('edit data',data)
    const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
-        const response =  yield axios.get(apiUrl, {
-          params: {
+        const response =  yield axios.post(apiUrl, {
+          
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'gift_code_edit',
@@ -87,7 +87,7 @@ export function* editFieldDataSaga({data}){
             end_time:data.is_allday?"00:00:00":moment.utc(data.end_time*1000).format('HH:mm:ss'),
             is_allday:data.is_allday?"0":"1",
           },
-        })
+        )
         console.log('response',response)
       
       yield call(setFieldDataSaga)
