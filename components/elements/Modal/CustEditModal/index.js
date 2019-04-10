@@ -43,7 +43,7 @@ class CustEditModal extends Component {
       button2 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={() => this.cancelEditForm()}>ยกเลิก</CancelModal>;
       button3 = null;
     } else {
-      button1 = <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName="#history" > ประวัติ<HistoryModal title="ประวัติ" type="history" history={this.props.history}/></ButtonModal>;
+      button1 = <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#history-${this.props.userData.id}`} > ประวัติ<HistoryModal title="ประวัติ" type={`history-${this.props.userData.id}`} history={this.props.history}/></ButtonModal>;
       button2 = <Button width={Constant.Buttons.default} color={Constant.Blue} bstrap="btn-primary" onClick={() => this.editForm()}>แก้ไข</Button>;
       button3 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>this.props.deleteCustomer(this.props.userData.id)}>ลบ</CancelModal>;
     }
@@ -138,9 +138,9 @@ class CustEditModal extends Component {
               <p>{this.props.userData.customer_type_default}</p>
             </div>
             <div className="col-sm-2">
-              <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#member`}  >
+              <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#member-${this.props.userData.id}`} >
                 Member
-                <MemberModal title="Member" type="member"  userData={this.props.userData} customerType={this.props.customerType} 
+                <MemberModal title="Member" type={`member-${this.props.userData.id}`} userData={this.props.userData} customerType={this.props.customerType} 
                 addCustomerHistory={this.props.addCustomerHistory} 
                 customerTypeId={this.props.customerTypeId}
                 customerTypeIdNext={this.props.customerTypeIdNext}
