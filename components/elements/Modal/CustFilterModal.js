@@ -63,7 +63,7 @@ class CustFilterModal extends Component {
           <div className="row">
             
             {customerType && customerType.map((value,index)=>{
-              let keyName = value.name
+              let keyName = value.id
               return(
                 <React.Fragment key={value.id}>
                   {index === 0 &&
@@ -74,7 +74,7 @@ class CustFilterModal extends Component {
                   {index===0 ?
                   <div className="col-sm-2">
                     <label className="form-check-label" htmlFor={`checkbox-fillter${value.id}`}>
-                      <input className="form-check-input" type="checkbox" id={`checkbox${value.id}`} checked={fillterOptions[value.name]} onChange={()=>setFillterOptions({fillterOptions:{...fillterOptions,[keyName]:!fillterOptions[value.name]}})}  />
+                      <input className="form-check-input" type="checkbox" id={`checkbox${value.id}`} checked={fillterOptions[value.id]} onChange={()=>setFillterOptions({fillterOptions:{...fillterOptions,[keyName]:!fillterOptions[value.id]}})}  />
                       {value.name}
                     </label>
                   </div>
@@ -85,7 +85,7 @@ class CustFilterModal extends Component {
                   <div className="col-sm-2" />
                     <div className="col-sm-2">
                     <label className="form-check-label" htmlFor={`checkbox-fillter${value.id}`}>
-                      <input className="form-check-input" type="checkbox" id={`checkbox${value.id}`} checked={fillterOptions[value.name]} onChange={()=>setFillterOptions({fillterOptions:{...fillterOptions,[keyName]:!fillterOptions[value.name]}})}  />
+                      <input className="form-check-input" type="checkbox" id={`checkbox${value.id}`} checked={fillterOptions[value.id]} onChange={()=>setFillterOptions({fillterOptions:{...fillterOptions,[keyName]:!fillterOptions[value.id]}})}  />
                       {value.name}
                     </label>
                   </div>
@@ -93,7 +93,7 @@ class CustFilterModal extends Component {
                   :
                   <div className="col-sm-2">
                   <label className="form-check-label" htmlFor={`checkbox-fillter${value.id}`}>
-                    <input className="form-check-input" type="checkbox" id={`checkbox${value.id}`} checked={fillterOptions[value.name]} onChange={()=>setFillterOptions({fillterOptions:{...fillterOptions,[keyName]:!fillterOptions[value.name]}})}  />
+                    <input className="form-check-input" type="checkbox" id={`checkbox${value.id}`} checked={fillterOptions[value.id]} onChange={()=>setFillterOptions({fillterOptions:{...fillterOptions,[keyName]:!fillterOptions[value.id]}})}  />
                     {value.name}
                   </label>
                   </div>
@@ -125,7 +125,7 @@ class CustFilterModal extends Component {
               <Button width="150px" bstrap="btn-success" color={Constant.Green} onClick={()=>
               {
                 const typeOption={}
-                customerType.map((value=> typeOption[value.name]=true))
+                customerType.map((value=> typeOption[value.id]=true))
                 setFillterOptions({fillterOptions:{...fillterOptions,...typeOption,หัวกลุ่ม:true,ลูกกลุ่ม:true,ขาประจำ:true,ขาเก่า:true,ขาจร:true,}})
               }
               }
@@ -133,7 +133,7 @@ class CustFilterModal extends Component {
                 เลือกทั้งหมด</Button>
             </div>
             <div className="col-sm-3">
-              <Button width="150px" bstrap="btn-primary" color={Constant.Blue} onClick={()=>setFillterOptions({fillterOptions:{หัวกลุ่ม:false,ลูกกลุ่ม:false,ขาประจำ:false,ขาเก่า:false,ขาจร:false,นักเรียน:false,นักศึกษา:false,ทั่วไป:false,สูงวัย:false}})}>ไม่เลือกทั้งหมด</Button>
+              <Button width="150px" bstrap="btn-primary" color={Constant.Blue} onClick={()=>setFillterOptions({fillterOptions:{หัวกลุ่ม:false,ลูกกลุ่ม:false,ขาประจำ:false,ขาเก่า:false,ขาจร:false}})}>ไม่เลือกทั้งหมด</Button>
             </div>
             <div className="col-sm-3" />
             <div className="col-sm-3" />
