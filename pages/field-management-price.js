@@ -3,13 +3,14 @@ import { TabsLayout, FMImportPriceModal, FMPriceAddModal, FMPriceEditModal, Butt
 import {connect} from 'react-redux'
 import {setData} from '../sagas/field_managementPriceSaga'
 
-import { setFieldDataPrice,setFieldDataField,importPrice } from '../store';
+import { setFieldDataPrice,setFieldDataField,importPrice,getCustomerType } from '../store';
 
 class FieldManagementPrice extends Component {
   // [GET] - Users
   async componentDidMount(){
     await this.props.setFieldDataField()
     await this.props.setFieldDataPrice()
+    this.props.getCustomerType()
   }
   
   render() {
@@ -43,7 +44,7 @@ class FieldManagementPrice extends Component {
                   <th scope="col">
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
                       <i className="fa fa-plus" aria-hidden="true" />
-                      <FMPriceAddModal title="สร้างราคา" type="add-user" />
+                      <FMPriceAddModal title="สร้างราคา" type="add-user" customerType={this.props.customerType}/>
                     </ButtonModal>
                   </th>
                 </tr>
@@ -137,7 +138,8 @@ function mapStateToProps(state) {
     fieldsPrice: state.field_managementPriceSaga.fieldsPrice,
     fields: state.field_managementFieldSaga.fields,
     fieldId: state.field_managementPriceSaga.fieldId,
+    customerType: state.customer_typeSaga.customerType,
   }
 }
 
-export default connect(mapStateToProps,{setFieldDataPrice,setData,setFieldDataField,importPrice})(FieldManagementPrice);
+export default connect(mapStateToProps,{setFieldDataPrice,setData,setFieldDataField,importPrice,getCustomerType})(FieldManagementPrice);
