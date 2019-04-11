@@ -33,6 +33,7 @@ class MemberModal extends Component {
 
   render() {
     const { customerType,customerTypeId,userData,customerTypeIdNext } = this.props;
+    console.log('customerTypeId',customerTypeId)
   
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="70" >
