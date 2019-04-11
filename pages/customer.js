@@ -94,8 +94,20 @@ class Customer extends Component {
                         <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}
                         onClick={()=>{
                           this.props.getCustomerHistory(user.id)
-                          user.customer_type_history.length !== 0 && this.props.getCustomerTypeId(user.customer_type_history[0].customer_type_id)
-                          user.customer_type_history.length >= 1 && this.props.getCustomerTypeIdNext(user.customer_type_history[1].customer_type_id)
+                          if(user.customer_type_history.length === 0){
+                            this.props.getCustomerTypeId(null)
+                            this.props.getCustomerTypeIdNext(null)
+                          }
+                          else if(user.customer_type_history.length === 1 ){
+                            this.props.getCustomerTypeId(user.customer_type_history[0].customer_type_id)
+                            this.props.getCustomerTypeIdNext(null)
+                          }
+                          else if(user.customer_type_history.length > 1){
+                            this.props.getCustomerTypeId(user.customer_type_history[0].customer_type_id)
+                            this.props.getCustomerTypeIdNext(user.customer_type_history[1].customer_type_id)
+                          }
+                          
+                         
                         }
                       }
                         >

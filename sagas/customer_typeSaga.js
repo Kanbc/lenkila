@@ -90,26 +90,31 @@ export function* deleteCustomerTypeSaga({id}){
 }
 
 export function* getCustomerTypeIdSaga({id}) {
-  console.log('id type',id)
   try {
-     const response = yield axios.get(apiUrl, {
-          params: {
-            apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-            code:'piluj',
-            action:'_customer_type_get_by_id',
-            id:id,
-          },
-        })
-    console.log('response customer ID  type',response)
-    yield put(setData({customerTypeId:response.data.response_data}))
+    if(id !== null){
+      const response = yield axios.get(apiUrl, {
+           params: {
+             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+             code:'piluj',
+             action:'_customer_type_get_by_id',
+             id:id,
+           },
+         })
+     console.log('response customer ID  type',response)
+     yield put(setData({customerTypeId:response.data.response_data}))
+    }
+    else{
+     yield put(setData({customerTypeId:[]}))
+
+    }
   } catch (err) {
       console.log('error',err)
   }
 }
 
 export function* getCustomerTypeIdNextSaga({id}) {
-  console.log('id type',id)
   try {
+    if(id !== null){
      const response = yield axios.get(apiUrl, {
           params: {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
@@ -120,6 +125,10 @@ export function* getCustomerTypeIdNextSaga({id}) {
         })
     console.log('response customer ID next type',response)
     yield put(setData({customerTypeIdNext:response.data.response_data}))
+    }
+    else{
+      yield put(setData({customerTypeIdNext:[]}))
+    }
   } catch (err) {
       console.log('error',err)
   }
