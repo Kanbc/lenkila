@@ -9,7 +9,7 @@ class Customer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fillterOptions:{หัวกลุ่ม:true,ลูกกลุ่ม:true,ขาประจำ:true,ขาเก่า:true,ขาจร:true,นักเรียน:true,นักศึกษา:true,ทั่วไป:true,สูงวัย:true},
+      fillterOptions:{หัวกลุ่ม:true,ลูกกลุ่ม:true,ขาประจำ:true,ขาเก่า:true,ขาจร:true},
       firstFill:true,
     };
     
@@ -27,7 +27,8 @@ class Customer extends Component {
   }
   
   render() {
-    console.log('filter',this.state.fillterOptions)
+    console.log('fillterOptions',this.state.fillterOptions)
+    console.log('history',this.props.history)
     return (
       <TabsLayout title="ข้อมูลลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">
@@ -45,7 +46,7 @@ class Customer extends Component {
                         if(this.state.firstFill){
                           const {fillterOptions} = this.state
                           const typeOption={}
-                          this.props.customerType.map((value=> typeOption[value.name]=true))
+                          this.props.customerType.map((value=> typeOption[value.id]=true))
                           this.setFillterOptions({fillterOptions:{...fillterOptions,...typeOption,หัวกลุ่ม:true,ลูกกลุ่ม:true,ขาประจำ:true,ขาเก่า:true,ขาจร:true,}})
                           this.setState({firstFill:false})
                         }
@@ -79,7 +80,7 @@ class Customer extends Component {
                 {this.props.customer.map(user => {
                   const relation = user.customer_relationship
                   const duty = user.customer_duty
-                  const type = user.customer_type_default
+                  const type = user.customer_type_history.length === 0 ? user.type_default.id : user.customer_type_history[0].customer_type_id
                   const isBlackList = user.is_blacklist === "1" && 'is_blacklist'
                   if (this.state.fillterOptions[relation] || this.state.fillterOptions[duty] || this.state.fillterOptions[type] || this.state.fillterOptions[isBlackList]){
                     return(
@@ -92,7 +93,6 @@ class Customer extends Component {
                       <td>
                         <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}
                         onClick={()=>{
-                          
                           this.props.getCustomerHistory(user.id)
                           user.customer_type_history.length !== 0 && this.props.getCustomerTypeId(user.customer_type_history[0].customer_type_id)
                           user.customer_type_history.length >= 1 && this.props.getCustomerTypeIdNext(user.customer_type_history[1].customer_type_id)
@@ -103,7 +103,7 @@ class Customer extends Component {
                           <CustEditModal key={user.id} title="ข้อมูลลูกค้า" type={`edit-user-${user.id}`} 
                           userData={user} editCustomer={this.props.editCustomer}
                           deleteCustomer={this.props.deleteCustomer} 
-                          customerType={this.props.customerType}
+                          customerType={this.props.customerType.filter(value=>value.type !== 'default')}
                           addCustomerHistory={this.props.addCustomerHistory}
                           history={this.props.history}
                           customerTypeId={this.props.customerTypeId}

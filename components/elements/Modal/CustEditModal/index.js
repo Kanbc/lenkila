@@ -135,7 +135,7 @@ class CustEditModal extends Component {
               <p className="bold-text">ประเภท:</p>
             </div>
             <div className="col-sm-2">
-              <p>{this.props.userData.customer_type_default}</p>
+              <p>{this.props.userData.customer_type_history.length !== 0 ? this.props.customerTypeId.name : this.props.userData.customer_type_default }</p>
             </div>
             <div className="col-sm-2">
               <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#member`}  >
