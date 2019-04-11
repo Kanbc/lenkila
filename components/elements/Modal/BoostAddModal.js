@@ -27,8 +27,8 @@ class BoostAddModal extends Component {
             </div>
             <div className="col-sm-2">
               <select className="custom-select" onChange={this.changeBoostType} defaultValue={this.state.boostType}>
-                <option value="boost">Boosts</option>
                 <option value="buffet">Buffet</option>
+                <option value="boost">Boosts</option>
               </select>
             </div>
             <div className="col-sm-9" />
@@ -63,18 +63,7 @@ class BoostAddModal extends Component {
             <div className={this.state.boostType === 'buffet' ? 'col-sm-2' : 'col-sm-2 d-none'}>
               <input type="text" className="form-control" id="firstname" />
             </div>
-            <div className="col-sm-1">
-              <p>จำนวนผู้เล่น</p>
-            </div>
-            <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
             <div className={this.state.boostType === 'buffet' ? 'col-sm-6' : 'col-sm-9'}>
-              <div className="space-r">
-                <Button width="120px" color={Constant.Blue}>
-                  แสดงผู้เล่น
-                </Button>
-              </div>
               <div className={this.state.boostType === 'buffet' ? 'space-r d-none' : 'space-r'}>
                 <Button width="120px" color={Constant.Blue}>
                   ดูข้อมูลลูกค้า
@@ -87,8 +76,8 @@ class BoostAddModal extends Component {
               <p>จำนวนสนาม</p>
             </div>
             <div className="col-sm-2">
-              <Button width="120px" color={Constant.Green}>
-                จองเพิ่ม/แก้ไข
+              <Button color={Constant.Green}>
+                เลือกสนามเพิ่ม/แก้ไข
               </Button>
             </div>
             <div className={this.state.boostType === 'buffet' ? 'col-sm-1 d-none' : 'col-sm-1'}>
@@ -114,7 +103,7 @@ class BoostAddModal extends Component {
                   </thead>
                   <tbody className={this.state.boostType === 'buffet' ? '' : 'red-text'}>
                     <tr>
-                      <th scope="row">1</th>
+                      <th scope="row">A</th>
                       <td>18.00-22.00</td>
                       <td>1,000</td>
                     </tr>
@@ -123,68 +112,22 @@ class BoostAddModal extends Component {
               </div>
             </div>
             <div className="col-sm-2" />
-            <div className="col-sm-4">
-              สินค้า To be done.
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-1">
-              <p>ค่าสนามรวม</p>
-            </div>
-            <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
-            <div className="col-sm-1">
-              <p>ค่ามัดจำ</p>
-            </div>
-            <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
-            <div className="col-sm-1">
-              <p>ค่าสินค้า</p>
-            </div>
-            <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-1">
-              <p>ส่วนลดแอพ</p>
-            </div>
-            <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
-            <div className="col-sm-1">
-              <p>ส่วนลดอื่นๆ</p>
-            </div>
-            <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
-            <div className="col-sm-6">
-              <div className="space-r">
-                <ButtonModal color={Constant.Blue} width="120px" modalName="#discount2">
-                  ส่วนลด
-                  <DiscountAddModal title="ส่วนลด" type="discount2" fields={this.fields} />
-                </ButtonModal>
-              </div>
-            </div>
+            <div className="col-sm-4" />
           </div>
           <div className="row">
             <div className="col-sm-3">
-              <p>สร้างโดย เอ</p>
+              {/* <p>สร้างโดย เอ</p> */}
             </div>
-            <div className="col-sm-3">
-              <p>เก็บเงิน เอ</p>
-            </div>
+            <div className="col-sm-3" />
             <div className="col-sm-6 left-side">
               <div className={this.state.boostType === 'buffet' ? 'space-l' : 'space-l d-none'}>
                 <CancelModal width="120px" bstrap="btn-danger" >
-                  ยกเลิกการจอง
+                  ยกเลิก
                 </CancelModal>
               </div>
               <div className="space-l">
                 <Button width="120px" bstrap="btn-success">
-                  ชำระเงิน
+                  บันทึก
                 </Button>
               </div>
             </div>
