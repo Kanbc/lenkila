@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Switch from 'react-switch';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
-import {connect} from 'react-redux'
-import {setNote,setNoteDate} from '../store'
+import { connect } from 'react-redux';
+import { setNote, setNoteDate } from '../store';
 import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, BookingAddModal, ExportBookingModal /* GotoDate */ } from '../components';
 
 class BookingTable extends Component {
@@ -84,19 +84,15 @@ class BookingTable extends Component {
                   <i className="fa fa-chevron-left" aria-hidden="true" />
                 </Button>
               </div>
-              <div className="lk-box space-r align-middle">
+              <div className="lk-box space-r align-middle lenkila-react-datepicker">
                 <DatePicker
-                  // customInput={<GotoDate width="65px" color={Constant.Blue} />}
-                  // selected={this.state.gotoDate}
-                  // popperPlacement="top-end"
-                  // onChange={gotoDate => this.setState({ gotoDate })}
                   showMonthDropdown
                   showYearDropdown
                   dropdownMode="select"
                   disabledKeyboardNavigation
+                  className="form-control align-middle"
                   selected={this.state.gotoDate}
                   onChange={gotoDate => this.setState({ gotoDate })}
-                  className="form-control align-middle"
                 />
               </div>
               <div className="lk-box space-r align-middle">
