@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { setNote, setNoteDate } from '../store';
-import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, BookingAddModal, ExportBookingModal /* GotoDate */ } from '../components';
+import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, ExportBookingModal } from '../components';
 
 class BookingTable extends Component {
   constructor(props) {
@@ -27,25 +27,25 @@ class BookingTable extends Component {
   }
 
   today() {
-    let today = moment(new Date());
+    const today = moment(new Date());
     this.setState({
       gotoDate: today,
     });
-    this.props.setNoteDate(today.format("YYYY-MM-DD"));
+    this.props.setNoteDate(today.format('YYYY-MM-DD'));
   }
 
   nextDay() {
     this.setState({
       gotoDate: moment(this.state.gotoDate).add(1, 'days'),
     });
-    this.props.setNoteDate(this.state.gotoDate.add(1, 'days').format("YYYY-MM-DD"));
+    this.props.setNoteDate(this.state.gotoDate.add(1, 'days').format('YYYY-MM-DD'));
   }
 
   previousDay() {
     this.setState({
       gotoDate: moment(this.state.gotoDate).subtract(1, 'days'),
     });
-    this.props.setNoteDate(this.state.gotoDate.subtract(1, 'days').format("YYYY-MM-DD"));
+    this.props.setNoteDate(this.state.gotoDate.subtract(1, 'days').format('YYYY-MM-DD'));
   }
 
   // [GET] - Bookings
@@ -69,8 +69,7 @@ class BookingTable extends Component {
 
   componentDidMount() {
     // this.props.setNote();
-    this.props.setNoteDate(this.state.gotoDate.format("YYYY-MM-DD"));
-
+    this.props.setNoteDate(this.state.gotoDate.format('YYYY-MM-DD'));
   }
   render() {
     return (
@@ -112,7 +111,7 @@ class BookingTable extends Component {
               <div className="lk-box space-r">
                 <ButtonModal color={Constant.Orange} width="100px" modalName="#add-note">
                   Note
-                  <NoteAddModal title="Note" type="add-note" fields={this.fields} gotoDate={this.state.gotoDate}/>
+                  <NoteAddModal title="Note" type="add-note" fields={this.fields} gotoDate={this.state.gotoDate} />
                 </ButtonModal>
               </div>
               <div className="lk-box space-r">
@@ -136,16 +135,6 @@ class BookingTable extends Component {
                 </div>
               </div>
               <div className="lk-box">
-                {/* <div className="lk-box space-r">
-                  <ButtonModal color={Constant.Blue} width="100px" modalName="#add-booking">
-                    <i className="fa fa-plus" aria-hidden="true" />
-                    <BookingAddModal 
-                      title="การจอง" 
-                      type="add-booking" 
-                      fields={this.fields} 
-                    />
-                  </ButtonModal>
-                </div> */}
                 <div className="lk-box space-r">
                   <ButtonModal color={Constant.Red} width="100px" modalName="#add-boost">
                     Boost
@@ -206,6 +195,12 @@ class BookingTable extends Component {
 }
 
 function bookingData() {
+  // [GET]
+  // Input - datetime etc. 2019-04-11
+
+  // mock data
+  const todayTime = moment().format('YYYY-MM-DD');
+
   const users = [
     {
       id: '1',
@@ -288,37 +283,198 @@ function bookingData() {
       color: '#ecf0f1',
       textColor: 'black',
     },
+    // Field Price Data
+    // - รวมทั้งส่วนราคาสนามและราคาจากสร้าง buffet มากับ API booking เลย
+    {
+      id: '10',
+      resourceId: 'a',
+      start: moment(`${todayTime} 07:00`),
+      end: moment(`${todayTime} 12:00`),
+      color: '#ca0813',
+      rendering: 'background',
+    },
+    {
+      id: '17',
+      resourceId: 'a',
+      start: moment(`${todayTime} 12:00`),
+      end: moment(`${todayTime} 18:00`),
+      color: '#f9b900',
+      rendering: 'background',
+    },
+    {
+      id: '24',
+      resourceId: 'a',
+      start: moment(`${todayTime} 18:00`),
+      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
+      color: '#f56904',
+      rendering: 'background',
+    },
+    {
+      id: '11',
+      resourceId: 'b',
+      start: moment(`${todayTime} 07:00`),
+      end: moment(`${todayTime} 12:00`),
+      color: '#ca0813',
+      rendering: 'background',
+    },
+    {
+      id: '18',
+      resourceId: 'b',
+      start: moment(`${todayTime} 12:00`),
+      end: moment(`${todayTime} 18:00`),
+      color: '#f9b900',
+      rendering: 'background',
+    },
+    {
+      id: '25',
+      resourceId: 'b',
+      start: moment(`${todayTime} 18:00`),
+      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
+      color: '#f56904',
+      rendering: 'background',
+    },
+    {
+      id: '12',
+      resourceId: 'c',
+      start: moment(`${todayTime} 07:00`),
+      end: moment(`${todayTime} 12:00`),
+      color: '#ca0813',
+      rendering: 'background',
+    },
+    {
+      id: '19',
+      resourceId: 'c',
+      start: moment(`${todayTime} 12:00`),
+      end: moment(`${todayTime} 18:00`),
+      color: '#f9b900',
+      rendering: 'background',
+    },
+    {
+      id: '26',
+      resourceId: 'c',
+      start: moment(`${todayTime} 18:00`),
+      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
+      color: '#f56904',
+      rendering: 'background',
+    },
+    {
+      id: '13',
+      resourceId: 'd',
+      start: moment(`${todayTime} 07:00`),
+      end: moment(`${todayTime} 12:00`),
+      color: '#ca0813',
+      rendering: 'background',
+    },
+    {
+      id: '20',
+      resourceId: 'd',
+      start: moment(`${todayTime} 12:00`),
+      end: moment(`${todayTime} 18:00`),
+      color: '#f9b900',
+      rendering: 'background',
+    },
+    {
+      id: '27',
+      resourceId: 'd',
+      start: moment(`${todayTime} 18:00`),
+      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
+      color: '#f56904',
+      rendering: 'background',
+    },
+    {
+      id: '14',
+      resourceId: 'g',
+      start: moment(`${todayTime} 07:00`),
+      end: moment(`${todayTime} 12:00`),
+      color: '#0693e3',
+      rendering: 'background',
+    },
+    {
+      id: '28',
+      resourceId: 'g',
+      start: moment(`${todayTime} 18:00`),
+      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
+      color: '#f56904',
+      rendering: 'background',
+    },
+    {
+      id: '21',
+      resourceId: 'g',
+      start: moment(`${todayTime} 12:00`),
+      end: moment(`${todayTime} 18:00`),
+      color: '#f9b900',
+      rendering: 'background',
+    },
+    {
+      id: '29',
+      resourceId: 'g1',
+      start: moment(`${todayTime} 18:00`),
+      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
+      color: '#f56904',
+      rendering: 'background',
+    },
+    {
+      id: '15',
+      resourceId: 'g1',
+      start: moment(`${todayTime} 07:00`),
+      end: moment(`${todayTime} 12:00`),
+      color: '#0693e3',
+      rendering: 'background',
+    },
+    {
+      id: '22',
+      resourceId: 'g1',
+      start: moment(`${todayTime} 12:00`),
+      end: moment(`${todayTime} 18:00`),
+      color: '#f9b900',
+      rendering: 'background',
+    },
+    {
+      id: '16',
+      resourceId: 'g2',
+      start: moment(`${todayTime} 07:00`),
+      end: moment(`${todayTime} 12:00`),
+      color: '#0693e3',
+      rendering: 'background',
+    },
+    {
+      id: '23',
+      resourceId: 'g2',
+      start: moment(`${todayTime} 12:00`),
+      end: moment(`${todayTime} 18:00`),
+      color: '#f9b900',
+      rendering: 'background',
+    },
+    {
+      id: '30',
+      resourceId: 'g2',
+      start: moment(`${todayTime} 18:00`),
+      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
+      color: '#f56904',
+      rendering: 'background',
+    },
   ];
+  console.log(`today time${todayTime}`);
   return users;
 }
 
 function fieldData() {
-  // name:
-  // type: (football,badminton)
-  // can_split: yes,no
-  // detail
   const fields = [
     {
       id: 'a',
       field: 'A',
-      side: 'Left',
     },
-    // { id: 'b', field: 'A', side: 'Right' },
     {
       id: 'b',
       field: 'B',
-      side: 'Left',
     },
-    // { id: 'd', field: 'B', side: 'Right' },
     {
       id: 'c',
       field: 'C',
-      side: '-',
     },
     {
       id: 'd',
       field: 'D',
-      side: '-',
     },
     {
       id: 'g',
@@ -335,20 +491,6 @@ function fieldData() {
     },
   ];
   return fields;
-}
-
-function fieldPriceData() {
-  const prices = [
-    // {
-      // weekday: [mon-fri,sat-sun],
-      // start:, 
-      // end:,
-      // color: ,
-      // full_price:,
-      // half_price: ,
-    // }
-  ];
-  return prices;
 }
 
 function userData() {
@@ -412,11 +554,10 @@ function userData() {
   return users;
 }
 
-const mapStateToProps= (state) => (
-   {
+const mapStateToProps = state => (
+  {
     notes: state.booking_noteSaga.notes,
   }
-)
+);
 
-
-export default connect(mapStateToProps,{setNote,setNoteDate})(BookingTable);
+export default connect(mapStateToProps, { setNote, setNoteDate })(BookingTable);

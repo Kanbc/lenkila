@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Constant, ButtonModal, BookingAddModal, BookingEditModal } from '../..';
+import { ButtonModal, BookingAddModal, BookingEditModal } from '../..';
 
 class BookingCalendar extends Component {
   constructor(props) {
