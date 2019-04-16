@@ -20,6 +20,7 @@ class BookingTable extends Component {
     this.previousDay = this.previousDay.bind(this);
   }
 
+  // eslint-disable-next-line react/sort-comp
   canBooking() {
     this.setState({
       canDragBooking: !this.state.canDragBooking,
@@ -194,13 +195,10 @@ class BookingTable extends Component {
   }
 }
 
+// [GET]
+// Input - datetime etc. 2019-04-11
 function bookingData() {
-  // [GET]
-  // Input - datetime etc. 2019-04-11
-
-  // mock data
   const todayTime = moment().format('YYYY-MM-DD');
-
   const users = [
     {
       id: '1',
@@ -454,7 +452,6 @@ function bookingData() {
       rendering: 'background',
     },
   ];
-  console.log(`today time${todayTime}`);
   return users;
 }
 
