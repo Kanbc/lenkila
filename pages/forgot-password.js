@@ -1,55 +1,55 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
-import Router from 'next/router';
-import {login} from '../store'
-import {connect} from 'react-redux'
+// import Router from 'next/router';
+// import { login } from '../store';
+// import { connect } from 'react-redux';
 
+class ForgotPassword extends Component {
+  // constructor(props) {
+  //     super(props);
+  //     this.state = {
+  //         username: '',
+  //         password: '',
+  //         errorMessage: '',
+  //     };
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      errorMessage: '',
-    };
+  //     this.handleValidation = this.handleValidation.bind(this);
+  // }
+  // componentDidMount() {
 
-    this.handleValidation = this.handleValidation.bind(this);
-  }
-  componentDidMount() {
-  
-  }
-  componentWillReceiveProps(nextProps){
-    if(!nextProps.errMessage)
-    this.setState({
-      errorMessage: 'Username หรือ Password ไม่ถูกต้อง กรุณากรอกอีกครั้งหรือติดต่อเจ้าหน้าที่',
-    });
-  }
+  // }
+  // componentWillReceiveProps(nextProps) {
+  //     if (!nextProps.errMessage)
+  //         this.setState({
+  //             errorMessage: 'Username หรือ Password ไม่ถูกต้อง กรุณากรอกอีกครั้งหรือติดต่อเจ้าหน้าที่',
+  //         });
+  // }
 
-  handleValidation() {
-    const username = this.state.username;
-    const password = this.state.password;
+  // handleValidation() {
+  //     const username = this.state.username;
+  //     const password = this.state.password;
 
-    if (username === '' || password === '') {
-      this.setState({
-        errorMessage: 'กรุณากรอก Username และ Password ให้ครบ',
-      });
-    } else {
-      // call login API
-      // ถ้า success ไปหน้าแรกของระบบ(รายการวันนี้)
-      // ถ้า fail set state errorMessage แบบข้างล่าง
-      // ===== Example =====
-      this.props.login({username:username,password:password})
-   
-    }
-  }
+  //     if (username === '' || password === '') {
+  //         this.setState({
+  //             errorMessage: 'กรุณากรอก Username และ Password ให้ครบ',
+  //         });
+  //     } else {
+  //         // call login API
+  //         // ถ้า success ไปหน้าแรกของระบบ(รายการวันนี้)
+  //         // ถ้า fail set state errorMessage แบบข้างล่าง
+  //         // ===== Example =====
+  //         this.props.login({ username: username, password: password })
+
+  //     }
+  // }
 
   render() {
-    const { errorMessage } = this.state;
+    // ทำให้แบบถ้าไม่กรอก email แล้วกด submit ขึ้นโชว์
+    const errorMessage = 'กรุณากรอก email';
     return (
       <div className="root">
         <Head>
-          <title>Lenkila : Login</title>
+          <title>Lenkila : Forgot Password</title>
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
           <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png" />
@@ -71,16 +71,10 @@ class Login extends Component {
           <div className="page-container">
             <div id="form-login">
               <div className="form-group">
-                <label className="lenkila-label" htmlFor="username">
-                  Username
+                <label className="lenkila-label" htmlFor="email">
+                  Please enter your email address below
                 </label>
-                <input type="text" className="form-control" id="username" placeholder="Enter username" onChange={e => this.setState({ username: e.target.value })} />
-              </div>
-              <div className="form-group">
-                <label className="lenkila-label" htmlFor="password">
-                  Password
-                </label>
-                <input type="password" className="form-control" id="password" placeholder="Enter password" onChange={e => this.setState({ password: e.target.value })} />
+                <input type="text" className="form-control" id="email" placeholder="Enter email" onChange={e => this.setState({ username: e.target.value })} />
               </div>
               {
                 errorMessage !== '' &&
@@ -88,12 +82,12 @@ class Login extends Component {
                   {errorMessage}
                 </div>
               }
-              <button type="submit" className="btn btn-primary" onClick={()=>this.handleValidation()}>
-                Login
+              <button type="submit" className="btn btn-primary" onClick={() => this.handleValidation()}>
+                Submit
               </button>
               <div className="form-group lenkila-forgotpass">
                 <a href="/forgot-password">
-                  Forgot your password?
+                  Back to login?
                 </a>
               </div>
             </div>
@@ -165,11 +159,12 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isLogin: state.auth.isLogin,
-    errMessage:state.auth.errorMessage,
-  }
-}
+// function mapStateToProps(state) {
+//     return {
+//         isLogin: state.auth.isLogin,
+//         errMessage: state.auth.errorMessage,
+//     }
+// }
 
-export default connect(mapStateToProps,{login})(Login);
+// export default connect(mapStateToProps, { login })(ForgotPassword);
+export default ForgotPassword;

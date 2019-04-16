@@ -4,9 +4,11 @@ import Body from './DefaultModal/Body';
 import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '../..';
 
 class BookingAddModal extends Component {
+  // เอาไว้เก็บค่า array booking เพื่อที่จะ post booking ตอนหลังสุด
   state = {}
 
   render() {
+    console.log(this.props.booking);
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
         <Body>
@@ -37,7 +39,7 @@ class BookingAddModal extends Component {
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
             </div>
-            <div className="col-sm-9"/>
+            <div className="col-sm-9" />
           </div>
           <div className="row">
             <div className="col-sm-1">
@@ -61,21 +63,23 @@ class BookingAddModal extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>18.00-22.00</td>
-                      <td>1,000</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>12.00-18.00</td>
-                      <td>500</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>17.00-21.00</td>
-                      <td>1,800</td>
-                    </tr>
+                    {
+                      this.props.booking && this.props.booking.map(fieldBook => {
+                        return (
+                          <tr key={fieldBook.id}>
+                            <th scope="row">{fieldBook.name}</th>
+                            <td>{fieldBook.startTime}-{fieldBook.endTime}</td>
+                            { 
+                              fieldBook.price ? 
+                              <td>{fieldBook.price}</td> : 
+                              <td>
+                                <input type="text" className="form-control" />
+                              </td>
+                          }
+                          </tr>
+                        );
+                      })
+                    }
                   </tbody>
                 </table>
               </div>

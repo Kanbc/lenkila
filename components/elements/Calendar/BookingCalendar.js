@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { Constant, ButtonModal, BookingAddModal, BookingEditModal } from '../..';
+import { ButtonModal, BookingAddModal, BookingEditModal } from '../..';
 
 class BookingCalendar extends Component {
   constructor(props) {
@@ -10,6 +10,7 @@ class BookingCalendar extends Component {
       startTime: moment().format('LT'),
       endTime: moment().format('LT'),
       resourceId: '',
+      bookingData: [],
     };
 
     this.setDataBooking = this.setDataBooking.bind(this);
@@ -24,11 +25,46 @@ class BookingCalendar extends Component {
   }
 
   setDataBooking(startTime, endTime, resourceId) {
+    // Call API
+    // --Input--
+    // - startTime
+    // - endTime
+    // - resourceId
+    // เอา date ที่ api return มาไปพ่นใส่ modal
+
+    // mock data
+    const bookingData = [
+      {
+        id: 1,
+        resourceId: 'a',
+        day: moment(startTime),
+        startTime: moment(startTime).format('LT'),
+        endTime: moment(startTime).add(2, 'hours').format('LT'),
+        price: 1000,
+        name: 'A',
+      },
+      {
+        id: 2,
+        resourceId: 'a',
+        day: moment(startTime),
+        startTime: moment(startTime).add(2, 'hours').format('LT'),
+        endTime: moment(endTime).add(2, 'hours').format('LT'),
+        price: 800,
+        name: 'A',
+      },
+      {
+        id: 3,
+        resourceId: 'a',
+        day: moment(startTime),
+        startTime: moment(endTime).add(2, 'hours').format('LT'),
+        endTime: moment(endTime).add(4, 'hours').format('LT'),
+        price: null,
+        name: 'A',
+      },
+    ];
+
     this.setState({
-      day: moment(startTime),
-      startTime: moment(startTime).format('LT'),
-      endTime: moment(endTime).format('LT'),
-      resourceId,
+      bookingData
     });
   }
   setOnBusinessHourBooking(startTime, resourceId) {
@@ -60,26 +96,7 @@ class BookingCalendar extends Component {
       select(startDate, endDate, jsEvent, view, resource) {
         const start = startDate.format();
         const end = endDate.format();
-        // const openTime = that.props.detail.open;
-        // const closeTime = that.props.detail.close;
-
-        // const a = moment(moment(start).format('LT'), 'HH:mm') < moment(openTime, 'HH:mm');
-        // const b = moment(moment(end).format('LT'), 'HH:mm') > (moment(closeTime, 'HH:mm') - moment('24:00', 'HH:mm'));
-        // const c = moment(closeTime).subtract({ hours: 24, minutes: 0, seconds: 0 });
-        
-        // console.log(moment(moment(start).format('LT'), 'HH:mm'));
-        // console.log(moment(openTime, 'HH:mm'));
-        // console.log(a);
-        // console.log(moment(moment(end).format('LT'), 'HH:mm'));
-        // console.log(moment(closeTime, 'HH:mm'));
-        
-        // console.log(b);
-        // console.log(c);
-        // if (a) {
-        //   that.setOnBusinessHourBooking(start, resource.id);
-        // } else {
         that.setDataBooking(start, end, resource.id);
-        // }
         $('#add-drag-booking').modal('show');
       },
       // droppable: true, // this allows things to be dropped onto the calendar
@@ -94,7 +111,7 @@ class BookingCalendar extends Component {
         // alert('Event: ' + calEvent.title);
         // alert('Booking ID: ' + calEvent.id);
         // alert('View: ' + view.name);
-        $('#edit-booking-modal-' + calEvent.id).modal('show');
+        $(`#edit-booking-modal-${  calEvent.id}`).modal('show');
       },
       eventOverlap: true,
       resourceColumns: [
@@ -104,17 +121,6 @@ class BookingCalendar extends Component {
           width: 100,
         },
       ],
-      // resourceColumns: [
-      // {
-      //   group: true,
-      //   labelText: 'สนาม',
-      //   field: 'field',
-      // },
-      //   {
-      //     labelText: 'ฝั่ง',
-      //     field: 'side',
-      //   },
-      // ],
       // resourceAreaWidth: '20%',
 
       // Data Get From API
@@ -142,18 +148,18 @@ class BookingCalendar extends Component {
           <BookingAddModal
             title="การจอง"
             type="add-drag-booking"
-            fields={this.props.field}
+            booking={this.state.bookingData}
+            // fields={this.props.field}
 
-            day={this.state.day}
-            startTime={this.state.startTime}
-            endTime={this.state.endTime}
-            resourceId={this.state.resourceId}
+            // day={this.state.day}
+            // startTime={this.state.startTime}
+            // endTime={this.state.endTime}
+            // resourceId={this.state.resourceId}
           />
         </ButtonModal>
 
         {/* Booking Modal */}
-        {bookings && bookings.map(booking => {
-          return (
+        {bookings && bookings.map((booking) => (
             <ButtonModal key={booking.id} modalName={`#edit-booking-modal-${booking.id}`} bstrap="invisible">
               <i className="fa fa-plus" aria-hidden="true" />
               <BookingEditModal
@@ -164,9 +170,8 @@ class BookingCalendar extends Component {
                 resourceId={booking.resourceId}
               />
             </ButtonModal>
-          );
-        })}
-        
+          ))}
+
       </div>
     );
   }
