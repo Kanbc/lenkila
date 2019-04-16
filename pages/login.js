@@ -91,6 +91,11 @@ class Login extends Component {
               <button type="submit" className="btn btn-primary" onClick={()=>this.handleValidation()}>
                 Login
               </button>
+              <div className="form-group lenkila-forgotpass">
+                <a href="/forgot-password">
+                  Forgot your password?
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -107,6 +112,13 @@ class Login extends Component {
             #form-login {
               width: 30%;
               margin: 150px auto 0 auto;
+            }
+            .lenkila-forgotpass{
+              text-align: center;
+              margin-top: 20px;
+              a{
+                color: #fff;
+              }
             }
             .page-container {
               background: linear-gradient(315deg, #000 0, #062a64 100%);
