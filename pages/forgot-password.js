@@ -5,19 +5,18 @@ import Head from 'next/head';
 // import { connect } from 'react-redux';
 
 class ForgotPassword extends Component {
-  // constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //         username: '',
-  //         password: '',
-  //         errorMessage: '',
-  //     };
+  constructor(props) {
+      super(props);
+      this.state = {
+          email: '',
+          errorMessage: '',
+      };
 
-  //     this.handleValidation = this.handleValidation.bind(this);
-  // }
-  // componentDidMount() {
+      this.handleValidation = this.handleValidation.bind(this);
+  }
+  componentDidMount() {
 
-  // }
+  }
   // componentWillReceiveProps(nextProps) {
   //     if (!nextProps.errMessage)
   //         this.setState({
@@ -25,27 +24,29 @@ class ForgotPassword extends Component {
   //         });
   // }
 
-  // handleValidation() {
-  //     const username = this.state.username;
-  //     const password = this.state.password;
+  handleValidation() {
+      const email = this.state.email;
+      console.log('email',email)
+      if (email === '' ) {
+          this.setState({
+              errorMessage: 'กรุณากรอก email',
+          });
+      } else {
+        console.log('here')
+          this.setState({
+            errorMessage: '',
+          });
+          // call login API
+          // ถ้า success ไปหน้าแรกของระบบ(รายการวันนี้)
+          // ถ้า fail set state errorMessage แบบข้างล่าง
+          // ===== Example =====
+          // this.props.login({ username: username, password: password })
 
-  //     if (username === '' || password === '') {
-  //         this.setState({
-  //             errorMessage: 'กรุณากรอก Username และ Password ให้ครบ',
-  //         });
-  //     } else {
-  //         // call login API
-  //         // ถ้า success ไปหน้าแรกของระบบ(รายการวันนี้)
-  //         // ถ้า fail set state errorMessage แบบข้างล่าง
-  //         // ===== Example =====
-  //         this.props.login({ username: username, password: password })
-
-  //     }
-  // }
+      }
+  }
 
   render() {
-    // ทำให้แบบถ้าไม่กรอก email แล้วกด submit ขึ้นโชว์
-    const errorMessage = 'กรุณากรอก email';
+    const { errorMessage } = this.state;
     return (
       <div className="root">
         <Head>
@@ -74,7 +75,7 @@ class ForgotPassword extends Component {
                 <label className="lenkila-label" htmlFor="email">
                   Please enter your email address below
                 </label>
-                <input type="text" className="form-control" id="email" placeholder="Enter email" onChange={e => this.setState({ username: e.target.value })} />
+                <input type="text" className="form-control" id="email" placeholder="Enter email" onChange={e => this.setState({ email: e.target.value })} />
               </div>
               {
                 errorMessage !== '' &&
@@ -86,7 +87,7 @@ class ForgotPassword extends Component {
                 Submit
               </button>
               <div className="form-group lenkila-forgotpass">
-                <a href="/forgot-password">
+                <a href="/login">
                   Back to login?
                 </a>
               </div>

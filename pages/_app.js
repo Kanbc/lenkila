@@ -22,7 +22,15 @@ const bodyEnhancer = compose(
       var checkLogin = window.sessionStorage.getItem('LenkilaLogin')
       var idLogin = window.sessionStorage.getItem('LenkilaLoginID')
       if(!checkLogin) {
-        Router.push({pathname:'/login'})
+        if(this.props.Component.__route === '/forgot-password'){
+          Router.push({pathname:'/forgot-password'})
+        }
+        else  if(this.props.Component.__route === '/reset-password'){
+          Router.push({pathname:'/reset-password'})
+        }
+        else{
+          Router.push({pathname:'/login'})
+        }
       }
       else {
         this.props.getUserInfo(idLogin)
