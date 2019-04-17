@@ -5,7 +5,7 @@ import {login} from '../store'
 import {connect} from 'react-redux'
 
 
-class Login extends Component {
+class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,15 +72,15 @@ class Login extends Component {
             <div id="form-login">
               <div className="form-group">
                 <label className="lenkila-label" htmlFor="username">
-                  Username
+                  New Password
                 </label>
-                <input type="text" className="form-control" id="username" placeholder="Enter username" onChange={e => this.setState({ username: e.target.value })} />
+                <input type="text" className="form-control" id="username" placeholder="Enter new password" onChange={e => this.setState({ username: e.target.value })} />
               </div>
               <div className="form-group">
                 <label className="lenkila-label" htmlFor="password">
-                  Password
+                  Confirm New Password
                 </label>
-                <input type="password" className="form-control" id="password" placeholder="Enter password" onChange={e => this.setState({ password: e.target.value })} />
+                <input type="password" className="form-control" id="password" placeholder="Confirm new password" onChange={e => this.setState({ password: e.target.value })} />
               </div>
               {
                 errorMessage !== '' &&
@@ -89,13 +89,8 @@ class Login extends Component {
                 </div>
               }
               <button type="submit" className="btn btn-primary" onClick={()=>this.handleValidation()}>
-                Login
+                Reset Password
               </button>
-              <div className="form-group lenkila-forgotpass">
-                <a href="/forgot-password">
-                  Forgot your password?
-                </a>
-              </div>
             </div>
           </div>
         </div>
@@ -112,13 +107,6 @@ class Login extends Component {
             #form-login {
               width: 30%;
               margin: 150px auto 0 auto;
-            }
-            .lenkila-forgotpass{
-              text-align: center;
-              margin-top: 20px;
-              a{
-                color: #fff;
-              }
             }
             .page-container {
               background: linear-gradient(315deg, #000 0, #062a64 100%);
@@ -172,4 +160,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps,{login})(Login);
+export default connect(mapStateToProps, { login })(ResetPassword);
