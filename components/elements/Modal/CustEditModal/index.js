@@ -114,13 +114,22 @@ class CustEditModal extends Component {
               <p className="bold-text">หน้าที่:</p>
             </div>
             <div className="col-sm-2">
-              <p>{this.props.userData.customer_duty}</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.customer_duty}</p>
+              <select className={this.state.isEdit ? 'custom-select' : 'custom-select d-none'} defaultValue={this.state.customer_duty} onChange={e => this.setState({ customer_duty: e.target.value })}>
+                <option value="หัวกลุ่ม">หัวกลุ่ม</option>
+                <option value="ลูกกลุ่ม">ลูกกลุ่ม</option>
+              </select>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">ความสัมพันธ์:</p>
             </div>
             <div className="col-sm-2">
-              <p>{this.props.userData.customer_relationship}</p>
+              <p className={this.state.isEdit ? 'd-none' : ''}>{this.state.customer_relationship}</p>
+              <select className={this.state.isEdit ? 'custom-select' : 'custom-select d-none'} defaultValue={this.state.customer_relationship} onChange={e => this.setState({ customer_relationship: e.target.value })}>
+                <option value="ขาประจำ">ขาประจำ</option>
+                <option value="ขาเก่า">ขาเก่า</option>
+                <option value="ขาจร">ขาจร</option>
+              </select>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">Free Credits:</p>
