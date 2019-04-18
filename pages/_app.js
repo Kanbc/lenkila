@@ -23,10 +23,10 @@ const bodyEnhancer = compose(
       var idLogin = window.sessionStorage.getItem('LenkilaLoginID')
       if(!checkLogin) {
         console.log('this.props',this.props)
-        if(this.props.Component.__route === '/forgot-password' || this.props.Component.__route === '/forgot-password/'){
+        if(this.props.router.pathname === '/forgot-password'){
           Router.push({pathname:'/forgot-password'})
         }
-        else  if(this.props.Component.__route === '/reset-password' || this.props.Component.__route === '/reset-password/'){
+        else  if(this.props.router.pathname === '/reset-password'){
           Router.push({pathname:'/reset-password'})
         }
         else{
