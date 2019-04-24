@@ -11,7 +11,7 @@ class ColorButton extends Component {
   
   handleChangeComplete = (color) => {
     console.log('color props',this.props)
-    this.props.setStateCustomerType(color.hex)
+    this.props.setStateCustomerType&&this.props.setStateCustomerType(color.hex)
     this.setState({ background: color.hex });
     this.props.setData({colorPriceEdit:color.hex})
     if(this.props.typeColor === "add") this.props.setData({colorPrice:color.hex})

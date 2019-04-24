@@ -21,13 +21,13 @@ const bodyEnhancer = compose(
     componentDidMount() {
       var checkLogin = window.sessionStorage.getItem('LenkilaLogin')
       var idLogin = window.sessionStorage.getItem('LenkilaLoginID')
+      console.log('this.props',this.props)
       if(!checkLogin) {
-        console.log('this.props',this.props)
         if(this.props.router.pathname === '/forgot-password'){
-          Router.push({pathname:'/forgot-password'})
+          Router.push({pathname:`/forgot-password`})
         }
         else  if(this.props.router.pathname === '/reset-password'){
-          Router.push({pathname:'/reset-password'})
+          Router.push({pathname:`/reset-password`,query:{user_id:this.props.router.query.user_id}})
         }
         else{
           Router.push({pathname:'/login'})

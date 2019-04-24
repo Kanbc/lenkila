@@ -14,6 +14,8 @@ class FieldManagementPrice extends Component {
   }
   
   render() {
+    const vipType = this.props.customerType.filter(value=> value.type !== 'default')
+
     return (
       <TabsLayout title="ราคา" tabs={Constant.FieldTabs}>
         <div className="container">
@@ -44,7 +46,7 @@ class FieldManagementPrice extends Component {
                   <th scope="col">
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
                       <i className="fa fa-plus" aria-hidden="true" />
-                      <FMPriceAddModal title="สร้างราคา" type="add-user" customerType={this.props.customerType}/>
+                      <FMPriceAddModal title="สร้างราคา" type="add-user" customerType={vipType}/>
                     </ButtonModal>
                   </th>
                 </tr>
@@ -58,6 +60,7 @@ class FieldManagementPrice extends Component {
                 </tr>
               </thead>
               <tbody>
+                
                 {this.props.fieldsPrice.map(user => (
                   <tr key={user.id}>
                     <td className="hide1" style={{ color: `${user.color}` }}>
@@ -81,7 +84,7 @@ class FieldManagementPrice extends Component {
                     <td>
                       <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
                         <i className="fa fa-pencil" />
-                        <FMPriceEditModal key={user.id} title="แก้ไขราคา" type={`edit-user-${user.id}`} userData={user} />
+                        <FMPriceEditModal key={user.id} title="แก้ไขราคา" type={`edit-user-${user.id}`} userData={user} customerType={vipType} />
                       </ButtonModal>
                     </td>
                   </tr>))}

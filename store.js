@@ -16,7 +16,6 @@ export const actionTypes = {
     ADD_USERS_DATA: 'ADD_USERS_DATA',
     EDIT_USERS_DATA: 'EDIT_USERS_DATA',
     DELETE_USERS_DATA: 'DELETE_USERS_DATA',
-    RESET_PASSWORD: 'RESET_PASSWORD',
     
     SET_ADMIN_DATA: 'SET_ADMIN_DATA',
     EDIT_ADMIN_DATA: 'EDIT_ADMIN_DATA',
@@ -74,10 +73,13 @@ export const actionTypes = {
     ADD_NOTE:'ADD_NOTE',
     EDIT_NOTE:'EDIT_NOTE',
     DELETE_NOTE:'DELETE_NOTE',
-
+    //auth
     LOGIN:'LOGIN',
     LOGOUT:'LOGOUT',
     GETUSER_INFO:'GETUSER_INFO',
+    FORGOT_PASSWORD:'FORGOT_PASSWORD',
+    RESET_PASSWORD: 'RESET_PASSWORD',
+    CHANGE_PASSWORD_USER:'CHANGE_PASSWORD_USER',
 
     //customer type
     GET_CUSTOMER_TYPE:'GET_CUSTOMER_TYPE',
@@ -490,6 +492,20 @@ export const getCustomerHistory = (id) => {
     return {
         type: actionTypes.GET_CUSTOMER_HISTORY,
         id,
+    }
+}
+
+export const forgotPassword= (email) => {
+    return {
+        type: actionTypes.FORGOT_PASSWORD,
+        email,
+    }
+}
+
+export const changeUserPassword= (data) => {
+    return {
+        type: actionTypes.CHANGE_PASSWORD_USER,
+        data,
     }
 }
 
