@@ -26,7 +26,7 @@ class FMPriceEditModal extends Component {
       is_sat:this.props.userData.is_sat==="0"?true:false,	
       is_sun:this.props.userData.is_sun==="0"?true:false,	
       is_hol:this.props.userData.is_hol==="0"?true:false,
-      
+      vip_type:JSON.parse(this.props.userData.vip_type),
     };
 
     this.editForm = this.editForm.bind(this);

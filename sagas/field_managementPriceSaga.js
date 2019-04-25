@@ -49,7 +49,7 @@ export function* addFieldDataSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     console.log('data add',data,stadiumId)
     try {
-      yield axios.post(apiUrl, {
+      const response = yield axios.post(apiUrl, {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'field_price_add',
@@ -73,9 +73,10 @@ export function* addFieldDataSaga({data}){
             college_class_half:data.college_class_half,	
             aged_class:data.aged_class,
             aged_class_half:data.aged_class_half,
-            vip_type:data.vip_type,
+            vip_type:JSON.stringify(data.vip_type),
           },
         )
+      console.log('price add ',response)
       yield setData({colorPrice:"#CA0813"})
       yield call(setFieldDataSaga)
   } catch (err) {
@@ -87,6 +88,7 @@ export function* addFieldDataSaga({data}){
 
 export function* editFieldDataSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+    console.log('edit add',data,stadiumId)
     try {
         yield axios.post(apiUrl, {
           
@@ -107,6 +109,14 @@ export function* editFieldDataSaga({data}){
             start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
             end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
             color:data.color,
+            normal_class:data.normal_class,	
+            student_class:data.student_class,
+            student_class_half:data.student_class_half,	
+            college_class:data.college_class,
+            college_class_half:data.college_class_half,	
+            aged_class:data.aged_class,
+            aged_class_half:data.aged_class_half,
+            vip_type:JSON.stringify(data.vip_type),
           },
         )
       yield call(setFieldDataSaga)
