@@ -14,9 +14,6 @@
         "type": "git",
         "url": "git+https://github.com/Kanbc/lenkila.git"
     },
-    "static": {
-      "trailingSlash": false
-    },
     "keywords": [],
     "author": "Pawarisson Jaitahan <kan.pawarisson@gmail.com>",
     "license": "ISC",
