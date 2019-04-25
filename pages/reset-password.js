@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
 import Router from 'next/router';
-import {login} from '../store'
+import {changeUserPassword} from '../store'
 import {connect} from 'react-redux'
 
 
@@ -9,43 +9,43 @@ class ResetPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
+      newPassword: '',
+      confirmPassword:'',
       errorMessage: '',
     };
 
     this.handleValidation = this.handleValidation.bind(this);
   }
-  componentDidMount() {
-  
-  }
+
   componentWillReceiveProps(nextProps){
-    if(!nextProps.errMessage)
+    if(nextProps.errMessage === 200)
     this.setState({
-      errorMessage: 'Username หรือ Password ไม่ถูกต้อง กรุณากรอกอีกครั้งหรือติดต่อเจ้าหน้าที่',
+      errorMessage: 'เปลี่ยนรหัสผ่านเรียบร้อยแล้ว',
     });
   }
 
   handleValidation() {
-    const username = this.state.username;
-    const password = this.state.password;
+    const newPassword = this.state.newPassword;
+    const confirmPassword = this.state.confirmPassword;
 
-    if (username === '' || password === '') {
+    if (newPassword === '' || confirmPassword === '') {
       this.setState({
-        errorMessage: 'กรุณากรอก Username และ Password ให้ครบ',
+        errorMessage: 'กรุณากรอก Password และ ConfirmPassword ให้ครบ',
       });
-    } else {
-      // call login API
-      // ถ้า success ไปหน้าแรกของระบบ(รายการวันนี้)
-      // ถ้า fail set state errorMessage แบบข้างล่าง
-      // ===== Example =====
-      this.props.login({username:username,password:password})
-   
+    } else if(newPassword !== confirmPassword){
+      this.setState({
+        errorMessage: 'กรุณากรอก Password และ ConfirmPassword ให้ตรงกัน',
+      });
     }
+    else{
+      this.props.changeUserPassword({newpassword:newPassword,user_id:this.props.router.query.user_id})
+    }
+    
   }
 
   render() {
     const { errorMessage } = this.state;
+    console.log('this.props.user id',this.props)
     return (
       <div className="root">
         <Head>
@@ -74,13 +74,13 @@ class ResetPassword extends Component {
                 <label className="lenkila-label" htmlFor="username">
                   New Password
                 </label>
-                <input type="text" className="form-control" id="username" placeholder="Enter new password" onChange={e => this.setState({ username: e.target.value })} />
+                <input type="password" className="form-control" id="username" placeholder="Enter new password" onChange={e => this.setState({ newPassword: e.target.value })} />
               </div>
               <div className="form-group">
                 <label className="lenkila-label" htmlFor="password">
                   Confirm New Password
                 </label>
-                <input type="password" className="form-control" id="password" placeholder="Confirm new password" onChange={e => this.setState({ password: e.target.value })} />
+                <input type="password" className="form-control" id="password" placeholder="Confirm new password" onChange={e => this.setState({ confirmPassword: e.target.value })} />
               </div>
               {
                 errorMessage !== '' &&
@@ -153,11 +153,12 @@ class ResetPassword extends Component {
   }
 }
 
+
 function mapStateToProps(state) {
   return {
-    isLogin: state.auth.isLogin,
     errMessage:state.auth.errorMessage,
   }
 }
 
-export default connect(mapStateToProps, { login })(ResetPassword);
+
+export default connect(mapStateToProps, { changeUserPassword })(ResetPassword);

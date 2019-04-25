@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
 // import Router from 'next/router';
-// import { login } from '../store';
-// import { connect } from 'react-redux';
+import { forgotPassword } from '../store';
+import { connect } from 'react-redux';
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -25,22 +25,18 @@ class ForgotPassword extends Component {
   // }
 
   handleValidation() {
+      console.log('this.props',this.props)
       const email = this.state.email;
-      console.log('email',email)
       if (email === '' ) {
           this.setState({
               errorMessage: 'กรุณากรอก email',
           });
       } else {
-        console.log('here')
           this.setState({
-            errorMessage: '',
+            errorMessage: 'ส่งอีเมลเรียบร้อย กรุณาเช็คอีเมล',
           });
-          // call login API
-          // ถ้า success ไปหน้าแรกของระบบ(รายการวันนี้)
-          // ถ้า fail set state errorMessage แบบข้างล่าง
-          // ===== Example =====
-          // this.props.login({ username: username, password: password })
+          this.props.forgotPassword(email)
+
 
       }
   }
@@ -168,4 +164,4 @@ class ForgotPassword extends Component {
 // }
 
 // export default connect(mapStateToProps, { login })(ForgotPassword);
-export default ForgotPassword;
+export default connect(null,{forgotPassword})(ForgotPassword);

@@ -3,10 +3,11 @@ import {delay} from 'redux-saga'
 import {actionTypes} from '../store'
 import axios from 'axios'
 import {createReducer,Creator} from './helper'
+import moment from 'moment';
 
-const SET_DATA = 'SET_DATA'
+const SET_DATA_PRICE = 'SET_DATA_PRICE'
 
-export const setData = Creator(SET_DATA,'data')
+export const setData = Creator(SET_DATA_PRICE,'data')
 
 const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
@@ -25,7 +26,6 @@ export function* setFieldDataSaga() {
       const fieldIdSelected = yield select(state => state.field_managementPriceSaga.fieldId)
       fieldId=fieldIdSelected
     }
-
     try {
        const response = yield axios.get(apiUrl, {
             params: {
@@ -36,6 +36,7 @@ export function* setFieldDataSaga() {
               stadium_doc_id:stadiumId,
             },
           })
+          console.log('resposne get price',response)
       yield put(setData({fieldsPrice:response.data.response_data}))
      
     } catch (err) {
@@ -46,10 +47,9 @@ export function* setFieldDataSaga() {
 
 export function* addFieldDataSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-    console.log('data add',data)
+    console.log('data add',data,stadiumId)
     try {
-      yield axios.post(apiUrl, {
-          
+      const response = yield axios.post(apiUrl, {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
             action:'field_price_add',
@@ -66,27 +66,17 @@ export function* addFieldDataSaga({data}){
             start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
             end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
             color:data.color,
-            normal_class:data.normal_class,
+            normal_class:data.normal_class,	
             student_class:data.student_class,
             student_class_half:data.student_class_half,	
-            college_class:data.college_class,	
+            college_class:data.college_class,
             college_class_half:data.college_class_half,	
-            aged_class:data.aged_class,	
-            aged_class_half:data.aged_class_half,	
-            vip_class:data.vip_class,	
-            vip_class_half:data.vip_class_half,	
-            silver_class:data.silver_class,	
-            silver_class_half:data.silver_class_half,	
-            gold_class:data.gold_class,	
-            gold_class_half:data.gold_class_half,	
-            one_class:data.one_class,	
-            one_class_half:data.one_class_half,	
-            two_class:data.two_class,	
-            two_class_half:data.two_class_half,	
-            three_class:data.three_class,	
-            three_class_half:data.three_class_half,
+            aged_class:data.aged_class,
+            aged_class_half:data.aged_class_half,
+            vip_type:JSON.stringify(data.vip_type),
           },
         )
+      console.log('price add ',response)
       yield setData({colorPrice:"#CA0813"})
       yield call(setFieldDataSaga)
   } catch (err) {
@@ -98,6 +88,7 @@ export function* addFieldDataSaga({data}){
 
 export function* editFieldDataSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+    console.log('edit add',data,stadiumId)
     try {
         yield axios.post(apiUrl, {
           
@@ -118,25 +109,14 @@ export function* editFieldDataSaga({data}){
             start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
             end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
             color:data.color,
-            normal_class:data.normal_class,
+            normal_class:data.normal_class,	
             student_class:data.student_class,
             student_class_half:data.student_class_half,	
-            college_class:data.college_class,	
+            college_class:data.college_class,
             college_class_half:data.college_class_half,	
-            aged_class:data.aged_class,	
-            aged_class_half:data.aged_class_half,	
-            vip_class:data.vip_class,	
-            vip_class_half:data.vip_class_half,	
-            silver_class:data.silver_class,	
-            silver_class_half:data.silver_class_half,	
-            gold_class:data.gold_class,	
-            gold_class_half:data.gold_class_half,	
-            one_class:data.one_class,	
-            one_class_half:data.one_class_half,	
-            two_class:data.two_class,	
-            two_class_half:data.two_class_half,	
-            three_class:data.three_class,	
-            three_class_half:data.three_class_half,
+            aged_class:data.aged_class,
+            aged_class_half:data.aged_class_half,
+            vip_type:JSON.stringify(data.vip_type),
           },
         )
       yield call(setFieldDataSaga)
@@ -199,5 +179,5 @@ const initial = {
 }
 
 export default createReducer(initial, state => ({
-  [SET_DATA]: ({data}) => ({...state, ...data}),
+  [SET_DATA_PRICE]: ({data}) => ({...state, ...data}),
 }))
