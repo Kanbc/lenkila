@@ -142,7 +142,7 @@ class BookingTable extends Component {
           </div>
           <BookingCalendar
             field={this.props.fieldsBooking}
-            booking={this.booking}
+            booking={this.props.fieldsPrice}
             detail={this.props.fieldDetail}
             canbook={this.state.canDragBooking}
             gotoDate={this.state.gotoDate}
@@ -453,6 +453,8 @@ const mapStateToProps = state => (
     stadiumDoc : state.bookingSaga.stadiumDoc,
     fieldsBooking: state.bookingSaga.fieldsBooking,
     fieldDetail:state.bookingSaga.fieldDetail,
+    fieldsPrice:state.bookingSaga.fieldsPrice,
+
   }
 );
 

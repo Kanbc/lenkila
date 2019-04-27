@@ -3,6 +3,7 @@ import {actionTypes} from '../store'
 import {delay} from 'redux-saga'
 import axios from 'axios'
 import {createReducer,Creator} from './helper'
+import moment from 'moment'
 
 const SET_DATA_BOOKING = 'SET_DATA_BOOKING'
 
@@ -32,6 +33,21 @@ const newFields = (result, item) => {
   return result
 }
 
+const newPriceFields = (result, item) => {
+  const todayTime = moment().format('YYYY-MM-DD');
+  if (item){
+    result.push({
+      id:item.id,
+      resourceId: item.id,
+      start: moment(`${todayTime} ${item.start_time}`),
+      end: moment(`${todayTime} ${item.end_time}`),
+      color: item.color,
+      rendering: 'background',
+    })
+  } 
+  return result
+}
+
 export function* getBookingSaga({date}) {
   console.log('date booking getlist',date)
   yield delay(1000)
@@ -55,6 +71,8 @@ export function* getBookingSaga({date}) {
       minTime: '05:00:00',
       maxTime: '29:00:00',
     };
+    const fieldsPrice = response.data.response_data.field_price_list.reduce(newPriceFields, [])
+
     
     console.log('fieldsBooking',fieldsBooking)
     yield put(setDataBooking({fieldPriceList:response.data.response_data.field_price_list}))
@@ -62,6 +80,7 @@ export function* getBookingSaga({date}) {
     yield put(setDataBooking({stadiumDoc:response.data.response_data.stadium_doc}))
     yield put(setDataBooking({fieldsBooking:fieldsBooking}))
     yield put(setDataBooking({fieldDetail:fieldDetail}))
+    yield put(setDataBooking({fieldsPrice:fieldsPrice}))
   } catch (err) {
       console.log('error',err)
   }
@@ -81,6 +100,7 @@ const initial = {
   stadiumDoc : {},
   fieldsBooking:[],
   fieldDetail:{},
+  fieldsPrice:[],
 }
 
 export default createReducer(initial, state => ({
