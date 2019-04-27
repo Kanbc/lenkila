@@ -15,7 +15,6 @@ class FieldManagementPrice extends Component {
   
   render() {
     const vipType = this.props.customerType.filter(value=> value.type !== 'default')
-
     return (
       <TabsLayout title="ราคา" tabs={Constant.FieldTabs}>
         <div className="container">

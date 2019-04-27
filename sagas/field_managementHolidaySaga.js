@@ -61,6 +61,7 @@ export function* addFieldDataSaga({data}){
 
 
 export function* editFieldDataSaga({data}){
+  console.log('edit holiday add',data)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
         yield axios.post(apiUrl, {

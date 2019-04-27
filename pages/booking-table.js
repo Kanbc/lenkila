@@ -3,7 +3,7 @@ import Switch from 'react-switch';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { setNote, setNoteDate } from '../store';
+import { setNote, setNoteDate, getListBooking } from '../store';
 import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, ExportBookingModal } from '../components';
 
 class BookingTable extends Component {
@@ -52,24 +52,13 @@ class BookingTable extends Component {
   // [GET] - Bookings
   booking = bookingData();
 
-  // [GET] - Field
-  fields = fieldData();
-
-  // [GET] - Field
-  users = userData();
 
   // [GET] - Open/Closed, Business Hours
   // ข้อมูลสนามภาพรวม
-  fieldDetail = {
-    open: '07:00',
-    close: '26:00',
-    weekdayOpen: [0, 1, 2, 3, 4, 5, 6], // Monday - Friday (0=Sunday)
-    minTime: '05:00:00',
-    maxTime: '29:00:00',
-  };
 
   componentDidMount() {
     // this.props.setNote();
+    this.props.getListBooking(this.state.gotoDate.format('YYYY-MM-DD'))
     this.props.setNoteDate(this.state.gotoDate.format('YYYY-MM-DD'));
   }
   render() {
@@ -152,9 +141,9 @@ class BookingTable extends Component {
             </div>
           </div>
           <BookingCalendar
-            field={this.fields}
+            field={this.props.fieldsBooking}
             booking={this.booking}
-            detail={this.fieldDetail}
+            detail={this.props.fieldDetail}
             canbook={this.state.canDragBooking}
             gotoDate={this.state.gotoDate}
           />
@@ -202,12 +191,12 @@ function bookingData() {
   const users = [
     {
       id: '1',
-      resourceId: 'a',
+      resourceId: 'pech',
       title: 'B: Waiting',
       start: moment().add(4, 'hour'),
       end: moment().add(6, 'hour'),
       color: Constant.Red,
-      textColor: 'white',
+      textColor: 'red',
     },
     {
       id: '2',
@@ -285,7 +274,7 @@ function bookingData() {
     // - รวมทั้งส่วนราคาสนามและราคาจากสร้าง buffet มากับ API booking เลย
     {
       id: '10',
-      resourceId: 'a',
+      resourceId: 'pech',
       start: moment(`${todayTime} 07:00`),
       end: moment(`${todayTime} 12:00`),
       color: '#ca0813',
@@ -455,106 +444,16 @@ function bookingData() {
   return users;
 }
 
-function fieldData() {
-  const fields = [
-    {
-      id: 'a',
-      field: 'A',
-    },
-    {
-      id: 'b',
-      field: 'B',
-    },
-    {
-      id: 'c',
-      field: 'C',
-    },
-    {
-      id: 'd',
-      field: 'D',
-    },
-    {
-      id: 'g',
-      field: 'G',
-      children: [
-        {
-          id: 'g1',
-          field: 'Left G',
-        }, {
-          id: 'g2',
-          field: 'Right G',
-        },
-      ],
-    },
-  ];
-  return fields;
-}
-
-function userData() {
-  const users = [
-    {
-      id: 1,
-      firstname: 'Archer',
-      lastname: 'Traher',
-      email: 'atraher0@google.it',
-      nickname: 'Yellow',
-      username: 'atraher0',
-      password: '0K7d35r',
-      tel: '941-715-4509',
-      role: 'Owner',
-    },
-    {
-      id: 2,
-      firstname: 'Sherilyn',
-      lastname: 'Wooding',
-      email: 'swooding1@live.com',
-      nickname: 'Khaki',
-      username: 'swooding1',
-      password: 'W6wSVjGDVV',
-      tel: '589-802-3451',
-      role: 'Owner',
-    },
-    {
-      id: 3,
-      firstname: 'Erminie',
-      lastname: 'Georgiades',
-      email: 'egeorgiades2@diigo.com',
-      nickname: 'Blue',
-      username: 'egeorgiades2',
-      password: 'GdKAPoubYOIV',
-      tel: '177-268-9690',
-      role: 'Owner',
-    },
-    {
-      id: 4,
-      firstname: 'Dominik',
-      lastname: 'Switsur',
-      email: 'dswitsur3@wired.com',
-      nickname: 'Pink',
-      username: 'dswitsur3',
-      password: 'If6DgzXJPxg',
-      tel: '625-877-1952',
-      role: 'Admin',
-    },
-    {
-      id: 5,
-      firstname: 'Sharleen',
-      lastname: 'Bostick',
-      email: 'sbostick4@github.io',
-      nickname: 'Fuscia',
-      username: 'sbostick4',
-      password: 'UaXVPi',
-      tel: '892-646-7110',
-      role: 'Admin',
-    },
-  ];
-  return users;
-}
 
 const mapStateToProps = state => (
   {
     notes: state.booking_noteSaga.notes,
+    fieldPriceList : state.bookingSaga.fieldPriceList,
+    reservationList : state.bookingSaga.reservationList,
+    stadiumDoc : state.bookingSaga.stadiumDoc,
+    fieldsBooking: state.bookingSaga.fieldsBooking,
+    fieldDetail:state.bookingSaga.fieldDetail,
   }
 );
 
-export default connect(mapStateToProps, { setNote, setNoteDate })(BookingTable);
+export default connect(mapStateToProps, { setNote, setNoteDate, getListBooking })(BookingTable);

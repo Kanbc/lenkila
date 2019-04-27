@@ -76,6 +76,7 @@ class BookingCalendar extends Component {
     });
   }
   updateEvents() {
+    console.log('that prop',this.props)
     const that = this; // to fix react class method instead of callback of Jquery
     $('#calendar').fullCalendar('destroy');
     $('#calendar').fullCalendar({
@@ -139,7 +140,7 @@ class BookingCalendar extends Component {
 
   render() {
     const bookings = this.props.booking;
-    console.log('render!', bookings);
+    // console.log('render!', bookings);
     return (
       <div>
         <div id="calendar" />

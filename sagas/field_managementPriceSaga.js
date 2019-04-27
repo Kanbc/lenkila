@@ -46,8 +46,8 @@ export function* setFieldDataSaga() {
 
 
 export function* addFieldDataSaga({data}){
+  console.log('data add',data)
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-    console.log('data add',data,stadiumId)
     try {
       const response = yield axios.post(apiUrl, {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
@@ -63,8 +63,8 @@ export function* addFieldDataSaga({data}){
             is_sat:data.is_sat?"0":'1',	
             is_sun:data.is_sun?"0":'1',	
             is_hol:data.is_hol?"0":'1',
-            start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
-            end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
+            start_time:moment.utc(data.startTime*1000).format('HH:mm:ss'),
+            end_time:moment.utc(data.endTime*1000).format('HH:mm:ss'),
             color:data.color,
             normal_class:data.normal_class,	
             student_class:data.student_class,
@@ -88,7 +88,7 @@ export function* addFieldDataSaga({data}){
 
 export function* editFieldDataSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-    console.log('edit add',data,stadiumId)
+
     try {
         yield axios.post(apiUrl, {
           
@@ -106,8 +106,8 @@ export function* editFieldDataSaga({data}){
             is_sat:data.is_sat?"0":'1',	
             is_sun:data.is_sun?"0":'1',	
             is_hol:data.is_hol?"0":'1',
-            start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
-            end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
+            start_time:moment.utc(data.startTime*1000).format('HH:mm:ss'),
+            end_time:moment.utc(data.endTime*1000).format('HH:mm:ss'),
             color:data.color,
             normal_class:data.normal_class,	
             student_class:data.student_class,
@@ -143,6 +143,7 @@ export function* deleteFieldDataSaga({id}){
 
 
 export function* importPriceSaga({data}){
+  console.log('import data',data)
   const fieldIdImport = yield select(state => state.field_managementPriceSaga.fieldIdImport)
   try {
     yield axios.get(apiUrl, {
