@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TabsLayout, FMImportPriceModal, FMPriceAddModal, FMPriceEditModal, ButtonModal, Constant } from '../components';
 import {connect} from 'react-redux'
-import {setData} from '../sagas/field_managementPriceSaga'
+import {setDataPrice} from '../sagas/field_managementPriceSaga'
 
 import { setFieldDataPrice,setFieldDataField,importPrice,getCustomerType } from '../store';
 
@@ -24,7 +24,7 @@ class FieldManagementPrice extends Component {
                 <tr className="tools-row">
                   <th scope="col">
                     <select className="custom-select" id="fieldID" onChange={e=>{
-                      this.props.setData({fieldId:e.target.value})
+                      this.props.setDataPrice({fieldId:e.target.value})
                       this.props.setFieldDataPrice()
                       }
                     }>
@@ -39,7 +39,7 @@ class FieldManagementPrice extends Component {
                   <th scope="col">
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#import-field">
                       Import
-                      <FMImportPriceModal title="Import" type="import-field" fieldId={this.props.fieldId} setData={this.props.setData} importPrice={this.props.importPrice} fieldOptions={this.props.fields} />
+                      <FMImportPriceModal title="Import" type="import-field" fieldId={this.props.fieldId} setDataPrice={this.props.setDataPrice} importPrice={this.props.importPrice} fieldOptions={this.props.fields} />
                     </ButtonModal>
                   </th>
                   <th scope="col">
@@ -63,14 +63,14 @@ class FieldManagementPrice extends Component {
                 {this.props.fieldsPrice.map(user => (
                   <tr key={user.id}>
                     <td className="hide1" style={{ color: `${user.color}` }}>
-                    {user.is_mon === "0" && "Mon "}	
-                    {user.is_tue === "0" && "Tue "}
-                    {user.is_wed === "0" && "Wed "}
-                    {user.is_thu === "0" && "Thu "}
-                    {user.is_fri === "0" && "Fri "}
-                    {user.is_sat === "0" && "Sat "}
-                    {user.is_sun === "0" && "Sun "}
-                    {user.is_hol === "0" && "Hol "}
+                    {user.is_mon === "1" && "Mon "}	
+                    {user.is_tue === "1" && "Tue "}
+                    {user.is_wed === "1" && "Wed "}
+                    {user.is_thu === "1" && "Thu "}
+                    {user.is_fri === "1" && "Fri "}
+                    {user.is_sat === "1" && "Sat "}
+                    {user.is_sun === "1" && "Sun "}
+                    {user.is_hol === "1" && "Hol "}
                     </td>
                     <td style={{ color: `${user.color}` }}>{user.start_time}</td>
                     <td style={{ color: `${user.color}` }}>{user.end_time}</td>
@@ -144,4 +144,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps,{setFieldDataPrice,setData,setFieldDataField,importPrice,getCustomerType})(FieldManagementPrice);
+export default connect(mapStateToProps,{setFieldDataPrice,setDataPrice,setFieldDataField,importPrice,getCustomerType})(FieldManagementPrice);

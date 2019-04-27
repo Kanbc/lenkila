@@ -101,6 +101,10 @@ export const actionTypes = {
 
   //booking
   GETLIST_BOOKING: 'GETLIST_BOOKING',
+  ADD_BOOKING:'ADD_BOOKING',
+  CHECK_PRICE:'CHECK_PRICE',
+  DELETE_BOOKING:'DELETE_BOOKING',
+  EDIT_BOOKING:'EDIT_BOOKING',
 }
 
 // 2. Action Creators
@@ -511,6 +515,35 @@ export const changeUserPassword = data => {
 export const getListBooking = date => {
   return {
     type: actionTypes.GETLIST_BOOKING,
+    date,
+  }
+}
+
+export const addBooking = data => {
+  return {
+    type: actionTypes.ADD_BOOKING,
+    data,
+  }
+}
+
+export const editBooking = data => {
+  return {
+    type: actionTypes.EDIT_BOOKING,
+    data,
+  }
+}
+
+export const checkPrice = data => {
+  return {
+    type: actionTypes.CHECK_PRICE,
+    data,
+  }
+}
+
+export const deleteBooking = (id,date) => {
+  return {
+    type: actionTypes.DELETE_BOOKING,
+    id,
     date,
   }
 }

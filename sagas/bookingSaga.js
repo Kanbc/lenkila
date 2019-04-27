@@ -14,15 +14,15 @@ const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 const newFields = (result, item) => {
   if (item){
-    if(item.is_dividable === "0"){
+    if(item.is_dividable === "1"){
       result.push({id: item.id, field: item.name , 
         children: [
         {
-          id: `${item.id}-1`,
-          field: `Left ${item.name}`,
+          id: item.children[0] && item.children[0].id,
+          field: item.children[0] && item.children[0].name,
         }, {
-          id: `${item.id}-2`,
-          field: `Right ${item.name}`,
+          id: item.children[1] && item.children[1].id,
+          field: item.children[1] && item.children[1].name,
         },
       ]})
     }
@@ -33,20 +33,38 @@ const newFields = (result, item) => {
   return result
 }
 
-const newPriceFields = (result, item) => {
-  const todayTime = moment().format('YYYY-MM-DD');
+const newPriceFields = (date) => (result, item) => {
+
   if (item){
     result.push({
       id:item.id,
-      resourceId: item.id,
-      start: moment(`${todayTime} ${item.start_time}`),
-      end: moment(`${todayTime} ${item.end_time}`),
+      resourceId: item.field_id,
+      start: moment(`${date} ${item.start_time}`),
+      end: moment(`${date} ${item.end_time}`),
       color: item.color,
       rendering: 'background',
     })
   } 
   return result
 }
+
+const newReservation = (date) => (result, item) => {
+  if (item){
+    result.push({
+      id: item.id,
+      resourceId: item.field_doc_id,
+      title: item.customer_name,
+      start: moment(`${date} ${item.start_time}`),
+      end: moment(`${date} ${item.end_time}`),
+      color: '#EB144C',
+      textColor: 'white',
+    })
+  } 
+  return result
+}
+
+
+
 
 export function* getBookingSaga({date}) {
   console.log('date booking getlist',date)
@@ -71,8 +89,8 @@ export function* getBookingSaga({date}) {
       minTime: '05:00:00',
       maxTime: '29:00:00',
     };
-    const fieldsPrice = response.data.response_data.field_price_list.reduce(newPriceFields, [])
-
+    const fieldsPrice = response.data.response_data.field_price_list.reduce(newPriceFields(date), [])
+    const reservationAddData = response.data.response_data.reservation_list.reduce(newReservation(date),[])
     
     console.log('fieldsBooking',fieldsBooking)
     yield put(setDataBooking({fieldPriceList:response.data.response_data.field_price_list}))
@@ -81,9 +99,89 @@ export function* getBookingSaga({date}) {
     yield put(setDataBooking({fieldsBooking:fieldsBooking}))
     yield put(setDataBooking({fieldDetail:fieldDetail}))
     yield put(setDataBooking({fieldsPrice:fieldsPrice}))
+    yield put(setDataBooking({reservationAddData:reservationAddData}))
   } catch (err) {
       console.log('error',err)
   }
+}
+
+export function* addBookingSaga({data}){
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+  console.log('data add',data)
+  try {
+    const response = yield axios.post(apiUrl, {
+        
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'reservation_add',
+          stadium_id:stadiumId,
+          ...data,
+        },
+      )
+    console.log('response add booking ',response)  
+  yield call(getBookingSaga,{date:data.reservation_date})
+} catch (err) {
+    console.log('error',err)
+}
+}
+
+export function* priceCheckingBookingSaga({data}){
+  console.log('check add',data)
+  try {
+    const response = yield axios.post(apiUrl, {
+        
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'reservation_price_checking',
+          ...data,
+        },
+      )
+    console.log('response add booking ',response) 
+    yield put(setDataBooking({checkPriceData:response.data.response_data})) 
+
+} catch (err) {
+    console.log('error',err)
+}
+}
+
+
+export function* editBookingSaga({data}){
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+  console.log('data add',data)
+  try {
+    const response = yield axios.post(apiUrl, {
+        
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'reservation_edit',
+          stadium_id:stadiumId,
+          ...data,
+        },
+      )
+    yield call(getBookingSaga,{date:data.reservation_date})
+    console.log('response add booking ',response)  
+  yield call(getBookingSaga,{date:data.reservation_date})
+} catch (err) {
+    console.log('error',err)
+}
+}
+
+
+export function* deleteBookingSaga({id,date}){
+  console.log('deleteBookingSaga ',id)
+  try {
+    const response = yield axios.post(apiUrl, {
+
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'reservation_delete',
+          id:id,
+        },
+      )
+    yield call(getBookingSaga,{date:date})
+} catch (err) {
+    console.log('error',err)
+}
 }
 
 
@@ -91,6 +189,10 @@ export function* getBookingSaga({date}) {
 export function* bookingWatcher() {
     yield all([
       takeLatest(actionTypes.GETLIST_BOOKING, getBookingSaga),
+      takeLatest(actionTypes.ADD_BOOKING, addBookingSaga),
+      takeLatest(actionTypes.CHECK_PRICE, priceCheckingBookingSaga),
+      takeLatest(actionTypes.DELETE_BOOKING, deleteBookingSaga),
+      takeLatest(actionTypes.EDIT_BOOKING, editBookingSaga),
     ])
 }
 
@@ -101,6 +203,8 @@ const initial = {
   fieldsBooking:[],
   fieldDetail:{},
   fieldsPrice:[],
+  reservationAddData:[],
+  checkPriceData:[],
 }
 
 export default createReducer(initial, state => ({

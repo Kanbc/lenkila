@@ -7,7 +7,7 @@ import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { ColorButton, Button, Constant, CancelModal } from '../..';
 import {editFieldDataPrice,deleteFieldDataPrice} from '../../../store'
-import {setData} from '../../../sagas/field_managementPriceSaga'
+import {setDataPrice} from '../../../sagas/field_managementPriceSaga'
 class FMPriceEditModal extends Component {
   constructor(props) {
     super(props);
@@ -18,23 +18,24 @@ class FMPriceEditModal extends Component {
       color:this.props.userData.color,
       startTime: moment.duration(props.userData.start_time).asSeconds(),
       endTime: moment.duration(props.userData.end_time).asSeconds(),
-      is_mon:this.props.userData.is_mon==="0"?true:false,
-      is_tue:this.props.userData.is_tue==="0"?true:false,
-      is_wed:this.props.userData.is_wed==="0"?true:false,
-      is_thu:this.props.userData.is_thu==="0"?true:false,	
-      is_fri:this.props.userData.is_fri==="0"?true:false,	
-      is_sat:this.props.userData.is_sat==="0"?true:false,	
-      is_sun:this.props.userData.is_sun==="0"?true:false,	
-      is_hol:this.props.userData.is_hol==="0"?true:false,
+      is_mon:this.props.userData.is_mon==="1"?true:false,
+      is_tue:this.props.userData.is_tue==="1"?true:false,
+      is_wed:this.props.userData.is_wed==="1"?true:false,
+      is_thu:this.props.userData.is_thu==="1"?true:false,	
+      is_fri:this.props.userData.is_fri==="1"?true:false,	
+      is_sat:this.props.userData.is_sat==="1"?true:false,	
+      is_sun:this.props.userData.is_sun==="1"?true:false,	
+      is_hol:this.props.userData.is_hol==="1"?true:false,
       vip_type:this.props.userData.vip_type?JSON.parse(this.props.userData.vip_type):{},
     };
 
     this.editForm = this.editForm.bind(this);
     this.cancelEditForm = this.cancelEditForm.bind(this);
+    this.setColorState = this.setColorState.bind(this);
   }
 
   componentDidMount(){
-    this.props.setData({colorPriceEdit:this.props.userData.color})
+    this.props.setDataPrice({colorPriceEdit:this.props.userData.color})
   }
 
   editForm() {
@@ -43,6 +44,9 @@ class FMPriceEditModal extends Component {
     });
   }
 
+  setColorState(color){
+    this.setState({color:color})
+  }
 
   cancelEditForm() {
     this.setState({
@@ -51,6 +55,7 @@ class FMPriceEditModal extends Component {
   }
 
   render() {
+    console.log('this.props.colorPriceEdit',this.props.colorPriceEdit)
     let button1 = null;
     let button2 = null;
     let button3 = null;
@@ -62,8 +67,8 @@ class FMPriceEditModal extends Component {
       onClick={() => this.props.editFieldDataPrice({
             id:this.props.userData.id,
             field_id:this.props.userData.field_id,
-            color:this.props.colorPriceEdit,
             ...this.state,
+            color:this.state.color,
       })
     } >บันทึก</CancelModal>;
       button2 = <CancelModal width={Constant.Buttons.default} color={Constant.Orange}>ยกเลิก</CancelModal>;
@@ -155,7 +160,7 @@ class FMPriceEditModal extends Component {
               <p>สี</p>
             </div>
             <div className="col-sm-1">
-              <ColorButton width="100%" userDatacolor={this.props.userData.color} />
+              <ColorButton width="100%" userDatacolor={this.props.userData.color} setColorState={this.setColorState}/>
             </div>
           </div>
           <div className="row">
@@ -288,4 +293,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps,{deleteFieldDataPrice,editFieldDataPrice,setData})(FMPriceEditModal);
+export default connect(mapStateToProps,{deleteFieldDataPrice,editFieldDataPrice,setDataPrice})(FMPriceEditModal);

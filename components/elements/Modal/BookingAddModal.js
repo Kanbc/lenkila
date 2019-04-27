@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
+import moment from 'moment';
 import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '../..';
 
 class BookingAddModal extends Component {
   // เอาไว้เก็บค่า array booking เพื่อที่จะ post booking ตอนหลังสุด
-  state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      customer_name:'',
+      customer_tel:'',
+      player_value:'',
+    };
 
+  }
   render() {
-    console.log(this.props.booking);
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
         <Body>
@@ -17,19 +24,35 @@ class BookingAddModal extends Component {
               <p>ชื่อ</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" value={this.state.customer_name} onChange={e => this.setState({ customer_name: e.target.value })}/>
             </div>
             <div className="col-sm-1">
               <p>เบอร์โทร*</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" value={this.state.customer_tel} onChange={e => this.setState({ customer_tel: e.target.value })}/>
             </div>
             <div className="col-sm-1">
               <p>ประเภทลูกค้า</p>
             </div>
-            <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+            <div className="col-sm-4">
+                  <select className="form-control" id="exampleFormControlSelect1" value={this.props.selected} onChange={e => {
+                    this.props.setStateSelected(e.target.value)
+                    this.props.checkPrice({
+                      start_time:this.props.start_time,
+                      end_time:this.props.end_time,
+                      field_id:this.props.field_id,
+                      customer_type:e.target.value,
+                      date:this.props.date,
+                    })
+                  }
+                  }>
+                    {
+                      this.props.customerType && this.props.customerType.map(type =>(
+                        <option key={type.id} value={type.name} >{type.name}</option>
+                      ))
+                    }
+                  </select>
             </div>
           </div>
           <div className="row bottom-border">
@@ -37,7 +60,7 @@ class BookingAddModal extends Component {
               <p>จำนวนผู้เล่น</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" value={this.state.player_value} onChange={e => this.setState({ player_value: e.target.value })}/>
             </div>
             <div className="col-sm-9" />
           </div>
@@ -64,11 +87,11 @@ class BookingAddModal extends Component {
                   </thead>
                   <tbody>
                     {
-                      this.props.booking && this.props.booking.map(fieldBook => {
+                      this.props.checkPriceData && this.props.checkPriceData.map(fieldBook => {
                         return (
-                          <tr key={fieldBook.id}>
-                            <th scope="row">{fieldBook.name}</th>
-                            <td>{fieldBook.startTime}-{fieldBook.endTime}</td>
+                          <tr key={fieldBook.time}>
+                            <th scope="row">{fieldBook.id}</th>
+                            <td>{fieldBook.time}</td>
                             { 
                               fieldBook.price ? 
                               <td>{fieldBook.price}</td> : 
@@ -103,7 +126,7 @@ class BookingAddModal extends Component {
               <input type="text" className="form-control" id="firstname" />
             </div>
             <div className="col-sm-2">
-              <Button width="120px" bstrap="btn-success">
+              <Button width="120px" bstrap="btn-success" >
                 บันทีก
               </Button>
             </div>
@@ -145,7 +168,15 @@ class BookingAddModal extends Component {
             </div>
             <div className="col-sm-6 left-side">
               <div className="space-l">
-                <Button width="100px" bstrap="btn-success">
+                <Button width="100px" bstrap="btn-success" onClick={()=>
+                this.props.addBooking({
+                    start_time:this.props.start_time,
+                    end_time:this.props.end_time,
+                    field_doc_id:this.props.field_id,
+                    customer_type:this.props.selected,
+                    reservation_date:this.props.date,
+                    ...this.state,
+                })}>
                   บันทีก
                 </Button>
               </div>

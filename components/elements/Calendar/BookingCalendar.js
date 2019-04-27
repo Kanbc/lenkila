@@ -10,11 +10,13 @@ class BookingCalendar extends Component {
       startTime: moment().format('LT'),
       endTime: moment().format('LT'),
       resourceId: '',
-      bookingData: [],
+      selected:'นักเรียน',
     };
 
     this.setDataBooking = this.setDataBooking.bind(this);
     this.updateEvents = this.updateEvents.bind(this);
+    this.setStateBooking = this.setStateBooking.bind(this);
+    this.setStateSelected = this.setStateSelected.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +26,19 @@ class BookingCalendar extends Component {
     this.updateEvents();
   }
 
+  setStateBooking = (start_time,end_time,field_id,date) => {
+     this.setState({start_time:start_time})
+     this.setState({end_time:end_time})
+     this.setState({field_id:field_id})
+     this.setState({date:date})
+  }
+
+  setStateSelected = (selected) => {
+    this.setState({selected:selected})
+ }
+
+  
+
   setDataBooking(startTime, endTime, resourceId) {
     // Call API
     // --Input--
@@ -32,41 +47,30 @@ class BookingCalendar extends Component {
     // - resourceId
     // เอา date ที่ api return มาไปพ่นใส่ modal
 
-    // mock data
-    const bookingData = [
-      {
-        id: 1,
-        resourceId: 'a',
-        day: moment(startTime),
-        startTime: moment(startTime).format('LT'),
-        endTime: moment(startTime).add(2, 'hours').format('LT'),
-        price: 1000,
-        name: 'A',
-      },
-      {
-        id: 2,
-        resourceId: 'a',
-        day: moment(startTime),
-        startTime: moment(startTime).add(2, 'hours').format('LT'),
-        endTime: moment(endTime).add(2, 'hours').format('LT'),
-        price: 800,
-        name: 'A',
-      },
-      {
-        id: 3,
-        resourceId: 'a',
-        day: moment(startTime),
-        startTime: moment(endTime).add(2, 'hours').format('LT'),
-        endTime: moment(endTime).add(4, 'hours').format('LT'),
-        price: null,
-        name: 'A',
-      },
-    ];
+    this.setStateSelected(
+      'นักเรียน'
+    )
 
-    this.setState({
-      bookingData
-    });
+    this.setStateBooking(
+      moment(startTime).format('HH:mm:ss'),
+      moment(endTime).format('HH:mm:ss'),
+      resourceId,
+      moment(this.props.gotoDate).format("YYYY-MM-DD")
+    )
+
+    
+    this.props.checkPrice({
+      start_time:moment(startTime).format('HH:mm:ss'),
+      end_time:moment(endTime).format('HH:mm:ss'),
+      field_id:resourceId,
+      customer_type:"นักเรียน",
+      date:moment(this.props.gotoDate).format("YYYY-MM-DD")
+    })
+    // mock data
+ 
+
   }
+
   setOnBusinessHourBooking(startTime, resourceId) {
     this.setState({
       day: moment(startTime),
@@ -112,6 +116,14 @@ class BookingCalendar extends Component {
         // alert('Event: ' + calEvent.title);
         // alert('Booking ID: ' + calEvent.id);
         // alert('View: ' + view.name);
+        that.props.checkPrice({
+              start_time:moment(calEvent.start).format('HH:mm:ss'),
+              end_time:moment(calEvent.end).format('HH:mm:ss'),
+              field_id:calEvent.resourceId,
+              customer_type:that.props.reservationList.find(value=> value.id === calEvent.id).customer_type,
+              date:moment(calEvent.start).format('YYYY-MM-DD'),
+         }
+        )
         $(`#edit-booking-modal-${  calEvent.id}`).modal('show');
       },
       eventOverlap: true,
@@ -140,7 +152,7 @@ class BookingCalendar extends Component {
 
   render() {
     const bookings = this.props.booking;
-    // console.log('render!', bookings);
+    console.log('render! props', this.props);
     return (
       <div>
         <div id="calendar" />
@@ -149,7 +161,17 @@ class BookingCalendar extends Component {
           <BookingAddModal
             title="การจอง"
             type="add-drag-booking"
-            booking={this.state.bookingData}
+            customerType={this.props.customerType}
+            addBooking={this.props.addBooking}
+            start_time={this.state.start_time}
+            end_time={this.state.end_time}
+            start_time={this.state.start_time}
+            field_id={this.state.field_id}
+            date={this.state.date}
+            setStateSelected={this.setStateSelected}
+            selected={this.state.selected}
+            checkPriceData={this.props.checkPriceData}
+            checkPrice={this.props.checkPrice}
             // fields={this.props.field}
 
             // day={this.state.day}
@@ -160,15 +182,18 @@ class BookingCalendar extends Component {
         </ButtonModal>
 
         {/* Booking Modal */}
-        {bookings && bookings.map((booking) => (
-            <ButtonModal key={booking.id} modalName={`#edit-booking-modal-${booking.id}`} bstrap="invisible">
+        {this.props.reservationList && this.props.reservationList.map((booking) => (
+            <ButtonModal key={this.props.reservationList.id} modalName={`#edit-booking-modal-${booking.id}`} bstrap="invisible">
               <i className="fa fa-plus" aria-hidden="true" />
               <BookingEditModal
                 title="ข้อมูลการจอง"
                 type={`edit-booking-modal-${booking.id}`}
-                startTime={booking.start}
-                endTime={booking.end}
-                resourceId={booking.resourceId}
+                booking={booking}
+                customerType={this.props.customerType}
+                deleteBooking={this.props.deleteBooking}
+                editBooking={this.props.editBooking}
+                checkPriceData={this.props.checkPriceData}
+                checkPrice={this.props.checkPrice}
               />
             </ButtonModal>
           ))}

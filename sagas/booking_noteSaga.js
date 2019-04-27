@@ -1,6 +1,7 @@
 import { call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects'
 import {actionTypes} from '../store'
 import axios from 'axios'
+import {delay} from 'redux-saga'
 import {createReducer,Creator} from './helper'
 
 const SET_DATA = 'SET_DATA'
@@ -12,6 +13,7 @@ const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* addNoteSaga({data}) {
   console.log('addnote Saga',data)
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
        const response = yield axios.post(apiUrl, {
             
@@ -22,6 +24,7 @@ export function* addNoteSaga({data}) {
               tel:data.tel,
               detail:data.note,
               doc_date:data.doc_date,
+              stadium_id:stadiumId,
               // stadium_id:xxxx
             },
       )
@@ -32,6 +35,7 @@ export function* addNoteSaga({data}) {
   }
 
 export function* setNoteSaga(){
+  
   try {
     const response = yield axios.get(apiUrl, {
         params: {
@@ -64,6 +68,8 @@ export function* setNoteIdSaga(){
 }
 
 export function* setNoteDateSaga({date}){
+  yield delay(1000)
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
   console.log('date',date)
     try {
       const response = yield axios.get(apiUrl, {
@@ -72,6 +78,7 @@ export function* setNoteDateSaga({date}){
             code:'piluj',
             action:'note_getbydate',
             doc_date:date,
+            stadium_id:stadiumId,
           },
         })
       console.log('response => noteDate',response.data.response_data)

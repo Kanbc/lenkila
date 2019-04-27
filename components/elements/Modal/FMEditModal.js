@@ -33,8 +33,8 @@ const FMEditModal = ({ title , type,userData,deleteFieldDataField,editFieldDataF
         </div>
         <div className="col-sm-4">
           <select className="custom-select" defaultValue={userData.is_dividable} onChange={e => setData({...data,is_dividable:e.target.value})}>
-            <option value="0">ได้</option>
-            <option value="1">ไม่ได้</option>
+            <option value="1">ได้</option>
+            <option value="0">ไม่ได้</option>
           </select>
         </div>
         <div className="col-sm-6" />
