@@ -7,9 +7,7 @@ class DiscountForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: this.props.discount.id,
-            detail: this.props.discount.detail,
-            price: this.props.discount.price,
+            ...this.props.item,
         };
 
         this.editDiscount = this.editDiscount.bind(this);
@@ -31,12 +29,11 @@ class DiscountForm extends Component {
             button1 = <Button width="80px" bstrap="btn-success" onClick={() => {
                 // validation
                 // edit note api
-                this.props.dispatch(editThisBookingDiscount({
+                this.props.editStateDiscount({
                     id: this.state.id,
                     detail: this.state.detail,
                     price: this.state.price,
-                }));
-
+                })
                 this.cancelEditDiscount();
             }}>บันทึก</Button>;
             // button2 = <CancelModal width="80px" color={Constant.Red} onClick={() => this.cancelEditNote()}>ยกเลิก</CancelModal>;
@@ -44,13 +41,8 @@ class DiscountForm extends Component {
         } else {
             button1 = <Button width="80px" color={Constant.Orange} onClick={this.editDiscount}>แก้ไข</Button>;
             button2 = <Button width="80px" bstrap="btn-danger" color={Constant.Red} onClick={() => {
-                // pop-upbefore delete();
-                // delete note api
-                this.props.dispatch(deleteThisBookingDiscount({
-                    id: this.state.id,
-                    detail: this.state.detail,
-                    price: this.state.price,
-                }));
+                const deleteDiscount = this.props.rebate_other.filter(value=> value.id !== this.props.id)
+                this.props.deleteStateDiscount(deleteDiscount)
             }}>ลบ</Button>;
         }
         return (

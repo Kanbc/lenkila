@@ -54,7 +54,6 @@ class FMPriceAddModal extends Component {
 
 
   render() {
-    console.log('this.props.customerType',this.props.customerType)
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" >
         <Body>

@@ -69,7 +69,7 @@ export function* editFieldDataSaga({data}){
             phone:data.phone,
             location:data.location,
             description: data.description,
-            facilities:data.facilities,
+            facilities:JSON.stringify(data.facilities),
             name:"lenkila",
             open_time:moment.utc(data.open_time*1000).format('HH:mm:ss'),
             close_time:moment.utc(data.close_time*1000).format('HH:mm:ss'),

@@ -7,7 +7,7 @@ import moment from 'moment';
 
 const SET_DATA_PRICE = 'SET_DATA_PRICE'
 
-export const setData = Creator(SET_DATA_PRICE,'data')
+export const setDataPrice = Creator(SET_DATA_PRICE,'data')
 
 const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
@@ -21,7 +21,7 @@ export function* setFieldDataSaga() {
     if(firstTime){
       const fieldIdSelected = yield select(state => state.field_managementFieldSaga.fields[0].id)
       fieldId=fieldIdSelected
-      yield put(setData({firstTime:false,fieldId:fieldId,fieldIdImport:fieldId}))
+      yield put(setDataPrice({firstTime:false,fieldId:fieldId,fieldIdImport:fieldId}))
     }else{
       const fieldIdSelected = yield select(state => state.field_managementPriceSaga.fieldId)
       fieldId=fieldIdSelected
@@ -37,7 +37,7 @@ export function* setFieldDataSaga() {
             },
           })
           console.log('resposne get price',response)
-      yield put(setData({fieldsPrice:response.data.response_data}))
+      yield put(setDataPrice({fieldsPrice:response.data.response_data}))
      
     } catch (err) {
         console.log('error',err)
@@ -46,8 +46,10 @@ export function* setFieldDataSaga() {
 
 
 export function* addFieldDataSaga({data}){
-    const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-    console.log('data add',data,stadiumId)
+  console.log('data add',data)
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+  console.log('std add',stadiumId)
+
     try {
       const response = yield axios.post(apiUrl, {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
@@ -55,16 +57,16 @@ export function* addFieldDataSaga({data}){
             action:'field_price_add',
             field_id:data.field_id,
             stadium_doc_id:stadiumId,
-            is_mon:data.is_mon?"0":'1',
-            is_tue:data.is_tue?"0":'1',
-            is_wed:data.is_wed?"0":'1',
-            is_thu:data.is_thu?"0":'1',	
-            is_fri:data.is_fri?"0":'1',	
-            is_sat:data.is_sat?"0":'1',	
-            is_sun:data.is_sun?"0":'1',	
-            is_hol:data.is_hol?"0":'1',
-            start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
-            end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
+            is_mon:data.is_mon?"1":'0',
+            is_tue:data.is_tue?"1":'0',
+            is_wed:data.is_wed?"1":'0',
+            is_thu:data.is_thu?"1":'0',	
+            is_fri:data.is_fri?"1":'0',	
+            is_sat:data.is_sat?"1":'0',	
+            is_sun:data.is_sun?"1":'0',	
+            is_hol:data.is_hol?"1":'0',
+            start_time:moment.utc(data.startTime*1000).format('HH:mm:ss'),
+            end_time:moment.utc(data.endTime*1000).format('HH:mm:ss'),
             color:data.color,
             normal_class:data.normal_class,	
             student_class:data.student_class,
@@ -77,7 +79,7 @@ export function* addFieldDataSaga({data}){
           },
         )
       console.log('price add ',response)
-      yield setData({colorPrice:"#CA0813"})
+      yield setDataPrice({colorPrice:"#CA0813"})
       yield call(setFieldDataSaga)
   } catch (err) {
       console.log('error',err)
@@ -87,8 +89,9 @@ export function* addFieldDataSaga({data}){
 
 
 export function* editFieldDataSaga({data}){
+  console.log('data edit',data)
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-    console.log('edit add',data,stadiumId)
+
     try {
         yield axios.post(apiUrl, {
           
@@ -98,16 +101,16 @@ export function* editFieldDataSaga({data}){
             id:data.id,
             field_id:data.field_id,
             stadium_doc_id:stadiumId,
-            is_mon:data.is_mon?"0":'1',
-            is_tue:data.is_tue?"0":'1',
-            is_wed:data.is_wed?"0":'1',
-            is_thu:data.is_thu?"0":'1',	
-            is_fri:data.is_fri?"0":'1',	
-            is_sat:data.is_sat?"0":'1',	
-            is_sun:data.is_sun?"0":'1',	
-            is_hol:data.is_hol?"0":'1',
-            start_time:moment.utc(data.start_time*1000).format('HH:mm:ss'),
-            end_time:moment.utc(data.end_time*1000).format('HH:mm:ss'),
+            is_mon:data.is_mon?"1":'0',
+            is_tue:data.is_tue?"1":'0',
+            is_wed:data.is_wed?"1":'0',
+            is_thu:data.is_thu?"1":'0',	
+            is_fri:data.is_fri?"1":'0',	
+            is_sat:data.is_sat?"1":'0',	
+            is_sun:data.is_sun?"1":'0',	
+            is_hol:data.is_hol?"1":'0',
+            start_time:moment.utc(data.startTime*1000).format('HH:mm:ss'),
+            end_time:moment.utc(data.endTime*1000).format('HH:mm:ss'),
             color:data.color,
             normal_class:data.normal_class,	
             student_class:data.student_class,
@@ -143,6 +146,7 @@ export function* deleteFieldDataSaga({id}){
 
 
 export function* importPriceSaga({data}){
+  console.log('import data',data)
   const fieldIdImport = yield select(state => state.field_managementPriceSaga.fieldIdImport)
   try {
     yield axios.get(apiUrl, {

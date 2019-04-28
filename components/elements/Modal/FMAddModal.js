@@ -67,8 +67,8 @@ class FMAddModal extends Component {
         </div>
         <div className="col-sm-4">
           <select className="custom-select" defaultValue="0" value={this.state.is_dividable} onChange={e => this.setState({ is_dividable: e.target.value })}>
-            <option value="0">ได้</option>
-            <option value="1">ไม่ได้</option>
+            <option value="1">ได้</option>
+            <option value="0">ไม่ได้</option>
           </select>
         </div>
         <div className="col-sm-6" />

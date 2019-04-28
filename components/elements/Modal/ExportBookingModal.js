@@ -48,7 +48,11 @@ class ExportBookingModal extends Component {
           </div>
         </Body>
         <Footer>
-          <Button width="100px" bstrap="btn-success">
+          <Button width="100px" bstrap="btn-success" onClick={() => 
+            this.props.exportCsv({
+              start_date:moment(this.state.startTime).format('YYYY-MM-DD'),
+              end_date:moment(this.state.endTime).format('YYYY-MM-DD')
+            })}>
             Export
           </Button>
           <CancelModal width="100px" bstrap="btn-danger">

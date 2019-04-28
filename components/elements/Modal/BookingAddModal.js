@@ -1,14 +1,56 @@
 import React, { Component } from 'react';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
+import moment from 'moment';
 import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '../..';
 
 class BookingAddModal extends Component {
   // เอาไว้เก็บค่า array booking เพื่อที่จะ post booking ตอนหลังสุด
-  state = {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      customer_name:'',
+      customer_tel:'',
+      player_value:'',
+      deposit:'',
+      rebate_other:[],
+      pay_stadium:'',
+    };
+    this.setStateDiscount = this.setStateDiscount.bind(this);
+    this.deleteStateDiscount = this.deleteStateDiscount.bind(this);
+    this.editStateDiscount = this.editStateDiscount.bind(this);
+    this.cancelStateDiscount = this.cancelStateDiscount.bind(this);
+  }
 
+  setStateDiscount = (item) => {
+    this.setState({rebate_other:[...this.state.rebate_other,item]})
+  }
+
+  deleteStateDiscount = (item) => {
+    this.setState({rebate_other:item})
+  }
+
+  editStateDiscount = (item) => {
+    const newItem = this.state.rebate_other.map(obj => [item].find(o => o.id === obj.id) || obj);
+    this.setState({rebate_other:newItem})
+  }
+
+  cancelStateDiscount = () =>{
+    this.setState({rebate_other:[]})
+  }
+
+
+    
   render() {
-    console.log(this.props.booking);
+   
+    const summary = this.props.checkPriceData.reduce(function(prev, cur) {
+      return prev + parseInt(cur.price);
+    }, 0);
+
+    const discount = this.state.rebate_other.reduce(function(prev, cur) {
+      return prev + parseInt(cur.price);
+    }, 0);
+
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
         <Body>
@@ -17,19 +59,35 @@ class BookingAddModal extends Component {
               <p>ชื่อ</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" value={this.state.customer_name} onChange={e => this.setState({ customer_name: e.target.value })}/>
             </div>
             <div className="col-sm-1">
               <p>เบอร์โทร*</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" value={this.state.customer_tel} onChange={e => this.setState({ customer_tel: e.target.value })}/>
             </div>
             <div className="col-sm-1">
               <p>ประเภทลูกค้า</p>
             </div>
-            <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+            <div className="col-sm-4">
+                  <select className="form-control" id="exampleFormControlSelect1" value={this.props.selected} onChange={e => {
+                    this.props.setStateSelected(e.target.value)
+                    this.props.checkPrice({
+                      start_time:this.props.start_time,
+                      end_time:this.props.end_time,
+                      field_id:this.props.field_id,
+                      customer_type:e.target.value,
+                      date:this.props.date,
+                    })
+                  }
+                  }>
+                    {
+                      this.props.customerType && this.props.customerType.map(type =>(
+                        <option key={type.id} value={type.name} >{type.name}</option>
+                      ))
+                    }
+                  </select>
             </div>
           </div>
           <div className="row bottom-border">
@@ -37,7 +95,7 @@ class BookingAddModal extends Component {
               <p>จำนวนผู้เล่น</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" value={this.state.player_value} onChange={e => this.setState({ player_value: e.target.value })}/>
             </div>
             <div className="col-sm-9" />
           </div>
@@ -64,16 +122,18 @@ class BookingAddModal extends Component {
                   </thead>
                   <tbody>
                     {
-                      this.props.booking && this.props.booking.map(fieldBook => {
+                      this.props.checkPriceData && this.props.checkPriceData.map(fieldBook => {
+                        let keyName = fieldBook.name
+                        console.log('fieldBook',fieldBook)
                         return (
-                          <tr key={fieldBook.id}>
-                            <th scope="row">{fieldBook.name}</th>
-                            <td>{fieldBook.startTime}-{fieldBook.endTime}</td>
+                          <tr key={fieldBook.time}>
+                            <th scope="row">{fieldBook.id}</th>
+                            <td>{fieldBook.time}</td>
                             { 
                               fieldBook.price ? 
                               <td>{fieldBook.price}</td> : 
                               <td>
-                                <input type="text" className="form-control" />
+                                <input type="text" className="form-control" value={this.state.pay_stadium} onChange={e => this.setState({ pay_stadium:e.target.value })}/>
                               </td>
                           }
                           </tr>
@@ -94,19 +154,19 @@ class BookingAddModal extends Component {
               <p className="bold-text">ค่าสนามรวม</p>
             </div>
             <div className="col-sm-2">
-              <p>-</p>
+              <p>{ summary }</p>
             </div>
             <div className="col-sm-1">
               <p className="bold-text">ค่ามัดจำ</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" value={this.state.deposit} onChange={e => this.setState({ deposit: e.target.value })} />
             </div>
-            <div className="col-sm-2">
-              <Button width="120px" bstrap="btn-success">
+            {/* <div className="col-sm-2">
+              <Button width="120px" bstrap="btn-success" >
                 บันทีก
               </Button>
-            </div>
+            </div> */}
             {/* <div className="col-sm-1">
               <p>ค่าสินค้า</p>
             </div>
@@ -115,39 +175,59 @@ class BookingAddModal extends Component {
             </div> */}
           </div>
           <div className="row">
-            <div className="col-sm-1">
+            {/* <div className="col-sm-1">
               <p className="bold-text">ส่วนลดแอพ</p>
             </div>
             <div className="col-sm-2">
               <p>-</p>
-            </div>
+            </div> */}
             <div className="col-sm-1">
               <p className="bold-text">ส่วนลดอื่นๆ</p>
             </div>
             <div className="col-sm-2">
-              <p>-</p>
+              <p>{ Number.isNaN(discount)?0:discount  }</p>
             </div>
             <div className="col-sm-6">
               <div className="space-r">
                 <ButtonModal color={Constant.Blue} width="120px" modalName="#discount">
                   ส่วนลด
-                  <DiscountAddModal title="ส่วนลด" type="discount" fields={this.fields} />
+                  <DiscountAddModal title="ส่วนลด" type="discount" fields={this.fields} rebate_other={this.state.rebate_other}
+                   setStateDiscount={this.setStateDiscount}
+                   deleteStateDiscount={this.deleteStateDiscount}
+                   editStateDiscount={this.editStateDiscount}
+                
+                   />
                 </ButtonModal>
               </div>
             </div>
           </div>
           <div className="row">
             <div className="col-sm-3">
-              <p>สร้างโดย เอ</p>
+              <p>สร้างโดย {this.props.user && this.props.user[0] && this.props.user[0].username}</p>
             </div>
             <div className="col-sm-3">
-              <p>เก็บเงิน เอ</p>
+              <p>เก็บเงิน {this.state.deposit !== '' && this.props.user && this.props.user[0] && this.props.user[0].username}</p>
             </div>
             <div className="col-sm-6 left-side">
               <div className="space-l">
-                <Button width="100px" bstrap="btn-success">
+                <CancelModal width="100px" bstrap="btn-success" onClick={()=> {
+
+                  this.props.addBooking({
+                    start_time:this.props.start_time,
+                    end_time:this.props.end_time,
+                    field_doc_id:this.props.field_id,
+                    customer_type:this.props.selected,
+                    reservation_date:this.props.date,
+                    create_by:this.props.user[0].username,
+                    cashier_by:this.props.user[0].username,
+                    ...this.state,
+                  })
+                  this.cancelStateDiscount()
+
+                }
+               }>
                   บันทีก
-                </Button>
+                </CancelModal>
               </div>
               <div className="space-l">
                 <CancelModal width="100px" bstrap="btn-danger">
@@ -224,5 +304,7 @@ class BookingAddModal extends Component {
     );
   }
 }
+
+
 
 export default BookingAddModal;

@@ -3,7 +3,7 @@ import Switch from 'react-switch';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { setNote, setNoteDate } from '../store';
+import { setNote, setNoteDate, getListBooking, addBooking,checkPrice,getCustomerType,deleteBooking,editBooking,exportCsv } from '../store';
 import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, ExportBookingModal } from '../components';
 
 class BookingTable extends Component {
@@ -12,12 +12,14 @@ class BookingTable extends Component {
     this.state = {
       canDragBooking: false,
       gotoDate: moment(),
+      customerTypeKey:'นักเรียน',
     };
 
     this.canBooking = this.canBooking.bind(this);
     this.today = this.today.bind(this);
     this.nextDay = this.nextDay.bind(this);
     this.previousDay = this.previousDay.bind(this);
+ 
   }
 
   // eslint-disable-next-line react/sort-comp
@@ -33,6 +35,7 @@ class BookingTable extends Component {
       gotoDate: today,
     });
     this.props.setNoteDate(today.format('YYYY-MM-DD'));
+    this.props.getListBooking(today.format('YYYY-MM-DD'));
   }
 
   nextDay() {
@@ -40,6 +43,7 @@ class BookingTable extends Component {
       gotoDate: moment(this.state.gotoDate).add(1, 'days'),
     });
     this.props.setNoteDate(this.state.gotoDate.add(1, 'days').format('YYYY-MM-DD'));
+    this.props.getListBooking(this.state.gotoDate.format('YYYY-MM-DD'));
   }
 
   previousDay() {
@@ -47,32 +51,25 @@ class BookingTable extends Component {
       gotoDate: moment(this.state.gotoDate).subtract(1, 'days'),
     });
     this.props.setNoteDate(this.state.gotoDate.subtract(1, 'days').format('YYYY-MM-DD'));
+    this.props.getListBooking(this.state.gotoDate.format('YYYY-MM-DD'))
   }
 
   // [GET] - Bookings
-  booking = bookingData();
 
-  // [GET] - Field
-  fields = fieldData();
 
-  // [GET] - Field
-  users = userData();
+
 
   // [GET] - Open/Closed, Business Hours
   // ข้อมูลสนามภาพรวม
-  fieldDetail = {
-    open: '07:00',
-    close: '26:00',
-    weekdayOpen: [0, 1, 2, 3, 4, 5, 6], // Monday - Friday (0=Sunday)
-    minTime: '05:00:00',
-    maxTime: '29:00:00',
-  };
 
   componentDidMount() {
     // this.props.setNote();
+    this.props.getListBooking(this.state.gotoDate.format('YYYY-MM-DD'))
     this.props.setNoteDate(this.state.gotoDate.format('YYYY-MM-DD'));
+    this.props.getCustomerType()
   }
   render() {
+    console.log('this.props.fieldsPrice',[...this.props.reservationAddData,...this.props.fieldsPrice])
     return (
       <Layout title="การจอง">
         <div className="container">
@@ -92,7 +89,10 @@ class BookingTable extends Component {
                   disabledKeyboardNavigation
                   className="form-control align-middle"
                   selected={this.state.gotoDate}
-                  onChange={gotoDate => this.setState({ gotoDate })}
+                  onChange={gotoDate => {
+                    this.setState({ gotoDate })
+                    }
+                  }
                 />
               </div>
               <div className="lk-box space-r align-middle">
@@ -146,17 +146,25 @@ class BookingTable extends Component {
               <div className="lk-box float-right">
                 <ButtonModal color={Constant.Blue} width="100px" modalName="#export-booking">
                   Export
-                  <ExportBookingModal title="Export Booking" type="export-booking" fields={this.fields} />
+                  <ExportBookingModal title="Export Booking" type="export-booking" exportCsv={this.props.exportCsv} />
                 </ButtonModal>
               </div>
             </div>
           </div>
           <BookingCalendar
-            field={this.fields}
-            booking={this.booking}
-            detail={this.fieldDetail}
+            field={this.props.fieldsBooking}
+            booking={[...this.props.reservationAddData,...this.props.fieldsPrice]}
+            detail={this.props.fieldDetail}
             canbook={this.state.canDragBooking}
             gotoDate={this.state.gotoDate}
+            addBooking={this.props.addBooking}
+            customerType={this.props.customerType}
+            checkPriceData={this.props.checkPriceData}
+            checkPrice={this.props.checkPrice}
+            deleteBooking={this.props.deleteBooking}
+            reservationList={this.props.reservationList}
+            editBooking={this.props.editBooking}
+            user={this.props.user}
           />
         </div>
         <style jsx>{`
@@ -195,366 +203,23 @@ class BookingTable extends Component {
   }
 }
 
-// [GET]
-// Input - datetime etc. 2019-04-11
-function bookingData() {
-  const todayTime = moment().format('YYYY-MM-DD');
-  const users = [
-    {
-      id: '1',
-      resourceId: 'a',
-      title: 'B: Waiting',
-      start: moment().add(4, 'hour'),
-      end: moment().add(6, 'hour'),
-      color: Constant.Red,
-      textColor: 'white',
-    },
-    {
-      id: '2',
-      resourceId: 'a',
-      title: 'W: 2 กลุ่ม',
-      start: moment().add(7, 'hour'),
-      end: moment().subtract(10, 'hour'),
-      color: Constant.Grey,
-      textColor: 'white',
-    },
-    {
-      id: '3',
-      resourceId: 'a',
-      title: 'B: Success',
-      start: moment().subtract(4, 'hour'),
-      end: moment().subtract(2, 'hour'),
-      color: Constant.Red,
-      textColor: 'white',
-    },
-    {
-      id: '4',
-      resourceId: 'b',
-      title: 'BF: 4 คน',
-      start: moment(),
-      end: moment().subtract(4, 'hour'),
-      color: Constant.Red,
-      textColor: 'white',
-    },
-    {
-      id: '5',
-      resourceId: 'g',
-      title: 'คุณหลิ่ว',
-      start: moment().add(12, 'hour'),
-      end: moment().add(16, 'hour'),
-      color: '#ecf0f1',
-      textColor: 'black',
-    },
-    {
-      id: '6',
-      resourceId: 'g1',
-      title: 'คุณหลิ่ว',
-      start: moment().add(10, 'hour'),
-      end: moment().add(14, 'hour'),
-      color: '#ecf0f1',
-      textColor: 'black',
-    },
-    {
-      id: '7',
-      resourceId: 'g',
-      title: 'คุณนิด, คุณโหน่ง',
-      start: moment().add(2, 'hour'),
-      end: moment().add(6, 'hour'),
-      color: '#ecf0f1',
-      textColor: 'black',
-    },
-    {
-      id: '8',
-      resourceId: 'g1',
-      title: 'คุณนิด',
-      start: moment().add(16, 'hour'),
-      end: moment().add(19, 'hour'),
-      color: '#ecf0f1',
-      textColor: 'black',
-    },
-    {
-      id: '9',
-      resourceId: 'g2',
-      title: 'คุณโหน่ง',
-      start: moment().add(20, 'hour'),
-      end: moment().add(24, 'hour'),
-      color: '#ecf0f1',
-      textColor: 'black',
-    },
-    // Field Price Data
-    // - รวมทั้งส่วนราคาสนามและราคาจากสร้าง buffet มากับ API booking เลย
-    {
-      id: '10',
-      resourceId: 'a',
-      start: moment(`${todayTime} 07:00`),
-      end: moment(`${todayTime} 12:00`),
-      color: '#ca0813',
-      rendering: 'background',
-    },
-    {
-      id: '17',
-      resourceId: 'a',
-      start: moment(`${todayTime} 12:00`),
-      end: moment(`${todayTime} 18:00`),
-      color: '#f9b900',
-      rendering: 'background',
-    },
-    {
-      id: '24',
-      resourceId: 'a',
-      start: moment(`${todayTime} 18:00`),
-      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
-      color: '#f56904',
-      rendering: 'background',
-    },
-    {
-      id: '11',
-      resourceId: 'b',
-      start: moment(`${todayTime} 07:00`),
-      end: moment(`${todayTime} 12:00`),
-      color: '#ca0813',
-      rendering: 'background',
-    },
-    {
-      id: '18',
-      resourceId: 'b',
-      start: moment(`${todayTime} 12:00`),
-      end: moment(`${todayTime} 18:00`),
-      color: '#f9b900',
-      rendering: 'background',
-    },
-    {
-      id: '25',
-      resourceId: 'b',
-      start: moment(`${todayTime} 18:00`),
-      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
-      color: '#f56904',
-      rendering: 'background',
-    },
-    {
-      id: '12',
-      resourceId: 'c',
-      start: moment(`${todayTime} 07:00`),
-      end: moment(`${todayTime} 12:00`),
-      color: '#ca0813',
-      rendering: 'background',
-    },
-    {
-      id: '19',
-      resourceId: 'c',
-      start: moment(`${todayTime} 12:00`),
-      end: moment(`${todayTime} 18:00`),
-      color: '#f9b900',
-      rendering: 'background',
-    },
-    {
-      id: '26',
-      resourceId: 'c',
-      start: moment(`${todayTime} 18:00`),
-      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
-      color: '#f56904',
-      rendering: 'background',
-    },
-    {
-      id: '13',
-      resourceId: 'd',
-      start: moment(`${todayTime} 07:00`),
-      end: moment(`${todayTime} 12:00`),
-      color: '#ca0813',
-      rendering: 'background',
-    },
-    {
-      id: '20',
-      resourceId: 'd',
-      start: moment(`${todayTime} 12:00`),
-      end: moment(`${todayTime} 18:00`),
-      color: '#f9b900',
-      rendering: 'background',
-    },
-    {
-      id: '27',
-      resourceId: 'd',
-      start: moment(`${todayTime} 18:00`),
-      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
-      color: '#f56904',
-      rendering: 'background',
-    },
-    {
-      id: '14',
-      resourceId: 'g',
-      start: moment(`${todayTime} 07:00`),
-      end: moment(`${todayTime} 12:00`),
-      color: '#0693e3',
-      rendering: 'background',
-    },
-    {
-      id: '28',
-      resourceId: 'g',
-      start: moment(`${todayTime} 18:00`),
-      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
-      color: '#f56904',
-      rendering: 'background',
-    },
-    {
-      id: '21',
-      resourceId: 'g',
-      start: moment(`${todayTime} 12:00`),
-      end: moment(`${todayTime} 18:00`),
-      color: '#f9b900',
-      rendering: 'background',
-    },
-    {
-      id: '29',
-      resourceId: 'g1',
-      start: moment(`${todayTime} 18:00`),
-      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
-      color: '#f56904',
-      rendering: 'background',
-    },
-    {
-      id: '15',
-      resourceId: 'g1',
-      start: moment(`${todayTime} 07:00`),
-      end: moment(`${todayTime} 12:00`),
-      color: '#0693e3',
-      rendering: 'background',
-    },
-    {
-      id: '22',
-      resourceId: 'g1',
-      start: moment(`${todayTime} 12:00`),
-      end: moment(`${todayTime} 18:00`),
-      color: '#f9b900',
-      rendering: 'background',
-    },
-    {
-      id: '16',
-      resourceId: 'g2',
-      start: moment(`${todayTime} 07:00`),
-      end: moment(`${todayTime} 12:00`),
-      color: '#0693e3',
-      rendering: 'background',
-    },
-    {
-      id: '23',
-      resourceId: 'g2',
-      start: moment(`${todayTime} 12:00`),
-      end: moment(`${todayTime} 18:00`),
-      color: '#f9b900',
-      rendering: 'background',
-    },
-    {
-      id: '30',
-      resourceId: 'g2',
-      start: moment(`${todayTime} 18:00`),
-      end: moment(`${todayTime} 18:00`).add(8, 'hour'),
-      color: '#f56904',
-      rendering: 'background',
-    },
-  ];
-  return users;
-}
 
-function fieldData() {
-  const fields = [
-    {
-      id: 'a',
-      field: 'A',
-    },
-    {
-      id: 'b',
-      field: 'B',
-    },
-    {
-      id: 'c',
-      field: 'C',
-    },
-    {
-      id: 'd',
-      field: 'D',
-    },
-    {
-      id: 'g',
-      field: 'G',
-      children: [
-        {
-          id: 'g1',
-          field: 'Left G',
-        }, {
-          id: 'g2',
-          field: 'Right G',
-        },
-      ],
-    },
-  ];
-  return fields;
-}
-
-function userData() {
-  const users = [
-    {
-      id: 1,
-      firstname: 'Archer',
-      lastname: 'Traher',
-      email: 'atraher0@google.it',
-      nickname: 'Yellow',
-      username: 'atraher0',
-      password: '0K7d35r',
-      tel: '941-715-4509',
-      role: 'Owner',
-    },
-    {
-      id: 2,
-      firstname: 'Sherilyn',
-      lastname: 'Wooding',
-      email: 'swooding1@live.com',
-      nickname: 'Khaki',
-      username: 'swooding1',
-      password: 'W6wSVjGDVV',
-      tel: '589-802-3451',
-      role: 'Owner',
-    },
-    {
-      id: 3,
-      firstname: 'Erminie',
-      lastname: 'Georgiades',
-      email: 'egeorgiades2@diigo.com',
-      nickname: 'Blue',
-      username: 'egeorgiades2',
-      password: 'GdKAPoubYOIV',
-      tel: '177-268-9690',
-      role: 'Owner',
-    },
-    {
-      id: 4,
-      firstname: 'Dominik',
-      lastname: 'Switsur',
-      email: 'dswitsur3@wired.com',
-      nickname: 'Pink',
-      username: 'dswitsur3',
-      password: 'If6DgzXJPxg',
-      tel: '625-877-1952',
-      role: 'Admin',
-    },
-    {
-      id: 5,
-      firstname: 'Sharleen',
-      lastname: 'Bostick',
-      email: 'sbostick4@github.io',
-      nickname: 'Fuscia',
-      username: 'sbostick4',
-      password: 'UaXVPi',
-      tel: '892-646-7110',
-      role: 'Admin',
-    },
-  ];
-  return users;
-}
 
 const mapStateToProps = state => (
   {
     notes: state.booking_noteSaga.notes,
+    fieldPriceList : state.bookingSaga.fieldPriceList,
+    reservationList : state.bookingSaga.reservationList,
+    stadiumDoc : state.bookingSaga.stadiumDoc,
+    fieldsBooking: state.bookingSaga.fieldsBooking,
+    fieldDetail:state.bookingSaga.fieldDetail,
+    fieldsPrice:state.bookingSaga.fieldsPrice,
+    customerType: state.customer_typeSaga.customerType,
+    checkPriceData:state.bookingSaga.checkPriceData,
+    reservationAddData:state.bookingSaga.reservationAddData,
+    reservationList:state.bookingSaga.reservationList,
+    user:state.auth.user,
   }
 );
 
-export default connect(mapStateToProps, { setNote, setNoteDate })(BookingTable);
+export default connect(mapStateToProps, { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType,deleteBooking,editBooking,exportCsv })(BookingTable);

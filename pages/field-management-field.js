@@ -49,7 +49,7 @@ class FieldManagementField extends Component {
                   <tr key={user.id}>
                     <td className="hide1">{user.name}</td>
                     <td>{user.type === "0" ? "ฟุตบอล":"แบตมินตัน"}</td>
-                    <td>{user.is_dividable === "0" ? "ได้":"ไม่ได้"}</td>
+                    <td>{user.is_dividable === "1" ? "ได้":user.is_dividable === "2"?"ได้":"ไม่ได้"}</td>
                     <td className="hide2">{user.description}</td>
                     <td>
                       <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
