@@ -124,6 +124,7 @@ class BookingCalendar extends Component {
               date:moment(calEvent.start).format('YYYY-MM-DD'),
          }
         )
+
         $(`#edit-booking-modal-${  calEvent.id}`).modal('show');
       },
       eventOverlap: true,
@@ -153,6 +154,7 @@ class BookingCalendar extends Component {
   render() {
     const bookings = this.props.booking;
     console.log('render! props', this.props);
+    console.log('date =>>>>>>>>>>>',moment(this.props.gotoDate).format("YYYY-MM-DD"))
     return (
       <div>
         <div id="calendar" />
@@ -172,6 +174,7 @@ class BookingCalendar extends Component {
             selected={this.state.selected}
             checkPriceData={this.props.checkPriceData}
             checkPrice={this.props.checkPrice}
+            user={this.props.user}
             // fields={this.props.field}
 
             // day={this.state.day}
@@ -189,6 +192,7 @@ class BookingCalendar extends Component {
                 title="ข้อมูลการจอง"
                 type={`edit-booking-modal-${booking.id}`}
                 booking={booking}
+                date={moment(this.props.gotoDate).format("YYYY-MM-DD")}
                 customerType={this.props.customerType}
                 deleteBooking={this.props.deleteBooking}
                 editBooking={this.props.editBooking}

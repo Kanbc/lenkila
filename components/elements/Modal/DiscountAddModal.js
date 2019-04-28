@@ -42,24 +42,26 @@ class DiscountAddModal extends Component {
     $("#" + this.props.type).modal('hide');
   }
 
-  componentDidMount() {
-    this.props.dispatch(setThisBookingDiscount(this.discounts));
-  }
-
+ 
   // [GET] discounts of this day
-  discounts = discounts();
 
   render() {
-    const { discounts } = this.props;
-    console.log('render!', discounts);
-    console.log('render!', this.state.isAdding);
+    const { rebate_other } = this.props;
+    console.log('rebate_other',rebate_other)
+
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="60">
         <Body>
-          {(!discounts || discounts.length == 0 && !this.state.isAdding) && <p className="nonote">กดปุ่ม เพิ่ม เพื่อเพิ่มส่วนลด</p>}
-          {discounts && discounts.map(discount => {
+          {(!rebate_other || rebate_other.length == 0 && !this.state.isAdding) && <p className="nonote">กดปุ่ม เพิ่ม เพื่อเพิ่มส่วนลด</p>}
+          {rebate_other && rebate_other.map(value => {
             return (
-              <DiscountForm key={discount.id} discount={discount} />
+              <DiscountForm 
+              key={value.id} item={value} id={value.id} 
+              setStateDiscount={this.props.setStateDiscount}
+              rebate_other={rebate_other}
+              deleteStateDiscount={this.props.deleteStateDiscount}
+              editStateDiscount={this.props.editStateDiscount}
+              />
             );
           })}
           {this.state.isAdding &&
@@ -81,13 +83,13 @@ class DiscountAddModal extends Component {
                   <Button width="80px" bstrap="btn-success" onClick={() => {
                     // validation
                     // add note api
-                    this.props.dispatch(addThisBookingDiscount({
-                      id: moment().format('dd/MM/YY_hh:mm:ss'),
+                    this.props.setStateDiscount({
+                      id: Math.floor(Math.random() * Math.floor(1000)),
                       detail: this.state.detail,
                       price: this.state.price,
-                    }));
+                    })
+                    this.cancelAddDiscount()
 
-                    this.cancelAddDiscount();
                   }}>บันทึก</Button>
                 </div>
               </div>
@@ -159,26 +161,6 @@ class DiscountAddModal extends Component {
   }
 }
 
-function discounts() {
-  const discounts = [
-    {
-      id: 1,
-      detail: 'คูปอง',
-      price: 120,
-    },
-    {
-      id: 2,
-      detail: 'ส่วนลดวันเสาร์',
-      price: 200,
-    },
-  ];
-  return discounts;
-}
 
-function mapStateToProps(state) {
-  return {
-    discounts: state.discounts,
-  }
-}
 
-export default connect(mapStateToProps)(DiscountAddModal);
+export default (DiscountAddModal);

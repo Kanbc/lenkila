@@ -70,7 +70,7 @@ export function* setNoteIdSaga(){
 export function* setNoteDateSaga({date}){
   yield delay(1000)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-  console.log('date',date)
+  
     try {
       const response = yield axios.get(apiUrl, {
           params: {

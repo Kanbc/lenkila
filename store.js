@@ -105,6 +105,7 @@ export const actionTypes = {
   CHECK_PRICE:'CHECK_PRICE',
   DELETE_BOOKING:'DELETE_BOOKING',
   EDIT_BOOKING:'EDIT_BOOKING',
+  EXPORT_CSV:'EXPORT_CSV',
 }
 
 // 2. Action Creators
@@ -545,6 +546,13 @@ export const deleteBooking = (id,date) => {
     type: actionTypes.DELETE_BOOKING,
     id,
     date,
+  }
+}
+
+export const exportCsv = data => {
+  return {
+    type: actionTypes.EXPORT_CSV,
+    data,
   }
 }
 

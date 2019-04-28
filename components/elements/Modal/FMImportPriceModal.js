@@ -4,7 +4,7 @@ import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal } from '../..';
 
-const FMImportPriceModal = ({ title, type,fieldOptions,importPrice,setData,fieldId}) => (
+const FMImportPriceModal = ({ title, type,fieldOptions,importPrice,setDataPrice,fieldId}) => (
   <DefaultModal title={title} type={type} percentWidth="36" >
     <Body>
       <div className="row">
@@ -12,7 +12,7 @@ const FMImportPriceModal = ({ title, type,fieldOptions,importPrice,setData,field
           <p>เลือกสนาม</p>
         </div>
         <div className="col-sm-9">
-          <select className="form-control" id="role" onChange={e=>setData({fieldIdImport:e.target.value})}>
+          <select className="form-control" id="role" onChange={e=>setDataPrice({fieldIdImport:e.target.value})}>
           {fieldOptions.map(item=>
           <option value={item.id}>{item.name}</option>)
           }

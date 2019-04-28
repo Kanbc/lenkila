@@ -13,6 +13,10 @@ class BookingEditModal extends Component {
   }
 
   render() {
+    const summary = this.props.checkPriceData.reduce(function(prev, cur) {
+      return prev + parseInt(cur.price);
+    }, 0);
+    console.log('thispropsbooking',this.props.booking)
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
         <Body>
@@ -125,18 +129,13 @@ class BookingEditModal extends Component {
               <p className="bold-text">ค่าสนามรวม</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+              <p>{ summary }</p>
             </div>
             <div className="col-sm-1">
               <p className="bold-text">ค่ามัดจำ</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
-            </div>
-            <div className="col-sm-2">
-              <Button width="120px" bstrap="btn-success" onClick={() => this.props.editBooking({...this.state})}>
-                บันทีก
-              </Button>
+             <input type="text" className="form-control" id="firstname" value={this.state.deposit === ''? 0 : parseInt(this.state.deposit)} onChange={e => this.setState({ deposit: e.target.value })} />
             </div>
             {/* <div className="col-sm-1">
               <p>ค่าสินค้า</p>
@@ -146,21 +145,21 @@ class BookingEditModal extends Component {
             </div> */}
           </div>
           <div className="row">
-            <div className="col-sm-1">
+            {/* <div className="col-sm-1">
               <p className="bold-text">ส่วนลดแอพ</p>
             </div>
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
-            </div>
+            </div> */}
             <div className="col-sm-1">
               <p className="bold-text">ส่วนลดอื่นๆ</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" />
+              <p>-</p>
             </div>
             <div className="col-sm-6">
               <div className="space-r">
-                <ButtonModal color={Constant.Blue} width="120px" modalName="#discount">
+                <ButtonModal color={Constant.Blue} width="120px" modalName="#discount" >
                   ส่วนลด
                   <DiscountAddModal title="ส่วนลด" type="discount" fields={this.fields} />
                 </ButtonModal>
@@ -169,12 +168,17 @@ class BookingEditModal extends Component {
           </div>
           <div className="row">
             <div className="col-sm-3">
-              <p>สร้างโดย เอ</p>
+              <p>สร้างโดย {this.state.create_by}</p>
             </div>
             <div className="col-sm-3">
-              <p>เก็บเงิน เอ</p>
+              <p>เก็บเงิน {this.state.cashier_by}</p>
             </div>
             <div className="col-sm-6 left-side">
+              <div className="space-l">
+                <Button width="120px" bstrap="btn-success" onClick={() => this.props.editBooking({...this.state})}>
+                  บันทีก
+                </Button>
+              </div>
               <div className="space-l">
                 <CancelModal width="120px" bstrap="btn-danger" onClick={()=>this.props.deleteBooking(this.props.booking.id,this.props.date)}>
                   ยกเลิกการจอง

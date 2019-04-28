@@ -3,7 +3,7 @@ import Switch from 'react-switch';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { setNote, setNoteDate, getListBooking, addBooking,checkPrice,getCustomerType,deleteBooking,editBooking } from '../store';
+import { setNote, setNoteDate, getListBooking, addBooking,checkPrice,getCustomerType,deleteBooking,editBooking,exportCsv } from '../store';
 import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, ExportBookingModal } from '../components';
 
 class BookingTable extends Component {
@@ -146,7 +146,7 @@ class BookingTable extends Component {
               <div className="lk-box float-right">
                 <ButtonModal color={Constant.Blue} width="100px" modalName="#export-booking">
                   Export
-                  <ExportBookingModal title="Export Booking" type="export-booking" fields={this.fields} />
+                  <ExportBookingModal title="Export Booking" type="export-booking" exportCsv={this.props.exportCsv} />
                 </ButtonModal>
               </div>
             </div>
@@ -164,6 +164,7 @@ class BookingTable extends Component {
             deleteBooking={this.props.deleteBooking}
             reservationList={this.props.reservationList}
             editBooking={this.props.editBooking}
+            user={this.props.user}
           />
         </div>
         <style jsx>{`
@@ -217,7 +218,8 @@ const mapStateToProps = state => (
     checkPriceData:state.bookingSaga.checkPriceData,
     reservationAddData:state.bookingSaga.reservationAddData,
     reservationList:state.bookingSaga.reservationList,
+    user:state.auth.user,
   }
 );
 
-export default connect(mapStateToProps, { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType,deleteBooking,editBooking })(BookingTable);
+export default connect(mapStateToProps, { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType,deleteBooking,editBooking,exportCsv })(BookingTable);

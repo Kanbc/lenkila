@@ -56,8 +56,8 @@ const newReservation = (date) => (result, item) => {
       title: item.customer_name,
       start: moment(`${date} ${item.start_time}`),
       end: moment(`${date} ${item.end_time}`),
-      color: '#EB144C',
-      textColor: 'white',
+      color: item.color,
+      textColor: 'black',
     })
   } 
   return result
@@ -126,7 +126,7 @@ export function* addBookingSaga({data}){
 }
 
 export function* priceCheckingBookingSaga({data}){
-  console.log('check add',data)
+  console.log('check price',data)
   try {
     const response = yield axios.post(apiUrl, {
         
@@ -136,7 +136,7 @@ export function* priceCheckingBookingSaga({data}){
           ...data,
         },
       )
-    console.log('response add booking ',response) 
+    console.log('response price booking ',response) 
     yield put(setDataBooking({checkPriceData:response.data.response_data})) 
 
 } catch (err) {
@@ -168,7 +168,7 @@ export function* editBookingSaga({data}){
 
 
 export function* deleteBookingSaga({id,date}){
-  console.log('deleteBookingSaga ',id)
+  console.log('deleteBookingSaga ',id,date)
   try {
     const response = yield axios.post(apiUrl, {
 
@@ -185,6 +185,25 @@ export function* deleteBookingSaga({id,date}){
 }
 
 
+export function* exportCsvSaga({data}){
+  console.log('exportCsv ',data)
+  try {
+    const response = yield axios.get(apiUrl, {
+      params: {
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'reservation_exportcsv',
+          ...data,
+        },
+    }
+    )
+    console.log('response export csv',response)
+} catch (err) {
+    console.log('error',err)
+}
+}
+
+
 
 export function* bookingWatcher() {
     yield all([
@@ -193,6 +212,7 @@ export function* bookingWatcher() {
       takeLatest(actionTypes.CHECK_PRICE, priceCheckingBookingSaga),
       takeLatest(actionTypes.DELETE_BOOKING, deleteBookingSaga),
       takeLatest(actionTypes.EDIT_BOOKING, editBookingSaga),
+      takeLatest(actionTypes.EXPORT_CSV, exportCsvSaga),
     ])
 }
 
