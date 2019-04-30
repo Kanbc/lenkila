@@ -197,6 +197,7 @@ export function* exportCsvSaga({data}){
         },
     }
     )
+    yield put(setDataBooking({csv:response.data})) 
     console.log('response export csv',response)
 } catch (err) {
     console.log('error',err)
@@ -225,6 +226,7 @@ const initial = {
   fieldsPrice:[],
   reservationAddData:[],
   checkPriceData:[],
+  csv:'',
 }
 
 export default createReducer(initial, state => ({
