@@ -127,8 +127,8 @@ class BookingAddModal extends Component {
                         console.log('fieldBook',fieldBook)
                         return (
                           <tr key={fieldBook.time}>
-                            <th scope="row">{fieldBook.id}</th>
-                            <td>{fieldBook.time}</td>
+                            <th scope="row">{fieldBook.field_name}</th>
+                            <td>{`${fieldBook.start_time} - ${fieldBook.end_time}`}</td>
                             { 
                               fieldBook.price ? 
                               <td>{fieldBook.price}</td> : 

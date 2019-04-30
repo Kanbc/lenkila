@@ -67,7 +67,6 @@ const newReservation = (date) => (result, item) => {
 
 
 export function* getBookingSaga({date}) {
-  console.log('date booking getlist',date)
   yield delay(1000)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
   try {
@@ -92,7 +91,6 @@ export function* getBookingSaga({date}) {
     const fieldsPrice = response.data.response_data.field_price_list.reduce(newPriceFields(date), [])
     const reservationAddData = response.data.response_data.reservation_list.reduce(newReservation(date),[])
     
-    console.log('fieldsBooking',fieldsBooking)
     yield put(setDataBooking({fieldPriceList:response.data.response_data.field_price_list}))
     yield put(setDataBooking({reservationList:response.data.response_data.reservation_list}))
     yield put(setDataBooking({stadiumDoc:response.data.response_data.stadium_doc}))
@@ -101,13 +99,12 @@ export function* getBookingSaga({date}) {
     yield put(setDataBooking({fieldsPrice:fieldsPrice}))
     yield put(setDataBooking({reservationAddData:reservationAddData}))
   } catch (err) {
-      console.log('error',err)
   }
 }
 
 export function* addBookingSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-  console.log('data add',data)
+  console.log('data add Booking',data)
   try {
     const response = yield axios.post(apiUrl, {
         
@@ -126,7 +123,7 @@ export function* addBookingSaga({data}){
 }
 
 export function* priceCheckingBookingSaga({data}){
-  console.log('check price',data)
+  console.log('check price booking',data)
   try {
     const response = yield axios.post(apiUrl, {
         
@@ -136,7 +133,7 @@ export function* priceCheckingBookingSaga({data}){
           ...data,
         },
       )
-    console.log('response price booking ',response) 
+    console.log('response check price booking ',response) 
     yield put(setDataBooking({checkPriceData:response.data.response_data})) 
 
 } catch (err) {
@@ -147,7 +144,7 @@ export function* priceCheckingBookingSaga({data}){
 
 export function* editBookingSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-  console.log('data add',data)
+  console.log('data edit booking',data)
   try {
     const response = yield axios.post(apiUrl, {
         
@@ -159,7 +156,7 @@ export function* editBookingSaga({data}){
         },
       )
     yield call(getBookingSaga,{date:data.reservation_date})
-    console.log('response add booking ',response)  
+    console.log('response edit booking ',response)  
   yield call(getBookingSaga,{date:data.reservation_date})
 } catch (err) {
     console.log('error',err)
@@ -186,6 +183,8 @@ export function* deleteBookingSaga({id,date}){
 
 
 export function* exportCsvSaga({data}){
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+
   console.log('exportCsv ',data)
   try {
     const response = yield axios.get(apiUrl, {
@@ -194,9 +193,11 @@ export function* exportCsvSaga({data}){
           code:'piluj',
           action:'reservation_exportcsv',
           ...data,
+          stadium_id:stadiumId,
         },
     }
     )
+    yield put(setDataBooking({csv:response.data})) 
     console.log('response export csv',response)
 } catch (err) {
     console.log('error',err)
@@ -225,6 +226,7 @@ const initial = {
   fieldsPrice:[],
   reservationAddData:[],
   checkPriceData:[],
+  csv:'',
 }
 
 export default createReducer(initial, state => ({

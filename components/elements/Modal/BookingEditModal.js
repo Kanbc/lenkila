@@ -102,13 +102,13 @@ class BookingEditModal extends Component {
                       this.props.checkPriceData && this.props.checkPriceData.map(fieldBook => {
                         return (
                           <tr key={fieldBook.time}>
-                            <th scope="row">{fieldBook.id}</th>
-                            <td>{fieldBook.time}</td>
+                            <th scope="row">{fieldBook.field_name}</th>
+                            <td>{`${fieldBook.start_time} - ${fieldBook.end_time}`}</td>
                             { 
                               fieldBook.price ? 
                               <td>{fieldBook.price}</td> : 
                               <td>
-                                <input type="text" className="form-control" />
+                                <input type="text" className="form-control" value={this.state.pay_stadium} onChange={e => this.setState({ pay_stadium:e.target.value })}/>
                               </td>
                           }
                           </tr>
