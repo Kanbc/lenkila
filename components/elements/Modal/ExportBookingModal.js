@@ -5,10 +5,23 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal, Button } from '../..';
-import { CSVLink } from "react-csv";
+// import { CSVLink } from "react-csv";
 
 class ExportBookingModal extends Component {
- 
+  state = {
+    startDate: moment().subtract(1, 'months'),
+    endDate: moment(),
+  }
+
+  exportToCSV(start, end) {
+    // ยิง API
+    // ทำไรก็ทำในนี้
+    this.setState({
+      startDate: start,
+      endDate: end,
+    });
+  }
+
   render() {
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="45">
@@ -23,16 +36,8 @@ class ExportBookingModal extends Component {
                 showYearDropdown
                 dropdownMode="select"
                 disabledKeyboardNavigation
-                selected={this.props.startTimeExport}
-                onChange={startTime => {
-                  this.props.setStateStartExport({ startTime })
-                  this.props.exportCsv({
-                    start_date:moment(startTime).format('YYYY-MM-DD'),
-                    end_date:moment(this.props.endTimeExport).format('YYYY-MM-DD')
-                  })
-                  }
-                }
-                
+                selected={this.state.startDate}
+                onChange={startDate => this.exportToCSV(startDate, this.state.endDate)}
                 className="form-control"
               />
             </div>
@@ -45,26 +50,19 @@ class ExportBookingModal extends Component {
                 showYearDropdown
                 dropdownMode="select"
                 disabledKeyboardNavigation
-                selected={this.props.endTimeExport}
-                onChange={endTime => {
-                  this.props.setStateEndExport({ endTime })
-                  this.props.exportCsv({
-                    start_date:moment(this.props.startTimeExport).format('YYYY-MM-DD'),
-                    end_date:moment(endTime).format('YYYY-MM-DD')
-                  })
-                  }
-                }
+                selected={this.state.endDate}
+                onChange={endDate => this.exportToCSV(this.state.startDate, endDate)}
                 className="form-control"
               />
             </div>
           </div>
         </Body>
         <Footer>
-        <CSVLink data={this.props.csv}   filename={"lenkila.csv"}>
+          {/* <CSVLink data={this.props.csv}   filename={"lenkila.csv"}> */}
           <Button width="100px" bstrap="btn-success">
             Export
           </Button>
-        </CSVLink>
+          {/* </CSVLink> */}
           <CancelModal width="100px" bstrap="btn-danger">
             Cancel
           </CancelModal>

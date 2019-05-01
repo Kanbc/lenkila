@@ -162,13 +162,16 @@ class BookingTable extends Component {
                   }
                 )}>
                   Export
-                  <ExportBookingModal title="Export Booking" type="export-booking" 
-                  startTimeExport={this.state.startTimeExport}
-                  endTimeExport={this.state.endTimeExport}
-                  exportCsv={this.props.exportCsv} 
-                  setStateStartExport={this.setStateStartExport}
-                  setStateEndExport={this.setStateEndExport}
-                  csv={this.props.csv} />
+                  <ExportBookingModal
+                    title="Export Booking"
+                    type="export-booking"
+                    startTimeExport={this.state.startTimeExport}
+                    endTimeExport={this.state.endTimeExport}
+                    exportCsv={this.props.exportCsv}
+                    setStateStartExport={this.setStateStartExport}
+                    setStateEndExport={this.setStateEndExport}
+                    csv={this.props.csv}
+                  />
                 </ButtonModal>
               </div>
             </div>

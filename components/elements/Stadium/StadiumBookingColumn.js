@@ -1,5 +1,5 @@
 import React from 'react';
-import { StadiumBookingColumnItem, BookingEditModal, Constant } from '../../../components';
+import { StadiumBookingColumnItem, BookingEditModal2, Constant } from '../../../components';
 
 const StadiumBookingColumn = ({ title, bookings }) => {
 
@@ -21,7 +21,7 @@ const StadiumBookingColumn = ({ title, bookings }) => {
       <div className="card-footer text-muted">
         {bookings && bookings.map(booking => {
           return (
-            <BookingEditModal
+            <BookingEditModal2
               key={booking.id}
               title="ข้อมูลการจอง"
               type={`edit-booking-modal-${booking.id}`}

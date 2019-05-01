@@ -4,7 +4,7 @@ import moment from 'moment';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
-import { CancelModal, Button } from '../..';
+import { CancelModal } from '../..';
 
 class CustAddModal extends Component {
   state = {
