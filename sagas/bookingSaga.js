@@ -37,7 +37,7 @@ const newPriceFields = (date) => (result, item) => {
 
   if (item){
     result.push({
-      id:item.id,
+      id:item.id+'_field',
       resourceId: item.field_id,
       start: moment(`${date} ${item.start_time}`),
       end: moment(`${date} ${item.end_time}`),
@@ -62,6 +62,32 @@ const newReservation = (date) => (result, item) => {
   } 
   return result
 }
+
+const todayBooking = (reservation) => (result,item) => {
+
+  const dataToday = reservation.reduce((newData,value)=>{
+    if(value.resourceId === item.id){
+      newData.push(value)
+    }
+    if(item.children){
+      if(value.resourceId === item.children[0].id || value.resourceId === item.children[1].id ){
+        newData.push(value)
+      }
+    }
+    return newData
+  },[])
+
+ if(item){
+   result.push({
+    id: item.id,
+    field: item.field,
+    side: 'Left',
+    bookings: dataToday,
+   })
+ }
+ return result
+}
+
 
 
 
@@ -88,8 +114,10 @@ export function* getBookingSaga({date}) {
       minTime: '05:00:00',
       maxTime: '29:00:00',
     };
+    
     const fieldsPrice = response.data.response_data.field_price_list.reduce(newPriceFields(date), [])
     const reservationAddData = response.data.response_data.reservation_list.reduce(newReservation(date),[])
+    const todayBookingList = fieldsBooking.reduce(todayBooking(reservationAddData),[])
     
     yield put(setDataBooking({fieldPriceList:response.data.response_data.field_price_list}))
     yield put(setDataBooking({reservationList:response.data.response_data.reservation_list}))
@@ -98,6 +126,7 @@ export function* getBookingSaga({date}) {
     yield put(setDataBooking({fieldDetail:fieldDetail}))
     yield put(setDataBooking({fieldsPrice:fieldsPrice}))
     yield put(setDataBooking({reservationAddData:reservationAddData}))
+    yield put(setDataBooking({todayBookingList:todayBookingList}))
   } catch (err) {
   }
 }
@@ -227,6 +256,7 @@ const initial = {
   reservationAddData:[],
   checkPriceData:[],
   csv:'',
+  todayBookingList:[],
 }
 
 export default createReducer(initial, state => ({

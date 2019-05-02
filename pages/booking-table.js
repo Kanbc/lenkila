@@ -13,7 +13,7 @@ class BookingTable extends Component {
       canDragBooking: false,
       gotoDate: moment(),
       customerTypeKey:'นักเรียน',
-      startTimeExport: moment("1","DD"),
+      startTimeExport: moment().subtract(1, 'months'),
       endTimeExport: moment(),
     };
 
@@ -21,17 +21,10 @@ class BookingTable extends Component {
     this.today = this.today.bind(this);
     this.nextDay = this.nextDay.bind(this);
     this.previousDay = this.previousDay.bind(this);
-    this.setStateStartExport = this.setStateStartExport.bind(this);
-    this.setStateEndExport = this.setStateEndExport.bind(this);
+ 
  
   }
-  setStateStartExport(startTime){
-    this.setState({ startTimeExport : startTime })
-  }
 
-  setStateEndExport(endTime){
-    this.setState({ endTimeExport : endTime })
-  }
 
   // eslint-disable-next-line react/sort-comp
   canBooking() {
@@ -80,7 +73,6 @@ class BookingTable extends Component {
     this.props.getCustomerType()
   }
   render() {
-    console.log('csv',this.props.csv)
     return (
       <Layout title="การจอง">
         <div className="container">
@@ -165,11 +157,9 @@ class BookingTable extends Component {
                   <ExportBookingModal
                     title="Export Booking"
                     type="export-booking"
-                    startTimeExport={this.state.startTimeExport}
-                    endTimeExport={this.state.endTimeExport}
+              
                     exportCsv={this.props.exportCsv}
-                    setStateStartExport={this.setStateStartExport}
-                    setStateEndExport={this.setStateEndExport}
+            
                     csv={this.props.csv}
                   />
                 </ButtonModal>

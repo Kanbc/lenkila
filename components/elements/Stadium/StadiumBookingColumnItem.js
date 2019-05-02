@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import {moment} from 'moment'
 
 class StadiumBookingColumnItem extends Component {
-
   render() {
     return (
       <div className="item">
         <div className="d-flex align-items-center">
-          <div className="time">{this.props.booking.start} - {this.props.booking.end}</div>
+          <div className="time">{this.props.booking.start.format('HH:mm').toString()} - {this.props.booking.end.format('HH:mm').toString()}</div>
           <div className="name">
             <p>{this.props.booking.title}</p>
           </div>

@@ -5,7 +5,7 @@ import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal, Button } from '../..';
-// import { CSVLink } from "react-csv";
+import { CSVLink } from "react-csv";
 
 class ExportBookingModal extends Component {
   state = {
@@ -16,6 +16,13 @@ class ExportBookingModal extends Component {
   exportToCSV(start, end) {
     // ยิง API
     // ทำไรก็ทำในนี้
+    this.props.exportCsv(
+      {
+        start_date:moment(start).format('YYYY-MM-DD'),
+        end_date:moment(end).format('YYYY-MM-DD')
+      }
+    )
+
     this.setState({
       startDate: start,
       endDate: end,
@@ -58,11 +65,11 @@ class ExportBookingModal extends Component {
           </div>
         </Body>
         <Footer>
-          {/* <CSVLink data={this.props.csv}   filename={"lenkila.csv"}> */}
-          <Button width="100px" bstrap="btn-success">
-            Export
-          </Button>
-          {/* </CSVLink> */}
+          <CSVLink data={this.props.csv}   filename={"lenkila.csv"}>
+            <Button width="100px" bstrap="btn-success">
+              Export
+            </Button>
+          </CSVLink>
           <CancelModal width="100px" bstrap="btn-danger">
             Cancel
           </CancelModal>
