@@ -44,6 +44,7 @@ export function* loginSaga({data}) {
 
 export function* logOutSaga() {
     try {
+
        Router.push({ pathname: '/login' })
        window.sessionStorage.removeItem('LenkilaLogin');
        window.sessionStorage.removeItem('LenkilaLoginID');

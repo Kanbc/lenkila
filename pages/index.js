@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { Layout, DatePickerButton, StadiumBookingColumn, Loader, Constant } from '../components';
-import { setFieldData } from '../store';
+import { getListBooking,checkPrice,getCustomerType,deleteBooking,editBooking } from '../store';
 import Router from 'next/router';
 import Login from './login';
 
@@ -13,136 +13,20 @@ class Index extends Component {
     currentDate: moment(),
   }
 
+
+  componentDidMount(){
+    let checkLogin = window.sessionStorage.getItem('LenkilaLogin')
+    checkLogin && this.props.getListBooking(this.state.currentDate.format('YYYY-MM-DD'))
+    checkLogin && this.props.getCustomerType()
+
+  }
   // [GET] - Fields & Booking
   // console.log(fields);
 
   render() {
-    const fields = [
-      {
-        id: 'a',
-        field: 'A',
-        side: 'Left',
-        bookings: [
-          {
-            id: '1',
-            resourceId: 'a',
-            title: 'B: Waiting',
-            start: moment().add(4, 'hour').format('HH:mm').toString(),
-            end: moment().add(6, 'hour').format('HH:mm').toString(),
-            color: 'red',
-            textColor: 'white',
-          },
-          {
-            id: '2',
-            resourceId: 'a',
-            title: 'W: 2 กลุ่ม',
-            start: moment().add(7, 'hour').format('HH:mm').toString(),
-            end: moment().subtract(10, 'hour').format('HH:mm').toString(),
-            color: 'grey',
-            textColor: 'white',
-          },
-          {
-            id: '3',
-            resourceId: 'a',
-            title: 'B: Success',
-            start: moment().subtract(4, 'hour').format('HH:mm').toString(),
-            end: moment().subtract(2, 'hour').format('HH:mm').toString(),
-            color: 'red',
-            textColor: 'white',
-          },
-        ],
-      },
-      {
-        id: 'b',
-        field: 'B',
-        side: 'Left',
-        bookings: [
-          {
-            id: '4',
-            resourceId: 'b',
-            title: 'BF: 4 คน',
-            start: moment().format('HH:mm').toString(),
-            end: moment().subtract(4, 'hour').format('HH:mm').toString(),
-            color: 'red',
-            textColor: 'white',
-          },
-        ],
-      },
-      {
-        id: 'c',
-        field: 'C',
-        side: '-',
-        bookings: [],
-      },
-      {
-        id: 'd',
-        field: 'D',
-        side: '-',
-        bookings: [],
-      },
-      {
-        id: 'g',
-        field: 'G',
-        children: [
-          {
-            id: 'g1',
-            field: 'Left G',
-          }, {
-            id: 'g2',
-            field: 'Right G',
-          },
-        ],
-        bookings: [
-          {
-            id: '5',
-            resourceId: 'g',
-            title: 'คุณหลิ่ว',
-            start: moment().add(12, 'hour').format('HH:mm').toString(),
-            end: moment().add(16, 'hour').format('HH:mm').toString(),
-            color: 'green',
-            textColor: 'black',
-          },
-          {
-            id: '6',
-            resourceId: 'g1',
-            title: 'คุณหลิ่ว',
-            start: moment().add(10, 'hour').format('HH:mm').toString(),
-            end: moment().add(14, 'hour').format('HH:mm').toString(),
-            color: 'green',
-            textColor: 'black',
-          },
-          {
-            id: '7',
-            resourceId: 'g',
-            title: 'คุณนิด, คุณโหน่ง',
-            start: moment().add(2, 'hour').format('HH:mm').toString(),
-            end: moment().add(6, 'hour').format('HH:mm').toString(),
-            color: 'green',
-            textColor: 'black',
-          },
-          {
-            id: '8',
-            resourceId: 'g1',
-            title: 'คุณนิด',
-            start: moment().add(16, 'hour').format('HH:mm').toString(),
-            end: moment().add(19, 'hour').format('HH:mm').toString(),
-            color: 'red',
-            textColor: 'black',
-          },
-          {
-            id: '9',
-            resourceId: 'g2',
-            title: 'คุณโหน่ง',
-            start: moment().add(20, 'hour').format('HH:mm').toString(),
-            end: moment().add(24, 'hour').format('HH:mm').toString(),
-            color: 'green',
-            textColor: 'black',
-          },
-        ],
-      },
-    ];
-    console.log('render!', fields);
 
+    const { todayBookingList } = this.props
+    console.log('todayBookingList!', todayBookingList);
     return (
       <Layout title="รายการวันนี้">
         <div className="d-flex align-items-center header">
@@ -161,12 +45,22 @@ class Index extends Component {
         </div>
         <div className="stadiums-wrapper">
           <div className="row">
-            {fields && fields.map(field => (
+            {todayBookingList && todayBookingList.map(field => (
               <div key={field.id} className="col-12 col-sm-6 col-md-4">
-                <StadiumBookingColumn title={field.field} bookings={field.bookings} />
+                <StadiumBookingColumn 
+                title={field.field} 
+                bookings={field.bookings} 
+                date={moment(this.props.currentDate).format("YYYY-MM-DD")}
+                customerType={this.props.customerType}
+                deleteBooking={this.props.deleteBooking}
+                editBooking={this.props.editBooking}
+                checkPriceData={this.props.checkPriceData}
+                checkPrice={this.props.checkPrice}
+                reservationList={this.props.reservationList}
+                />
               </div>
             ))}
-            {!fields && <Loader />}
+            {/* {!todayBookingList && <Loader />} */}
           </div>
         </div>
         <style jsx>
@@ -198,9 +92,11 @@ class Index extends Component {
 
 function mapStateToProps(state) {
   return {
-    // fields: state.fields,
-    isLogin: state.auth.isLogin,
+    todayBookingList:state.bookingSaga.todayBookingList,
+    checkPriceData:state.bookingSaga.checkPriceData,
+    customerType: state.customer_typeSaga.customerType,
+    reservationList:state.bookingSaga.reservationList,
   };
 }
 
-export default connect(mapStateToProps)(Index);
+export default connect(mapStateToProps,{getListBooking,checkPrice,getCustomerType,deleteBooking,editBooking})(Index);

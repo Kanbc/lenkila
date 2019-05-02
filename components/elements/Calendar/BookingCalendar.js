@@ -153,8 +153,6 @@ class BookingCalendar extends Component {
 
   render() {
     const bookings = this.props.booking;
-    console.log('render! props', this.props);
-    console.log('date =>>>>>>>>>>>',moment(this.props.gotoDate).format("YYYY-MM-DD"))
     return (
       <div>
         <div id="calendar" />
