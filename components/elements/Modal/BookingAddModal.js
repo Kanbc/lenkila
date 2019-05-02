@@ -190,7 +190,8 @@ class BookingAddModal extends Component {
               <div className="space-r">
                 <ButtonModal color={Constant.Blue} width="120px" modalName="#discount">
                   ส่วนลด
-                  <DiscountAddModal title="ส่วนลด" type="discount" fields={this.fields} rebate_other={this.state.rebate_other}
+                  <DiscountAddModal title="ส่วนลด" type="discount" fields={this.fields} 
+                   rebate_other={this.state.rebate_other}
                    setStateDiscount={this.setStateDiscount}
                    deleteStateDiscount={this.deleteStateDiscount}
                    editStateDiscount={this.editStateDiscount}

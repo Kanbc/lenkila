@@ -8,13 +8,41 @@ class BookingEditModal extends Component {
     super(props);
     this.state = {
       ...this.props.booking,
+      rebate_other:JSON.parse(this.props.booking.rebate_other),
     };
-
+    this.setStateDiscount = this.setStateDiscount.bind(this);
+    this.deleteStateDiscount = this.deleteStateDiscount.bind(this);
+    this.editStateDiscount = this.editStateDiscount.bind(this);
+    this.cancelStateDiscount = this.cancelStateDiscount.bind(this);
   }
 
+  setStateDiscount = (item) => {
+    this.setState({rebate_other:[...this.state.rebate_other,item]})
+  }
+
+  deleteStateDiscount = (item) => {
+    this.setState({rebate_other:item})
+  }
+
+  editStateDiscount = (item) => {
+    console.log('item edit',item)
+    console.log('this.state.rebate_other',this.state.rebate_other)
+    const newItem = this.state.rebate_other.map(obj => [item].find(o => o.id === obj.id) || obj);
+    this.setState({rebate_other:newItem})
+  }
+
+  cancelStateDiscount = () =>{
+    this.setState({rebate_other:[]})
+  }
+
+
   render() {
-    console.log('booking edit',this.props.booking)
+   
     const summary = this.props.checkPriceData.reduce(function(prev, cur) {
+      return prev + parseInt(cur.price);
+    }, 0);
+
+    const discount = this.state.rebate_other.reduce(function(prev, cur) {
       return prev + parseInt(cur.price);
     }, 0);
     return (
@@ -63,7 +91,7 @@ class BookingEditModal extends Component {
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" value={this.state.player_value} onChange={e => this.setState({ player_value: e.target.value })}/>
             </div>
-            <div className="col-sm-9">
+            {/* <div className="col-sm-9">
               <div className="space-r">
                 <ButtonModal color={Constant.Blue} width="120px" modalName={`#user-list-${this.props.booking.id}`} >
                   แสดงผู้เล่น
@@ -74,7 +102,7 @@ class BookingEditModal extends Component {
                 </ButtonModal>
               </div>
               <div className="space-r">
-                {/* แสดงเฉพาะข้อมูลของลูกค้าที่เป็นคนจอง (หัวปาตี้) */}
+                แสดงเฉพาะข้อมูลของลูกค้าที่เป็นคนจอง (หัวปาตี้)
                 <ButtonModal color={Constant.Blue} width="120px" modalName={`#user-data-${this.props.booking.id}`} >
                   ดูข้อมูลลูกค้า
                   <CustBookingModal
@@ -83,7 +111,7 @@ class BookingEditModal extends Component {
                   />
                 </ButtonModal>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="row">
             <div className="col-sm-1">
@@ -164,13 +192,18 @@ class BookingEditModal extends Component {
               <p className="bold-text">ส่วนลดอื่นๆ</p>
             </div>
             <div className="col-sm-2">
-              <p>-</p>
+              <p>{ Number.isNaN(discount)?0:discount  }</p>
             </div>
             <div className="col-sm-6">
               <div className="space-r">
                 <ButtonModal color={Constant.Blue} width="120px" modalName={`#discount-${this.props.booking.id}`} >
                   ส่วนลด
-                  <DiscountAddModal title="ส่วนลด" type={`discount-${this.props.booking.id}`} fields={this.fields} />
+                  <DiscountAddModal title="ส่วนลด" type={`discount-${this.props.booking.id}`} fields={this.fields} 
+                     rebate_other={this.state.rebate_other}
+                     setStateDiscount={this.setStateDiscount}
+                     deleteStateDiscount={this.deleteStateDiscount}
+                     editStateDiscount={this.editStateDiscount} 
+                  />
                 </ButtonModal>
               </div>
             </div>

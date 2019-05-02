@@ -26,7 +26,6 @@ class Index extends Component {
   render() {
 
     const { todayBookingList } = this.props
-    console.log('todayBookingList!', todayBookingList);
     return (
       <Layout title="รายการวันนี้">
         <div className="d-flex align-items-center header">

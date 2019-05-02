@@ -2,7 +2,6 @@ import React from 'react';
 import { StadiumBookingColumnItem, BookingEditModal, Constant } from '../../../components';
 
 const StadiumBookingColumn = ({ title, bookings,reservationList,date,customerType,deleteBooking,editBooking,checkPriceData,checkPrice }) => {
-  console.log('bookings',bookings,'reservationList',reservationList)
   return (
     <div className="stadium-booking-column card text-center">
       <div className="card-header">

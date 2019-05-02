@@ -23,6 +23,7 @@ class DiscountForm extends Component {
     }
 
     render() {
+        console.log('form',this.state)
         let button1 = null;
         let button2 = null;
         if (this.state.isEdit === true) {
