@@ -124,7 +124,6 @@ class BookingAddModal extends Component {
                     {
                       this.props.checkPriceData && this.props.checkPriceData.map(fieldBook => {
                         let keyName = fieldBook.name
-                        console.log('fieldBook',fieldBook)
                         return (
                           <tr key={fieldBook.time}>
                             <th scope="row">{fieldBook.field_name}</th>

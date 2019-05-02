@@ -13,10 +13,10 @@ class BookingEditModal extends Component {
   }
 
   render() {
+    console.log('booking edit',this.props.booking)
     const summary = this.props.checkPriceData.reduce(function(prev, cur) {
       return prev + parseInt(cur.price);
     }, 0);
-    console.log('thispropsbooking',this.props.booking)
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
         <Body>
@@ -108,7 +108,7 @@ class BookingEditModal extends Component {
                               fieldBook.price ? 
                               <td>{fieldBook.price}</td> : 
                               <td>
-                                <input type="text" className="form-control" value={this.state.pay_stadium} onChange={e => this.setState({ pay_stadium:e.target.value })}/>
+                                <input type="text" className="form-control" value={Number.isNaN(parseInt(this.state.pay_stadium)) ? 0 : parseInt(this.state.pay_stadium)} onChange={e => this.setState({ pay_stadium:e.target.value })}/>
                               </td>
                           }
                           </tr>
@@ -129,7 +129,7 @@ class BookingEditModal extends Component {
               <p className="bold-text">ค่าสนามรวม</p>
             </div>
             <div className="col-sm-2">
-              <p>{ summary }</p>
+              <p>{ Number.isNaN(parseInt(this.state.pay_stadium))? parseInt(summary) : parseInt(summary)+parseInt(this.state.pay_stadium)}</p>
             </div>
             <div className="col-sm-1">
               <p className="bold-text">ค่ามัดจำ</p>

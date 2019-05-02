@@ -1,8 +1,8 @@
 import React from 'react';
-import { StadiumBookingColumnItem, BookingEditModal2, Constant } from '../../../components';
+import { StadiumBookingColumnItem, BookingEditModal, Constant } from '../../../components';
 
-const StadiumBookingColumn = ({ title, bookings }) => {
-
+const StadiumBookingColumn = ({ title, bookings,reservationList,date,customerType,deleteBooking,editBooking,checkPriceData,checkPrice }) => {
+  console.log('bookings',bookings,'reservationList',reservationList)
   return (
     <div className="stadium-booking-column card text-center">
       <div className="card-header">
@@ -11,7 +11,17 @@ const StadiumBookingColumn = ({ title, bookings }) => {
       <ul className="list-group list-group-flush">
         {bookings.length > 0 && bookings.map(booking => {
           return (
-            <li className={`list-group-item ${booking.color}`} key={booking.id} data-toggle="modal" data-target={`#edit-booking-modal-${booking.id}`}>
+            <li className={`list-group-item ${booking.color==="#ffffff"?'grey':booking.color==="#c82333"?"red":booking.color==='#28a745'&&'green'}`} 
+            key={booking.id} data-toggle="modal" 
+            data-target={`#edit-booking-modal-${booking.id}`}
+            onClick={()=>checkPrice({
+              start_time:moment(booking.start).format('HH:mm:ss'),
+              end_time:moment(booking.end).format('HH:mm:ss'),
+              field_id:booking.resourceId,
+              customer_type:reservationList.find(value=> value.id === booking.id).customer_type,
+              date:moment(date).format('YYYY-MM-DD'),
+            })}
+            >
               <StadiumBookingColumnItem booking={booking} />
             </li>
           );
@@ -21,13 +31,29 @@ const StadiumBookingColumn = ({ title, bookings }) => {
       <div className="card-footer text-muted">
         {bookings && bookings.map(booking => {
           return (
-            <BookingEditModal2
+            <BookingEditModal
               key={booking.id}
               title="ข้อมูลการจอง"
               type={`edit-booking-modal-${booking.id}`}
+              booking={
+                reservationList.reduce((newData,value)=>{
+                  if(value.id === booking.id){
+                    newData=value
+                  }
+                  return newData
+                },{})
+
+              }
               startTime={booking.start}
               endTime={booking.end}
               resourceId={booking.resourceId}
+              date={date}
+              customerType={customerType}
+              deleteBooking={deleteBooking}
+              editBooking={editBooking}
+              checkPriceData={checkPriceData}
+              checkPrice={checkPrice}
+
             />
           );
         })}
