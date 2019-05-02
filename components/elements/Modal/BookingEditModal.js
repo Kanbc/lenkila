@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
-import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '../..';
+import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal, CustBookingModal, CustListBookingModal } from '../..';
 
 class BookingEditModal extends Component {
   constructor(props) {
@@ -65,14 +65,23 @@ class BookingEditModal extends Component {
             </div>
             <div className="col-sm-9">
               <div className="space-r">
-                <Button width="120px" color={Constant.Blue}>
+                <ButtonModal color={Constant.Blue} width="120px" modalName={`#user-list-${this.props.booking.id}`} >
                   แสดงผู้เล่น
-                </Button>
+                  <CustListBookingModal
+                    title="ผู้เล่น"
+                    type={`user-list-${this.props.booking.id}`}
+                  />
+                </ButtonModal>
               </div>
               <div className="space-r">
-                <Button width="120px" color={Constant.Blue}>
+                {/* แสดงเฉพาะข้อมูลของลูกค้าที่เป็นคนจอง (หัวปาตี้) */}
+                <ButtonModal color={Constant.Blue} width="120px" modalName={`#user-data-${this.props.booking.id}`} >
                   ดูข้อมูลลูกค้า
-                </Button>
+                  <CustBookingModal
+                    title="ข้อมูลลูกค้า"
+                    type={`user-data-${this.props.booking.id}`}
+                  />
+                </ButtonModal>
               </div>
             </div>
           </div>
@@ -159,9 +168,9 @@ class BookingEditModal extends Component {
             </div>
             <div className="col-sm-6">
               <div className="space-r">
-                <ButtonModal color={Constant.Blue} width="120px" modalName="#discount" >
+                <ButtonModal color={Constant.Blue} width="120px" modalName={`#discount-${this.props.booking.id}`} >
                   ส่วนลด
-                  <DiscountAddModal title="ส่วนลด" type="discount" fields={this.fields} />
+                  <DiscountAddModal title="ส่วนลด" type={`discount-${this.props.booking.id}`} fields={this.fields} />
                 </ButtonModal>
               </div>
             </div>

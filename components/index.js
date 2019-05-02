@@ -21,6 +21,8 @@ import CustFilterModal from './elements/Modal/CustFilterModal';
 import CustAddModal from './elements/Modal/CustAddModal';
 import PaymentAddModal from './elements/Modal/PaymentAddModal';
 import CustEditModal from './elements/Modal/CustEditModal';
+import CustBookingModal from './elements/Modal/CustBookingModal';
+import CustListBookingModal from './elements/Modal/CustListBookingModal';
 import CustTypeAddModal from './elements/Modal/CustTypeAddModal';
 import CustTypeEditModal from './elements/Modal/CustTypeEditModal';
 import FMAddModal from './elements/Modal/FMAddModal';
@@ -72,6 +74,8 @@ export {
   CustAddModal,
   PaymentAddModal,
   CustEditModal,
+  CustBookingModal,
+  CustListBookingModal,
   CustTypeAddModal,
   CustTypeEditModal,
   FMAddModal,
