@@ -5,9 +5,10 @@ const Button = ({
   color,
   width,
   bstrap,
+  isDisable,
   onClick,
 }) => (
-  <button type="button" className={`btn ${bstrap}`} onClick={onClick} >
+  <button type="button" className={`btn ${bstrap}`} onClick={onClick} disabled={isDisable}>
     {children}
     <style jsx>{`
       button{

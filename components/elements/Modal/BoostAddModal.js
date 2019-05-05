@@ -76,9 +76,9 @@ class BoostAddModal extends Component {
               <p>จำนวนสนาม</p>
             </div>
             <div className="col-sm-2">
-              <Button color={Constant.Green}>
+              <CancelModal color={Constant.Green} >
                 เลือกสนามเพิ่ม/แก้ไข
-              </Button>
+              </CancelModal>
             </div>
             <div className={this.state.boostType === 'buffet' ? 'col-sm-1 d-none' : 'col-sm-1'}>
               <p>ค่า Com.</p>

@@ -3,7 +3,7 @@ import Switch from 'react-switch';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { setNote, setNoteDate, getListBooking, addBooking,checkPrice,getCustomerType,deleteBooking,editBooking,exportCsv } from '../store';
+import { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv } from '../store';
 import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, ExportBookingModal } from '../components';
 
 class BookingTable extends Component {
@@ -12,17 +12,17 @@ class BookingTable extends Component {
     this.state = {
       canDragBooking: false,
       gotoDate: moment(),
-      customerTypeKey:'นักเรียน',
+      customerTypeKey: 'นักเรียน',
       startTimeExport: moment().subtract(1, 'months'),
       endTimeExport: moment(),
+      addMore: false,
+      currentModal: '#add-drag-booking', // #add-drag-booking (add booking), #edit-booking-modal-${id} (edit booking ลอง booking พี่ id=75), #add-boost (add boost)
     };
 
     this.canBooking = this.canBooking.bind(this);
     this.today = this.today.bind(this);
     this.nextDay = this.nextDay.bind(this);
     this.previousDay = this.previousDay.bind(this);
- 
- 
   }
 
 
@@ -55,12 +55,10 @@ class BookingTable extends Component {
       gotoDate: moment(this.state.gotoDate).subtract(1, 'days'),
     });
     this.props.setNoteDate(this.state.gotoDate.subtract(1, 'days').format('YYYY-MM-DD'));
-    this.props.getListBooking(this.state.gotoDate.format('YYYY-MM-DD'))
+    this.props.getListBooking(this.state.gotoDate.format('YYYY-MM-DD'));
   }
 
   // [GET] - Bookings
-
-
 
 
   // [GET] - Open/Closed, Business Hours
@@ -68,9 +66,9 @@ class BookingTable extends Component {
 
   componentDidMount() {
     // this.props.setNote();
-    this.props.getListBooking(this.state.gotoDate.format('YYYY-MM-DD'))
+    this.props.getListBooking(this.state.gotoDate.format('YYYY-MM-DD'));
     this.props.setNoteDate(this.state.gotoDate.format('YYYY-MM-DD'));
-    this.props.getCustomerType()
+    this.props.getCustomerType();
   }
   render() {
     return (
@@ -80,7 +78,7 @@ class BookingTable extends Component {
           <div className="row">
             <div className="col-sm-12 above-everything">
               <div className="lk-box space-r align-middle">
-                <Button color={Constant.Blue} width="50px" onClick={this.previousDay}>
+                <Button color={Constant.Blue} width="50px" onClick={this.previousDay} isDisable={this.state.addMore}>
                   <i className="fa fa-chevron-left" aria-hidden="true" />
                 </Button>
               </div>
@@ -92,19 +90,20 @@ class BookingTable extends Component {
                   disabledKeyboardNavigation
                   className="form-control align-middle"
                   selected={this.state.gotoDate}
-                  onChange={gotoDate => {
-                    this.setState({ gotoDate })
+                  onChange={(gotoDate) => {
+                    this.setState({ gotoDate });
                     }
                   }
+                  disabled={this.state.addMore}
                 />
               </div>
               <div className="lk-box space-r align-middle">
-                <Button color={Constant.Blue} width="70px" onClick={this.today}>
+                <Button color={Constant.Blue} width="70px" onClick={this.today} isDisable={this.state.addMore}>
                   วันนี้
                 </Button>
               </div>
               <div className="lk-box space-r align-middle">
-                <Button color={Constant.Blue} width="50px" onClick={this.nextDay}>
+                <Button color={Constant.Blue} width="50px" onClick={this.nextDay} isDisable={this.state.addMore}>
                   <i className="fa fa-chevron-right" aria-hidden="true" />
                 </Button>
               </div>
@@ -113,7 +112,7 @@ class BookingTable extends Component {
           <div className="row">
             <div className="col-sm-12">
               <div className="lk-box space-r">
-                <ButtonModal color={Constant.Orange} width="100px" modalName="#add-note">
+                <ButtonModal color={Constant.Orange} width="100px" isDisable={this.state.addMore} modalName="#add-note">
                   Note
                   <NoteAddModal title="Note" type="add-note" fields={this.fields} gotoDate={this.state.gotoDate} />
                 </ButtonModal>
@@ -135,31 +134,36 @@ class BookingTable extends Component {
                     width={48}
                     className="react-switch form-check-input"
                     id="normal-switch"
+                    disabled={this.state.addMore}
                   />
                 </div>
               </div>
               <div className="lk-box">
                 <div className="lk-box space-r">
-                  <ButtonModal color={Constant.Red} width="100px" modalName="#add-boost">
+                  <ButtonModal color={Constant.Red} width="100px" isDisable={this.state.addMore} modalName="#add-boost">
                     Boost
                     <BoostAddModal title="Boost" type="add-boost" fields={this.fields} />
                   </ButtonModal>
                 </div>
               </div>
               <div className="lk-box float-right">
-                <ButtonModal color={Constant.Blue} width="100px" modalName="#export-booking" onClick={()=>this.props.exportCsv(
-                  {
-                    start_date:moment(this.state.startTimeExport).format('YYYY-MM-DD'),
-                    end_date:moment(this.state.endTimeExport).format('YYYY-MM-DD')
-                  }
-                )}>
+                <ButtonModal
+                  color={Constant.Blue}
+                  width="100px"
+                  isDisable={this.state.addMore}
+                  modalName="#export-booking"
+                  onClick={() => this.props.exportCsv({
+                    start_date: moment(this.state.startTimeExport).format('YYYY-MM-DD'),
+                    end_date: moment(this.state.endTimeExport).format('YYYY-MM-DD'),
+                  })}
+                >
                   Export
                   <ExportBookingModal
                     title="Export Booking"
                     type="export-booking"
-              
+
                     exportCsv={this.props.exportCsv}
-            
+
                     csv={this.props.csv}
                   />
                 </ButtonModal>
@@ -168,9 +172,9 @@ class BookingTable extends Component {
           </div>
           <BookingCalendar
             field={this.props.fieldsBooking}
-            booking={[...this.props.reservationAddData,...this.props.fieldsPrice]}
+            booking={[...this.props.reservationAddData, ...this.props.fieldsPrice]}
             detail={this.props.fieldDetail}
-            canbook={this.state.canDragBooking}
+            canbook={this.state.canDragBooking || this.state.addMore}
             gotoDate={this.state.gotoDate}
             addBooking={this.props.addBooking}
             customerType={this.props.customerType}
@@ -180,6 +184,8 @@ class BookingTable extends Component {
             reservationList={this.props.reservationList}
             editBooking={this.props.editBooking}
             user={this.props.user}
+            addMore={this.state.addMore}
+            currentModal={this.state.currentModal}
           />
         </div>
         <style jsx>{`
@@ -219,23 +225,24 @@ class BookingTable extends Component {
 }
 
 
-
 const mapStateToProps = state => (
   {
     notes: state.booking_noteSaga.notes,
-    fieldPriceList : state.bookingSaga.fieldPriceList,
-    reservationList : state.bookingSaga.reservationList,
-    stadiumDoc : state.bookingSaga.stadiumDoc,
+    fieldPriceList: state.bookingSaga.fieldPriceList,
+    reservationList: state.bookingSaga.reservationList,
+    stadiumDoc: state.bookingSaga.stadiumDoc,
     fieldsBooking: state.bookingSaga.fieldsBooking,
-    fieldDetail:state.bookingSaga.fieldDetail,
-    fieldsPrice:state.bookingSaga.fieldsPrice,
+    fieldDetail: state.bookingSaga.fieldDetail,
+    fieldsPrice: state.bookingSaga.fieldsPrice,
     customerType: state.customer_typeSaga.customerType,
-    checkPriceData:state.bookingSaga.checkPriceData,
-    reservationAddData:state.bookingSaga.reservationAddData,
-    reservationList:state.bookingSaga.reservationList,
-    csv:state.bookingSaga.csv,
-    user:state.auth.user,
+    checkPriceData: state.bookingSaga.checkPriceData,
+    reservationAddData: state.bookingSaga.reservationAddData,
+    reservationList: state.bookingSaga.reservationList,
+    csv: state.bookingSaga.csv,
+    user: state.auth.user,
   }
 );
 
-export default connect(mapStateToProps, { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType,deleteBooking,editBooking,exportCsv })(BookingTable);
+export default connect(mapStateToProps, {
+  setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,
+})(BookingTable);

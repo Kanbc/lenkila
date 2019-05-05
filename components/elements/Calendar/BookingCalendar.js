@@ -102,7 +102,8 @@ class BookingCalendar extends Component {
         const start = startDate.format();
         const end = endDate.format();
         that.setDataBooking(start, end, resource.id);
-        $('#add-drag-booking').modal('show');
+        // $('#add-drag-booking').modal('show');
+        $(that.props.currentModal).modal('show');
       },
       // droppable: true, // this allows things to be dropped onto the calendar
       // drop() {

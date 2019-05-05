@@ -5,11 +5,12 @@ const ButtonModal = ({
   color,
   width,
   modalName,
+  isDisable,
   bstrap,
   onClick,
 }) => (
   <div>
-    <button type="button" className={`btn ${bstrap}`} data-toggle="modal" data-target={modalName} onClick={onClick} >
+    <button type="button" className={`btn ${bstrap}`} data-toggle="modal" data-target={modalName} onClick={onClick} disabled={isDisable}>
       {children[0]}
     </button>
     {children[1]}

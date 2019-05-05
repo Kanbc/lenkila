@@ -104,9 +104,9 @@ class BookingAddModal extends Component {
               <p>จำนวนสนาม</p>
             </div>
             <div className="col-sm-2">
-              <Button width="120px" color={Constant.Green}>
+              <CancelModal width="120px" color={Constant.Green} >
                 จองเพิ่ม/แก้ไข
-              </Button>
+              </CancelModal>
             </div>
           </div>
           <div className="row">
