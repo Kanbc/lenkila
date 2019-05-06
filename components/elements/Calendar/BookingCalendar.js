@@ -99,6 +99,7 @@ class BookingCalendar extends Component {
       editable: false,
       selectable: that.props.canbook,
       select(startDate, endDate, jsEvent, view, resource) {
+        console.log('currentModal',that.props.currentModal)
         const start = startDate.format();
         const end = endDate.format();
         that.setDataBooking(start, end, resource.id);
@@ -174,6 +175,8 @@ class BookingCalendar extends Component {
             checkPriceData={this.props.checkPriceData}
             checkPrice={this.props.checkPrice}
             user={this.props.user}
+            setStateAddMore={this.props.setStateAddMore}
+            setStateCurrentModal={this.props.setStateCurrentModal}
             // fields={this.props.field}
 
             // day={this.state.day}
@@ -197,6 +200,8 @@ class BookingCalendar extends Component {
                 editBooking={this.props.editBooking}
                 checkPriceData={this.props.checkPriceData}
                 checkPrice={this.props.checkPrice}
+                setStateAddMore={this.props.setStateAddMore}
+                setStateCurrentModal={this.props.setStateCurrentModal}
               />
             </ButtonModal>
           ))}

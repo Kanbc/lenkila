@@ -76,7 +76,10 @@ class BoostAddModal extends Component {
               <p>จำนวนสนาม</p>
             </div>
             <div className="col-sm-2">
-              <CancelModal color={Constant.Green} >
+              <CancelModal color={Constant.Green} onClick={()=> {
+                  this.props.setStateAddMore(true)
+                  this.props.setStateCurrentModal('#add-boost')
+                }} >
                 เลือกสนามเพิ่ม/แก้ไข
               </CancelModal>
             </div>
@@ -121,12 +124,19 @@ class BoostAddModal extends Component {
             <div className="col-sm-3" />
             <div className="col-sm-6 left-side">
               <div className={this.state.boostType === 'buffet' ? 'space-l' : 'space-l d-none'}>
-                <CancelModal width="120px" bstrap="btn-danger" >
+                <CancelModal width="120px" bstrap="btn-danger" onClick={()=> {
+                  this.props.setStateAddMore(false)
+                  this.props.setStateCurrentModal('#add-drag-booking')
+                }}
+                >
                   ยกเลิก
                 </CancelModal>
               </div>
               <div className="space-l">
-                <Button width="120px" bstrap="btn-success">
+                <Button width="120px" bstrap="btn-success" onClick={()=> {
+                  this.props.setStateAddMore(false)
+                  this.props.setStateCurrentModal('#add-drag-booking')
+                }}>
                   บันทึก
                 </Button>
               </div>

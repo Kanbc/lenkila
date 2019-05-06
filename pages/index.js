@@ -33,10 +33,18 @@ class Index extends Component {
           <DatePicker
             customInput={<DatePickerButton />}
             selected={this.state.currentDate}
-            onChange={currentDate => this.setState({ currentDate })}
+            onChange={currentDate => {
+              this.setState({ currentDate })
+              this.props.getListBooking(currentDate.format('YYYY-MM-DD'))
+              }
+            }
           />
           <button
-            onClick={() => this.setState({ currentDate: moment() })}
+            onClick={() => {
+              this.setState({ currentDate: moment() })
+              this.props.getListBooking(moment().format('YYYY-MM-DD'))
+             }
+            }
             className="btn btn-outline-info pick-td-btn"
           >
             เลือกวันนี้

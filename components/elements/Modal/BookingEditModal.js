@@ -46,7 +46,7 @@ class BookingEditModal extends Component {
       return prev + parseInt(cur.price);
     }, 0);
     return (
-      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
+      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore}>
         <Body>
           <div className="row">
             <div className="col-sm-1">
@@ -118,7 +118,11 @@ class BookingEditModal extends Component {
               <p>จำนวนสนาม</p>
             </div>
             <div className="col-sm-2">
-              <CancelModal width="120px" color={Constant.Green} >
+              <CancelModal width="120px" color={Constant.Green} onClick={()=> 
+                {
+                  this.props.setStateAddMore(true)
+                  this.props.setStateCurrentModal(`#${this.props.type}`)
+                }} >
                 จองเพิ่ม/แก้ไข
               </CancelModal>
             </div>
@@ -217,17 +221,31 @@ class BookingEditModal extends Component {
             </div>
             <div className="col-sm-6 left-side">
               <div className="space-l">
-                <Button width="120px" bstrap="btn-success" onClick={() => this.props.editBooking({...this.state})}>
+                <Button width="120px" bstrap="btn-success" onClick={() => {
+                  this.props.editBooking({...this.state})
+                  this.props.setStateAddMore(false)
+                  this.props.setStateCurrentModal('#add-drag-booking')
+                } 
+                }
+                  >
                   บันทีก
                 </Button>
               </div>
               <div className="space-l">
-                <CancelModal width="120px" bstrap="btn-danger" onClick={()=>this.props.deleteBooking(this.props.booking.id,this.props.date)}>
+                <CancelModal width="120px" bstrap="btn-danger" onClick={()=> {
+                  this.props.deleteBooking(this.props.booking.id,this.props.date)
+                  this.props.setStateAddMore(false)
+                  this.props.setStateCurrentModal('#add-drag-booking')
+                }}>
                   ยกเลิกการจอง
                 </CancelModal>
               </div>
               <div className="space-l">
-                <Button width="120px" bstrap="btn-success">
+                <Button width="120px" bstrap="btn-success" onClick={()=>
+                {
+                  this.props.setStateAddMore(false)
+                  this.props.setStateCurrentModal('#add-drag-booking')
+                }}>
                   ชำระเงิน
                 </Button>
               </div>

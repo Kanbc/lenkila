@@ -52,7 +52,7 @@ class BookingAddModal extends Component {
     }, 0);
 
     return (
-      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
+      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal}>
         <Body>
           <div className="row">
             <div className="col-sm-1">
@@ -104,7 +104,10 @@ class BookingAddModal extends Component {
               <p>จำนวนสนาม</p>
             </div>
             <div className="col-sm-2">
-              <CancelModal width="120px" color={Constant.Green} >
+              <CancelModal width="120px" color={Constant.Green} onClick={()=> {
+                this.props.setStateAddMore(true)
+                this.props.setStateCurrentModal('#add-drag-booking')
+                }} >
                 จองเพิ่ม/แก้ไข
               </CancelModal>
             </div>
@@ -223,14 +226,18 @@ class BookingAddModal extends Component {
                     ...this.state,
                   })
                   this.cancelStateDiscount()
-
+                  this.props.setStateAddMore(false)
+                  this.props.setStateCurrentModal('#add-drag-booking')
                 }
                }>
                   บันทีก
                 </CancelModal>
               </div>
               <div className="space-l">
-                <CancelModal width="100px" bstrap="btn-danger">
+                <CancelModal width="100px" bstrap="btn-danger" onClick={()=> {
+                  this.props.setStateAddMore(false)
+                  this.props.setStateCurrentModal('#add-drag-booking')
+                }}>
                   ยกเลิก
                 </CancelModal>
               </div>

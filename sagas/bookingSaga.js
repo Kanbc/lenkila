@@ -93,6 +93,9 @@ const todayBooking = (reservation) => (result,item) => {
 
 
 export function* getBookingSaga({date}) {
+
+  console.log('booking date =>>>>>>',date)
+
   yield delay(1000)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
   try {
@@ -216,17 +219,70 @@ export function* exportCsvSaga({data}){
 
   console.log('exportCsv ',data)
   try {
-    const response = yield axios.get(apiUrl, {
-      params: {
+    const response = yield axios.post(apiUrl, {
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'piluj',
           action:'reservation_exportcsv',
           ...data,
           stadium_id:stadiumId,
         },
-    }
     )
     yield put(setDataBooking({csv:response.data})) 
+    console.log('response export csv',response)
+} catch (err) {
+    console.log('error',err)
+}
+}
+
+
+export function* getBoostSaga({date}){
+  yield delay(1000)
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+
+  console.log('getBoost date ',date)
+  try {
+    // const response = yield axios.get(apiUrl, {
+    //   params: {
+    //       apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+    //       code:'piluj',
+    //       action:'_boost_get_list',
+    //       ...data,
+    //       stadium_id:stadiumId,
+    //     },
+    // }
+    // )
+    yield put(setDataBooking({boostList:[
+      {
+      id:'1'+'_boost',
+      resourceId: "87",
+      start: moment(`${date} 11:00:01`),
+      end: moment(`${date} 13:00:00`),
+      color: '#000000',
+      rendering: 'background'
+    }
+    ]})) 
+    // console.log('response boostList ',response)
+  } catch (err) {
+      console.log('error',err)
+  }
+}
+
+
+export function* addBoostSaga({data}){
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+
+  console.log('addBoostSaga ',data)
+  try {
+    const response = yield axios.get(apiUrl, {
+      params: {
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'_boost_insert',
+          ...data,
+          stadium_doc_id:stadiumId,
+        },
+    }
+    )
     console.log('response export csv',response)
 } catch (err) {
     console.log('error',err)
@@ -243,6 +299,8 @@ export function* bookingWatcher() {
       takeLatest(actionTypes.DELETE_BOOKING, deleteBookingSaga),
       takeLatest(actionTypes.EDIT_BOOKING, editBookingSaga),
       takeLatest(actionTypes.EXPORT_CSV, exportCsvSaga),
+      takeLatest(actionTypes.GETLIST_BOOST, getBoostSaga),
+      takeLatest(actionTypes.ADD_BOOST, addBoostSaga),
     ])
 }
 
@@ -257,6 +315,7 @@ const initial = {
   checkPriceData:[],
   csv:'',
   todayBookingList:[],
+  boostList:[],
 }
 
 export default createReducer(initial, state => ({

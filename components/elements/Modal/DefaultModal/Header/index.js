@@ -1,9 +1,14 @@
 import React from 'react';
 
-const Header = ({ title }) => (
+const Header = ({ title,changeAddmore,changeCurrentModal }) => (
   <div className="modal-header">
     <h5 className="modal-title" id="lenkilaModalLongTitle">{ title }</h5>
-    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=>
+      {
+        changeAddmore(false)
+        changeCurrentModal('#add-drag-booking')
+      }
+      }>
       <span aria-hidden="true">&times;</span>
     </button>
     <style jsx>{`

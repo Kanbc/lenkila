@@ -106,6 +106,10 @@ export const actionTypes = {
   DELETE_BOOKING:'DELETE_BOOKING',
   EDIT_BOOKING:'EDIT_BOOKING',
   EXPORT_CSV:'EXPORT_CSV',
+
+  //boost
+  GETLIST_BOOST:'GETLIST_BOOST',
+  ADD_BOOST:'ADD_BOOST',
 }
 
 // 2. Action Creators
@@ -556,6 +560,19 @@ export const exportCsv = data => {
   }
 }
 
+export const getListBoost = date => {
+  return {
+    type: actionTypes.GETLIST_BOOST,
+    date,
+  }
+}
+
+export const addBoost = data => {
+  return {
+    type: actionTypes.ADD_BOOST,
+    data,
+  }
+}
 
 
 // export function initializeStore(initialState = exampleInitialState) {
