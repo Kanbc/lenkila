@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Header = ({ title,changeAddmore,changeCurrentModal }) => (
+const Header = ({ title,changeAddmore,changeCurrentModal,setDataBooking }) => (
   <div className="modal-header">
     <h5 className="modal-title" id="lenkilaModalLongTitle">{ title }</h5>
     <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=>
       {
+        setDataBooking({checkPriceData:[]})
         changeAddmore(false)
         changeCurrentModal('#add-drag-booking')
       }

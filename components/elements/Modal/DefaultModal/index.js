@@ -8,11 +8,12 @@ const DefaultModal = ({
   percentWidth,
   changeAddmore=()=>{},
   changeCurrentModal=()=>{},
+  setDataBooking=()=>{},
 }) => (
   <div className="modal fade" id={type} tabIndex="-1" role="dialog" aria-labelledby="lenkilaModalCenterTitle" aria-hidden="true">
     <div className="modal-dialog modal-dialog-centered" role="document">
       <div className="modal-content">
-        <Header title={title} changeAddmore={changeAddmore} changeCurrentModal={changeCurrentModal}/>
+        <Header title={title} changeAddmore={changeAddmore} changeCurrentModal={changeCurrentModal} setDataBooking={setDataBooking}/>
           {children}
       </div>
     </div>

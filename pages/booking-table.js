@@ -3,6 +3,7 @@ import Switch from 'react-switch';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import { setDataBooking } from '../sagas/bookingSaga'
 import { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost  } from '../store';
 import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, ExportBookingModal } from '../components';
 
@@ -16,6 +17,7 @@ class BookingTable extends Component {
       startTimeExport: moment().subtract(1, 'months'),
       endTimeExport: moment(),
       addMore: false,
+      boostData:{start_time:'',end_time:'',field_name:'-'},
       currentModal: '#add-drag-booking', // #add-drag-booking (add booking), #edit-booking-modal-${id} (edit booking ลอง booking พี่ id=75), #add-boost (add boost)
     };
 
@@ -25,6 +27,7 @@ class BookingTable extends Component {
     this.previousDay = this.previousDay.bind(this);
     this.setStateAddMore = this.setStateAddMore.bind(this);
     this.setStateCurrentModal = this.setStateCurrentModal.bind(this);
+    this.setStateBoostData = this.setStateBoostData.bind(this);
   }
 
 
@@ -69,6 +72,12 @@ class BookingTable extends Component {
   setStateCurrentModal(item){
     this.setState({
       currentModal:item,
+    })
+  }
+
+  setStateBoostData(item){
+    this.setState({
+      boostData:item
     })
   }
 
@@ -163,6 +172,10 @@ class BookingTable extends Component {
                     <BoostAddModal title="Boost" type="add-boost" fields={this.fields}
                       setStateAddMore={this.setStateAddMore}
                       setStateCurrentModal={this.setStateCurrentModal}
+                      addBoost={this.props.addBoost}
+                      detail={this.props.fieldDetail}
+                      gotoDate={this.state.gotoDate}
+                      boostData={this.state.boostData}
                     />
                   </ButtonModal>
                 </div>
@@ -209,6 +222,8 @@ class BookingTable extends Component {
             currentModal={this.state.currentModal}
             setStateAddMore={this.setStateAddMore}
             setStateCurrentModal={this.setStateCurrentModal}
+            setDataBooking={this.props.setDataBooking}
+            setStateBoostData={this.setStateBoostData}
           />
         </div>
         <style jsx>{`
@@ -268,5 +283,5 @@ const mapStateToProps = state => (
 );
 
 export default connect(mapStateToProps, {
-  setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost
+  setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost,setDataBooking
 })(BookingTable);

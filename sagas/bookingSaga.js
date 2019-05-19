@@ -89,6 +89,18 @@ const todayBooking = (reservation) => (result,item) => {
 }
 
 
+const modifireFieldDocList = (checkprice) => (result, item) => {
+  if (item){
+      result.push({
+        start_time:item.start_time,
+        end_time:item.end_time,
+        field_doc_id:item.field_id,
+        price_field:JSON.stringify(checkprice),
+      })
+  } 
+  return result
+}
+
 
 
 
@@ -137,36 +149,54 @@ export function* getBookingSaga({date}) {
 export function* addBookingSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
   console.log('data add Booking',data)
-  try {
-    const response = yield axios.post(apiUrl, {
+  const paramsCheckprice = yield select(state => state.bookingSaga.paramsCheckprice)
+  const checkPriceData = yield select(state => state.bookingSaga.checkPriceData)
+  const modifireFieldDoc = paramsCheckprice.reduce(modifireFieldDocList(checkPriceData),[])
+  console.log('fieldList',modifireFieldDoc)
+//   try {
+//     const response = yield axios.post(apiUrl, {
         
-          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-          code:'piluj',
-          action:'reservation_add',
-          stadium_id:stadiumId,
-          ...data,
-        },
-      )
-    console.log('response add booking ',response)  
-  yield call(getBookingSaga,{date:data.reservation_date})
-} catch (err) {
-    console.log('error',err)
-}
+//           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+//           code:'piluj',
+//           action:'reservation_add_array',
+//           stadium_id:stadiumId,
+//           ...data,
+//           field_doc_list:modifireFieldDoc
+//         },
+//       )
+//     console.log('response add booking ',response)  
+//   yield call(getBookingSaga,{date:data.reservation_date})
+// } catch (err) {
+//     console.log('error',err)
+// }
 }
 
-export function* priceCheckingBookingSaga({data}){
-  console.log('check price booking',data)
+export function* priceCheckingBookingSaga({data,customer}){
+  let realCustomer = data.customer_type 
+  const paramsCheckprice = yield select(state => state.bookingSaga.paramsCheckprice)
+  let newCheckprice = []
+  if(customer){
+    paramsCheckprice.map(value=>value.customer_type = realCustomer)
+    newCheckprice = [...paramsCheckprice]
+    yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
+  }
+  else{
+    newCheckprice = [...paramsCheckprice,data]
+    yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
+  }
+
   try {
     const response = yield axios.post(apiUrl, {
-        
-          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-          code:'piluj',
-          action:'reservation_price_checking',
-          ...data,
-        },
-      )
+      
+      apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+      code:'piluj',
+      action:'reservation_price_checking_array',
+      params:newCheckprice,
+    },
+    )
     console.log('response check price booking ',response) 
     yield put(setDataBooking({checkPriceData:response.data.response_data})) 
+    
 
 } catch (err) {
     console.log('error',err)
@@ -182,7 +212,7 @@ export function* editBookingSaga({data}){
         
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'piluj',
-          action:'reservation_edit',
+          action:'reservation_edit_main',
           stadium_id:stadiumId,
           ...data,
         },
@@ -272,21 +302,21 @@ export function* addBoostSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
   console.log('addBoostSaga ',data)
-  try {
-    const response = yield axios.get(apiUrl, {
-      params: {
-          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-          code:'piluj',
-          action:'_boost_insert',
-          ...data,
-          stadium_doc_id:stadiumId,
-        },
-    }
-    )
-    console.log('response export csv',response)
-} catch (err) {
-    console.log('error',err)
-}
+//   try {
+//     const response = yield axios.get(apiUrl, {
+//       params: {
+//           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+//           code:'piluj',
+//           action:'_boost_insert',
+//           ...data,
+//           stadium_doc_id:stadiumId,
+//         },
+//     }
+//     )
+//     console.log('response export csv',response)
+// } catch (err) {
+//     console.log('error',err)
+// }
 }
 
 
@@ -313,6 +343,8 @@ const initial = {
   fieldsPrice:[],
   reservationAddData:[],
   checkPriceData:[],
+  paramsCheckprice:[],
+  paramsFieldDocList:[],
   csv:'',
   todayBookingList:[],
   boostList:[],

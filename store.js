@@ -538,10 +538,11 @@ export const editBooking = data => {
   }
 }
 
-export const checkPrice = data => {
+export const checkPrice = (data,customer) => {
   return {
     type: actionTypes.CHECK_PRICE,
     data,
+    customer,
   }
 }
 

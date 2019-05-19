@@ -9,6 +9,7 @@ class BookingEditModal extends Component {
     this.state = {
       ...this.props.booking,
       rebate_other:JSON.parse(this.props.booking.rebate_other),
+      price_field:JSON.parse(this.props.booking.price_field),
     };
     this.setStateDiscount = this.setStateDiscount.bind(this);
     this.deleteStateDiscount = this.deleteStateDiscount.bind(this);
@@ -25,8 +26,6 @@ class BookingEditModal extends Component {
   }
 
   editStateDiscount = (item) => {
-    console.log('item edit',item)
-    console.log('this.state.rebate_other',this.state.rebate_other)
     const newItem = this.state.rebate_other.map(obj => [item].find(o => o.id === obj.id) || obj);
     this.setState({rebate_other:newItem})
   }
@@ -38,9 +37,13 @@ class BookingEditModal extends Component {
 
   render() {
    
-    const summary = this.props.checkPriceData.reduce(function(prev, cur) {
-      return prev + parseInt(cur.price);
-    }, 0);
+    const summary = Object.keys(this.state.price_field).map(key => {
+      const value = this.state.price_field[key]
+      let result = value.reduce(function(prev, cur) {
+        return parseInt(prev) + parseInt(cur.price);
+      }, 0);
+      return result
+    })
 
     const discount = this.state.rebate_other.reduce(function(prev, cur) {
       return prev + parseInt(cur.price);
@@ -140,20 +143,24 @@ class BookingEditModal extends Component {
                   </thead>
                   <tbody>
                     {
-                      this.props.checkPriceData && this.props.checkPriceData.map(fieldBook => {
-                        return (
-                          <tr key={fieldBook.time}>
-                            <th scope="row">{fieldBook.field_name}</th>
-                            <td>{`${fieldBook.start_time} - ${fieldBook.end_time}`}</td>
-                            { 
-                              fieldBook.price ? 
-                              <td>{fieldBook.price}</td> : 
-                              <td>
-                                <input type="text" className="form-control" value={Number.isNaN(parseInt(this.state.pay_stadium)) ? 0 : parseInt(this.state.pay_stadium)} onChange={e => this.setState({ pay_stadium:e.target.value })}/>
-                              </td>
-                          }
-                          </tr>
-                        );
+                       this.state.price_field && Object.keys(this.state.price_field).map(key => {
+                        const fieldBook = this.state.price_field[key]
+                        const result = fieldBook.map(value => {
+                          return (
+                            <tr key={value.time}>
+                              <th scope="row">{value.field_name}</th>
+                              <td>{`${value.start_time} - ${value.end_time}`}</td>
+                              { 
+                                value.edit_status === 0 ? 
+                                <td>{value.price}</td> : 
+                                <td>
+                                  <input type="text" className="form-control" value={this.state.pay_stadium} onChange={e => this.setState({ pay_stadium:e.target.value })}/>
+                                </td>
+                            }
+                            </tr>
+                          );
+                        })
+                        return result
                       })
                     }
                   </tbody>
@@ -170,7 +177,7 @@ class BookingEditModal extends Component {
               <p className="bold-text">ค่าสนามรวม</p>
             </div>
             <div className="col-sm-2">
-              <p>{ Number.isNaN(parseInt(this.state.pay_stadium))? parseInt(summary) : parseInt(summary)+parseInt(this.state.pay_stadium)}</p>
+              <p>{ summary.reduce((partial_sum, a) => partial_sum + a,0) }</p>
             </div>
             <div className="col-sm-1">
               <p className="bold-text">ค่ามัดจำ</p>

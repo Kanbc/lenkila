@@ -6,7 +6,10 @@ import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '..
 class BoostAddModal extends Component {
   constructor(props) {
     super(props);
-    this.state = { boostType: 'buffet' };
+    this.state = { 
+      boostType: 'buffet', 
+      price:null,
+    };
 
     this.changeBoostType = this.changeBoostType.bind(this);
   }
@@ -17,7 +20,10 @@ class BoostAddModal extends Component {
     });
   }
 
+  
+
   render() {
+    console.log('this.state.boost',this.props.boostData)
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
         <Body>
@@ -61,7 +67,7 @@ class BoostAddModal extends Component {
               <p>ราคาคนละ</p>
             </div>
             <div className={this.state.boostType === 'buffet' ? 'col-sm-2' : 'col-sm-2 d-none'}>
-              <input type="text" className="form-control" id="firstname" />
+              <input type="text" className="form-control" id="firstname" value={this.state.price} onChange={e => this.setState({ price: e.target.value })}/>
             </div>
             <div className={this.state.boostType === 'buffet' ? 'col-sm-6' : 'col-sm-9'}>
               <div className={this.state.boostType === 'buffet' ? 'space-r d-none' : 'space-r'}>
@@ -106,9 +112,9 @@ class BoostAddModal extends Component {
                   </thead>
                   <tbody className={this.state.boostType === 'buffet' ? '' : 'red-text'}>
                     <tr>
-                      <th scope="row">A</th>
-                      <td>18.00-22.00</td>
-                      <td>1,000</td>
+                      <th scope="row">{this.props.boostData ? this.props.boostData.field_name : null}</th>
+                      <td>{this.props.boostData ? `${this.props.boostData.start_time} - ${this.props.boostData.end_time}` : null}</td>
+                      <td>{this.state.price}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -136,6 +142,7 @@ class BoostAddModal extends Component {
                 <Button width="120px" bstrap="btn-success" onClick={()=> {
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
+                  this.props.addBoost({...this.state,...this.props.boostData})
                 }}>
                   บันทึก
                 </Button>

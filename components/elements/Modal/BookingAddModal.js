@@ -43,16 +43,21 @@ class BookingAddModal extends Component {
     
   render() {
    
-    const summary = this.props.checkPriceData.reduce(function(prev, cur) {
-      return prev + parseInt(cur.price);
-    }, 0);
-
+    const summary = Object.keys(this.props.checkPriceData).map(key => {
+      const value = this.props.checkPriceData[key]
+      let result = value.reduce(function(prev, cur) {
+        return parseInt(prev) + parseInt(cur.price);
+      }, 0);
+      return result
+    })
     const discount = this.state.rebate_other.reduce(function(prev, cur) {
       return prev + parseInt(cur.price);
     }, 0);
 
+    console.log('this.props.checkPriceData',this.props.checkPriceData )
+
     return (
-      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal}>
+      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking}>
         <Body>
           <div className="row">
             <div className="col-sm-1">
@@ -78,8 +83,7 @@ class BookingAddModal extends Component {
                       end_time:this.props.end_time,
                       field_id:this.props.field_id,
                       customer_type:e.target.value,
-                      date:this.props.date,
-                    })
+                    },true)
                   }
                   }>
                     {
@@ -125,21 +129,24 @@ class BookingAddModal extends Component {
                   </thead>
                   <tbody>
                     {
-                      this.props.checkPriceData && this.props.checkPriceData.map(fieldBook => {
-                        let keyName = fieldBook.name
-                        return (
-                          <tr key={fieldBook.time}>
-                            <th scope="row">{fieldBook.field_name}</th>
-                            <td>{`${fieldBook.start_time} - ${fieldBook.end_time}`}</td>
-                            { 
-                              fieldBook.price ? 
-                              <td>{fieldBook.price}</td> : 
-                              <td>
-                                <input type="text" className="form-control" value={this.state.pay_stadium} onChange={e => this.setState({ pay_stadium:e.target.value })}/>
-                              </td>
-                          }
-                          </tr>
-                        );
+                      this.props.checkPriceData && Object.keys(this.props.checkPriceData).map(key => {
+                        const fieldBook = this.props.checkPriceData[key]
+                        const result = fieldBook.map(value => {
+                          return (
+                            <tr key={value.time}>
+                              <th scope="row">{value.field_name}</th>
+                              <td>{`${value.start_time} - ${value.end_time}`}</td>
+                              { 
+                                value.edit_status === 0 ? 
+                                <td>{value.price}</td> : 
+                                <td>
+                                  <input type="text" className="form-control" value={value.price} onChange={e => this.setState({ pay_stadium:e.target.value })}/>
+                                </td>
+                            }
+                            </tr>
+                          );
+                        })
+                        return result
                       })
                     }
                   </tbody>
@@ -156,7 +163,7 @@ class BookingAddModal extends Component {
               <p className="bold-text">ค่าสนามรวม</p>
             </div>
             <div className="col-sm-2">
-              <p>{ summary }</p>
+              <p>{ summary.reduce((partial_sum, a) => partial_sum + a,0) }</p>
             </div>
             <div className="col-sm-1">
               <p className="bold-text">ค่ามัดจำ</p>
@@ -224,8 +231,11 @@ class BookingAddModal extends Component {
                     create_by:this.props.user[0].username,
                     cashier_by:this.props.user[0].username,
                     ...this.state,
+                    rebate_other:JSON.stringify(this.state.rebate_other),
                   })
                   this.cancelStateDiscount()
+                  this.props.setDataBooking({checkPriceData:[]})
+                  this.props.setStateSelected('นักเรียน')
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
                 }
@@ -235,8 +245,10 @@ class BookingAddModal extends Component {
               </div>
               <div className="space-l">
                 <CancelModal width="100px" bstrap="btn-danger" onClick={()=> {
+                  this.props.setStateSelected('นักเรียน')
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
+                  this.props.setDataBooking({checkPriceData:[]})
                 }}>
                   ยกเลิก
                 </CancelModal>
