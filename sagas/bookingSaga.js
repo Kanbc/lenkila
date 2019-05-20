@@ -148,9 +148,27 @@ export function* getBookingSaga({date}) {
 
 export function* addBookingSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-  console.log('data add Booking',data)
+  console.log('data check add Booking',data)
+
   const paramsCheckprice = yield select(state => state.bookingSaga.paramsCheckprice)
+  console.log('paramsCheckprice',paramsCheckprice)
   const checkPriceData = yield select(state => state.bookingSaga.checkPriceData)
+  console.log('checkPriceData',checkPriceData)
+
+  if(Object.keys(data.checkData).length !== 0){
+    Object.keys(checkPriceData).map(key => {
+      const fieldBook = checkPriceData[key]
+      fieldBook.map((val,index) => {
+        if(data.checkData[key][index] !== undefined){
+          val.price = parseInt(data.checkData[key][index])
+          return val
+        }
+      })
+    })
+  }
+
+  console.log('checkPriceData 22',checkPriceData)
+
   const modifireFieldDoc = paramsCheckprice.reduce(modifireFieldDocList(checkPriceData),[])
   console.log('fieldList',modifireFieldDoc)
 //   try {
@@ -185,9 +203,10 @@ export function* priceCheckingBookingSaga({data,customer}){
     yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
   }
 
+  console.log('newCheckprice',newCheckprice)
+
   try {
-    const response = yield axios.post(apiUrl, {
-      
+    const response = yield axios.post(apiUrl, {    
       apikey: 'da1ee23f12812a19dc57fa4cf3115519',
       code:'piluj',
       action:'reservation_price_checking_array',

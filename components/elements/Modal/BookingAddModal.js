@@ -15,6 +15,7 @@ class BookingAddModal extends Component {
       deposit:'',
       rebate_other:[],
       pay_stadium:'',
+      checkData:{},
     };
     this.setStateDiscount = this.setStateDiscount.bind(this);
     this.deleteStateDiscount = this.deleteStateDiscount.bind(this);
@@ -131,7 +132,7 @@ class BookingAddModal extends Component {
                     {
                       this.props.checkPriceData && Object.keys(this.props.checkPriceData).map(key => {
                         const fieldBook = this.props.checkPriceData[key]
-                        const result = fieldBook.map(value => {
+                        const result = fieldBook.map((value,index) => {
                           return (
                             <tr key={value.time}>
                               <th scope="row">{value.field_name}</th>
@@ -140,8 +141,9 @@ class BookingAddModal extends Component {
                                 value.edit_status === 0 ? 
                                 <td>{value.price}</td> : 
                                 <td>
-                                  <input type="text" className="form-control" value={value.price} onChange={e => this.setState({ pay_stadium:e.target.value })}/>
+                                  <input type="text" className="form-control"  onChange={e => this.setState({ checkData:{...this.state.checkData,[key]:{...this.state.checkData[key],[index]:e.target.value}} })}/>
                                 </td>
+                                // value={this.state.checkData[key][index]}
                             }
                             </tr>
                           );
