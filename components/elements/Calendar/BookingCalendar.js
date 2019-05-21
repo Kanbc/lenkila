@@ -135,6 +135,8 @@ class BookingCalendar extends Component {
         //       date:moment(calEvent.start).format('YYYY-MM-DD'),
         //  }
         // )
+        console.log('calEvent',calEvent)
+        that.props.getEditMainByid(calEvent.main_id)
 
         $(`#edit-booking-modal-${  calEvent.id}`).modal('show');
       },

@@ -106,6 +106,7 @@ export const actionTypes = {
   DELETE_BOOKING:'DELETE_BOOKING',
   EDIT_BOOKING:'EDIT_BOOKING',
   EXPORT_CSV:'EXPORT_CSV',
+  GET_EDIT_MAIN_ID:'GET_EDIT_MAIN_ID',
 
   //boost
   GETLIST_BOOST:'GETLIST_BOOST',
@@ -572,6 +573,13 @@ export const addBoost = data => {
   return {
     type: actionTypes.ADD_BOOST,
     data,
+  }
+}
+
+export const getEditMainByid = id => {
+  return {
+    type: actionTypes.GET_EDIT_MAIN_ID,
+    id,
   }
 }
 

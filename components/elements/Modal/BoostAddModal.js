@@ -139,13 +139,13 @@ class BoostAddModal extends Component {
                 </CancelModal>
               </div>
               <div className="space-l">
-                <Button width="120px" bstrap="btn-success" onClick={()=> {
+                <CancelModal width="120px" bstrap="btn-success" onClick={()=> {
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
                   this.props.addBoost({...this.state,...this.props.boostData})
                 }}>
                   บันทึก
-                </Button>
+                </CancelModal>
               </div>
             </div>
           </div>

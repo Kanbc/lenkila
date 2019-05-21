@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { setDataBooking } from '../sagas/bookingSaga'
-import { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost  } from '../store';
+import { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost,getEditMainByid  } from '../store';
 import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, ExportBookingModal } from '../components';
 
 class BookingTable extends Component {
@@ -224,6 +224,7 @@ class BookingTable extends Component {
             setStateCurrentModal={this.setStateCurrentModal}
             setDataBooking={this.props.setDataBooking}
             setStateBoostData={this.setStateBoostData}
+            getEditMainByid={this.props.getEditMainByid}
           />
         </div>
         <style jsx>{`
@@ -283,5 +284,5 @@ const mapStateToProps = state => (
 );
 
 export default connect(mapStateToProps, {
-  setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost,setDataBooking
+  setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost,setDataBooking,getEditMainByid
 })(BookingTable);

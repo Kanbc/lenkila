@@ -52,6 +52,7 @@ const newReservation = (date) => (result, item) => {
   if (item){
     result.push({
       id: item.id,
+      main_id:item.reservation_main_id,
       resourceId: item.field_doc_id,
       title: item.customer_name,
       start: moment(`${date} ${item.start_time}`),
@@ -158,35 +159,37 @@ export function* addBookingSaga({data}){
   if(Object.keys(data.checkData).length !== 0){
     Object.keys(checkPriceData).map(key => {
       const fieldBook = checkPriceData[key]
+      console.log('fieldbook',fieldBook)
       fieldBook.map((val,index) => {
-        if(data.checkData[key][index] !== undefined){
-          val.price = parseInt(data.checkData[key][index])
-          return val
+        if(data.checkData[key] !== undefined){
+          if(data.checkData[key][index] !== undefined){
+            val.price = parseInt(data.checkData[key][index])
+          }
         }
+        return val
       })
     })
   }
 
-  console.log('checkPriceData 22',checkPriceData)
+  console.log('checkPriceData new',checkPriceData)
 
   const modifireFieldDoc = paramsCheckprice.reduce(modifireFieldDocList(checkPriceData),[])
   console.log('fieldList',modifireFieldDoc)
-//   try {
-//     const response = yield axios.post(apiUrl, {
-        
-//           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-//           code:'piluj',
-//           action:'reservation_add_array',
-//           stadium_id:stadiumId,
-//           ...data,
-//           field_doc_list:modifireFieldDoc
-//         },
-//       )
-//     console.log('response add booking ',response)  
-//   yield call(getBookingSaga,{date:data.reservation_date})
-// } catch (err) {
-//     console.log('error',err)
-// }
+  try {
+    const response = yield axios.post(apiUrl, {     
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'reservation_add_array',
+          stadium_id:stadiumId,
+          ...data,
+          field_doc_list:modifireFieldDoc
+        },
+      )
+    console.log('response add booking ',response)  
+  yield call(getBookingSaga,{date:data.reservation_date})
+} catch (err) {
+    console.log('error',err)
+}
 }
 
 export function* priceCheckingBookingSaga({data,customer}){
@@ -226,22 +229,42 @@ export function* priceCheckingBookingSaga({data,customer}){
 export function* editBookingSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
   console.log('data edit booking',data)
-  try {
-    const response = yield axios.post(apiUrl, {
+
+  if(Object.keys(data.checkData).length !== 0){
+    Object.keys(data.price_field).map(key => {
+      const fieldBook = data.price_field[key]
+      console.log('fieldbook edit',fieldBook)
+      fieldBook.map((val,index) => {
+        if(data.checkData[key] !== undefined){
+          if(data.checkData[key][index] !== undefined){
+            val.price = parseInt(data.checkData[key][index])
+          }
+        }
+        return val
+      })
+    })
+  }
+
+  const modifireFieldDoc = paramsCheckprice.reduce(modifireFieldDocList(checkPriceData),[])
+  console.log('fieldList edit',modifireFieldDoc)
+
+  console.log('edit price data new',data)
+//   try {
+//     const response = yield axios.post(apiUrl, {
         
-          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-          code:'piluj',
-          action:'reservation_edit_main',
-          stadium_id:stadiumId,
-          ...data,
-        },
-      )
-    yield call(getBookingSaga,{date:data.reservation_date})
-    console.log('response edit booking ',response)  
-  yield call(getBookingSaga,{date:data.reservation_date})
-} catch (err) {
-    console.log('error',err)
-}
+//           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+//           code:'piluj',
+//           action:'reservation_edit_main',
+//           stadium_id:stadiumId,
+//           ...data,
+//         },
+//       )
+//     yield call(getBookingSaga,{date:data.reservation_date})
+//     console.log('response edit booking ',response)  
+//   yield call(getBookingSaga,{date:data.reservation_date})
+// } catch (err) {
+//     console.log('error',err)
+// }
 }
 
 
@@ -252,7 +275,7 @@ export function* deleteBookingSaga({id,date}){
 
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'piluj',
-          action:'reservation_delete',
+          action:'reservation_remove_main',
           id:id,
         },
       )
@@ -290,27 +313,27 @@ export function* getBoostSaga({date}){
 
   console.log('getBoost date ',date)
   try {
-    // const response = yield axios.get(apiUrl, {
-    //   params: {
-    //       apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-    //       code:'piluj',
-    //       action:'_boost_get_list',
-    //       ...data,
-    //       stadium_id:stadiumId,
-    //     },
-    // }
-    // )
-    yield put(setDataBooking({boostList:[
-      {
-      id:'1'+'_boost',
-      resourceId: "87",
-      start: moment(`${date} 11:00:01`),
-      end: moment(`${date} 13:00:00`),
-      color: '#000000',
-      rendering: 'background'
+    const response = yield axios.get(apiUrl, {
+      params: {
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'_boost_get_list',
+          // ...data,
+          // stadium_id:stadiumId,
+        },
     }
-    ]})) 
-    // console.log('response boostList ',response)
+    )
+    // yield put(setDataBooking({boostList:[
+    //   {
+    //   id:'1'+'_boost',
+    //   resourceId: "87",
+    //   start: moment(`${date} 11:00:01`),
+    //   end: moment(`${date} 13:00:00`),
+    //   color: '#000000',
+    //   rendering: 'background'
+    // }
+    // ]})) 
+    console.log('response boostList ',response)
   } catch (err) {
       console.log('error',err)
   }
@@ -321,21 +344,43 @@ export function* addBoostSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
   console.log('addBoostSaga ',data)
-//   try {
-//     const response = yield axios.get(apiUrl, {
-//       params: {
-//           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-//           code:'piluj',
-//           action:'_boost_insert',
-//           ...data,
-//           stadium_doc_id:stadiumId,
-//         },
-//     }
-//     )
-//     console.log('response export csv',response)
-// } catch (err) {
-//     console.log('error',err)
-// }
+  try {
+    const response = yield axios.get(apiUrl, {
+      params: {
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'_boost_insert',
+          ...data,
+          stadium_doc_id:stadiumId,
+          field_id:[data.field_id]
+        },
+    }
+    )
+    console.log('response addBoostSaga',response)
+    yield call(getBoostSaga,{date:data.date})
+} catch (err) {
+    console.log('error',err)
+}
+}
+
+export function* getEditMainByIdsaga({id}){
+
+  console.log('getEditMainByIdsaga ',id)
+  try {
+    const response = yield axios.get(apiUrl, {
+      params:{
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'reservation_getbyid_main',
+          id:id
+        },
+    }
+    )
+    console.log('getEditMainByIdsaga',response)
+    // yield put(setDataBooking({getById:response.data})) 
+} catch (err) {
+    console.log('error',err)
+}
 }
 
 
@@ -350,6 +395,7 @@ export function* bookingWatcher() {
       takeLatest(actionTypes.EXPORT_CSV, exportCsvSaga),
       takeLatest(actionTypes.GETLIST_BOOST, getBoostSaga),
       takeLatest(actionTypes.ADD_BOOST, addBoostSaga),
+      takeLatest(actionTypes.GET_EDIT_MAIN_ID, getEditMainByIdsaga),
     ])
 }
 

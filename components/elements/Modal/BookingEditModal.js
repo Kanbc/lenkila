@@ -10,6 +10,7 @@ class BookingEditModal extends Component {
       ...this.props.booking,
       rebate_other:JSON.parse(this.props.booking.rebate_other),
       price_field:JSON.parse(this.props.booking.price_field),
+      checkData:{},
     };
     this.setStateDiscount = this.setStateDiscount.bind(this);
     this.deleteStateDiscount = this.deleteStateDiscount.bind(this);
@@ -36,7 +37,7 @@ class BookingEditModal extends Component {
 
 
   render() {
-   
+    
     const summary = Object.keys(this.state.price_field).map(key => {
       const value = this.state.price_field[key]
       let result = value.reduce(function(prev, cur) {
@@ -145,7 +146,8 @@ class BookingEditModal extends Component {
                     {
                        this.state.price_field && Object.keys(this.state.price_field).map(key => {
                         const fieldBook = this.state.price_field[key]
-                        const result = fieldBook.map(value => {
+                        const result = fieldBook.map((value,index) => {
+                          console.log('value edit',value)
                           return (
                             <tr key={value.time}>
                               <th scope="row">{value.field_name}</th>
@@ -154,7 +156,7 @@ class BookingEditModal extends Component {
                                 value.edit_status === 0 ? 
                                 <td>{value.price}</td> : 
                                 <td>
-                                  <input type="text" className="form-control" value={this.state.pay_stadium} onChange={e => this.setState({ pay_stadium:e.target.value })}/>
+                                  <input type="text" className="form-control" defaultValue={value.price} onChange={e => this.setState({ checkData:{...this.state.checkData,[key]:{...this.state.checkData[key],[index]:e.target.value}} })}/>
                                 </td>
                             }
                             </tr>
