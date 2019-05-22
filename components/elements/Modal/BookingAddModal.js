@@ -21,6 +21,7 @@ class BookingAddModal extends Component {
     this.deleteStateDiscount = this.deleteStateDiscount.bind(this);
     this.editStateDiscount = this.editStateDiscount.bind(this);
     this.cancelStateDiscount = this.cancelStateDiscount.bind(this);
+    this.sumValues = this.sumValues.bind(this);
   }
 
   setStateDiscount = (item) => {
@@ -40,10 +41,19 @@ class BookingAddModal extends Component {
     this.setState({rebate_other:[]})
   }
 
+  sumValues = (obj) => {
+    let result = 0
+    Object.keys(obj).map(key =>{
+      const value = parseInt(Object.values(obj[key])[0])
+      result += value
+    })
+    return Number.isNaN(result) ? 0 : result
+  }
 
+  
     
   render() {
-   
+
     const summary = Object.keys(this.props.checkPriceData).map(key => {
       const value = this.props.checkPriceData[key]
       let result = value.reduce(function(prev, cur) {
@@ -51,6 +61,9 @@ class BookingAddModal extends Component {
       }, 0);
       return result
     })
+
+    console.log('checkData',this.state.checkData)
+
     const discount = this.state.rebate_other.reduce(function(prev, cur) {
       return prev + parseInt(cur.price);
     }, 0);
@@ -165,7 +178,7 @@ class BookingAddModal extends Component {
               <p className="bold-text">ค่าสนามรวม</p>
             </div>
             <div className="col-sm-2">
-              <p>{ summary.reduce((partial_sum, a) => partial_sum + a,0) }</p>
+              <p>{ summary.reduce((partial_sum, a) => partial_sum + a,0)  + this.sumValues(this.state.checkData) }</p>
             </div>
             <div className="col-sm-1">
               <p className="bold-text">ค่ามัดจำ</p>
