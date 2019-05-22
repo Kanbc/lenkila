@@ -532,18 +532,21 @@ export const addBooking = data => {
   }
 }
 
-export const editBooking = data => {
+export const editBooking = (data,flag) => {
   return {
     type: actionTypes.EDIT_BOOKING,
     data,
+    flag,
   }
 }
 
-export const checkPrice = (data,customer) => {
+export const checkPrice = (data,customer,edit,callback) => {
   return {
     type: actionTypes.CHECK_PRICE,
     data,
     customer,
+    edit,
+    callback
   }
 }
 

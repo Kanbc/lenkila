@@ -236,7 +236,13 @@ class BookingAddModal extends Component {
                     rebate_other:JSON.stringify(this.state.rebate_other),
                   })
                   this.cancelStateDiscount()
-                  this.props.setDataBooking({checkPriceData:[]})
+                  this.props.setDataBooking({
+                    checkPriceData:[],
+                    paramsCheckprice:[],
+                    paramsFieldDocList:[],
+                    editFieldDocList:[],
+                    editAddmore:false
+                  })
                   this.props.setStateSelected('นักเรียน')
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
@@ -250,7 +256,13 @@ class BookingAddModal extends Component {
                   this.props.setStateSelected('นักเรียน')
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
-                  this.props.setDataBooking({checkPriceData:[]})
+                  this.props.setDataBooking({
+                    checkPriceData:[],
+                    paramsCheckprice:[],
+                    paramsFieldDocList:[],
+                    editFieldDocList:[],
+                    editAddmore:false
+                  })
                 }}>
                   ยกเลิก
                 </CancelModal>

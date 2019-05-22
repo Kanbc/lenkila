@@ -172,6 +172,7 @@ class BookingTable extends Component {
                     <BoostAddModal title="Boost" type="add-boost" fields={this.fields}
                       setStateAddMore={this.setStateAddMore}
                       setStateCurrentModal={this.setStateCurrentModal}
+                      setDataBooking={this.props.setDataBooking}
                       addBoost={this.props.addBoost}
                       detail={this.props.fieldDetail}
                       gotoDate={this.state.gotoDate}

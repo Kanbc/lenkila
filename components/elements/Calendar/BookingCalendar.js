@@ -11,6 +11,7 @@ class BookingCalendar extends Component {
       endTime: moment().format('LT'),
       resourceId: '',
       selected:'นักเรียน',
+      price_field_more:[],
     };
 
     this.setDataBooking = this.setDataBooking.bind(this);
@@ -35,11 +36,15 @@ class BookingCalendar extends Component {
 
   setStateSelected = (selected) => {
     this.setState({selected:selected})
- }
+  }
+
+  setStatePriceMore = (item) => {
+    this.setState({price_field_more:item})
+  }
 
   
 
-  setDataBooking(startTime, endTime, resourceId) {
+  setDataBooking(startTime, endTime, resourceId,currenctModal) {
     // Call API
     // --Input--
     // - startTime
@@ -58,14 +63,26 @@ class BookingCalendar extends Component {
       moment(this.props.gotoDate).format("YYYY-MM-DD")
     )
 
-    
-    this.props.checkPrice({
-      start_time:moment(startTime).format('HH:mm:ss'),
-      end_time:moment(endTime).format('HH:mm:ss'),
-      field_id:resourceId,
-      customer_type:this.state.selected,
-      date:moment(this.props.gotoDate).format("YYYY-MM-DD")
-    })
+    if(currenctModal.includes('edit')){
+      const findId = currenctModal.split('-')
+
+      this.props.checkPrice({
+        start_time:moment(startTime).format('HH:mm:ss'),
+        end_time:moment(endTime).format('HH:mm:ss'),
+        field_id:resourceId,
+        customer_type:this.props.reservationList.find(value => value.id === findId[findId.length-1]).customer_type,
+        date:moment(this.props.gotoDate).format("YYYY-MM-DD")
+      },false,true,this.setStatePriceMore)
+    }
+    else{
+      this.props.checkPrice({
+        start_time:moment(startTime).format('HH:mm:ss'),
+        end_time:moment(endTime).format('HH:mm:ss'),
+        field_id:resourceId,
+        customer_type:this.state.selected,
+        date:moment(this.props.gotoDate).format("YYYY-MM-DD")
+      })
+    }
     // mock data
  
 
@@ -111,7 +128,7 @@ class BookingCalendar extends Component {
             date:moment(that.props.gotoDate).format("YYYY-MM-DD")
           })
         }
-        that.setDataBooking(start, end, resource.id);
+        that.setDataBooking(start, end, resource.id,that.props.currentModal);
         // $('#add-drag-booking').modal('show');
         $(that.props.currentModal).modal('show');
       },
@@ -214,6 +231,8 @@ class BookingCalendar extends Component {
                 checkPrice={this.props.checkPrice}
                 setStateAddMore={this.props.setStateAddMore}
                 setStateCurrentModal={this.props.setStateCurrentModal}
+                priceFieldMore={this.state.price_field_more}
+                setDataBooking={this.props.setDataBooking}
               />
             </ButtonModal>
           ))}

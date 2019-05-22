@@ -25,7 +25,7 @@ class BoostAddModal extends Component {
   render() {
     console.log('this.state.boost',this.props.boostData)
     return (
-      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
+      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking}>
         <Body>
           <div className="row">
             <div className="col-sm-1">
@@ -133,6 +133,13 @@ class BoostAddModal extends Component {
                 <CancelModal width="120px" bstrap="btn-danger" onClick={()=> {
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
+                  this.props.setDataBooking({
+                    checkPriceData:[],
+                    paramsCheckprice:[],
+                    paramsFieldDocList:[],
+                    editFieldDocList:[],
+                    editAddmore:false
+                  })
                 }}
                 >
                   ยกเลิก
@@ -143,6 +150,13 @@ class BoostAddModal extends Component {
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
                   this.props.addBoost({...this.state,...this.props.boostData})
+                  this.props.setDataBooking({
+                    checkPriceData:[],
+                    paramsCheckprice:[],
+                    paramsFieldDocList:[],
+                    editFieldDocList:[],
+                    editAddmore:false
+                  })
                 }}>
                   บันทึก
                 </CancelModal>

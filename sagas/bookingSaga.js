@@ -102,6 +102,32 @@ const modifireFieldDocList = (checkprice) => (result, item) => {
   return result
 }
 
+const modifireFieldDocListEdit = (price) => (result, item) => {
+  if (item){
+      result.push({
+        start_time:item.start_time,
+        end_time:item.end_time,
+        field_doc_id:item.field_doc_id || item.field_id,
+        price_field:price,
+      })
+  } 
+  return result
+}
+
+
+const modifireCheckPriceEdit = (data) => (result, item) => {
+  if (item){
+      result.push({
+        field_id:item.field_doc_id,
+        customer_type:data.customer_type,
+        start_time:item.start_time,
+        end_time:item.end_time,
+        date:data.date,
+      })
+  } 
+  return result
+}
+
 
 
 
@@ -192,18 +218,41 @@ export function* addBookingSaga({data}){
 }
 }
 
-export function* priceCheckingBookingSaga({data,customer}){
+export function* priceCheckingBookingSaga({data,customer,edit,callback}){
   let realCustomer = data.customer_type 
   const paramsCheckprice = yield select(state => state.bookingSaga.paramsCheckprice)
+  const editFieldDocList = yield select(state => state.bookingSaga.editFieldDocList)
+  const editAddmore = yield select(state => state.bookingSaga.editAddmore)
   let newCheckprice = []
   if(customer){
-    paramsCheckprice.map(value=>value.customer_type = realCustomer)
-    newCheckprice = [...paramsCheckprice]
-    yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
+    if(edit){
+      if(editAddmore){
+        paramsCheckprice.map(value=>value.customer_type = realCustomer)
+        newCheckprice = [...paramsCheckprice]
+        yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
+      }else{
+        const modifireCheckEdit = editFieldDocList.reduce(modifireCheckPriceEdit(data),[])
+        newCheckprice = [...modifireCheckEdit]
+        yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
+      }
+    }
+    else{
+      paramsCheckprice.map(value=>value.customer_type = realCustomer)
+      newCheckprice = [...paramsCheckprice]
+      yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
+    }
   }
   else{
-    newCheckprice = [...paramsCheckprice,data]
-    yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
+    if(edit){
+      const modifireCheckEdit = editFieldDocList.reduce(modifireCheckPriceEdit(data),[])
+      newCheckprice = [...modifireCheckEdit,data]
+      yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
+      yield put(setDataBooking({editAddmore:true}))
+    }
+    else{
+      newCheckprice = [...paramsCheckprice,data]
+      yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
+    }
   }
 
   console.log('newCheckprice',newCheckprice)
@@ -218,7 +267,9 @@ export function* priceCheckingBookingSaga({data,customer}){
     )
     console.log('response check price booking ',response) 
     yield put(setDataBooking({checkPriceData:response.data.response_data})) 
-    
+    if(callback){
+      callback(response.data.response_data)
+    }
 
 } catch (err) {
     console.log('error',err)
@@ -226,14 +277,18 @@ export function* priceCheckingBookingSaga({data,customer}){
 }
 
 
-export function* editBookingSaga({data}){
-  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+export function* editBookingSaga({data,flag}){
   console.log('data edit booking',data)
+  const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
+  const editFieldDocList = yield select(state => state.bookingSaga.editFieldDocList)
+  const editAddmore = yield select(state => state.bookingSaga.editAddmore)
+  const paramsCheckprice = yield select(state => state.bookingSaga.paramsCheckprice)
+
+  let modifireFieldDoc
 
   if(Object.keys(data.checkData).length !== 0){
     Object.keys(data.price_field).map(key => {
       const fieldBook = data.price_field[key]
-      console.log('fieldbook edit',fieldBook)
       fieldBook.map((val,index) => {
         if(data.checkData[key] !== undefined){
           if(data.checkData[key][index] !== undefined){
@@ -244,27 +299,43 @@ export function* editBookingSaga({data}){
       })
     })
   }
-
-  const modifireFieldDoc = paramsCheckprice.reduce(modifireFieldDocList(checkPriceData),[])
-  console.log('fieldList edit',modifireFieldDoc)
+  console.log('editFieldDocList',editFieldDocList)
+  if(editAddmore){
+    modifireFieldDoc = paramsCheckprice.reduce(modifireFieldDocListEdit(JSON.stringify(data.price_field)),[])
+  }
+  else{
+    modifireFieldDoc = editFieldDocList.reduce(modifireFieldDocListEdit(JSON.stringify(data.price_field)),[])
+  }
+  console.log('fieldDocList edit',modifireFieldDoc)
 
   console.log('edit price data new',data)
-//   try {
-//     const response = yield axios.post(apiUrl, {
+  try {
+    const response = yield axios.post(apiUrl, {
         
-//           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-//           code:'piluj',
-//           action:'reservation_edit_main',
-//           stadium_id:stadiumId,
-//           ...data,
-//         },
-//       )
-//     yield call(getBookingSaga,{date:data.reservation_date})
-//     console.log('response edit booking ',response)  
-//   yield call(getBookingSaga,{date:data.reservation_date})
-// } catch (err) {
-//     console.log('error',err)
-// }
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'reservation_edit_main',
+          stadium_id:stadiumId,
+          id:data.reservation_main_id,
+          reservation_date:data.reservation_date,
+          customer_name:data.customer_name,
+          customer_tel:data.customer_tel,
+          customer_type:data.customer_type,
+          flag_status:flag ? data.flag_status === '0' ? '1' : '0' :data.flag_status,
+          player_value:data.player_value,
+          deposit:data.deposit,
+          rebate_other:data.rebate_other,
+          create_by:data.create_by,
+          cashier_by:data.cashier_by,
+          field_doc_list:editFieldDocList,
+        },
+      )
+    yield call(getBookingSaga,{date:data.reservation_date})
+    console.log('response edit booking ',response)  
+  yield call(getBookingSaga,{date:data.reservation_date})
+} catch (err) {
+    console.log('error',err)
+}
 }
 
 
@@ -318,7 +389,7 @@ export function* getBoostSaga({date}){
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'piluj',
           action:'_boost_get_list',
-          // ...data,
+          date:date
           // stadium_id:stadiumId,
         },
     }
@@ -366,6 +437,8 @@ export function* addBoostSaga({data}){
 export function* getEditMainByIdsaga({id}){
 
   console.log('getEditMainByIdsaga ',id)
+  
+  
   try {
     const response = yield axios.get(apiUrl, {
       params:{
@@ -377,7 +450,9 @@ export function* getEditMainByIdsaga({id}){
     }
     )
     console.log('getEditMainByIdsaga',response)
-    // yield put(setDataBooking({getById:response.data})) 
+    const modifireFieldDoc = response.data.response_data.reservation_detail.reduce(modifireFieldDocListEdit(
+      response.data.response_data.reservation_detail[0].price_field),[])
+    yield put(setDataBooking({editFieldDocList:modifireFieldDoc})) 
 } catch (err) {
     console.log('error',err)
 }
@@ -410,6 +485,8 @@ const initial = {
   checkPriceData:[],
   paramsCheckprice:[],
   paramsFieldDocList:[],
+  editFieldDocList:[],
+  editAddmore:false,
   csv:'',
   todayBookingList:[],
   boostList:[],

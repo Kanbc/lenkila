@@ -5,7 +5,13 @@ const Header = ({ title,changeAddmore,changeCurrentModal,setDataBooking }) => (
     <h5 className="modal-title" id="lenkilaModalLongTitle">{ title }</h5>
     <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=>
       {
-        setDataBooking({checkPriceData:[]})
+        setDataBooking({
+          checkPriceData:[],
+          paramsCheckprice:[],
+          paramsFieldDocList:[],
+          editFieldDocList:[],
+          editAddmore:false
+        })
         changeAddmore(false)
         changeCurrentModal('#add-drag-booking')
       }
