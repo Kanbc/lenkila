@@ -432,23 +432,23 @@ export function* addBoostSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
   console.log('addBoostSaga ',data)
-//   try {
-//     const response = yield axios.get(apiUrl, {
-//       params: {
-//           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
-//           code:'piluj',
-//           action:'_boost_insert',
-//           ...data,
-//           stadium_doc_id:stadiumId,
-//           field_id:[data.field_id]
-//         },
-//     }
-//     )
-//     console.log('response addBoostSaga',response)
-//     yield call(getBoostSaga,{date:data.date})
-// } catch (err) {
-//     console.log('error',err)
-// }
+  try {
+    const response = yield axios.get(apiUrl, {
+      params: {
+          apikey: 'da1ee23f12812a19dc57fa4cf3115519',
+          code:'piluj',
+          action:'_boost_insert',
+          ...data,
+          stadium_doc_id:stadiumId,
+          field_id:[data.field_id]
+        },
+    }
+    )
+    console.log('response addBoostSaga',response)
+    yield call(getBoostSaga,{date:data.date})
+} catch (err) {
+    console.log('error',err)
+}
 }
 
 export function* getEditMainByIdsaga({id}){
