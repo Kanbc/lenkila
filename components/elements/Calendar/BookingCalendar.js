@@ -11,6 +11,7 @@ class BookingCalendar extends Component {
       endTime: moment().format('LT'),
       resourceId: '',
       selected:'นักเรียน',
+      price_field_more:[],
     };
 
     this.setDataBooking = this.setDataBooking.bind(this);
@@ -35,11 +36,15 @@ class BookingCalendar extends Component {
 
   setStateSelected = (selected) => {
     this.setState({selected:selected})
- }
+  }
+
+  setStatePriceMore = (item) => {
+    this.setState({price_field_more:item})
+  }
 
   
 
-  setDataBooking(startTime, endTime, resourceId) {
+  setDataBooking(startTime, endTime, resourceId,currenctModal) {
     // Call API
     // --Input--
     // - startTime
@@ -47,9 +52,9 @@ class BookingCalendar extends Component {
     // - resourceId
     // เอา date ที่ api return มาไปพ่นใส่ modal
 
-    this.setStateSelected(
-      'นักเรียน'
-    )
+    // this.setStateSelected(
+    //   'นักเรียน'
+    // )
 
     this.setStateBooking(
       moment(startTime).format('HH:mm:ss'),
@@ -58,14 +63,26 @@ class BookingCalendar extends Component {
       moment(this.props.gotoDate).format("YYYY-MM-DD")
     )
 
-    
-    this.props.checkPrice({
-      start_time:moment(startTime).format('HH:mm:ss'),
-      end_time:moment(endTime).format('HH:mm:ss'),
-      field_id:resourceId,
-      customer_type:"นักเรียน",
-      date:moment(this.props.gotoDate).format("YYYY-MM-DD")
-    })
+    if(currenctModal.includes('edit')){
+      const findId = currenctModal.split('-')
+
+      this.props.checkPrice({
+        start_time:moment(startTime).format('HH:mm:ss'),
+        end_time:moment(endTime).format('HH:mm:ss'),
+        field_id:resourceId,
+        customer_type:this.props.reservationList.find(value => value.id === findId[findId.length-1]).customer_type,
+        date:moment(this.props.gotoDate).format("YYYY-MM-DD")
+      },false,true,this.setStatePriceMore)
+    }
+    else{
+      this.props.checkPrice({
+        start_time:moment(startTime).format('HH:mm:ss'),
+        end_time:moment(endTime).format('HH:mm:ss'),
+        field_id:resourceId,
+        customer_type:this.state.selected,
+        date:moment(this.props.gotoDate).format("YYYY-MM-DD")
+      })
+    }
     // mock data
  
 
@@ -99,9 +116,19 @@ class BookingCalendar extends Component {
       editable: false,
       selectable: that.props.canbook,
       select(startDate, endDate, jsEvent, view, resource) {
+        console.log('currentModal',that.props.currentModal)
         const start = startDate.format();
         const end = endDate.format();
-        that.setDataBooking(start, end, resource.id);
+        if(that.props.currentModal === '#add-boost'){
+          that.props.setStateBoostData({
+            start_time:moment(start).format('HH:mm:ss'),
+            end_time:moment(end).format('HH:mm:ss'),
+            field_id:resource.id,
+            field_name:resource.field,
+            date:moment(that.props.gotoDate).format("YYYY-MM-DD")
+          })
+        }
+        that.setDataBooking(start, end, resource.id,that.props.currentModal);
         // $('#add-drag-booking').modal('show');
         $(that.props.currentModal).modal('show');
       },
@@ -117,14 +144,16 @@ class BookingCalendar extends Component {
         // alert('Event: ' + calEvent.title);
         // alert('Booking ID: ' + calEvent.id);
         // alert('View: ' + view.name);
-        that.props.checkPrice({
-              start_time:moment(calEvent.start).format('HH:mm:ss'),
-              end_time:moment(calEvent.end).format('HH:mm:ss'),
-              field_id:calEvent.resourceId,
-              customer_type:that.props.reservationList.find(value=> value.id === calEvent.id).customer_type,
-              date:moment(calEvent.start).format('YYYY-MM-DD'),
-         }
-        )
+        // that.props.checkPrice({
+        //       start_time:moment(calEvent.start).format('HH:mm:ss'),
+        //       end_time:moment(calEvent.end).format('HH:mm:ss'),
+        //       field_id:calEvent.resourceId,
+        //       customer_type:that.props.reservationList.find(value=> value.id === calEvent.id).customer_type,
+        //       date:moment(calEvent.start).format('YYYY-MM-DD'),
+        //  }
+        // )
+        console.log('calEvent',calEvent)
+        that.props.getEditMainByid(calEvent.main_id)
 
         $(`#edit-booking-modal-${  calEvent.id}`).modal('show');
       },
@@ -174,6 +203,9 @@ class BookingCalendar extends Component {
             checkPriceData={this.props.checkPriceData}
             checkPrice={this.props.checkPrice}
             user={this.props.user}
+            setStateAddMore={this.props.setStateAddMore}
+            setStateCurrentModal={this.props.setStateCurrentModal}
+            setDataBooking={this.props.setDataBooking}
             // fields={this.props.field}
 
             // day={this.state.day}
@@ -197,6 +229,10 @@ class BookingCalendar extends Component {
                 editBooking={this.props.editBooking}
                 checkPriceData={this.props.checkPriceData}
                 checkPrice={this.props.checkPrice}
+                setStateAddMore={this.props.setStateAddMore}
+                setStateCurrentModal={this.props.setStateCurrentModal}
+                priceFieldMore={this.state.price_field_more}
+                setDataBooking={this.props.setDataBooking}
               />
             </ButtonModal>
           ))}

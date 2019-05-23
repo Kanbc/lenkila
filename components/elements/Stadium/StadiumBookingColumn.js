@@ -1,8 +1,7 @@
 import React from 'react';
 import { StadiumBookingColumnItem, BookingEditModal, Constant } from '../../../components';
 
-const StadiumBookingColumn = ({ title, bookings,reservationList,date,customerType,deleteBooking,editBooking,checkPriceData,checkPrice }) => {
-  console.log('bookings',bookings,'reservationList',reservationList)
+const StadiumBookingColumn = ({ title, bookings,reservationList,date,customerType,deleteBooking,editBooking,checkPriceData,checkPrice,getEditMainByid }) => {
   return (
     <div className="stadium-booking-column card text-center">
       <div className="card-header">
@@ -14,13 +13,16 @@ const StadiumBookingColumn = ({ title, bookings,reservationList,date,customerTyp
             <li className={`list-group-item ${booking.color==="#ffffff"?'grey':booking.color==="#c82333"?"red":booking.color==='#28a745'&&'green'}`} 
             key={booking.id} data-toggle="modal" 
             data-target={`#edit-booking-modal-${booking.id}`}
-            onClick={()=>checkPrice({
-              start_time:moment(booking.start).format('HH:mm:ss'),
-              end_time:moment(booking.end).format('HH:mm:ss'),
-              field_id:booking.resourceId,
-              customer_type:reservationList.find(value=> value.id === booking.id).customer_type,
-              date:moment(date).format('YYYY-MM-DD'),
-            })}
+            onClick={()=>{
+              getEditMainByid(booking.main_id)
+              checkPrice({
+                start_time:moment(booking.start).format('HH:mm:ss'),
+                end_time:moment(booking.end).format('HH:mm:ss'),
+                field_id:booking.resourceId,
+                customer_type:reservationList.find(value=> value.id === booking.id).customer_type,
+                date:moment(date).format('YYYY-MM-DD'),
+              })}
+            }
             >
               <StadiumBookingColumnItem booking={booking} />
             </li>

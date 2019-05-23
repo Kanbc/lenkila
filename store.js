@@ -106,6 +106,11 @@ export const actionTypes = {
   DELETE_BOOKING:'DELETE_BOOKING',
   EDIT_BOOKING:'EDIT_BOOKING',
   EXPORT_CSV:'EXPORT_CSV',
+  GET_EDIT_MAIN_ID:'GET_EDIT_MAIN_ID',
+
+  //boost
+  GETLIST_BOOST:'GETLIST_BOOST',
+  ADD_BOOST:'ADD_BOOST',
 }
 
 // 2. Action Creators
@@ -527,17 +532,21 @@ export const addBooking = data => {
   }
 }
 
-export const editBooking = data => {
+export const editBooking = (data,flag) => {
   return {
     type: actionTypes.EDIT_BOOKING,
     data,
+    flag,
   }
 }
 
-export const checkPrice = data => {
+export const checkPrice = (data,customer,edit,callback) => {
   return {
     type: actionTypes.CHECK_PRICE,
     data,
+    customer,
+    edit,
+    callback
   }
 }
 
@@ -556,6 +565,26 @@ export const exportCsv = data => {
   }
 }
 
+export const getListBoost = date => {
+  return {
+    type: actionTypes.GETLIST_BOOST,
+    date,
+  }
+}
+
+export const addBoost = data => {
+  return {
+    type: actionTypes.ADD_BOOST,
+    data,
+  }
+}
+
+export const getEditMainByid = id => {
+  return {
+    type: actionTypes.GET_EDIT_MAIN_ID,
+    id,
+  }
+}
 
 
 // export function initializeStore(initialState = exampleInitialState) {

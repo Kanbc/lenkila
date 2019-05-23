@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { Layout, DatePickerButton, StadiumBookingColumn, Loader, Constant } from '../components';
-import { getListBooking,checkPrice,getCustomerType,deleteBooking,editBooking } from '../store';
+import { getListBooking,checkPrice,getCustomerType,deleteBooking,editBooking,getEditMainByid } from '../store';
 import Router from 'next/router';
 import Login from './login';
 
@@ -26,7 +26,6 @@ class Index extends Component {
   render() {
 
     const { todayBookingList } = this.props
-    console.log('todayBookingList!', todayBookingList);
     return (
       <Layout title="รายการวันนี้">
         <div className="d-flex align-items-center header">
@@ -34,10 +33,18 @@ class Index extends Component {
           <DatePicker
             customInput={<DatePickerButton />}
             selected={this.state.currentDate}
-            onChange={currentDate => this.setState({ currentDate })}
+            onChange={currentDate => {
+              this.setState({ currentDate })
+              this.props.getListBooking(currentDate.format('YYYY-MM-DD'))
+              }
+            }
           />
           <button
-            onClick={() => this.setState({ currentDate: moment() })}
+            onClick={() => {
+              this.setState({ currentDate: moment() })
+              this.props.getListBooking(moment().format('YYYY-MM-DD'))
+             }
+            }
             className="btn btn-outline-info pick-td-btn"
           >
             เลือกวันนี้
@@ -57,6 +64,7 @@ class Index extends Component {
                 checkPriceData={this.props.checkPriceData}
                 checkPrice={this.props.checkPrice}
                 reservationList={this.props.reservationList}
+                getEditMainByid={this.props.getEditMainByid}
                 />
               </div>
             ))}
@@ -99,4 +107,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps,{getListBooking,checkPrice,getCustomerType,deleteBooking,editBooking})(Index);
+export default connect(mapStateToProps,{getListBooking,getEditMainByid,checkPrice,getCustomerType,deleteBooking,editBooking})(Index);
