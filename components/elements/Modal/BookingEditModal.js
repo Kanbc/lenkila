@@ -64,16 +64,21 @@ class BookingEditModal extends Component {
     if(this.props.priceFieldMore !== nextProps.priceFieldMore){
       this.setStatePrice(nextProps.priceFieldMore)
     }
-    if(this.props.booking.customer_type !== nextProps.booking.customer_type){
-      this.setState({...nextProps.booking})
+    if(this.props.booking !== nextProps.booking){
+      this.setState({
+        ...nextProps.booking,
+        rebate_other:JSON.parse(nextProps.booking.rebate_other),
+        price_field:JSON.parse(nextProps.booking.price_field),
+      })
     }
+    
   }
 
   
 
 
   render() {
-    console.log('customer Type =>>',this.state.customer_type)
+    
     const summary = Object.keys(this.state.price_field).map(key => {
       const value = this.state.price_field[key]
       let result = value.reduce(function(prev, cur) {
@@ -184,7 +189,7 @@ class BookingEditModal extends Component {
                         const result = fieldBook.map((value,index) => {
                           if(parseInt(value.price) === 0){
                             if(this.state.inputDefault){
-                              document.getElementById(`myForm-${this.props.booking.field_doc_id}`).reset();
+                              document.getElementById(`myForm-${this.props.booking.id}-${key}`).reset();
                             }
                           }
                           return (
@@ -195,7 +200,7 @@ class BookingEditModal extends Component {
                                 value.edit_status === 0 ? 
                                 <td>{value.price}</td> : 
                                 <td>
-                                  <form id={`myForm-${this.props.booking.field_doc_id}`}>
+                                  <form id={`myForm-${this.props.booking.id}-${key}`}>
                                   <input type="text" id='editText' className="form-control" defaultValue={value.price}  
                                   onChange={e => 
                                   this.setState({ inputDefault:false,checkData:{...this.state.checkData,

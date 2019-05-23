@@ -148,7 +148,6 @@ const modifireCheckPriceEdit = (data) => (result, item) => {
 
 export function* getBookingSaga({date}) {
 
-  console.log('booking date =>>>>>>',date)
 
   yield delay(1000)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
@@ -162,7 +161,6 @@ export function* getBookingSaga({date}) {
             date
           },
         })
-    console.log('response getBookingSaga',response)
     const fieldsBooking = response.data.response_data.stadium_doc.field_list.reduce(newFields, [])
     const fieldDetail = {
       open: response.data.response_data.stadium_doc.open_time,
@@ -190,17 +188,13 @@ export function* getBookingSaga({date}) {
 
 export function* addBookingSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-  console.log('data check add Booking',data)
 
   const paramsCheckprice = yield select(state => state.bookingSaga.paramsCheckprice)
-  console.log('paramsCheckprice',paramsCheckprice)
   const checkPriceData = yield select(state => state.bookingSaga.checkPriceData)
-  console.log('checkPriceData',checkPriceData)
 
   if(Object.keys(data.checkData).length !== 0){
     Object.keys(checkPriceData).map(key => {
       const fieldBook = checkPriceData[key]
-      console.log('fieldbook',fieldBook)
       fieldBook.map((val,index) => {
         if(data.checkData[key] !== undefined){
           if(data.checkData[key][index] !== undefined){
@@ -212,10 +206,8 @@ export function* addBookingSaga({data}){
     })
   }
 
-  console.log('checkPriceData new',checkPriceData)
 
   const modifireFieldDoc = paramsCheckprice.reduce(modifireFieldDocList(checkPriceData),[])
-  console.log('fieldList',modifireFieldDoc)
   try {
     const response = yield axios.post(apiUrl, {     
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
@@ -226,7 +218,6 @@ export function* addBookingSaga({data}){
           field_doc_list:modifireFieldDoc
         },
       )
-    console.log('response add booking ',response)  
   yield call(getBookingSaga,{date:data.reservation_date})
 } catch (err) {
     console.log('error',err)
@@ -260,7 +251,11 @@ export function* priceCheckingBookingSaga({data,customer,edit,callback}){
   else{
     if(edit){
       const modifireCheckEdit = editFieldDocList.reduce(modifireCheckPriceEdit(data),[])
-      newCheckprice = [...modifireCheckEdit,data]
+      if(editAddmore){
+        newCheckprice = [...paramsCheckprice,data]
+      }else{
+        newCheckprice = [...modifireCheckEdit,data] 
+      }
       yield put(setDataBooking({paramsCheckprice:newCheckprice})) 
       yield put(setDataBooking({editAddmore:true}))
     }
@@ -270,7 +265,6 @@ export function* priceCheckingBookingSaga({data,customer,edit,callback}){
     }
   }
 
-  console.log('newCheckprice',newCheckprice)
 
   try {
     const response = yield axios.post(apiUrl, {    
@@ -280,7 +274,6 @@ export function* priceCheckingBookingSaga({data,customer,edit,callback}){
       params:newCheckprice,
     },
     )
-    console.log('response check price booking ',response) 
     yield put(setDataBooking({checkPriceData:response.data.response_data})) 
     if(callback){
       callback(response.data.response_data)
@@ -293,7 +286,6 @@ export function* priceCheckingBookingSaga({data,customer,edit,callback}){
 
 
 export function* editBookingSaga({data,flag}){
-  console.log('data edit booking',data)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
   const editFieldDocList = yield select(state => state.bookingSaga.editFieldDocList)
   const editAddmore = yield select(state => state.bookingSaga.editAddmore)
@@ -307,23 +299,20 @@ export function* editBookingSaga({data,flag}){
       fieldBook.map((val,index) => {
         if(data.checkData[key] !== undefined){
           if(data.checkData[key][index] !== undefined){
-            val.price = parseInt(data.checkData[key][index])
+            val.price = parseInt(data.checkData[key][index])+parseInt(val.price)
           }
         }
         return val
       })
     })
   }
-  console.log('editFieldDocList',editFieldDocList)
   if(editAddmore){
     modifireFieldDoc = paramsCheckprice.reduce(modifireFieldDocListEdit(JSON.stringify(data.price_field)),[])
   }
   else{
     modifireFieldDoc = editFieldDocList.reduce(modifireFieldDocListEdit(JSON.stringify(data.price_field)),[])
   }
-  console.log('fieldDocList edit',modifireFieldDoc)
 
-  console.log('edit price data new',data)
   try {
     const response = yield axios.post(apiUrl, {
         
@@ -345,9 +334,9 @@ export function* editBookingSaga({data,flag}){
           field_doc_list:modifireFieldDoc,
         },
       )
-    yield call(getBookingSaga,{date:data.reservation_date})
-    console.log('response edit booking ',response)  
-  yield call(getBookingSaga,{date:data.reservation_date})
+    
+  // yield call(getBookingSaga,{date:data.reservation_date})
+  window.location.reload()
 } catch (err) {
     console.log('error',err)
 }
@@ -355,7 +344,6 @@ export function* editBookingSaga({data,flag}){
 
 
 export function* deleteBookingSaga({id,date}){
-  console.log('deleteBookingSaga ',id,date)
   try {
     const response = yield axios.post(apiUrl, {
 
@@ -375,7 +363,6 @@ export function* deleteBookingSaga({id,date}){
 export function* exportCsvSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
-  console.log('exportCsv ',data)
   try {
     const response = yield axios.post(apiUrl, {
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
@@ -386,7 +373,6 @@ export function* exportCsvSaga({data}){
         },
     )
     yield put(setDataBooking({csv:response.data})) 
-    console.log('response export csv',response)
 } catch (err) {
     console.log('error',err)
 }
@@ -397,7 +383,6 @@ export function* getBoostSaga({date}){
   yield delay(1000)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
-  console.log('getBoost date ',date)
   try {
     const response = yield axios.get(apiUrl, {
       params: {
@@ -421,7 +406,6 @@ export function* getBoostSaga({date}){
     //   rendering: 'background'
     // }
     // ]})) 
-    console.log('response boostList ',modifireBoostList)
   } catch (err) {
       console.log('error',err)
   }
@@ -431,7 +415,6 @@ export function* getBoostSaga({date}){
 export function* addBoostSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
-  console.log('addBoostSaga ',data)
   try {
     const response = yield axios.get(apiUrl, {
       params: {
@@ -444,7 +427,6 @@ export function* addBoostSaga({data}){
         },
     }
     )
-    console.log('response addBoostSaga',response)
     yield call(getBoostSaga,{date:data.date})
 } catch (err) {
     console.log('error',err)
@@ -453,7 +435,6 @@ export function* addBoostSaga({data}){
 
 export function* getEditMainByIdsaga({id}){
 
-  console.log('getEditMainByIdsaga ',id)
   
   
   try {
@@ -466,7 +447,6 @@ export function* getEditMainByIdsaga({id}){
         },
     }
     )
-    console.log('getEditMainByIdsaga',response)
     const modifireFieldDoc = response.data.response_data.reservation_detail.reduce(modifireFieldDocListEdit(
       response.data.response_data.reservation_detail[0].price_field),[])
     yield put(setDataBooking({editFieldDocList:modifireFieldDoc})) 

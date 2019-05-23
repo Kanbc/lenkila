@@ -68,13 +68,11 @@ class BookingAddModal extends Component {
       return result
     })
 
-    console.log('checkData',this.state.checkData)
 
     const discount = this.state.rebate_other.reduce(function(prev, cur) {
       return prev + parseInt(cur.price);
     }, 0);
 
-    console.log('this.props.checkPriceData',this.props.checkPriceData )
 
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} clearCheckData={this.clearCheckData} setDataBooking={this.props.setDataBooking}>
