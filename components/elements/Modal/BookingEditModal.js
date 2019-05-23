@@ -64,13 +64,16 @@ class BookingEditModal extends Component {
     if(this.props.priceFieldMore !== nextProps.priceFieldMore){
       this.setStatePrice(nextProps.priceFieldMore)
     }
+    if(this.props.booking.customer_type !== nextProps.booking.customer_type){
+      this.setState({...nextProps.booking})
+    }
   }
 
   
 
 
   render() {
-    console.log('this.props.booking',this.props.booking)
+    console.log('customer Type =>>',this.state.customer_type)
     const summary = Object.keys(this.state.price_field).map(key => {
       const value = this.state.price_field[key]
       let result = value.reduce(function(prev, cur) {
@@ -178,15 +181,10 @@ class BookingEditModal extends Component {
                     {
                        this.state.price_field && Object.keys(this.state.price_field).map(key => {
                         const fieldBook = this.state.price_field[key]
-                        console.log('fieldBook',fieldBook)
                         const result = fieldBook.map((value,index) => {
-                          console.log('value price',value)
-                          console.log('this state checkData',this.state.checkData)
                           if(parseInt(value.price) === 0){
-                            console.log('test',value.price)
                             if(this.state.inputDefault){
-                              console.log('kuy',value.field_id)
-                              document.getElementById(`myForm-${value.field_id}`).reset();
+                              document.getElementById(`myForm-${this.props.booking.field_doc_id}`).reset();
                             }
                           }
                           return (
@@ -197,7 +195,7 @@ class BookingEditModal extends Component {
                                 value.edit_status === 0 ? 
                                 <td>{value.price}</td> : 
                                 <td>
-                                  <form id={`myForm-${value.field_id}`}>
+                                  <form id={`myForm-${this.props.booking.field_doc_id}`}>
                                   <input type="text" id='editText' className="form-control" defaultValue={value.price}  
                                   onChange={e => 
                                   this.setState({ inputDefault:false,checkData:{...this.state.checkData,
