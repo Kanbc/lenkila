@@ -48,6 +48,21 @@ const newPriceFields = (date) => (result, item) => {
   return result
 }
 
+const newBoostFields  = (result, item) => {
+
+  if (item){
+    result.push({
+      id:item.id+'_boost',
+      resourceId: item.field_id,
+      start: moment(`${item.start_time}`),
+      end: moment(`${item.end_time}`),
+      color: '#000000',
+      rendering: 'background',
+    })
+  } 
+  return result
+}
+
 const newReservation = (date) => (result, item) => {
   if (item){
     result.push({
@@ -324,10 +339,10 @@ export function* editBookingSaga({data,flag}){
           flag_status:flag ? data.flag_status === '0' ? '1' : '0' :data.flag_status,
           player_value:data.player_value,
           deposit:data.deposit,
-          rebate_other:data.rebate_other,
+          rebate_other:JSON.stringify(data.rebate_other),
           create_by:data.create_by,
           cashier_by:data.cashier_by,
-          field_doc_list:editFieldDocList,
+          field_doc_list:modifireFieldDoc,
         },
       )
     yield call(getBookingSaga,{date:data.reservation_date})
@@ -389,11 +404,13 @@ export function* getBoostSaga({date}){
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'piluj',
           action:'_boost_get_list',
-          date:date
-          // stadium_id:stadiumId,
+          date:date,
+          stadium_doc_id:stadiumId,
         },
     }
     )
+    const modifireBoostList = response.data.response_data.reduce(newBoostFields, [])
+    yield put(setDataBooking({boostList:modifireBoostList})) 
     // yield put(setDataBooking({boostList:[
     //   {
     //   id:'1'+'_boost',
@@ -404,7 +421,7 @@ export function* getBoostSaga({date}){
     //   rendering: 'background'
     // }
     // ]})) 
-    console.log('response boostList ',response)
+    console.log('response boostList ',modifireBoostList)
   } catch (err) {
       console.log('error',err)
   }
