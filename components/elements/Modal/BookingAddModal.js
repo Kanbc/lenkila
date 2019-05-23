@@ -22,6 +22,8 @@ class BookingAddModal extends Component {
     this.editStateDiscount = this.editStateDiscount.bind(this);
     this.cancelStateDiscount = this.cancelStateDiscount.bind(this);
     this.sumValues = this.sumValues.bind(this);
+    this.clearCheckData = this.clearCheckData.bind(this);
+
   }
 
   setStateDiscount = (item) => {
@@ -39,6 +41,10 @@ class BookingAddModal extends Component {
 
   cancelStateDiscount = () =>{
     this.setState({rebate_other:[]})
+  }
+
+  clearCheckData = () => {
+    this.setState({checkData:{},inputDefault:0})
   }
 
   sumValues = (obj) => {
@@ -71,7 +77,7 @@ class BookingAddModal extends Component {
     console.log('this.props.checkPriceData',this.props.checkPriceData )
 
     return (
-      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking}>
+      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} clearCheckData={this.clearCheckData} setDataBooking={this.props.setDataBooking}>
         <Body>
           <div className="row">
             <div className="col-sm-1">
@@ -259,6 +265,8 @@ class BookingAddModal extends Component {
                   this.props.setStateSelected('นักเรียน')
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
+                  this.clearCheckData()
+
                 }
                }>
                   บันทีก
@@ -276,6 +284,7 @@ class BookingAddModal extends Component {
                     editFieldDocList:[],
                     editAddmore:false
                   })
+                  this.clearCheckData()
                 }}>
                   ยกเลิก
                 </CancelModal>

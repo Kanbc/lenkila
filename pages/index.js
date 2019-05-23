@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { Layout, DatePickerButton, StadiumBookingColumn, Loader, Constant } from '../components';
-import { getListBooking,checkPrice,getCustomerType,deleteBooking,editBooking } from '../store';
+import { getListBooking,checkPrice,getCustomerType,deleteBooking,editBooking,getEditMainByid } from '../store';
 import Router from 'next/router';
 import Login from './login';
 
@@ -64,6 +64,7 @@ class Index extends Component {
                 checkPriceData={this.props.checkPriceData}
                 checkPrice={this.props.checkPrice}
                 reservationList={this.props.reservationList}
+                getEditMainByid={this.props.getEditMainByid}
                 />
               </div>
             ))}
@@ -106,4 +107,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps,{getListBooking,checkPrice,getCustomerType,deleteBooking,editBooking})(Index);
+export default connect(mapStateToProps,{getListBooking,getEditMainByid,checkPrice,getCustomerType,deleteBooking,editBooking})(Index);

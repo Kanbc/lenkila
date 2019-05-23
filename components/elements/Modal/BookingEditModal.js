@@ -11,6 +11,7 @@ class BookingEditModal extends Component {
       rebate_other:JSON.parse(this.props.booking.rebate_other),
       price_field:JSON.parse(this.props.booking.price_field),
       checkData:{},
+      inputDefault : false,
     };
     this.setStateDiscount = this.setStateDiscount.bind(this);
     this.setStatePrice = this.setStatePrice.bind(this);
@@ -18,6 +19,7 @@ class BookingEditModal extends Component {
     this.editStateDiscount = this.editStateDiscount.bind(this);
     this.cancelStateDiscount = this.cancelStateDiscount.bind(this);
     this.sumValues = this.sumValues.bind(this);
+    this.clearCheckData = this.clearCheckData.bind(this);
 
   }
 
@@ -38,6 +40,10 @@ class BookingEditModal extends Component {
     this.setState({rebate_other:[]})
   }
 
+  clearCheckData = () => {
+    this.setState({checkData:{},inputDefault:0})
+  }
+
   setStatePrice = (item) => {
     this.setState({price_field:item})
   }
@@ -45,8 +51,11 @@ class BookingEditModal extends Component {
   sumValues = (obj) => {
     let result = 0
     Object.keys(obj).map(key =>{
-      const value = parseInt(Object.values(obj[key])[0])
-      result += value
+      const value = 0
+      Object.values(obj[key]).map(val => {
+        result += val
+      })
+      // const value = parseInt(Object.values(obj[key])[0])
     })
     return Number.isNaN(result) ? 0 : result
   }
@@ -61,7 +70,7 @@ class BookingEditModal extends Component {
 
 
   render() {
-  
+    console.log('this.props.booking',this.props.booking)
     const summary = Object.keys(this.state.price_field).map(key => {
       const value = this.state.price_field[key]
       let result = value.reduce(function(prev, cur) {
@@ -74,7 +83,7 @@ class BookingEditModal extends Component {
       return prev + parseInt(cur.price);
     }, 0);
     return (
-      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking}>
+      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking} clearCheckData={this.clearCheckData}>
         <Body>
           <div className="row">
             <div className="col-sm-1">
@@ -99,6 +108,8 @@ class BookingEditModal extends Component {
                       customer_type:e.target.value,
                       date:this.state.reservation_date,
                     },true,true,this.setStatePrice)
+                    this.clearCheckData()
+                    this.setState({inputDefault:true})
                   }
                   }>
                     {
@@ -168,6 +179,14 @@ class BookingEditModal extends Component {
                        this.state.price_field && Object.keys(this.state.price_field).map(key => {
                         const fieldBook = this.state.price_field[key]
                         const result = fieldBook.map((value,index) => {
+                          console.log('value price',key)
+                          console.log('this state checkData',this.state.checkData)
+                          if(parseInt(value.price) === 0){
+                            console.log('test',value.price)
+                            if(this.state.inputDefault){
+                              document.getElementById('myForm').reset();
+                            }
+                          }
                           return (
                             <tr key={value.time}>
                               <th scope="row">{value.field_name}</th>
@@ -176,7 +195,13 @@ class BookingEditModal extends Component {
                                 value.edit_status === 0 ? 
                                 <td>{value.price}</td> : 
                                 <td>
-                                  <input type="text" className="form-control" defaultValue={value.price} onChange={e => this.setState({ checkData:{...this.state.checkData,[key]:{...this.state.checkData[key],[index]:e.target.value}} })}/>
+                                  <form id="myForm">
+                                  <input type="text" id='editText' className="form-control" defaultValue={value.price}  
+                                  onChange={e => 
+                                  this.setState({ inputDefault:false,checkData:{...this.state.checkData,
+                                  [key]:{...this.state.checkData[key],[index]:e.target.value==='' ? 0 - parseInt(value.price) : parseInt(e.target.value)-parseInt(value.price)}} })}/>
+                                  </form>
+
                                 </td>
                             }
                             </tr>
@@ -250,55 +275,58 @@ class BookingEditModal extends Component {
             </div>
             <div className="col-sm-6 left-side">
               <div className="space-l">
-                <Button width="120px" bstrap="btn-success" onClick={() => {
+                <CancelModal width="120px" bstrap="btn-success" onClick={() => {
                   this.props.editBooking({...this.state})
-                  this.props.setStateAddMore(false)
-                  this.props.setStateCurrentModal('#add-drag-booking')
-                  this.props.setDataBooking({
+                  this.props.setStateAddMore && this.props.setStateAddMore(false)
+                  this.props.setStateCurrentModal && this.props.setStateCurrentModal('#add-drag-booking')
+                  this.props.setDataBooking && this.props.setDataBooking({
                     checkPriceData:[],
                     paramsCheckprice:[],
                     paramsFieldDocList:[],
                     editFieldDocList:[],
                     editAddmore:false
                   })
+                  this.clearCheckData()
                 } 
                 }
                   >
                   บันทีก
-                </Button>
+                </CancelModal>
               </div>
               <div className="space-l">
                 <CancelModal width="120px" bstrap="btn-danger" onClick={()=> {
                   this.props.deleteBooking(this.props.booking.reservation_main_id,this.props.date)
-                  this.props.setStateAddMore(false)
-                  this.props.setStateCurrentModal('#add-drag-booking')
-                  this.props.setDataBooking({
+                  this.props.setStateAddMore && this.props.setStateAddMore(false)
+                  this.props.setStateCurrentModal && this.props.setStateCurrentModal('#add-drag-booking')
+                  this.props.setDataBooking && this.props.setDataBooking({
                     checkPriceData:[],
                     paramsCheckprice:[],
                     paramsFieldDocList:[],
                     editFieldDocList:[],
                     editAddmore:false
                   })
+                  this.clearCheckData()
                 }}>
                   ยกเลิกการจอง
                 </CancelModal>
               </div>
               <div className="space-l">
-                <Button width="120px" bstrap="btn-success" onClick={()=>
+                <CancelModal width="120px" bstrap="btn-success" onClick={()=>
                 {
                   this.props.editBooking({...this.state},true)
-                  this.props.setStateAddMore(false)
-                  this.props.setStateCurrentModal('#add-drag-booking')
-                  this.props.setDataBooking({
+                  this.props.setStateAddMore && this.props.setStateAddMore(false)
+                  this.props.setStateCurrentModal && this.props.setStateCurrentModal('#add-drag-booking')
+                  this.props.setDataBooking && this.props.setDataBooking({
                     checkPriceData:[],
                     paramsCheckprice:[],
                     paramsFieldDocList:[],
                     editFieldDocList:[],
                     editAddmore:false
                   })
+                  this.clearCheckData()
                 }}>
                   {this.props.booking.flag_status === '0'?'ชำระเงิน':'ยกเลิกการชำระเงิน'}
-                </Button>
+                </CancelModal>
               </div>
             </div>
           </div>
