@@ -45,6 +45,8 @@ class BookingTable extends Component {
     });
     this.props.setNoteDate(today.format('YYYY-MM-DD'));
     this.props.getListBooking(today.format('YYYY-MM-DD'));
+    this.props.getListBoost(today.format('YYYY-MM-DD'));
+
   }
 
   nextDay() {
@@ -53,6 +55,8 @@ class BookingTable extends Component {
     });
     this.props.setNoteDate(this.state.gotoDate.add(1, 'days').format('YYYY-MM-DD'));
     this.props.getListBooking(this.state.gotoDate.format('YYYY-MM-DD'));
+    this.props.getListBoost(this.state.gotoDate.format('YYYY-MM-DD'));
+
   }
 
   previousDay() {
@@ -61,6 +65,8 @@ class BookingTable extends Component {
     });
     this.props.setNoteDate(this.state.gotoDate.subtract(1, 'days').format('YYYY-MM-DD'));
     this.props.getListBooking(this.state.gotoDate.format('YYYY-MM-DD'));
+    this.props.getListBoost(this.state.gotoDate.format('YYYY-MM-DD'));
+
   }
 
   setStateAddMore(boolean){

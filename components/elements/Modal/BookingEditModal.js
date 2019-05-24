@@ -8,8 +8,8 @@ class BookingEditModal extends Component {
     super(props);
     this.state = {
       ...this.props.booking,
-      rebate_other:JSON.parse(this.props.booking.rebate_other),
-      price_field:JSON.parse(this.props.booking.price_field),
+      rebate_other:this.props.booking.rebate_other && JSON.parse(this.props.booking.rebate_other) ,
+      price_field:this.props.booking.price_field && JSON.parse(this.props.booking.price_field) ,
       checkData:{},
       inputDefault : false,
     };
@@ -67,8 +67,8 @@ class BookingEditModal extends Component {
     if(this.props.booking !== nextProps.booking){
       this.setState({
         ...nextProps.booking,
-        rebate_other:JSON.parse(nextProps.booking.rebate_other),
-        price_field:JSON.parse(nextProps.booking.price_field),
+        rebate_other:nextProps.booking.rebate_other && JSON.parse(nextProps.booking.rebate_other) ,
+        price_field:nextProps.booking.price_field && JSON.parse(nextProps.booking.price_field) ,
       })
     }
     
@@ -79,7 +79,7 @@ class BookingEditModal extends Component {
 
   render() {
     
-    const summary = Object.keys(this.state.price_field).map(key => {
+    const summary = this.state.price_field && Object.keys(this.state.price_field).map(key => {
       const value = this.state.price_field[key]
       let result = value.reduce(function(prev, cur) {
         return parseInt(prev) + parseInt(cur.price);
@@ -87,7 +87,7 @@ class BookingEditModal extends Component {
       return result
     })
 
-    const discount = this.state.rebate_other.reduce(function(prev, cur) {
+    const discount = this.state.rebate_other && this.state.rebate_other.reduce(function(prev, cur) {
       return prev + parseInt(cur.price);
     }, 0);
     return (
@@ -229,7 +229,7 @@ class BookingEditModal extends Component {
               <p className="bold-text">ค่าสนามรวม</p>
             </div>
             <div className="col-sm-2">
-              <p>{ summary.reduce((partial_sum, a) => partial_sum + a,0) + this.sumValues(this.state.checkData) }</p>
+              <p>{ summary && summary.reduce((partial_sum, a) => partial_sum + a,0) + this.sumValues(this.state.checkData) }</p>
             </div>
             <div className="col-sm-1">
               <p className="bold-text">ค่ามัดจำ</p>
