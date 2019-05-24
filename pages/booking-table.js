@@ -101,7 +101,6 @@ class BookingTable extends Component {
     this.props.getCustomerType();
   }
   render() {
-    console.log('this.props.fieldprice ==>>>> ',this.props.fieldsPrice,'boost=>>',this.props.boostList)
     return (
       <Layout title="การจอง">
         <div className="container">

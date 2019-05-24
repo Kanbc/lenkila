@@ -11,7 +11,7 @@ class BookingAddModal extends Component {
     this.state = {
       customer_name:'',
       customer_tel:'',
-      player_value:'',
+      player_value:0,
       deposit:'',
       rebate_other:[],
       pay_stadium:'',
@@ -56,14 +56,18 @@ class BookingAddModal extends Component {
     return Number.isNaN(result) ? 0 : result
   }
 
-  
-    
-  render() {
 
+  render() {
+    let player_value = this.state.player_value
     const summary = Object.keys(this.props.checkPriceData).map(key => {
       const value = this.props.checkPriceData[key]
       let result = value.reduce(function(prev, cur) {
-        return parseInt(prev) + parseInt(cur.price);
+        if(cur.type === "boost"){
+          prev = parseInt(prev) + (player_value === ''? 0 : parseInt(player_value) * parseInt(cur.price))
+        }else{
+          prev = parseInt(prev) + parseInt(cur.price)
+        }
+        return parseInt(prev)
       }, 0);
       return result
     })
@@ -155,8 +159,10 @@ class BookingAddModal extends Component {
                               <th scope="row">{value.field_name}</th>
                               <td>{`${value.start_time} - ${value.end_time}`}</td>
                               { 
-                                value.edit_status === 0 ? 
-                                <td>{value.price}</td> : 
+                                value.edit_status === 0 ?
+                                value.type === 'boost'?
+                                <td>{this.state.player_value === '' ? 0 : parseInt(this.state.player_value) * parseInt(value.price)}</td> : 
+                                <td>{value.price}</td> :
                                 <td>
                                   <input type="text" className="form-control"  onChange={e => this.setState({ checkData:{...this.state.checkData,[key]:{...this.state.checkData[key],[index]:e.target.value}} })}/>
                                 </td>

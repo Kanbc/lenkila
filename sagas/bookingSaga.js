@@ -182,6 +182,8 @@ export function* getBookingSaga({date}) {
     yield put(setDataBooking({fieldsPrice:fieldsPrice}))
     yield put(setDataBooking({reservationAddData:reservationAddData}))
     yield put(setDataBooking({todayBookingList:todayBookingList}))
+  console.log('get booking response',response)    
+    
   } catch (err) {
   }
 }
@@ -190,7 +192,9 @@ export function* addBookingSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
   const paramsCheckprice = yield select(state => state.bookingSaga.paramsCheckprice)
+
   const checkPriceData = yield select(state => state.bookingSaga.checkPriceData)
+
 
   if(Object.keys(data.checkData).length !== 0){
     Object.keys(checkPriceData).map(key => {
@@ -205,6 +209,8 @@ export function* addBookingSaga({data}){
       })
     })
   }
+
+
 
 
   const modifireFieldDoc = paramsCheckprice.reduce(modifireFieldDocList(checkPriceData),[])
@@ -274,6 +280,7 @@ export function* priceCheckingBookingSaga({data,customer,edit,callback}){
       params:newCheckprice,
     },
     )
+    console.log('response checkprice',response)
     yield put(setDataBooking({checkPriceData:response.data.response_data})) 
     if(callback){
       callback(response.data.response_data)
@@ -446,6 +453,7 @@ export function* getEditMainByIdsaga({id}){
     const modifireFieldDoc = response.data.response_data.reservation_detail.reduce(modifireFieldDocListEdit(
       response.data.response_data.reservation_detail[0].price_field),[])
     yield put(setDataBooking({editFieldDocList:modifireFieldDoc})) 
+    console.log('response get by id',response)
 } catch (err) {
     console.log('error',err)
 }

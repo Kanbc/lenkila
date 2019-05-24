@@ -23,7 +23,6 @@ class BoostAddModal extends Component {
   
 
   render() {
-    console.log('this.state.boost',this.props.boostData)
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking}>
         <Body>
