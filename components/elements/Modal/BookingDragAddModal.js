@@ -59,7 +59,7 @@ class BookingDragAddModal extends Component {
               <TimePicker
                 format={24}
                 start="00:00"
-                end="24:00"
+                end="23:45"
                 step={30}
                 value={this.props.startTime}
                 // onChange={startTime => this.setState({ startTime })}
@@ -72,7 +72,7 @@ class BookingDragAddModal extends Component {
               <TimePicker
                 format={24}
                 start="00:00"
-                end="24:00"
+                end="23:45"
                 step={30}
                 value={this.props.endTime}
                 // onChange={endTime => this.setState({ endTime })}
