@@ -147,8 +147,8 @@ const modifireCheckPriceEdit = (data) => (result, item) => {
 
 
 export function* getBookingSaga({date}) {
-
-
+  
+  console.log('get booking date',date)    
   yield delay(1000)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
   try {
