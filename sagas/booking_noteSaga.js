@@ -113,13 +113,11 @@ export function* editNoteSaga({data}){
 export function* deleteNoteSaga({id}){
   console.log('deleteNoteSaga',id)
   try {
-    const response = yield axios.get(apiUrl, {
-        params: {
+    const response = yield axios.post(apiUrl, {
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'piluj',
           action:'note_delete',
           id:id.id,
-        },
       })
     yield call(setNoteDateSaga, {date:id.doc_date})
 } catch (err) {
@@ -135,7 +133,6 @@ export function* noteWatcher() {
     yield all([
         takeLatest(actionTypes.SET_NOTE, setNoteSaga),
         takeLatest(actionTypes.SET_NOTE_DATE, setNoteDateSaga),
-
         takeLatest(actionTypes.ADD_NOTE, addNoteSaga),
         takeLatest(actionTypes.EDIT_NOTE, editNoteSaga),
         takeLatest(actionTypes.DELETE_NOTE, deleteNoteSaga),

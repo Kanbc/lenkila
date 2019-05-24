@@ -435,17 +435,13 @@ export function* addBoostSaga({data}){
 
 export function* getEditMainByIdsaga({id}){
 
-  
-  
   try {
-    const response = yield axios.get(apiUrl, {
-      params:{
+    const response = yield axios.post(apiUrl, {
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'piluj',
           action:'reservation_getbyid_main',
           id:id
         },
-    }
     )
     const modifireFieldDoc = response.data.response_data.reservation_detail.reduce(modifireFieldDocListEdit(
       response.data.response_data.reservation_detail[0].price_field),[])

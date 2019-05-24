@@ -75,14 +75,12 @@ export function* getUserInfoSaga({id}) {
 export function* forgotPaswordSaga({email}) {
   console.log('email',email)
   try {
-    const response = yield axios.get(apiUrl, {
-      params: {
+    const response = yield axios.post(apiUrl, {
         apikey: 'da1ee23f12812a19dc57fa4cf3115519',
         code:'gdjxq',
         action:'resetpassword_sendmail',
         email:email,
         link_reset:"https://lenkila-dev.netlify.com/reset-password",
-      },
     })
 
   } catch (error) {
@@ -93,14 +91,12 @@ export function* forgotPaswordSaga({email}) {
 export function* changeUserPaswordSaga({data}) {
   console.log('data',data)
   try {
-    const response = yield axios.get(apiUrl, {
-      params: {
+    const response = yield axios.post(apiUrl, {
         apikey: 'da1ee23f12812a19dc57fa4cf3115519',
         code:'gdjxq',
         action:'resetpassword_editpassword',
         user_id:data.user_id,
         newpassword:data.newpassword,
-      },
     })
     console.log('response change',response)
     yield put(setData({errorMessage:response.status}))
