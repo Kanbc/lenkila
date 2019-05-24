@@ -78,11 +78,16 @@ class BookingEditModal extends Component {
 
 
   render() {
-    
+    let player_value = this.state.player_value
     const summary = this.state.price_field && Object.keys(this.state.price_field).map(key => {
       const value = this.state.price_field[key]
       let result = value.reduce(function(prev, cur) {
-        return parseInt(prev) + parseInt(cur.price);
+        if(cur.type === "boost"){
+          prev = parseInt(prev) + (player_value === ''? 0 : parseInt(player_value) * parseInt(cur.price))
+        }else{
+          prev = parseInt(prev) + parseInt(cur.price)
+        }
+        return parseInt(prev)
       }, 0);
       return result
     })
@@ -198,6 +203,8 @@ class BookingEditModal extends Component {
                               <td>{`${value.start_time} - ${value.end_time}`}</td>
                               { 
                                 value.edit_status === 0 ? 
+                                value.type === 'boost'?
+                                <td>{this.state.player_value === '' ? 0 : parseInt(this.state.player_value) * parseInt(value.price)}</td> : 
                                 <td>{value.price}</td> : 
                                 <td>
                                   <form id={`myForm-${this.props.booking.id}-${key}`}>
