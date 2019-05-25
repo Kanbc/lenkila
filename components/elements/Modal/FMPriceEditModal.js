@@ -73,7 +73,14 @@ class FMPriceEditModal extends Component {
       })
     } >บันทึก</CancelModal>;
       button2 = <CancelModal width={Constant.Buttons.default} color={Constant.Orange}>ยกเลิก</CancelModal>;
-      button3 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={() => this.props.deleteFieldDataPrice(this.props.userData.id)}>ลบ</CancelModal>;
+      button3 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={() =>
+        {
+          let result = confirm("คุณต้องการลบข้อมูลส่วนนี้ใช่หรือไม่");
+          if (result) {
+            this.props.deleteFieldDataPrice(this.props.userData.id)
+          }
+        }     
+        }>ลบ</CancelModal>;
     }
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" >

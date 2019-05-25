@@ -62,7 +62,15 @@ class CustTypeEditModal extends Component {
 
       button1 = <CancelModal width={Constant.Buttons.default} bstrap="btn-success" onClick={()=>this.props.editCustomerType(this.state)} >บันทึก</CancelModal>;
       button2 = <CancelModal width={Constant.Buttons.default} color={Constant.Orange} >ยกเลิก</CancelModal>;
-      button3 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>this.props.deleteCustomerType(userDetail.id)} >ลบ</CancelModal>;
+      button3 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>
+        {
+          let result = confirm("คุณต้องการลบข้อมูลส่วนนี้ใช่หรือไม่");
+          if (result) {
+            this.props.deleteCustomerType(userDetail.id)
+          }
+        }
+      } 
+        >ลบ</CancelModal>;
   
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="70" >

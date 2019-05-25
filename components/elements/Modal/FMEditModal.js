@@ -55,7 +55,12 @@ const FMEditModal = ({ title , type,userData,deleteFieldDataField,editFieldDataF
       <CancelModal width={Constant.Buttons.default} color={Constant.Orange}>
         ยกเลิก
       </CancelModal>
-      <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>deleteFieldDataField(userData.id)}>
+      <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>{
+          let result = confirm("คุณต้องการลบข้อมูลส่วนนี้ใช่หรือไม่");
+          if (result) {
+            deleteFieldDataField(userData.id)
+          }
+        }}>
         ลบสนาม
       </CancelModal>
     </Footer>
