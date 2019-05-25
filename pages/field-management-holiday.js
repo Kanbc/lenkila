@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, Constant, FMHolidayAddModal, FMHolidayEditModal, ButtonModal } from '../components';
+import { TabsLayout, Constant, FMHolidayAddModal, FMHolidayEditModal, ButtonModal,Loader } from '../components';
 import { connect } from 'react-redux';
 import { setFieldDataHoliday} from '../store';
 
@@ -15,12 +15,14 @@ class FieldManagementHoliday extends Component {
    
     return (
       <TabsLayout title="วันหยุด" tabs={Constant.FieldTabs}>
+        {this.props.isLoading ? <Loader /> :
         <div className="container">
           <div className="row overall-table">
             <table className="table">
               <thead>
                 <tr className="tools-row">
-                  <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th>
+                  {/* <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th> */}
+                  <th scope="col" className="hide1" />
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" />
@@ -63,6 +65,7 @@ class FieldManagementHoliday extends Component {
             </table>
           </div>
         </div>
+        }
         <style jsx>{`
           .search{
             background-color: #e9ecef;
@@ -104,6 +107,7 @@ class FieldManagementHoliday extends Component {
 function mapStateToProps(state) {
   return {
     users: state.field_managementHolidaySaga.fieldsHLD,
+    isLoading:state.field_managementHolidaySaga.isLoading,
   }
 }
 

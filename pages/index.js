@@ -52,7 +52,8 @@ class Index extends Component {
         </div>
         <div className="stadiums-wrapper">
           <div className="row">
-            {todayBookingList && todayBookingList.map(field => (
+          {this.props.isLoading ? <Loader /> :
+            todayBookingList && todayBookingList.map(field => (
               <div key={field.id} className="col-12 col-sm-6 col-md-4">
                 <StadiumBookingColumn 
                 title={field.field} 
@@ -67,8 +68,8 @@ class Index extends Component {
                 getEditMainByid={this.props.getEditMainByid}
                 />
               </div>
-            ))}
-            {/* {!todayBookingList && <Loader />} */}
+            ))
+          }
           </div>
         </div>
         <style jsx>
@@ -104,6 +105,7 @@ function mapStateToProps(state) {
     checkPriceData:state.bookingSaga.checkPriceData,
     customerType: state.customer_typeSaga.customerType,
     reservationList:state.bookingSaga.reservationList,
+    isLoading:state.bookingSaga.isLoading,
   };
 }
 

@@ -15,6 +15,7 @@ const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 
 export function* getCustomerTypeSaga() {
+   yield put(setData({isLoading:true}))
     yield delay(1000)
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     try {
@@ -31,6 +32,7 @@ export function* getCustomerTypeSaga() {
     } catch (err) {
         console.log('error',err)
     }
+    yield put(setData({isLoading:false}))
 }
 
 export function* addCustomerTypeSaga({data}){
@@ -149,6 +151,7 @@ const initial = {
   customerType: [],
   customerTypeId:[],
   customerTypeIdNext:[],
+  isLoading:false,
 }
 
 export default createReducer(initial, state => ({

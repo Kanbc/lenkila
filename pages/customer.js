@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, CustFilterModal, CustAddModal, CustEditModal, ButtonModal, Constant } from '../components';
+import { TabsLayout, CustFilterModal, CustAddModal, CustEditModal, ButtonModal, Constant, Loader } from '../components';
 import {connect} from 'react-redux'
 import { getCustomer,addCustomer,editCustomer,deleteCustomer,getCustomerType,addCustomerHistory,getCustomerHistory,getCustomerTypeId,getCustomerTypeIdNext } from '../store';
 
@@ -33,10 +33,12 @@ class Customer extends Component {
       <TabsLayout title="ข้อมูลลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">
           <div className="row overall-table">
+          {this.props.isLoading ? <Loader /> :
             <table className="table">
               <thead>
                 <tr className="tools-row">
-                  <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th>
+                  {/* <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th> */}
+                  <th scope="col" className="hide1" />                  
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" className="hide2" />
@@ -130,6 +132,7 @@ class Customer extends Component {
               )}
               </tbody>
             </table>
+          }
           </div>
         </div>
         <style jsx>{`
@@ -182,6 +185,7 @@ function mapStateToProps(state) {
     customerTypeId: state.customer_typeSaga.customerTypeId,
     customerTypeIdNext: state.customer_typeSaga.customerTypeIdNext,
     history:state.customerSaga.history,
+    isLoading:state.customerSaga.isLoading,
   }
 }
 

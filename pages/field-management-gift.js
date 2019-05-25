@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, Constant, ButtonModal, FMGiftEditModal, FMGiftAddModal } from '../components';
+import { TabsLayout, Constant, ButtonModal, FMGiftEditModal, FMGiftAddModal,Loader } from '../components';
 import {connect} from 'react-redux'
 import { setFieldDataGift } from '../store';
 
@@ -15,12 +15,14 @@ class FieldManagementGift extends Component {
     const { gifcode } = this.props;
     return (
       <TabsLayout title="Gift Code" tabs={Constant.FieldTabs}>
+        {this.props.isLoading ? <Loader /> :
         <div className="container">
           <div className="row overall-table">
             <table className="table">
               <thead>
                 <tr className="tools-row">
-                  <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th>
+                  {/* <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th> */}
+                  <th scope="col" className="hide1" />
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" />
@@ -66,6 +68,7 @@ class FieldManagementGift extends Component {
             </table>
           </div>
         </div>
+        }
         <style jsx>{`
           .search{
             background-color: #e9ecef;
@@ -106,6 +109,7 @@ class FieldManagementGift extends Component {
 function mapStateToProps(state) {
   return {
     gifcode: state.field_managementGiftCodeSaga.fieldsGift,
+    isLoading:state.field_managementGiftCodeSaga.isLoading,
   }
 }
 

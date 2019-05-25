@@ -25,7 +25,7 @@ class ResetPassword extends Component {
     });
   }
 
-  handleValidation() {
+  handleValidation(param) {
     const newPassword = this.state.newPassword;
     const confirmPassword = this.state.confirmPassword;
 
@@ -39,16 +39,14 @@ class ResetPassword extends Component {
       });
     }
     else{
-      this.props.changeUserPassword({newpassword:newPassword,user_id:this.props.router.query.user_id})
+      this.props.changeUserPassword({newpassword:newPassword,user_id:param.query.user_id})
     }
     
   }
 
   render() {
     const { errorMessage } = this.state;
-    console.log('this.props.user id', this.props);
     const param = queryString.parseUrl(this.props.router.asPath);
-    console.log('parameter', param);
     return (
       <div className="root">
         <Head>
@@ -91,7 +89,7 @@ class ResetPassword extends Component {
                   {errorMessage}
                 </div>
               }
-              <button type="submit" className="btn btn-primary" onClick={()=>this.handleValidation()}>
+              <button type="submit" className="btn btn-primary" onClick={()=>this.handleValidation(param)}>
                 Reset Password
               </button>
             </div>
