@@ -23,6 +23,7 @@ class UserManagement extends Component {
         <Layout title="การจัดการบัญชีผู้ใช้">
           <div className="container">
             <PageTitle title="การจัดการบัญชีผู้ใช้" />
+            {this.props.isLoading ? <Loader /> :
             <div className="row overall-table">
               <table className="table">
                 <thead>
@@ -69,8 +70,8 @@ class UserManagement extends Component {
                   })}
                 </tbody>
               </table>
-              {!users && <Loader></Loader>}
             </div>
+            }
           </div>
           <style jsx>{`
             .search{
@@ -120,6 +121,7 @@ function mapStateToProps(state) {
   return {
     users: state.user_managementSaga.users,
     roleUser: state.auth.roleUser,
+    isLoading:state.user_managementSaga.isLoading,
   }
 }
 

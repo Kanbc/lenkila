@@ -288,7 +288,10 @@ class BookingEditModal extends Component {
             <div className="col-sm-6 left-side">
               <div className="space-l">
                 <CancelModal width="120px" bstrap="btn-success" onClick={() => {
-                  this.props.editBooking({...this.state})
+                  this.props.editBooking({
+                    ...this.state,
+                    pay_stadium:summary && summary.reduce((partial_sum, a) => partial_sum + a,0) + this.sumValues(this.state.checkData),
+                  })
                   this.props.setStateAddMore && this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal && this.props.setStateCurrentModal('#add-drag-booking')
                   this.props.setDataBooking && this.props.setDataBooking({

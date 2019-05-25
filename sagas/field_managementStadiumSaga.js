@@ -13,6 +13,7 @@ export const setData = Creator(SET_DATA,'data')
 const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* setFieldDataSaga() {
+  yield put(setData({isLoading:true}))
   yield delay(1000)
   const id = yield select(state => state.auth.user[0].stadium_doc.id)
   console.log('id',id)
@@ -29,6 +30,8 @@ export function* setFieldDataSaga() {
     } catch (err) {
         console.log('error',err)
     }
+  yield put(setData({isLoading:false}))
+
   }
 
 
@@ -94,6 +97,7 @@ export function* fieldManagementStadiumWatcher() {
 }
 const initial = {
   fieldsSTD: [],
+  isLoading:false,
 }
 
 export default createReducer(initial, state => ({

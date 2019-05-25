@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { TabsLayout, FMImportPriceModal, FMPriceAddModal, FMPriceEditModal, ButtonModal, Constant } from '../components';
+import { TabsLayout, FMImportPriceModal, FMPriceAddModal, FMPriceEditModal, ButtonModal, Constant,Loader } from '../components';
 import {connect} from 'react-redux'
 import {setDataPrice} from '../sagas/field_managementPriceSaga'
 
 import { setFieldDataPrice,setFieldDataField,importPrice,getCustomerType } from '../store';
 
 class FieldManagementPrice extends Component {
+  
   // [GET] - Users
   async componentDidMount(){
     await this.props.setFieldDataField()
@@ -45,7 +46,7 @@ class FieldManagementPrice extends Component {
                   <th scope="col">
                     <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#add-user">
                       <i className="fa fa-plus" aria-hidden="true" />
-                      <FMPriceAddModal title="สร้างราคา" type="add-user" customerType={vipType}/>
+                      <FMPriceAddModal title="สร้างราคา" type="add-user" customerType={vipType} fields={this.props.fields}/>
                     </ButtonModal>
                   </th>
                 </tr>
@@ -56,10 +57,10 @@ class FieldManagementPrice extends Component {
                   <th scope="col" className="hide2">ราคา</th>
                   <th scope="col" className="hide2">สี</th>
                   <th scope="col" />
-                </tr>
-              </thead>
+                </tr>   
+              </thead>            
+              {this.props.isLoading ? <Loader price/> :          
               <tbody>
-                
                 {this.props.fieldsPrice.map(user => (
                   <tr key={user.id}>
                     <td className="hide1" style={{ color: `${user.color}` }}>
@@ -83,15 +84,18 @@ class FieldManagementPrice extends Component {
                     <td>
                       <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.id}`}>
                         <i className="fa fa-pencil" />
-                        <FMPriceEditModal key={user.id} title="แก้ไขราคา" type={`edit-user-${user.id}`} userData={user} customerType={vipType} />
+                        <FMPriceEditModal key={user.id} title="แก้ไขราคา" type={`edit-user-${user.id}`} userData={user} customerType={vipType} fields={this.props.fields}/>
                       </ButtonModal>
                     </td>
                   </tr>))}
               </tbody>
-            </table>
+              }
+            </table>          
           </div>
         </div>
+        
         <style jsx>{`
+          
           .tools-row th{
             border-top: none;
             padding-bottom: 20px;
@@ -141,6 +145,8 @@ function mapStateToProps(state) {
     fields: state.field_managementFieldSaga.fields,
     fieldId: state.field_managementPriceSaga.fieldId,
     customerType: state.customer_typeSaga.customerType,
+    isLoading:state.field_managementPriceSaga.isLoading,
+
   }
 }
 

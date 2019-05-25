@@ -55,7 +55,8 @@ class FMPriceEditModal extends Component {
   }
 
   render() {
-    console.log('this.props.colorPriceEdit',this.props.colorPriceEdit)
+    const isDivide = this.props.fields.length !== 0 && this.props.fields.find(val => val.id === this.props.fieldId)
+
     let button1 = null;
     let button2 = null;
     let button3 = null;
@@ -178,7 +179,7 @@ class FMPriceEditModal extends Component {
             <div className="col-sm-2 field-and-button">
               <div className="input-group">
               <input type="number" className="form-control" placeholder="เต็ม" value={parseInt(this.state.student_class)} onChange={e => this.setState({ student_class:e.target.value })}/>
-              <input type="number" className="form-control" placeholder="ครึ่ง" value={parseInt(this.state.student_class_half)} onChange={e => this.setState({ student_class_half:e.target.value })}/>
+              <input type="number" className="form-control" placeholder="ครึ่ง" value={parseInt(this.state.student_class_half)} onChange={e => this.setState({ student_class_half:e.target.value })} disabled={isDivide && isDivide.is_dividable === '0'}/>
               </div>
             </div>
             <div className="col-sm-1">
@@ -187,7 +188,7 @@ class FMPriceEditModal extends Component {
             <div className="col-sm-2 field-and-button">
               <div className="input-group">
               <input type="number" className="form-control" placeholder="เต็ม" value={parseInt(this.state.college_class)} onChange={e => this.setState({ college_class:e.target.value })}/>
-              <input type="number" className="form-control" placeholder="ครึ่ง" value={parseInt(this.state.college_class_half)} onChange={e => this.setState({ college_class_half:e.target.value })}/>
+              <input type="number" className="form-control" placeholder="ครึ่ง" value={parseInt(this.state.college_class_half)} onChange={e => this.setState({ college_class_half:e.target.value })} disabled={isDivide && isDivide.is_dividable === '0'}/>
               </div>
             </div>
             <div className="col-sm-1">
@@ -196,7 +197,7 @@ class FMPriceEditModal extends Component {
             <div className="col-sm-2 field-and-button">
               <div className="input-group">
               <input type="number" className="form-control" placeholder="เต็ม" value={parseInt(this.state.aged_class)} onChange={e => this.setState({ aged_class:e.target.value })}/>
-              <input type="number" className="form-control" placeholder="ครึ่ง" value={parseInt(this.state.aged_class_half)} onChange={e => this.setState({ aged_class_half:e.target.value })}/>
+              <input type="number" className="form-control" placeholder="ครึ่ง" value={parseInt(this.state.aged_class_half)} onChange={e => this.setState({ aged_class_half:e.target.value })} disabled={isDivide && isDivide.is_dividable === '0'}/>
               </div>
             </div>
           </div>
@@ -213,7 +214,7 @@ class FMPriceEditModal extends Component {
                     <div className="col-sm-2 field-and-button">
                       <div className="input-group">
                         <input type="number" className="form-control" placeholder="เต็ม" value={this.state.vip_type[keyName]} onChange={e => this.setState({ vip_type:{...this.state.vip_type,[keyName]:e.target.value} })}/>
-                        <input type="number" className="form-control" placeholder="ครึ่ง" value={this.state.vip_type[keyNameHalf]} onChange={e => this.setState({ vip_type:{...this.state.vip_type,[keyNameHalf]:e.target.value} })}/>
+                        <input type="number" className="form-control" placeholder="ครึ่ง" value={this.state.vip_type[keyNameHalf]} onChange={e => this.setState({ vip_type:{...this.state.vip_type,[keyNameHalf]:e.target.value} })} disabled={isDivide && isDivide.is_dividable === '0'}/>
                       </div>
                     </div>
                   </React.Fragment>
@@ -289,6 +290,7 @@ class FMPriceEditModal extends Component {
 function mapStateToProps(state) {
   return {
     colorPriceEdit: state.field_managementPriceSaga.colorPriceEdit,
+    fieldId: state.field_managementPriceSaga.fieldId,
   }
 }
 

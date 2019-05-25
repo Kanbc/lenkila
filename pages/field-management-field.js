@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, Constant, FMAddModal, FMEditModal, ButtonModal } from '../components';
+import { TabsLayout, Constant, FMAddModal, FMEditModal, ButtonModal,Loader } from '../components';
 import {connect} from 'react-redux'
 import { setFieldDataField } from '../store';
 
@@ -20,12 +20,14 @@ class FieldManagementField extends Component {
 
     return (
       <TabsLayout title="สนาม" tabs={Constant.FieldTabs}>
+        {this.props.isLoading ? <Loader /> :
         <div className="container">
           <div className="row overall-table">
             <table className="table">
               <thead>
                 <tr className="tools-row">
-                  <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th>
+                  {/* <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th> */}
+                  <th scope="col" className="hide1" />
                   <th scope="col" className="hide1" />
                   <th scope="col" className="hide2" />
                   <th scope="col" />
@@ -62,7 +64,7 @@ class FieldManagementField extends Component {
             </table>
           </div>
         </div>
-
+        }
         <style jsx>{`
           .search{
             background-color: #e9ecef;
@@ -102,6 +104,7 @@ class FieldManagementField extends Component {
 function mapStateToProps(state) {
   return {
     items: state.field_managementFieldSaga.fields,
+    isLoading:state.field_managementFieldSaga.isLoading,
   }
 }
 

@@ -42,6 +42,7 @@ class FieldManagement extends Component {
   render() {
     return (
       <TabsLayout title="ข้อมูลสนาม" tabs={Constant.FieldTabs}>
+        {this.props.isLoading ? <Loader /> :
         <div className="container">
           <div className="row first-row">
             <div className="col-sm-1">
@@ -245,6 +246,7 @@ class FieldManagement extends Component {
              />
           </div>
         </div>
+        }
         <style jsx>
           {`
             .first-row{
@@ -312,6 +314,7 @@ const SaveButton=({id,stadium_doc_id,phone,description,location,facilities,editF
 function mapStateToProps(state) {
   return {
     users: state.field_managementStadiumSaga.fieldsSTD,
+    isLoading:state.field_managementStadiumSaga.isLoading,
   }
 }
 

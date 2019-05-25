@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TabsLayout, Constant, CustTypeAddModal, CustTypeEditModal, ButtonModal } from '../components';
+import { TabsLayout, Constant, CustTypeAddModal, CustTypeEditModal, ButtonModal,Loader } from '../components';
 import {connect} from 'react-redux'
 import { getCustomerType,addCustomerType,editCustomerType,deleteCustomerType } from '../store';
 
@@ -16,6 +16,7 @@ class CustomerType extends Component {
       <TabsLayout title="ประเภทลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">
           <div className="row overall-table">
+          {this.props.isLoading ? <Loader /> :
             <table className="table">
               <thead>
                 <tr className="tools-row">
@@ -61,6 +62,7 @@ class CustomerType extends Component {
                   </tr>))}
               </tbody>
             </table>
+           }
           </div>
         </div>
 
@@ -105,6 +107,7 @@ class CustomerType extends Component {
 function mapStateToProps(state) {
   return {
     customerType: state.customer_typeSaga.customerType,
+    isLoading:state.customer_typeSaga.isLoading,
   }
 }
 

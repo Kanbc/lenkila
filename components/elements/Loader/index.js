@@ -1,19 +1,22 @@
 import React from 'react';
 
-const Loader = ({}) => (
+const Loader = ({price}) => (
         <div className="lds-ellipsis">
-            <div />
-            <div />
-            <div />
-            <div />
+                <div />
+                <div />
+                <div />
+                <div />
             <style jsx>{`
                 .lds-ellipsis {
-                    display: inline-block;
-                    position: relative;
+                    display: -webkit-box;
+                    position: ${price ? 'absolute':'relative'};
                     width: 64px;
                     height: 64px;
                     margin: 20px auto;
+                    left:${price && '220px'};
+                    right:${price && '0'};
                 }
+           
                 .lds-ellipsis div {
                     position: absolute;
                     top: 27px;

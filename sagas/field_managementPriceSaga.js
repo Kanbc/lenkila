@@ -12,6 +12,7 @@ export const setDataPrice = Creator(SET_DATA_PRICE,'data')
 const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* setFieldDataSaga() {
+    yield put(setDataPrice({isLoading:true}))
 
     yield delay(1500)
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
@@ -42,6 +43,7 @@ export function* setFieldDataSaga() {
     } catch (err) {
         console.log('error',err)
     }
+    yield put(setDataPrice({isLoading:false}))
   }
 
 
@@ -180,6 +182,7 @@ const initial = {
   fieldId:0,
   fieldIdImport:0,
   firstTime:true,
+  isLoading:false,
 }
 
 export default createReducer(initial, state => ({

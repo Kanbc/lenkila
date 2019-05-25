@@ -147,6 +147,7 @@ const modifireCheckPriceEdit = (data) => (result, item) => {
 
 
 export function* getBookingSaga({date}) {
+  yield put(setDataBooking({isLoading:true})) 
   
   console.log('get booking date',date)    
   yield delay(1000)
@@ -185,7 +186,9 @@ export function* getBookingSaga({date}) {
   console.log('get booking response',response)    
     
   } catch (err) {
+
   }
+  yield put(setDataBooking({isLoading:false})) 
 }
 
 export function* addBookingSaga({data}){
@@ -293,6 +296,7 @@ export function* priceCheckingBookingSaga({data,customer,edit,callback}){
 
 
 export function* editBookingSaga({data,flag}){
+  console.log('edit data',data)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
   const editFieldDocList = yield select(state => state.bookingSaga.editFieldDocList)
   const editAddmore = yield select(state => state.bookingSaga.editAddmore)
@@ -338,7 +342,9 @@ export function* editBookingSaga({data,flag}){
           rebate_other:JSON.stringify(data.rebate_other),
           create_by:data.create_by,
           cashier_by:data.cashier_by,
+          pay_stadium:data.pay_stadium,
           field_doc_list:modifireFieldDoc,
+          
         },
       )
     
@@ -387,6 +393,7 @@ export function* exportCsvSaga({data}){
 
 
 export function* getBoostSaga({date}){
+  yield put(setDataBooking({isLoading:true})) 
   yield delay(1000)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
@@ -416,6 +423,8 @@ export function* getBoostSaga({date}){
   } catch (err) {
       console.log('error',err)
   }
+  yield put(setDataBooking({isLoading:false})) 
+
 }
 
 
@@ -491,6 +500,7 @@ const initial = {
   csv:'',
   todayBookingList:[],
   boostList:[],
+  isLoading:false,
 }
 
 export default createReducer(initial, state => ({

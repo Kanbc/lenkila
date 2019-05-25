@@ -5,7 +5,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { setDataBooking } from '../sagas/bookingSaga'
 import { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost,getEditMainByid  } from '../store';
-import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, ExportBookingModal } from '../components';
+import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, ExportBookingModal,Loader } from '../components';
 
 class BookingTable extends Component {
   constructor(props) {
@@ -210,6 +210,7 @@ class BookingTable extends Component {
               </div>
             </div>
           </div>
+          {this.props.isLoading ? <Loader /> :
           <BookingCalendar
             field={this.props.fieldsBooking}
             booking={[...this.props.reservationAddData, ...this.props.fieldsPrice,...this.props.boostList]}
@@ -232,6 +233,7 @@ class BookingTable extends Component {
             setStateBoostData={this.setStateBoostData}
             getEditMainByid={this.props.getEditMainByid}
           />
+        }
         </div>
         <style jsx>{`
           .row{
@@ -286,6 +288,7 @@ const mapStateToProps = state => (
     boostList: state.bookingSaga.boostList,
     csv: state.bookingSaga.csv,
     user: state.auth.user,
+    isLoading:state.bookingSaga.isLoading,
   }
 );
 

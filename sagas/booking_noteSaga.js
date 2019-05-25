@@ -3,6 +3,7 @@ import {actionTypes} from '../store'
 import axios from 'axios'
 import {delay} from 'redux-saga'
 import {createReducer,Creator} from './helper'
+import {setDataBooking} from './bookingSaga'
 
 const SET_DATA = 'SET_DATA'
 
@@ -68,6 +69,8 @@ export function* setNoteIdSaga(){
 }
 
 export function* setNoteDateSaga({date}){
+  yield put(setDataBooking({isLoading:true})) 
+
   yield delay(1000)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
   console.log('note date =>>>>>>',date)
@@ -86,6 +89,8 @@ export function* setNoteDateSaga({date}){
   } catch (err) {
       console.log('error',err)
   }
+  yield put(setDataBooking({isLoading:false})) 
+
 }
 
 export function* editNoteSaga({data}){

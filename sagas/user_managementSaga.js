@@ -41,7 +41,8 @@ export function* addUesrDataSaga({newUser}) {
   }
 
 export function* setUsersDataSaga(){
-  yield delay(500)
+  yield put(setData({isLoading:true}))
+  yield delay(1000)
   const stadium_doc_id = yield select(state => state.auth.user[0].stadium_doc.id)
   try {
     const response = yield axios.get(apiUrl, {
@@ -57,6 +58,8 @@ export function* setUsersDataSaga(){
 } catch (err) {
     console.log('error',err)
 }
+yield put(setData({isLoading:false}))
+
 }
 
 export function* deleteUsersDataSaga({id}){
@@ -137,6 +140,7 @@ export function* userManagementWatcher() {
 
 const initial = {
   users: [],
+  isLoading:false,
 }
 
 export default createReducer(initial, state => ({

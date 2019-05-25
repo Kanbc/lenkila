@@ -14,7 +14,6 @@ class BookingAddModal extends Component {
       player_value:0,
       deposit:'',
       rebate_other:[],
-      pay_stadium:'',
       checkData:{},
     };
     this.setStateDiscount = this.setStateDiscount.bind(this);
@@ -257,6 +256,7 @@ class BookingAddModal extends Component {
                     cashier_by:this.props.user[0].username,
                     ...this.state,
                     rebate_other:JSON.stringify(this.state.rebate_other),
+                    pay_stadium:summary.reduce((partial_sum, a) => partial_sum + a,0)  + this.sumValues(this.state.checkData),
                   })
                   this.cancelStateDiscount()
                   this.props.setDataBooking({
