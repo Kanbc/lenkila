@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
 import Router from 'next/router';
-import {changeUserPassword} from '../store'
-import {connect} from 'react-redux'
+import queryString from 'query-string';
+import {changeUserPassword} from '../store';
+import {connect} from 'react-redux';
 
 
 class ResetPassword extends Component {
@@ -45,7 +46,9 @@ class ResetPassword extends Component {
 
   render() {
     const { errorMessage } = this.state;
-    console.log('this.props.user id',this.props)
+    console.log('this.props.user id', this.props);
+    const param = queryString.parseUrl(this.props.router.asPath);
+    console.log('parameter', param);
     return (
       <div className="root">
         <Head>
