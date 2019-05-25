@@ -20,7 +20,7 @@ class FMHolidayEditModal extends Component {
       startTime: moment.duration(props.userData.start_time).asSeconds(),
       endTime: moment.duration(props.userData.end_time).asSeconds(),
       name:this.props.userData.name,
-      flag:'0',
+      flag:this.props.userData.flag,
     };
  
     this.editNewField = this.editNewField.bind(this);
