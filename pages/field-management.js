@@ -25,12 +25,12 @@ class FieldManagement extends Component {
     this.props.setFieldDataSTD();
   }
   componentWillReceiveProps(nextProps){
-    console.log('nextProps',nextProps)
+    console.log('nextProps',nextProps.users.facilities)
     this.setState({
       phone:nextProps.users.phone,
       description:nextProps.users.description,
       location:nextProps.users.location,
-      facilities: nextProps.users.facilities!==""&&JSON.parse(nextProps.users.facilities),
+      facilities: nextProps.users.facilities && JSON.parse(nextProps.users.facilities),
       id:nextProps.users.id,
       stadium_doc_id:nextProps.users.stadium_doc_id,
       openTime: moment.duration(nextProps.users.open_time).asSeconds(),
