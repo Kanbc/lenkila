@@ -129,7 +129,14 @@ class FMHolidayEditModal extends Component {
           <CancelModal width={Constant.Buttons.default} color={Constant.Orange}>
             ยกเลิก
           </CancelModal>
-          <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>this.props.deleteFieldDataHoliday(this.props.userData.id)}>
+          <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={()=>
+            {
+              let result = confirm("คุณต้องการลบข้อมูลส่วนนี้ใช่หรือไม่");
+              if (result) {
+                this.props.deleteFieldDataHoliday(this.props.userData.id)
+              }
+            }
+            }>
             ลบ
           </CancelModal>
         </Footer>

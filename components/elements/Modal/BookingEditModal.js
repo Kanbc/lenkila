@@ -310,17 +310,20 @@ class BookingEditModal extends Component {
               </div>
               <div className="space-l">
                 <CancelModal width="120px" bstrap="btn-danger" onClick={()=> {
-                  this.props.deleteBooking(this.props.booking.reservation_main_id,this.props.date)
-                  this.props.setStateAddMore && this.props.setStateAddMore(false)
-                  this.props.setStateCurrentModal && this.props.setStateCurrentModal('#add-drag-booking')
-                  this.props.setDataBooking && this.props.setDataBooking({
-                    checkPriceData:[],
-                    paramsCheckprice:[],
-                    paramsFieldDocList:[],
-                    editFieldDocList:[],
-                    editAddmore:false
-                  })
-                  this.clearCheckData()
+                   let result = confirm("คุณต้องการลบข้อมูลส่วนนี้ใช่หรือไม่");
+                   if (result) {
+                     this.props.deleteBooking(this.props.booking.reservation_main_id,this.props.date)
+                     this.props.setStateAddMore && this.props.setStateAddMore(false)
+                     this.props.setStateCurrentModal && this.props.setStateCurrentModal('#add-drag-booking')
+                     this.props.setDataBooking && this.props.setDataBooking({
+                       checkPriceData:[],
+                       paramsCheckprice:[],
+                       paramsFieldDocList:[],
+                       editFieldDocList:[],
+                       editAddmore:false
+                     })
+                     this.clearCheckData()
+                   }
                 }}>
                   ยกเลิกการจอง
                 </CancelModal>
