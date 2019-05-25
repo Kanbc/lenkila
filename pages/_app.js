@@ -26,9 +26,13 @@ const bodyEnhancer = compose(
         if(this.props.router.pathname === '/forgot-password'){
           Router.push({pathname:`/forgot-password`})
         }
-        // else  if(this.props.router.pathname === '/reset-password'){
-        //   Router.push({pathname:`/reset-password`,query:{user_id:this.props.router.query.user_id}})
-        // }
+        else  if(this.props.router.pathname === '/reset-password'){
+          console.log('router query', this.props.router)
+          Router.push({pathname:`/reset-password`,query:{
+            user_id: this.props.router.query.user_id,
+            token: this.props.router.query.token,
+          }})
+        }
         else{
           Router.push({pathname:'/login'})
         }
