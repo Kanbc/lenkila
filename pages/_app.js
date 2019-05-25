@@ -27,7 +27,7 @@ const bodyEnhancer = compose(
           Router.push({pathname:`/forgot-password`})
         }
         else  if(this.props.router.pathname === '/reset-password'){
-          Router.push({pathname:`/reset-password`,query:{user_id:this.props.router.query.user_id}})
+          // just doing nothing to keep params?
         }
         else{
           Router.push({pathname:'/login'})

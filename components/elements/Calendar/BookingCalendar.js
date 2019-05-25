@@ -115,6 +115,9 @@ class BookingCalendar extends Component {
       slotWidth: 30,
       editable: false,
       selectable: that.props.canbook,
+      selectOverlap(event) {
+        return event.rendering === 'background';
+      },
       select(startDate, endDate, jsEvent, view, resource) {
         console.log('currentModal',that.props.currentModal)
         const start = startDate.format();

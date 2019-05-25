@@ -91,7 +91,7 @@ class FMHolidayAddModal extends Component {
               <TimePicker
                 format={24}
                 start="00:00"
-                end="24:00"
+                end="23:45"
                 step={15}
                 value={this.state.startTime}
                 onChange={startTime => this.setState({ startTime })}
@@ -120,7 +120,7 @@ class FMHolidayAddModal extends Component {
               <TimePicker
                 format={24}
                 start="00:00"
-                end="24:00"
+                end="23:45"
                 step={15}
                 value={this.state.endTime}
                 onChange={endTime => this.setState({ endTime })}
