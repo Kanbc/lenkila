@@ -51,9 +51,9 @@ class FieldManagementGift extends Component {
                 {gifcode.map(user => (
                   <tr key={user.id}>
                     <td className="hide1">{user.name}</td>
-                    <td>{user.is_allday === "0" && "ทั้งวัน"}</td>
-                    <td>{user.start_time}-{user.end_time}</td>
-                    <td className="hide2">{user.expired_at}</td>
+                    <td></td>
+                    <td>{user.is_allday === "0" ? "ทั้งวัน" : `${user.start_time} - ${user.end_time}`}</td>
+                    <td className="hide2">{user.start_date} - {user.expired_at}</td>
                     <td className="hide1">{user.discount_amount}</td>
                     <td>{user.used_amount}</td>
                     <td>{user.per_person_limit_amount}</td>

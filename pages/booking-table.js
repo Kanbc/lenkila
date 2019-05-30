@@ -99,6 +99,16 @@ class BookingTable extends Component {
     this.props.setNoteDate(this.state.gotoDate.format('YYYY-MM-DD'));
     this.props.getListBoost(this.state.gotoDate.format('YYYY-MM-DD'));
     this.props.getCustomerType();
+    
+    this.setStateAddMore(false);
+    this.setStateCurrentModal('#add-drag-booking')
+    this.props.setDataBooking({
+      checkPriceData:[],
+      paramsCheckprice:[],
+      paramsFieldDocList:[],
+      editFieldDocList:[],
+      editAddmore:false
+    })
   }
   render() {
     return (
