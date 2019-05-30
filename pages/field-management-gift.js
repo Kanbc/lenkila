@@ -38,9 +38,9 @@ class FieldManagementGift extends Component {
                 </tr>
                 <tr>
                   <th scope="col" className="hide1">ชื่อ</th>
-                  <th scope="col">วัน</th>
+                  <th scope="col">สถานะ</th>
                   <th scope="col">เวลา</th>
-                  <th scope="col">วันสิ้นสุด</th>
+                  <th scope="col">วันเริ่มต้น-วันสิ้นสุด</th>
                   <th scope="col">ราคา</th>
                   <th scope="col">จำนวน</th>
                   <th scope="col" className="hide2">สิทธิ์</th>

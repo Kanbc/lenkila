@@ -47,8 +47,24 @@ class FMGiftEditModal extends Component {
             <div className="col-sm-2">
               <p>ชื่อ</p>
             </div>
-            <div className="col-sm-4">
+            <div className="col-sm-10">
               <input type="text" className="form-control" id="firstname" defaultValue={this.props.userData.name} onChange={e => this.setState({ name: e.target.value })} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-sm-2">
+              <p>วันเริ่มต้น</p>
+            </div>
+            <div className="col-sm-4">
+              <DatePicker
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                disabledKeyboardNavigation
+                selected={this.state.expiredAt}
+                onChange={expiredAt => this.setState({ expiredAt })}
+                className="form-control"
+              />
             </div>
             <div className="col-sm-2">
               <p>วันสิ้นสุด</p>
