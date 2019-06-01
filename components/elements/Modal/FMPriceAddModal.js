@@ -25,6 +25,7 @@ class FMPriceAddModal extends Component {
       is_sun:false,	
       is_hol:false,
       normal_class:null,
+      normal_class_half:null,
       student_class:null,
       student_class_half:null,
       college_class:null,
@@ -152,6 +153,7 @@ class FMPriceAddModal extends Component {
             <div className="col-sm-2 field-and-button">
               <div className="input-group">
               <input type="number" className="form-control" placeholder="เต็ม" value={this.state.normal_class} onChange={e => this.setState({ normal_class:e.target.value })}/>
+              <input type="number" className="form-control" placeholder="ครึ่ง" value={this.state.normal_class_half} onChange={e => this.setState({ normal_class_half:e.target.value })} disabled={isDivide && isDivide.is_dividable === '0'}/>
               </div>
             </div>
             <div className="col-sm-1">

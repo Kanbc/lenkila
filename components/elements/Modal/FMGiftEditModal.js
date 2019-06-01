@@ -16,7 +16,7 @@ class FMGiftEditModal extends Component {
     super(props);
     this.state = {
       expiredAt: moment(this.props.userData.expired_at),
-      startDate: moment(this.props.userData.startDate),
+      startDate: moment(this.props.userData.start_at),
       name:this.props.userData.name,
       startTime: moment.duration(props.userData.start_time).asSeconds(),
       endTime: moment.duration(props.userData.end_time).asSeconds(),
