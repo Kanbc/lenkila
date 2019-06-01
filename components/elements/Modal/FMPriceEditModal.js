@@ -178,6 +178,7 @@ class FMPriceEditModal extends Component {
             <div className="col-sm-2 field-and-button">
               <div className="input-group">
               <input type="number" className="form-control" placeholder="เต็ม" value={parseInt(this.state.normal_class)} onChange={e => this.setState({ normal_class:e.target.value })}/>
+              <input type="number" className="form-control" placeholder="ครึ่ง" value={parseInt(this.state.normal_class_half)} onChange={e => this.setState({ normal_class_half:e.target.value })} disabled={isDivide && isDivide.is_dividable === '0'}/>
               </div>
             </div>
             <div className="col-sm-1">

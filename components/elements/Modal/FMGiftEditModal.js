@@ -16,6 +16,7 @@ class FMGiftEditModal extends Component {
     super(props);
     this.state = {
       expiredAt: moment(this.props.userData.expired_at),
+      startDate: moment(this.props.userData.start_at),
       name:this.props.userData.name,
       startTime: moment.duration(props.userData.start_time).asSeconds(),
       endTime: moment.duration(props.userData.end_time).asSeconds(),
@@ -61,8 +62,8 @@ class FMGiftEditModal extends Component {
                 showYearDropdown
                 dropdownMode="select"
                 disabledKeyboardNavigation
-                selected={this.state.expiredAt}
-                onChange={expiredAt => this.setState({ expiredAt })}
+                selected={this.state.startDate}
+                onChange={startDate => this.setState({ startDate })}
                 className="form-control"
               />
             </div>
@@ -159,6 +160,7 @@ class FMGiftEditModal extends Component {
             {
               id:this.props.userData.id,
               name:this.state.name,
+              start_date:this.state.startDate,
               expired_at:this.state.expiredAt,
               type:this.state.type,
               discount_amount:this.state.discount_amount,

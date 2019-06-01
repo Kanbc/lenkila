@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TabsLayout, Constant, ButtonModal, FMGiftEditModal, FMGiftAddModal,Loader } from '../components';
 import {connect} from 'react-redux'
 import { setFieldDataGift } from '../store';
+import moment from 'moment'
 
 class FieldManagementGift extends Component {
 
@@ -11,8 +12,9 @@ class FieldManagementGift extends Component {
   }
 
   render() {
-
+    const toDay = new Date()
     const { gifcode } = this.props;
+    
     return (
       <TabsLayout title="Gift Code" tabs={Constant.FieldTabs}>
         {this.props.isLoading ? <Loader /> :
@@ -51,9 +53,9 @@ class FieldManagementGift extends Component {
                 {gifcode.map(user => (
                   <tr key={user.id}>
                     <td className="hide1">{user.name}</td>
-                    <td>{user.is_allday === "0" && "ทั้งวัน"}</td>
-                    <td>{user.start_time}-{user.end_time}</td>
-                    <td className="hide2">{user.expired_at}</td>
+                    <td>{moment(toDay).format("YYYY-MM-DD") < user.start_at ? 'Waiting' : moment(toDay).format("YYYY-MM-DD") <= user.expired_at ? 'Active' : 'Expire'}</td>
+                    <td>{user.is_allday === "0" ? "ทั้งวัน" : `${user.start_time} - ${user.end_time}`}</td>
+                    <td className="hide2">{user.start_at} - {user.expired_at}</td>
                     <td className="hide1">{user.discount_amount}</td>
                     <td>{user.used_amount}</td>
                     <td>{user.per_person_limit_amount}</td>

@@ -17,6 +17,7 @@ class FMGiftAddModal extends Component {
       allDay:false,
       type:"0",
       currentDate: moment(),
+      startDate: moment(),
       startTime: 0,
       endTime: 0,
       discount_amount:'',
@@ -34,6 +35,7 @@ class FMGiftAddModal extends Component {
       allDay:false,
       type:"0",
       currentDate: moment(),
+      startDate:moment(),
       startTime: 0,
       endTime: 0,
       discount_amount:'',
@@ -70,8 +72,8 @@ class FMGiftAddModal extends Component {
                 showYearDropdown
                 dropdownMode="select"
                 disabledKeyboardNavigation
-                selected={this.state.currentDate}
-                onChange={currentDate => this.setState({ currentDate })}
+                selected={this.state.startDate}
+                onChange={startDate => this.setState({ startDate })}
                 className="form-control"
               />
             </div>
@@ -166,6 +168,7 @@ class FMGiftAddModal extends Component {
           <CancelModal width="100px" bstrap="btn-success" onClick={() => {
             this.props.addFieldDataGift({
             name:this.state.name,
+            start_date:this.state.startDate,
             expired_at:this.state.currentDate,
             type:this.state.type,
             discount_amount:this.state.discount_amount,
