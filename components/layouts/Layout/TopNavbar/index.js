@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CollapseMenu from './CollapseMenu';
+import CollapseMenu2 from './CollapseMenu2';
 import { AdminEditModal } from '../../../index';
 import { connect } from 'react-redux';
 import {logout} from '../../../../store'
@@ -34,6 +35,33 @@ class TopNavbar extends Component {
               ))
             }
           </ul>
+          <div className="dropdown-divider" />
+          {admin &&
+            <ul className="navbar-nav d-lg-none d-xl-none">
+              <CollapseMenu2
+                href="#"
+                name="ลงชื่อออก"
+                onClick={() => logout()}
+              />
+              <CollapseMenu2
+                href="#"
+                dataToggle="modal"
+                dataBackdrop="static"
+                dataTarget="#edit-admin2"
+                name="ข้อมูลส่วนตัว"
+              />
+              <CollapseMenu2
+                href="#"
+                name="คำถามที่พบบ่อย"
+              />
+              <CollapseMenu2
+                href="#"
+                name="แจ้งปัญหา"
+              />
+              {/* <a className="dropdown-item" href="#" data-toggle="modal" data-backdrop="static" data-target="#edit-admin">ข้อมูลส่วนตัว</a> */}
+              <AdminEditModal title="ข้อมูลส่วนตัว" type="edit-admin2" userData={admin} />
+            </ul>
+          }
         </div>
          
         <div className="collapse navbar-collapse" id="navbarNavDropdown2">
