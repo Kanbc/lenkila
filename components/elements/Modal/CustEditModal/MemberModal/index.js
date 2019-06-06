@@ -14,6 +14,7 @@ class MemberModal extends Component {
 
     this.addMember = this.addMember.bind(this);
     this.selectValue = this.selectValue.bind(this);
+    this.exitThisModal = this.exitThisModal.bind(this);
   }
 
   addMember() {
@@ -27,6 +28,11 @@ class MemberModal extends Component {
         ...newValue
       }
     );
+  }
+
+  exitThisModal() {
+    // Jquery hide specific modal
+    $("#" + this.props.type).modal('hide');
   }
 
  
@@ -155,9 +161,9 @@ class MemberModal extends Component {
           <Button width="100px" color={Constant.Blue} onClick={this.addMember}>
             ซื้อเพิ่ม
           </Button>
-          <CancelModal width="100px" bstrap="btn-danger" >
+          <Button width="100px" bstrap="btn-danger" onClick={this.exitThisModal}>
             ปิด
-          </CancelModal>
+          </Button>
         </Footer>
         <style jsx>{`
           .bold-text{

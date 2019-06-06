@@ -10,7 +10,7 @@ const ButtonModal = ({
   onClick,
 }) => (
   <div>
-    <button type="button" className={`btn ${bstrap}`} data-toggle="modal" data-target={modalName} onClick={onClick} disabled={isDisable}>
+    <button type="button" className={`btn ${bstrap}`} data-toggle="modal" data-backdrop="static" data-target={modalName} onClick={onClick} disabled={isDisable}>
       {children[0]}
     </button>
     {children[1]}

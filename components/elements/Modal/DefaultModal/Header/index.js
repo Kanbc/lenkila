@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Header = ({ title,changeAddmore,changeCurrentModal,setDataBooking,clearCheckData }) => (
+const Header = ({ title,changeAddmore,changeCurrentModal,setDataBooking,clearCheckData,type }) => (
   <div className="modal-header">
     <h5 className="modal-title" id="lenkilaModalLongTitle">{ title }</h5>
-    <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=>
+    {/* <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=>
       {
         setDataBooking({
           checkPriceData:[],
@@ -15,6 +15,23 @@ const Header = ({ title,changeAddmore,changeCurrentModal,setDataBooking,clearChe
         changeAddmore(false)
         changeCurrentModal('#add-drag-booking')
         clearCheckData()
+      }
+      }>
+      <span aria-hidden="true">&times;</span>
+    </button> */}
+    <button type="button" className="close" onClick={()=>
+      {
+        setDataBooking({
+          checkPriceData:[],
+          paramsCheckprice:[],
+          paramsFieldDocList:[],
+          editFieldDocList:[],
+          editAddmore:false
+        })
+        changeAddmore(false)
+        changeCurrentModal('#add-drag-booking')
+        clearCheckData()
+        $("#" + type).modal('hide');
       }
       }>
       <span aria-hidden="true">&times;</span>

@@ -2,7 +2,7 @@ import React from 'react';
 import DefaultModal from './../../DefaultModal';
 import Body from './../../DefaultModal/Body';
 import Footer from './../../DefaultModal/Footer';
-import { CancelModal } from '../../../..';
+import { Button } from '../../../..';
 import moment from 'moment'
 
 const HistoryModal = ({ title, type,history }) => (
@@ -33,9 +33,11 @@ const HistoryModal = ({ title, type,history }) => (
       </div>
     </Body>
     <Footer>
-      <CancelModal width="100px" bstrap="btn-danger" >
+      <Button width="100px" bstrap="btn-danger" onClick={()=>{
+        $("#" + type).modal('hide');
+      }}>
         ปิด
-      </CancelModal>
+      </Button>
     </Footer>
     <style jsx>{`
       .row{

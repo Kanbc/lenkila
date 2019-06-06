@@ -52,7 +52,7 @@ class UMEditModal extends Component {
     let button1 = null;
     let button2 = null;
     if (this.state.isEdit === true) {
-      button1 = <Button width="100px" bstrap="btn-success" onClick={() => {
+      button1 = <CancelModal width="100px" bstrap="btn-success" onClick={() => {
         // validation
         // add user api
         this.props.editUsersData({
@@ -69,7 +69,7 @@ class UMEditModal extends Component {
         });
 
         this.cancelEditForm();
-      }}>บันทึก</Button>;
+      }}>บันทึก</CancelModal>;
       button2 = <CancelModal width="100px" color={Constant.Red} onClick={() => this.cancelEditForm()}>ยกเลิก</CancelModal>;
     } else {
       

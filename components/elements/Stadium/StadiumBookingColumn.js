@@ -11,7 +11,7 @@ const StadiumBookingColumn = ({ title, bookings,reservationList,date,customerTyp
         {bookings.length > 0 && bookings.map(booking => {
           return (
             <li className={`list-group-item ${booking.color==="#ffffff"?'grey':booking.color==="#c82333"?"red":booking.color==='#28a745'&&'green'}`} 
-            key={booking.id} data-toggle="modal" 
+            key={booking.id} data-toggle="modal" data-backdrop="static"
             data-target={`#edit-booking-modal-${booking.id}`}
             onClick={()=>{
               getEditMainByid(booking.main_id)

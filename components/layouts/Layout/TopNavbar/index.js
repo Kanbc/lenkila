@@ -46,7 +46,7 @@ class TopNavbar extends Component {
                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   <a className="dropdown-item" href="#" onClick={()=>logout()}>ลงชื่อออก</a>
                   <div className="dropdown-divider" />
-                  <a className="dropdown-item" href="#" data-toggle="modal" data-target="#edit-admin">ข้อมูลส่วนตัว</a>
+                  <a className="dropdown-item" href="#" data-toggle="modal" data-backdrop="static" data-target="#edit-admin">ข้อมูลส่วนตัว</a>
                   <a className="dropdown-item" href="#">คำถามที่พบบ่อย</a>
                   <a className="dropdown-item" href="#">แจ้งปัญหา</a>
                 </div>
