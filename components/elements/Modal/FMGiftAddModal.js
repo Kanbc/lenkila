@@ -58,8 +58,14 @@ class FMGiftAddModal extends Component {
             <div className="col-sm-2">
               <p>ชื่อ</p>
             </div>
-            <div className="col-sm-10">
+            <div className="col-sm-4">
               <input type="text" className="form-control" id="firstname" value={this.state.name} onChange={e => this.setState({ name: e.target.value })}/>
+            </div>
+            <div className="col-sm-2">
+              <p>Code</p>
+            </div>
+            <div className="col-sm-4">
+              <input type="text" className="form-control" id="code" />
             </div>
           </div>
           <div className="row">
