@@ -94,7 +94,7 @@ class CustTypeAddModal extends Component {
               <p>สี</p>
             </div>
             <div className="col-sm-2">
-              <ColorButton width="100%" setStateCustomerType={this.setColorCustomerType} />
+              <ColorButton width="100%" setStateCustomerType={this.setColorCustomerType} typeColor="add" />
             </div>
           </div>
           <div className="row">
