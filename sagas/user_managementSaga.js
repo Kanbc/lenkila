@@ -34,6 +34,9 @@ export function* addUesrDataSaga({newUser}) {
             },
           )
       console.log('response Add',response)
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
       yield call(setUsersDataSaga)
     } catch (err) {
         console.log('error',err)

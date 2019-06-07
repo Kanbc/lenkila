@@ -10,6 +10,7 @@ const DefaultModal = ({
   changeCurrentModal=()=>{},
   setDataBooking=()=>{},
   clearCheckData=()=>{},
+  setDataPrice=()=>{},
 }) => (
   <div className="modal fade" id={type} tabIndex="-1" role="dialog" aria-labelledby="lenkilaModalCenterTitle" aria-hidden="true">
     <div className="modal-dialog modal-dialog-centered" role="document">
@@ -21,6 +22,7 @@ const DefaultModal = ({
           setDataBooking={setDataBooking}
           clearCheckData={clearCheckData}
           type={type}
+          setDataPrice={setDataPrice}
         />
           {children}
       </div>

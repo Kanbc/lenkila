@@ -17,7 +17,21 @@ class Login extends Component {
     this.handleValidation = this.handleValidation.bind(this);
   }
   componentDidMount() {
-  
+    var id = window.document.getElementById("username");
+    var password = window.document.getElementById("password");
+    id.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+       event.preventDefault();
+       window.document.getElementById("login").click();
+      }
+    });
+    
+    password.addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+       event.preventDefault();
+       window.document.getElementById("login").click();
+      }
+    });
   }
   componentWillReceiveProps(nextProps){
     if(!nextProps.errMessage)
@@ -43,6 +57,9 @@ class Login extends Component {
    
     }
   }
+
+ 
+
 
   render() {
     const { errorMessage } = this.state;
@@ -77,7 +94,7 @@ class Login extends Component {
                 <input type="text" className="form-control" id="username" placeholder="Enter username" onChange={e => this.setState({ username: e.target.value })} />
               </div>
               <div className="form-group">
-                <label className="lenkila-label" htmlFor="password">
+                <label className="lenkila-label" htmlFor="password" >
                   Password
                 </label>
                 <input type="password" className="form-control" id="password" placeholder="Enter password" onChange={e => this.setState({ password: e.target.value })} />
@@ -88,7 +105,9 @@ class Login extends Component {
                   {errorMessage}
                 </div>
               }
-              <button type="submit" className="btn btn-primary" onClick={()=>this.handleValidation()}>
+              <button type="submit" id='login' className="btn btn-primary" onClick={()=>{
+                  this.handleValidation()
+              }}>
                 Login
               </button>
               <div className="form-group lenkila-forgotpass">
@@ -164,6 +183,8 @@ class Login extends Component {
     );
   }
 }
+
+
 
 function mapStateToProps(state) {
   return {

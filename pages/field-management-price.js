@@ -8,13 +8,29 @@ import { setFieldDataPrice,setFieldDataField,importPrice,getCustomerType } from 
 class FieldManagementPrice extends Component {
   
   // [GET] - Users
+  constructor(props) {
+    super(props);
+    this.state = {
+      setImport : true,
+    };
+    
+    this.setStateImport = this.setStateImport.bind(this);
+    
+  }
+
+  setStateImport = (obj) => {
+    return this.setState(obj)
+  }
+
   async componentDidMount(){
+    await this.props.setDataPrice({firstTime:true})
     await this.props.setFieldDataField()
     await this.props.setFieldDataPrice()
     this.props.getCustomerType()
   }
   
   render() {
+    console.log('this.props.fieldsPrice',this.props.fieldId)
     const vipType = this.props.customerType.filter(value=> value.type !== 'default')
     return (
       <TabsLayout title="ราคา" tabs={Constant.FieldTabs}>
@@ -25,8 +41,9 @@ class FieldManagementPrice extends Component {
                 <tr className="tools-row">
                   <th scope="col">
                     <select className="custom-select" id="fieldID" onChange={e=>{
-                      this.props.setDataPrice({fieldId:e.target.value})
+                      this.props.setDataPrice({fieldId:e.target.value,fieldIdImport:0})
                       this.props.setFieldDataPrice()
+                      
                       }
                     }>
                       {this.props.fields.map(item=>
@@ -38,9 +55,13 @@ class FieldManagementPrice extends Component {
                   <th scope="col" className="hide2" />
                   <th scope="col" className="hide2" />
                   <th scope="col">
-                    <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#import-field">
+                    <ButtonModal onClick={()=> this.setStateImport({setImport:true})}color={Constant.Blue} width={Constant.Buttons.default} bstrap="btn-primary" modalName="#import-field">
                       Import
-                      <FMImportPriceModal title="Import" type="import-field" fieldId={this.props.fieldId} setDataPrice={this.props.setDataPrice} importPrice={this.props.importPrice} fieldOptions={this.props.fields} />
+                      <FMImportPriceModal title="Import" type="import-field" fieldId={this.props.fieldId} setDataPrice={this.props.setDataPrice} importPrice={this.props.importPrice} fieldOptions={this.props.fields.filter(val => val.id !== this.props.fieldId)}
+                        setStateImport={this.setStateImport}
+                        setImport={this.state.setImport}
+                        fieldIdImport={this.props.fieldIdImport}
+                      />
                     </ButtonModal>
                   </th>
                   <th scope="col">
@@ -144,9 +165,9 @@ function mapStateToProps(state) {
     fieldsPrice: state.field_managementPriceSaga.fieldsPrice,
     fields: state.field_managementFieldSaga.fields,
     fieldId: state.field_managementPriceSaga.fieldId,
+    fieldIdImport: state.field_managementPriceSaga.fieldIdImport,
     customerType: state.customer_typeSaga.customerType,
     isLoading:state.field_managementPriceSaga.isLoading,
-
   }
 }
 

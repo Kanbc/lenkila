@@ -23,7 +23,7 @@ class FMGiftEditModal extends Component {
 
       allDay:this.props.userData.is_allday === "0"?true:false,
       type:this.props.userData.type,
-  
+      code_gift:this.props.userData.code,
       discount_amount:this.props.userData.discount_amount,
       used_amount:this.props.userData.used_amount,
       per_person_limit_amount:this.props.userData.per_person_limit_amount,
@@ -55,7 +55,7 @@ class FMGiftEditModal extends Component {
               <p>Code</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="code" />
+              <input type="text" className="form-control" id="code" defaultValue={this.props.userData.code} onChange={e => this.setState({ code_gift: e.target.value })}/>
             </div>
           </div>
           <div className="row">
@@ -175,6 +175,7 @@ class FMGiftEditModal extends Component {
               used_amount:this.state.used_amount,
               per_person_limit_amount:this.state.per_person_limit_amount,
               is_allday:this.state.allDay,
+              code_gift:this.state.code_gift,
             }
           )} >
             สร้าง

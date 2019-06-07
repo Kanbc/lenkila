@@ -58,6 +58,7 @@ export function* addFieldDataSaga({data}){
             start_time:data.is_allday?"00:00:00":moment.utc(data.start_time*1000).format('HH:mm:ss'),
             end_time:data.is_allday?"00:00:00":moment.utc(data.end_time*1000).format('HH:mm:ss'),
             is_allday:data.is_allday?"0":"1",
+            code_gift:data.code_gift,
           },
         )
   
@@ -90,6 +91,7 @@ export function* editFieldDataSaga({data}){
             start_time:data.is_allday?"00:00:00":moment.utc(data.start_time*1000).format('HH:mm:ss'),
             end_time:data.is_allday?"00:00:00":moment.utc(data.end_time*1000).format('HH:mm:ss'),
             is_allday:data.is_allday?"0":"1",
+            code_gift:data.code_gift,
           },
         )
         console.log('response',response)

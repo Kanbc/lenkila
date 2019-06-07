@@ -71,7 +71,7 @@ class CustEditModal extends Component {
             </div>
             <div className="col-sm-2">
             <p className={this.state.isEdit ? 'd-none' : ''} >{this.state.tel}</p>
-              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="firstname" defaultValue={this.state.tel} onChange={e => this.setState({ tel: e.target.value })}/>
+              <input type="text" className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="firstname"  maxlength="10" defaultValue={this.state.tel} onChange={e => this.setState({ tel: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p className="bold-text">วันเกิด</p>

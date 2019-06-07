@@ -23,6 +23,7 @@ class FMGiftAddModal extends Component {
       discount_amount:'',
       used_amount:'',
       per_person_limit_amount:'',
+      code_gift:'',
     };
     this.allDay = this.allDay.bind(this);
     this.cancelAddUser = this.cancelAddUser.bind(this);
@@ -65,7 +66,7 @@ class FMGiftAddModal extends Component {
               <p>Code</p>
             </div>
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="code" />
+              <input type="text" className="form-control" id="code" value={this.state.code_gift} onChange={e => this.setState({ code_gift: e.target.value })}/>
             </div>
           </div>
           <div className="row">
@@ -183,6 +184,7 @@ class FMGiftAddModal extends Component {
             used_amount:this.state.used_amount,
             per_person_limit_amount:this.state.per_person_limit_amount,
             is_allday:this.state.allDay,
+            code_gift:this.state.code_gift,
             })
             this.cancelAddUser()
           }

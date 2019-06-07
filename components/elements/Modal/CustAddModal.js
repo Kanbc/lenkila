@@ -27,7 +27,7 @@ class CustAddModal extends Component {
               <p>เบอร์โทรศัพท์*</p>
             </div>
             <div className="col-sm-3">
-              <input type="text" className="form-control" id="lastname" value={this.state.tel} onChange={e => this.setState({ tel: e.target.value })}/>
+              <input type="text" className="form-control" maxlength="10" id="lastname" value={this.state.tel} onChange={e => this.setState({ tel: e.target.value })}/>
             </div>
             <div className="col-sm-2">
               <p>วันเกิด</p>

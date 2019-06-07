@@ -8,7 +8,7 @@ class CustTypeAddModal extends Component {
   constructor(props) {
     console.log('props',props)
     super(props);
-    this.state = { hourDisabled:true,numberOfDays: 0 ,type:"ถาวร" };
+    this.state = { hourDisabled:true,numberOfDays: 0 ,type:"ถาวร",color:'#CA0813' };
     
     this.cancelDisableTime = this.cancelDisableTime.bind(this);
     this.setColorCustomerType = this.setColorCustomerType.bind(this);
