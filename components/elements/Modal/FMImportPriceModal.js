@@ -2,17 +2,25 @@ import React from 'react';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
-import { CancelModal } from '../..';
+import { CancelModal,Button } from '../..';
 
-const FMImportPriceModal = ({ title, type,fieldOptions,importPrice,setDataPrice,fieldId}) => (
-  <DefaultModal title={title} type={type} percentWidth="36" >
+const FMImportPriceModal = ({ title, fieldIdImport,type,fieldOptions,importPrice,setDataPrice,fieldId,setStateImport,setImport}) =>console.log('fieldIdImport',fieldIdImport)|| (
+  <DefaultModal title={title} type={type} percentWidth="36" setDataPrice={setDataPrice}>
     <Body>
       <div className="row">
         <div className="col-sm-3">
           <p>เลือกสนาม</p>
         </div>
         <div className="col-sm-9">
-          <select className="form-control" id="role" onChange={e=>setDataPrice({fieldIdImport:e.target.value})}>
+          <select value={fieldIdImport} className="form-control" id="role" onChange={e=>
+          {
+            setDataPrice({
+              fieldIdImport:e.target.value
+              })
+            setStateImport({setImport:false})
+          }
+          }>
+          <option selected  hidden value={0}>กรุณาเลือกสนาม</option>
           {fieldOptions.map(item=>
           <option value={item.id}>{item.name}</option>)
           }
@@ -24,7 +32,11 @@ const FMImportPriceModal = ({ title, type,fieldOptions,importPrice,setDataPrice,
       </div>
     </Body>
     <Footer>
-      <CancelModal width="100px" bstrap="btn-success" onClick={()=>importPrice({fieldId:fieldId})}>
+      <CancelModal width="100px" bstrap="btn-success" disabled={setImport} onClick={()=>
+        {
+          importPrice({fieldId:fieldId})
+          setDataPrice({fieldIdImport:0})
+        }}>
         ยืนยัน
       </CancelModal>
     </Footer>

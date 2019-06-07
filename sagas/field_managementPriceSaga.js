@@ -14,7 +14,7 @@ const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 export function* setFieldDataSaga() {
     yield put(setDataPrice({isLoading:true}))
 
-    yield delay(1500)
+    yield delay(2000)
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     const firstTime = yield select(state => state.field_managementPriceSaga.firstTime)
 

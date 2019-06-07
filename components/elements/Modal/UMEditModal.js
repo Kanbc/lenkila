@@ -74,7 +74,7 @@ class UMEditModal extends Component {
     } else {
       
       button1 = <Button width="100px" color={Constant.Orange} onClick={this.editForm}>แก้ไข</Button>;
-      button2 = <CancelModal width="100px" bstrap="btn-danger" onClick={() =>{
+      button2 = <CancelModal width="100px" bstrap="btn-danger" disabled={this.props.userData.role === 'Mod'} onClick={() =>{
         let result = confirm("คุณต้องการลบข้อมูลส่วนนี้ใช่หรือไม่");
         if (result) {
           this.props.deleteUsersData(this.props.userData.user_id)

@@ -6,8 +6,9 @@ const CancelModal = ({
   width,
   bstrap,
   onClick,
+  disabled=false
 }) => (
-  <button type="button" className={`btn ${bstrap}`} data-dismiss="modal" onClick={onClick} >
+  <button type="button" disabled={disabled} className={`btn ${bstrap}`} data-dismiss="modal" onClick={onClick} >
     {children}
     <style jsx>{`
       button{

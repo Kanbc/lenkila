@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = ({ title,changeAddmore,changeCurrentModal,setDataBooking,clearCheckData,type }) => (
+const Header = ({ title,changeAddmore,changeCurrentModal,setDataBooking,clearCheckData,type,setDataPrice }) => (
   <div className="modal-header">
     <h5 className="modal-title" id="lenkilaModalLongTitle">{ title }</h5>
     {/* <button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={()=>
@@ -31,6 +31,7 @@ const Header = ({ title,changeAddmore,changeCurrentModal,setDataBooking,clearChe
         changeAddmore(false)
         changeCurrentModal('#add-drag-booking')
         clearCheckData()
+        setDataPrice({fieldIdImport:0})
         $("#" + type).modal('hide');
       }
       }>
