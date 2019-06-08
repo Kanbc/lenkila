@@ -28,6 +28,9 @@ export function* getCustomerTypeSaga() {
             },
           })
       console.log('response customer type',response)
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
       yield put(setData({customerType:response.data.response_data}))
     } catch (err) {
         console.log('error',err)
@@ -39,7 +42,7 @@ export function* addCustomerTypeSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
     console.log('data add',data)
     try {
-      yield axios.post(apiUrl, {
+      const response = yield axios.post(apiUrl, {
           
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
@@ -48,6 +51,9 @@ export function* addCustomerTypeSaga({data}){
             ...data,
           },
         )
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
       yield call(getCustomerTypeSaga)
   } catch (err) {
       console.log('error',err)
@@ -59,7 +65,7 @@ export function* editCustomerTypeSaga({data}){
     console.log('edit data',data)
    
     try {
-        yield axios.post(apiUrl, {
+        const response = yield axios.post(apiUrl, {
           
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
@@ -68,6 +74,9 @@ export function* editCustomerTypeSaga({data}){
             ...data,
           },
         )
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
       yield call(getCustomerTypeSaga)
   } catch (err) {
       console.log('error',err)
@@ -77,7 +86,7 @@ export function* editCustomerTypeSaga({data}){
 export function* deleteCustomerTypeSaga({id}){
   console.log('delete')
     try {
-      yield axios.get(apiUrl, {
+      const response = yield axios.get(apiUrl, {
           params: {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
@@ -85,6 +94,9 @@ export function* deleteCustomerTypeSaga({id}){
             id:id
           },
         })
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
     yield call(getCustomerTypeSaga)
   } catch (err) {
       console.log('error',err)
@@ -102,6 +114,9 @@ export function* getCustomerTypeIdSaga({id}) {
              id:id,
            },
          })
+         if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
      console.log('response customer ID  type',response)
      yield put(setData({customerTypeId:response.data.response_data}))
     }
@@ -125,6 +140,9 @@ export function* getCustomerTypeIdNextSaga({id}) {
             id:id,
           },
         })
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
     console.log('response customer ID next type',response)
     yield put(setData({customerTypeIdNext:response.data.response_data}))
     }

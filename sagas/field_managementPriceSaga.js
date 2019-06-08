@@ -38,6 +38,9 @@ export function* setFieldDataSaga() {
             },
           })
           console.log('resposne get price',response)
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
       yield put(setDataPrice({fieldsPrice:response.data.response_data}))
      
     } catch (err) {
@@ -81,6 +84,9 @@ export function* addFieldDataSaga({data}){
             vip_type:JSON.stringify(data.vip_type),
           },
         )
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
       console.log('price add ',response)
       yield setDataPrice({colorPrice:"#CA0813"})
       yield call(setFieldDataSaga)
@@ -96,7 +102,7 @@ export function* editFieldDataSaga({data}){
     const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
     try {
-        yield axios.post(apiUrl, {
+      const response = yield axios.post(apiUrl, {
           
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
@@ -126,6 +132,9 @@ export function* editFieldDataSaga({data}){
             vip_type:JSON.stringify(data.vip_type),
           },
         )
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
       yield call(setFieldDataSaga)
   } catch (err) {
       console.log('error',err)
@@ -134,7 +143,7 @@ export function* editFieldDataSaga({data}){
 
 export function* deleteFieldDataSaga({id}){
     try {
-      yield axios.get(apiUrl, {
+      const response = yield axios.get(apiUrl, {
           params: {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
@@ -142,6 +151,9 @@ export function* deleteFieldDataSaga({id}){
             id:id
           },
         })
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
     yield call(setFieldDataSaga)
   } catch (err) {
       console.log('error',err)
@@ -153,7 +165,7 @@ export function* importPriceSaga({data}){
   console.log('import data',data)
   const fieldIdImport = yield select(state => state.field_managementPriceSaga.fieldIdImport)
   try {
-    yield axios.get(apiUrl, {
+    const response = yield axios.get(apiUrl, {
         params: {
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'piluj',
@@ -162,6 +174,9 @@ export function* importPriceSaga({data}){
           field_id_to:data.fieldId
         },
       })
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
   yield call(setFieldDataSaga)
 } catch (err) {
     console.log('error',err)

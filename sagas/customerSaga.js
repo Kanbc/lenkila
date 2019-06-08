@@ -29,6 +29,9 @@ export function* getCustomerSaga() {
             },
           })
       console.log('response customer',response)
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
       yield put(setData({customer:response.data.response_data}))
     } catch (err) {
         console.log('error',err)
@@ -42,7 +45,7 @@ export function* addCustomerSaga({data}){
     const newData = {...data,date_of_birth:moment(data.date_of_birth).format("YYYY-MM-DD")}
     console.log('data add',newData)
     try {
-      yield axios.post(apiUrl, {
+      const response = yield axios.post(apiUrl, {
           
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
@@ -51,6 +54,9 @@ export function* addCustomerSaga({data}){
             ...newData,
           },
         )
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
       yield call(getCustomerSaga)
   } catch (err) {
       console.log('error',err)
@@ -62,7 +68,7 @@ export function* editCustomerSaga({data}){
     const newData = {...data,date_of_birth:moment(data.date_of_birth).format("YYYY-MM-DD")}
     console.log('edit data',newData)
     try {
-        yield axios.post(apiUrl, {
+        const response = yield axios.post(apiUrl, {
           
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
@@ -71,6 +77,9 @@ export function* editCustomerSaga({data}){
             ...newData,
           },
         )
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
       yield call(getCustomerSaga)
   } catch (err) {
       console.log('error',err)
@@ -80,7 +89,7 @@ export function* editCustomerSaga({data}){
 export function* deleteCustomerSaga({id}){
   console.log('delete')
     try {
-      yield axios.get(apiUrl, {
+      const response = yield axios.get(apiUrl, {
           params: {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
@@ -88,6 +97,9 @@ export function* deleteCustomerSaga({id}){
             id:id
           },
         })
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
     yield call(getCustomerSaga)
   } catch (err) {
       console.log('error',err)
@@ -105,6 +117,9 @@ export function* addCustomerTypeHistorySaga({data}){
           ...data,
         },
       )
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
     console.log('response add history',response)
     yield call(getCustomerSaga)
 } catch (err) {
@@ -122,6 +137,9 @@ export function* getCustomerTypeHistorySaga({id}){
             customer_id:id
           },
         })
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
     yield put(setData({history:response.data.response_data}))
   } catch (err) {
       console.log('error',err)

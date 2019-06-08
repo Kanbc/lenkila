@@ -56,7 +56,9 @@ export function* setUsersDataSaga(){
           stadium_doc_id:stadium_doc_id,
         },
       })
-    console.log('response =>',response.data.response_data)
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
   yield put(setData({users:response.data.response_data}))
 } catch (err) {
     console.log('error',err)
@@ -77,6 +79,9 @@ export function* deleteUsersDataSaga({id}){
         },
       })
       console.log('delete',response)
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
   yield call(setUsersDataSaga)
 } catch (err) {
     console.log('error',err)
@@ -104,6 +109,9 @@ export function* editUserDataSaga({newUser}) {
             },
           )
       console.log('response Edit',response)
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
       yield call(setUsersDataSaga)
     } catch (err) {
         console.log('error',err)
@@ -123,6 +131,9 @@ export function* editUserDataSaga({newUser}) {
           //newpassword
         },
       })
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
       yield call(setUsersDataSaga)
     } catch (error) {
       console.log('resetPasswordUserSaga error', error)
