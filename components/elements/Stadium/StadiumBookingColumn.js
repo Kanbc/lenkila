@@ -10,7 +10,7 @@ const StadiumBookingColumn = ({ title, bookings,reservationList,date,customerTyp
       <ul className="list-group list-group-flush">
         {bookings.length > 0 && bookings.map(booking => {
           return (
-            <li className={`list-group-item ${booking.color==="#ffffff"?'grey':booking.color==="#c82333"?"red":booking.color==='#28a745'&&'green'}`} 
+            <li className={`list-group-item ${booking.color==="#ffffff"?'grey':booking.color==="#c82333"?"red":booking.color==='#28a745'?'green':booking.color==='#ffff00'&&'yellow'}`} 
             key={booking.id} data-toggle="modal" data-backdrop="static"
             data-target={`#edit-booking-modal-${booking.id}`}
             onClick={()=>{
@@ -81,6 +81,9 @@ const StadiumBookingColumn = ({ title, bookings,reservationList,date,customerTyp
           }
           .list-group-item.grey{
             background-color: ${Constant.Grey};
+          }
+          .list-group-item.yellow{
+            background-color: rgba(249, 228, 47, 1);
           }
         }
         .list-group-item {
