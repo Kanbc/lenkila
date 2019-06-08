@@ -174,7 +174,9 @@ export function* getBookingSaga({date}) {
     const fieldsPrice = response.data.response_data.field_price_list.reduce(newPriceFields(date), [])
     const reservationAddData = response.data.response_data.reservation_list.reduce(newReservation(date),[])
     const todayBookingList = fieldsBooking.reduce(todayBooking(reservationAddData),[])
-    
+    if(!response.data.response_status){
+      window.alert(response.data.response_message)
+    }
     yield put(setDataBooking({fieldPriceList:response.data.response_data.field_price_list}))
     yield put(setDataBooking({reservationList:response.data.response_data.reservation_list}))
     yield put(setDataBooking({stadiumDoc:response.data.response_data.stadium_doc}))
@@ -227,6 +229,9 @@ export function* addBookingSaga({data}){
           field_doc_list:modifireFieldDoc
         },
       )
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
   yield call(getBookingSaga,{date:data.reservation_date})
 } catch (err) {
     console.log('error',err)
@@ -284,6 +289,9 @@ export function* priceCheckingBookingSaga({data,customer,edit,callback}){
     },
     )
     console.log('response checkprice',response)
+    if(!response.data.response_status){
+      window.alert(response.data.response_message)
+    }
     yield put(setDataBooking({checkPriceData:response.data.response_data})) 
     if(callback){
       callback(response.data.response_data)
@@ -347,9 +355,11 @@ export function* editBookingSaga({data,flag}){
           
         },
       )
-    
-  // yield call(getBookingSaga,{date:data.reservation_date})
-  window.location.reload()
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
+  yield call(getBookingSaga,{date:data.reservation_date})
+  // window.location.reload()
 } catch (err) {
     console.log('error',err)
 }
@@ -366,6 +376,9 @@ export function* deleteBookingSaga({id,date}){
           id:id,
         },
       )
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
     yield call(getBookingSaga,{date:date})
 } catch (err) {
     console.log('error',err)
@@ -385,6 +398,9 @@ export function* exportCsvSaga({data}){
           stadium_id:stadiumId,
         },
     )
+    if(!response.data.response_status){
+      window.alert(response.data.response_message)
+    }
     yield put(setDataBooking({csv:response.data})) 
 } catch (err) {
     console.log('error',err)
@@ -409,17 +425,10 @@ export function* getBoostSaga({date}){
     }
     )
     const modifireBoostList = response.data.response_data.reduce(newBoostFields, [])
+    if(!response.data.response_status){
+      window.alert(response.data.response_message)
+    }
     yield put(setDataBooking({boostList:modifireBoostList})) 
-    // yield put(setDataBooking({boostList:[
-    //   {
-    //   id:'1'+'_boost',
-    //   resourceId: "87",
-    //   start: moment(`${date} 11:00:01`),
-    //   end: moment(`${date} 13:00:00`),
-    //   color: '#000000',
-    //   rendering: 'background'
-    // }
-    // ]})) 
   } catch (err) {
       console.log('error',err)
   }
@@ -443,6 +452,9 @@ export function* addBoostSaga({data}){
         },
     }
     )
+    if(!response.data.response_status){
+      window.alert(response.data.response_message)
+    }
     yield call(getBoostSaga,{date:data.date})
 } catch (err) {
     console.log('error',err)
@@ -459,8 +471,12 @@ export function* getEditMainByIdsaga({id}){
           id:id
         },
     )
+    if(!response.data.response_status){
+      window.alert(response.data.response_message)
+    }
     const modifireFieldDoc = response.data.response_data.reservation_detail.reduce(modifireFieldDocListEdit(
       response.data.response_data.reservation_detail[0].price_field),[])
+      
     yield put(setDataBooking({editFieldDocList:modifireFieldDoc})) 
     console.log('response get by id',response)
 } catch (err) {

@@ -29,6 +29,9 @@ export function* addNoteSaga({data}) {
               // stadium_id:xxxx
             },
       )
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
       yield call(setNoteDateSaga, {date:data.doc_date})
     } catch (err) {
         console.log('error',err)
@@ -45,6 +48,9 @@ export function* setNoteSaga(){
           action:'note_getlist',
         },
       })
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
     console.log('response => setNote',response.data.response_data)
   yield put(setData({notes:response.data.response_data}))
 } catch (err) {
@@ -61,6 +67,9 @@ export function* setNoteIdSaga(){
           action:'note_getbyid',
         },
       })
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
     console.log('response =>',response.data.response_data)
   yield put(setData({notes:response.data.response_data}))
 } catch (err) {
@@ -84,6 +93,9 @@ export function* setNoteDateSaga({date}){
             stadium_id:stadiumId,
           },
         })
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
       console.log('response => noteDate',response.data.response_data)
     yield put(setData({notes:response.data.response_data}))
   } catch (err) {
@@ -107,6 +119,9 @@ export function* editNoteSaga({data}){
             doc_date:data.doc_date,
           },
         )
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
       console.log('response => edit' ,response)
       yield call(setNoteDateSaga, {date:data.doc_date})
   } catch (err) {
@@ -124,6 +139,9 @@ export function* deleteNoteSaga({id}){
           action:'note_delete',
           id:id.id,
       })
+      if(!response.data.response_status){
+        window.alert(response.data.response_message)
+      }
     yield call(setNoteDateSaga, {date:id.doc_date})
 } catch (err) {
     console.log('error',err)

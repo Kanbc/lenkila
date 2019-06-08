@@ -25,6 +25,9 @@ export function* setFieldDataSaga() {
               stadium_id:stadiumId
             },
           })
+          if(!response.data.response_status){
+            window.alert(response.data.response_message)
+          }
       yield put(setData({fieldsGift:response.data.response_data}))
       console.log('gift',response.data.response_data)
 
@@ -42,7 +45,7 @@ export function* addFieldDataSaga({data}){
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
 
     try {
-      yield axios.post(apiUrl, {
+      const response = yield axios.post(apiUrl, {
           
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
@@ -61,7 +64,9 @@ export function* addFieldDataSaga({data}){
             code_gift:data.code_gift,
           },
         )
-  
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
       yield call(setFieldDataSaga)
   } catch (err) {
       console.log('error',err)
@@ -95,7 +100,9 @@ export function* editFieldDataSaga({data}){
           },
         )
         console.log('response',response)
-      
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
       yield call(setFieldDataSaga)
   } catch (err) {
       console.log('error',err)
@@ -104,7 +111,7 @@ export function* editFieldDataSaga({data}){
 
 export function* deleteFieldDataSaga({id}){
     try {
-      yield axios.get(apiUrl, {
+      const response = yield axios.get(apiUrl, {
           params: {
             apikey: 'da1ee23f12812a19dc57fa4cf3115519',
             code:'piluj',
@@ -112,6 +119,9 @@ export function* deleteFieldDataSaga({id}){
             id:id
           },
         })
+        if(!response.data.response_status){
+          window.alert(response.data.response_message)
+        }
     yield call(setFieldDataSaga)
   } catch (err) {
       console.log('error',err)
