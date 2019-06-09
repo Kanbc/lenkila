@@ -28,9 +28,7 @@ export function* getCustomerTypeSaga() {
             },
           })
       console.log('response customer type',response)
-      if(!response.data.response_status){
-        window.alert(response.data.response_message)
-      }
+   
       yield put(setData({customerType:response.data.response_data}))
     } catch (err) {
         console.log('error',err)

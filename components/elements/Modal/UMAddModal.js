@@ -118,6 +118,7 @@ class UMAddModal extends Component {
               <select className="form-control" id="role" value={this.state.role} onChange={e => this.setState({ role: e.target.value })} >
                 <option>Manager</option>
                 <option>Employee</option>
+                {this.props.roleUser === "Mod" && <option value='Mod'>Owner</option>}
               </select>
             </div>
           </div>

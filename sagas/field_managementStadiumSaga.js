@@ -27,9 +27,7 @@ export function* setFieldDataSaga() {
             },
           })
       yield put(setData({fieldsSTD:response.data.response_data}))
-      if(!response.data.response_status){
-        window.alert(response.data.response_message)
-      }
+      
     } catch (err) {
         console.log('error',err)
     }

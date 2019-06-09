@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery, takeLatest, all } from 'redux-saga/effects'
+import { call, put, select, takeEvery, takeLatest, all,cancelled } from 'redux-saga/effects'
 import {actionTypes} from '../store'
 import axios from 'axios'
 import {createReducer,Creator} from './helper'
@@ -44,11 +44,9 @@ export function* loginSaga({data}) {
 
 export function* logOutSaga() {
     try {
-
-      //  Router.push({ pathname: '/login' })
-       window.sessionStorage.removeItem('LenkilaLogin');
-       window.sessionStorage.removeItem('LenkilaLoginID');
-       window.location.reload()
+      window.sessionStorage.removeItem('LenkilaLogin');
+      window.sessionStorage.removeItem('LenkilaLoginID');
+      window.location.reload()
     } catch (error) {
       console.log('logOutSaga error', error)
       
@@ -127,7 +125,7 @@ export function* authWatcher() {
 const initial = {
   isLogin: false,
   errorMessage: true,
-  user:[],
+  user:[{stadium_doc:{id:''}},],
   roleUser:"",
 }
 

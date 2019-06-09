@@ -79,7 +79,7 @@ class Customer extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.props.customer.map(user => {
+                {this.props.customer && this.props.customer.map(user => {
                   const relation = user.customer_relationship
                   const duty = user.customer_duty
                   const type = user.customer_type_history.length === 0 ? user.type_default.id : user.customer_type_history[0].customer_type_id

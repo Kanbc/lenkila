@@ -56,9 +56,7 @@ export function* setUsersDataSaga(){
           stadium_doc_id:stadium_doc_id,
         },
       })
-      if(!response.data.response_status){
-        window.alert(response.data.response_message)
-      }
+      
   yield put(setData({users:response.data.response_data}))
 } catch (err) {
     console.log('error',err)
