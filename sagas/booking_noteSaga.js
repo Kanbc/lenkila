@@ -48,9 +48,7 @@ export function* setNoteSaga(){
           action:'note_getlist',
         },
       })
-      if(!response.data.response_status){
-        window.alert(response.data.response_message)
-      }
+    
     console.log('response => setNote',response.data.response_data)
   yield put(setData({notes:response.data.response_data}))
 } catch (err) {
@@ -67,9 +65,7 @@ export function* setNoteIdSaga(){
           action:'note_getbyid',
         },
       })
-      if(!response.data.response_status){
-        window.alert(response.data.response_message)
-      }
+  
     console.log('response =>',response.data.response_data)
   yield put(setData({notes:response.data.response_data}))
 } catch (err) {
@@ -93,9 +89,7 @@ export function* setNoteDateSaga({date}){
             stadium_id:stadiumId,
           },
         })
-        if(!response.data.response_status){
-          window.alert(response.data.response_message)
-        }
+   
       console.log('response => noteDate',response.data.response_data)
     yield put(setData({notes:response.data.response_data}))
   } catch (err) {

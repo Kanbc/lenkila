@@ -174,9 +174,8 @@ export function* getBookingSaga({date}) {
     const fieldsPrice = response.data.response_data.field_price_list.reduce(newPriceFields(date), [])
     const reservationAddData = response.data.response_data.reservation_list.reduce(newReservation(date),[])
     const todayBookingList = fieldsBooking.reduce(todayBooking(reservationAddData),[])
-    if(!response.data.response_status){
-      window.alert(response.data.response_message)
-    }
+ 
+
     yield put(setDataBooking({fieldPriceList:response.data.response_data.field_price_list}))
     yield put(setDataBooking({reservationList:response.data.response_data.reservation_list}))
     yield put(setDataBooking({stadiumDoc:response.data.response_data.stadium_doc}))
@@ -425,9 +424,7 @@ export function* getBoostSaga({date}){
     }
     )
     const modifireBoostList = response.data.response_data.reduce(newBoostFields, [])
-    if(!response.data.response_status){
-      window.alert(response.data.response_message)
-    }
+  
     yield put(setDataBooking({boostList:modifireBoostList})) 
   } catch (err) {
       console.log('error',err)

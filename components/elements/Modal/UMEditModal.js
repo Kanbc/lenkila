@@ -74,7 +74,7 @@ class UMEditModal extends Component {
     } else {
       
       button1 = <Button width="100px" color={Constant.Orange} onClick={this.editForm}>แก้ไข</Button>;
-      button2 = <CancelModal width="100px" bstrap="btn-danger" disabled={this.props.userData.role === 'Mod'} onClick={() =>{
+      button2 = <CancelModal width="100px" bstrap="btn-danger" disabled={this.props.userData.user_id === this.props.user[0].user_id} onClick={() =>{
         let result = confirm("คุณต้องการลบข้อมูลส่วนนี้ใช่หรือไม่");
         if (result) {
           this.props.deleteUsersData(this.props.userData.user_id)
@@ -181,6 +181,7 @@ class UMEditModal extends Component {
               <select className={this.state.isEdit ? 'form-control' : 'form-control d-none'} id="role" defaultValue={this.props.userData.role} onChange={e => this.setState({ role: e.target.value })} >
                 <option>Manager</option>
                 <option>Employee</option>
+                {this.props.roleUser === "Mod" && <option value='Mod'>Owner</option>}
               </select>
             </div>
           </div>
@@ -244,6 +245,7 @@ class UMEditModal extends Component {
 function mapStateToProps(state) {
   return {
     roleUser: state.auth.roleUser,
+    user: state.auth.user,
   }
 }
 

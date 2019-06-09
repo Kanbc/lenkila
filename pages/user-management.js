@@ -28,7 +28,8 @@ class UserManagement extends Component {
               <table className="table">
                 <thead>
                   <tr className="tools-row">
-                    <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th>
+                    {/* <th scope="col"><input className="form-control search" type="text" placeholder="ค้นหา..." /></th> */}
+                    <th scope="col" className="hide1" />
                     <th scope="col" className="hide1" />
                     <th scope="col" className="hide2" />
                     <th scope="col" />
@@ -36,7 +37,7 @@ class UserManagement extends Component {
                     <th scope="col" >
                       <ButtonModal color={Constant.Blue} width={Constant.Buttons.default} modalName="#add-user">
                         <i className="fa fa-plus" aria-hidden="true" />
-                        <UMAddModal title="สร้างผู้ใช้ใหม่" type="add-user" />
+                        <UMAddModal title="สร้างผู้ใช้ใหม่" type="add-user" roleUser={roleUser}/>
                       </ButtonModal>
                     </th>
                   </tr>
@@ -62,7 +63,7 @@ class UserManagement extends Component {
                         <td>
                           <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-user-${user.user_id}`}>
                             <i className="fa fa-pencil" aria-hidden="true" />
-                            <UMEditModal key={user.user_id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.user_id}`} userData={user} />
+                            <UMEditModal key={user.user_id} title="ข้อมูลผู้ใช้งาน" type={`edit-user-${user.user_id}`}  userData={user} />
                           </ButtonModal>
                         </td>
                       </tr>

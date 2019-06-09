@@ -25,9 +25,7 @@ export function* setFieldDataSaga() {
               stadium_id:stadiumId
             },
           })
-          if(!response.data.response_status){
-            window.alert(response.data.response_message)
-          }
+       
       yield put(setData({fieldsGift:response.data.response_data}))
       console.log('gift',response.data.response_data)
 

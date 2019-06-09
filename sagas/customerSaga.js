@@ -29,9 +29,7 @@ export function* getCustomerSaga() {
             },
           })
       console.log('response customer',response)
-      if(!response.data.response_status){
-        window.alert(response.data.response_message)
-      }
+    
       yield put(setData({customer:response.data.response_data}))
     } catch (err) {
         console.log('error',err)

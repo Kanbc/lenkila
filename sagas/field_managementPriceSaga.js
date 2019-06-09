@@ -38,9 +38,7 @@ export function* setFieldDataSaga() {
             },
           })
           console.log('resposne get price',response)
-      if(!response.data.response_status){
-        window.alert(response.data.response_message)
-      }
+     
       yield put(setDataPrice({fieldsPrice:response.data.response_data}))
      
     } catch (err) {
