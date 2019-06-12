@@ -121,6 +121,11 @@ class FieldManagementPrice extends Component {
             border-top: none;
             padding-bottom: 20px;
           }
+          @-moz-document url-prefix() {
+            .overall-table{
+              margin-bottom: 100px;
+            }
+          }
           .overall-table{
             margin-top:0px;
             th{

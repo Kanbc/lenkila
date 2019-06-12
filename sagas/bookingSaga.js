@@ -397,9 +397,7 @@ export function* exportCsvSaga({data}){
           stadium_id:stadiumId,
         },
     )
-    if(!response.data.response_status){
-      window.alert(response.data.response_message)
-    }
+
     yield put(setDataBooking({csv:response.data})) 
 } catch (err) {
     console.log('error',err)
