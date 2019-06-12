@@ -46,14 +46,15 @@ export function* addUesrDataSaga({newUser}) {
 export function* setUsersDataSaga(){
   yield put(setData({isLoading:true}))
   yield delay(1000)
-  const stadium_doc_id = yield select(state => state.auth.user[0].stadium_doc.id)
+  const user_id = yield select(state => state.auth.user[0].user_id)
+  console.log('user_id',user_id)
   try {
     const response = yield axios.get(apiUrl, {
         params: {
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'gdjxq',
           action:'user_getall',
-          stadium_doc_id:stadium_doc_id,
+          user_id:user_id,
         },
       })
       
