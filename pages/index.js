@@ -25,8 +25,8 @@ class Index extends Component {
 
   render() {
 
-    const { todayBookingList } = this.props
-    return (
+    const { todayBookingList,initialize } = this.props
+    return !initialize?<div/>:(
       <Layout title="รายการวันนี้">
         <div className="d-flex align-items-center header">
           <h5 style={{ margin: '0 10px' }}>รายการของ : </h5>
@@ -106,6 +106,7 @@ function mapStateToProps(state) {
     customerType: state.customer_typeSaga.customerType,
     reservationList:state.bookingSaga.reservationList,
     isLoading:state.bookingSaga.isLoading,
+    initialize:state.auth.initialize,
   };
 }
 
