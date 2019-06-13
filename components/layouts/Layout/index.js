@@ -4,6 +4,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import TopNavbar from './TopNavbar';
 import LeftNavbar from './LeftNavbar';
+import {compose,lifecycle,withState} from 'recompose';
 
 moment.locale('th');
 
@@ -104,7 +105,7 @@ const MenuListsEmployee = [
   },
 ];
 
-const Layout = ({ children, title = 'ระบบจัดการสนาม',roleUser}) => console.log('roleUser',roleUser)||(
+const Layout = ({ children, title = 'ระบบจัดการสนาม',roleUser,isLogin}) => console.log('roleUser',roleUser)||(
   <div className="root">
     <Head>
       <title>{`Lenkila : ${title}`}</title>
@@ -142,6 +143,8 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
         width: 100vw;
         height: 100vh;
         overflow: hidden;
+        display:${!isLogin && 'none'};
+
       }
       .page-container {
         padding: 25px 25px 100px 25px;
@@ -167,10 +170,22 @@ const Layout = ({ children, title = 'ระบบจัดการสนาม'
   </div>
 );
 
-function mapStateToProps(state) {
-  return {
-    roleUser: state.auth.roleUser,
-  }
-}
 
-export default connect(mapStateToProps,{}) (Layout);
+
+const enhancer = compose(
+  connect(
+    (state, props) => ({
+      roleUser: state.auth.roleUser,
+    }),
+    {},
+  ),
+  withState('isLogin','setIslogin',false),
+  lifecycle({
+    componentDidMount() {
+      let checkLogin = window.sessionStorage.getItem('LenkilaLogin')
+      checkLogin && this.props.setIslogin(true)
+    },
+  }),
+)
+
+export default enhancer(Layout);
