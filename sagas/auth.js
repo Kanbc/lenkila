@@ -24,7 +24,7 @@ export function* loginSaga({data}) {
           })
           console.log('response auth',response)
           if(response.data.response_status){
-            yield put(setData({user:response.data.response_data}))
+            yield put(setData({user:response.data.response_data,initialize:true}))
             yield put(setData({roleUser:response.data.response_data[0].role}))
 
             window.sessionStorage.setItem("LenkilaLogin", true);
@@ -64,7 +64,7 @@ export function* getUserInfoSaga({id}) {
         user_id:id,
       },
     })
-    yield put(setData({user:response.data.response_data}))
+    yield put(setData({user:response.data.response_data,initialize:true}))
     yield put(setData({roleUser:response.data.response_data[0].role}))
   } catch (error) {
     console.log('getUserInfoSaga error', error)
@@ -124,6 +124,7 @@ export function* authWatcher() {
 
 const initial = {
   isLogin: false,
+  initialize:false,
   errorMessage: true,
   user:[{stadium_doc:{id:''}},],
   roleUser:"",
