@@ -146,13 +146,13 @@ class UMEditModal extends Component {
 
             
             <div className="col-sm-2">
-              <Button width="100%" color={Constant.Green} onClick={()=>
+              <CancelModal width="100%" color={Constant.Green} onClick={()=>
               {
                 this.props.resetpasswordUsersData({id:this.state.id,password: this.state.password})
                 this.setState({ changePass: false })
               }
               }
-                 bstrap={this.state.changePass ? '' : 'd-none'} >บันทึก</Button>
+                 bstrap={this.state.changePass ? '' : 'd-none'} >บันทึก</CancelModal>
             </div>
             <div className={this.state.changePass ? 'col-sm-2' : 'col-sm-1'}>
               <Button width="100%" color={Constant.Red} onClick={this.cancelChangePassword} bstrap={this.state.changePass ? '' : 'd-none'} >ยกเลิก</Button>
