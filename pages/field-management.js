@@ -25,17 +25,19 @@ class FieldManagement extends Component {
     this.props.setFieldDataSTD();
   }
   componentWillReceiveProps(nextProps){
-    this.setState({
-      phone:nextProps.users.phone,
-      description:nextProps.users.description,
-      location:nextProps.users.location,
-      facilities: nextProps.users.facilities && JSON.parse(nextProps.users.facilities),
-      id:nextProps.users.id,
-      stadium_doc_id:nextProps.users.stadium_doc_id,
-      openTime: moment.duration(nextProps.users.open_time).asSeconds(),
-      closeTime:moment.duration(nextProps.users.close_time).asSeconds(),
-
-    })
+    if(this.props.users !== nextProps.users){
+      this.setState({
+        phone:nextProps.users.phone,
+        description:nextProps.users.description,
+        location:nextProps.users.location,
+        facilities: nextProps.users.facilities && JSON.parse(nextProps.users.facilities),
+        id:nextProps.users.id,
+        stadium_doc_id:nextProps.users.stadium_doc_id,
+        openTime: moment.duration(nextProps.users.open_time).asSeconds(),
+        closeTime:moment.duration(nextProps.users.close_time).asSeconds(),
+  
+      })
+    }
   }
   
   render() {
