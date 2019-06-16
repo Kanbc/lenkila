@@ -3,6 +3,7 @@ import {actionTypes} from '../store'
 import axios from 'axios'
 import {delay} from 'redux-saga'
 import {createReducer,Creator} from './helper'
+import {getUserInfoSaga} from './auth'
 
 const SET_DATA = 'SET_DATA'
 
@@ -47,6 +48,7 @@ export function* setUsersDataSaga(){
   yield put(setData({isLoading:true}))
   yield delay(1000)
   const stadium_doc_id = yield select(state => state.auth.user[0].stadium_doc.id)
+  const userCheck = yield select(state => state.auth.user[0].user_id)
   try {
     const response = yield axios.get(apiUrl, {
         params: {
@@ -56,7 +58,7 @@ export function* setUsersDataSaga(){
           stadium_doc_id:stadium_doc_id,
         },
       })
-      
+  yield call(getUserInfoSaga,{id:userCheck})
   yield put(setData({users:response.data.response_data}))
 } catch (err) {
     console.log('error',err)
@@ -67,13 +69,15 @@ yield put(setData({isLoading:false}))
 
 export function* deleteUsersDataSaga({id}){
   console.log('id',id)
+  const stadium_doc_id = yield select(state => state.auth.user[0].stadium_doc.id)
   try {
     const response = yield axios.get(apiUrl, {
         params: {
           apikey: 'da1ee23f12812a19dc57fa4cf3115519',
           code:'gdjxq',
-          action:'userban',
-          user_id:id
+          action:'permanentdelete',
+          user_id:id,
+          stadium_doc_id:stadium_doc_id,
         },
       })
       console.log('delete',response)

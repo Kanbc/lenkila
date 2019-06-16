@@ -45,6 +45,23 @@ class AdminEditModal extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps){
+    if(this.props.userData !== nextProps.userData){
+      this.setState({
+      firstname: nextProps.userData.name,
+      lastname: nextProps.userData.surname,
+      password: nextProps.userData.password,
+      email: nextProps.userData.email,
+      tel: nextProps.userData.tel,
+      role: nextProps.userData.role, 
+      id: nextProps.userData.user_id,
+      isEdit: false, 
+      changePass: false 
+      })
+    }
+
+  }
+
   render() {
     let button1 = null;
     let button2 = null;
