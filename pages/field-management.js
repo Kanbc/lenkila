@@ -25,7 +25,6 @@ class FieldManagement extends Component {
     this.props.setFieldDataSTD();
   }
   componentWillReceiveProps(nextProps){
-    console.log('nextProps',nextProps.users.facilities)
     this.setState({
       phone:nextProps.users.phone,
       description:nextProps.users.description,
