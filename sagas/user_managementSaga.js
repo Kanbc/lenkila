@@ -14,7 +14,14 @@ const apiUrl = 'https://wolvescorp.com/lenkila/api/main/call.php'
 
 export function* addUesrDataSaga({newUser}) {
   console.log('newUser',newUser)
-  const upline = yield select(state => state.auth.user[0].user_id)
+  const roleCheck = yield select(state => state.auth.user[0].role)
+  let upline = ''
+  if(roleCheck !== 'Mod'){
+    upline = yield select(state => state.auth.user[0].upline_id)
+  }
+  else{
+    upline = yield select(state => state.auth.user[0].user_id)
+  }
     try {
        const response = yield axios.post(apiUrl, {
             
