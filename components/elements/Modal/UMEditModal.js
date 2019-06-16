@@ -202,7 +202,7 @@ class UMEditModal extends Component {
         {button2}
         </Footer>
         :
-        this.props.roleUser === "Manager" && this.props.userData.role === "Mod" || this.props.userData.role === "Dev" || this.props.userData.role === "Manager" ? null
+        this.props.roleUser === "Manager" && this.props.userData.role === "Mod" || this.props.userData.role === "Dev"  ? null
         :
         <Footer>
           {button1}
