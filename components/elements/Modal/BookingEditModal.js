@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'next/router';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
 import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal, CustBookingModal, CustListBookingModal } from '../..';
@@ -95,6 +96,7 @@ class BookingEditModal extends Component {
     const discount = this.state.rebate_other && this.state.rebate_other.reduce(function(prev, cur) {
       return prev + parseInt(cur.price);
     }, 0);
+
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking} clearCheckData={this.clearCheckData}>
         <Body>
@@ -167,13 +169,15 @@ class BookingEditModal extends Component {
               <p>จำนวนสนาม</p>
             </div>
             <div className="col-sm-2">
-              <CancelModal width="120px" color={Constant.Green} onClick={()=> 
-                {
+              {
+                this.props.router.route === '/' ? <div style={{height: '40px'}}/> : 
+                <CancelModal width="120px" color={Constant.Green} onClick={() => {
                   this.props.setStateAddMore(true)
                   this.props.setStateCurrentModal(`#${this.props.type}`)
                 }} >
-                จองเพิ่ม/แก้ไข
-              </CancelModal>
+                  จองเพิ่ม/แก้ไข
+                </CancelModal>
+              }
             </div>
           </div>
           <div className="row">
@@ -417,4 +421,4 @@ class BookingEditModal extends Component {
   }
 }
 
-export default BookingEditModal;
+export default withRouter(BookingEditModal);
