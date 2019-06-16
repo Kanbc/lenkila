@@ -100,16 +100,16 @@ class BookingEditModal extends Component {
         <Body>
           <div className="row">
             <div className="col-sm-1">
+              <p>เบอร์โทร*</p>
+            </div>
+            <div className="col-sm-2">
+              <input type="text" className="form-control" id="firstname" value={this.state.customer_tel} onChange={e => this.setState({ customer_tel: e.target.value })} />
+            </div>
+            <div className="col-sm-1">
               <p>ชื่อ</p>
             </div>
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" value={this.state.customer_name} onChange={e => this.setState({ customer_name: e.target.value })}/>
-            </div>
-            <div className="col-sm-1">
-              <p>เบอร์โทร*</p>
-            </div>
-            <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" value={this.state.customer_tel} onChange={e => this.setState({ customer_tel: e.target.value })}/>
             </div>
             <div className="col-sm-1">
               <p>ประเภทลูกค้า</p>
