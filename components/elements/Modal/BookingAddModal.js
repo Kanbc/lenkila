@@ -86,7 +86,7 @@ class BookingAddModal extends Component {
               <p>เบอร์โทร*</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" maxLength='10' value={this.state.customer_tel} 
+              <input type="text" className="form-control" id="firstname"  maxlength="10" value={this.state.customer_tel} 
               onChange={e => {
                   this.setState({ customer_tel: e.target.value })
                   if(e.target.value.length === 10){

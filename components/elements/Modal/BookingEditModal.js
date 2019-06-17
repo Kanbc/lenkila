@@ -105,7 +105,7 @@ class BookingEditModal extends Component {
               <p>เบอร์โทร*</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" maxLength='10' id="firstname" value={this.state.customer_tel} onChange={e => this.setState({ customer_tel: e.target.value })} />
+              <input type="text" className="form-control"  maxlength="10" id="firstname" value={this.state.customer_tel} onChange={e => this.setState({ customer_tel: e.target.value })} />
             </div>
             <div className="col-sm-1">
               <p>ชื่อ</p>
