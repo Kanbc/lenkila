@@ -192,6 +192,7 @@ class BookingTable extends Component {
                       detail={this.props.fieldDetail}
                       gotoDate={this.state.gotoDate}
                       boostData={this.state.boostData}
+                      setStateBoostData={this.setStateBoostData}
                     />
                   </ButtonModal>
                 </div>

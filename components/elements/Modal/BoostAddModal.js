@@ -8,7 +8,7 @@ class BoostAddModal extends Component {
     super(props);
     this.state = { 
       boostType: 'buffet', 
-      price:null,
+      price:0,
     };
 
     this.changeBoostType = this.changeBoostType.bind(this);
@@ -23,6 +23,7 @@ class BoostAddModal extends Component {
   
 
   render() {
+    console.log('this.state.price',this.state.price)
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking}>
         <Body>
@@ -156,6 +157,8 @@ class BoostAddModal extends Component {
                     editFieldDocList:[],
                     editAddmore:false
                   })
+                  this.props.setStateBoostData({start_time:'',end_time:'',field_name:'-'})
+                  this.setState({price:0})
                 }}>
                   บันทึก
                 </CancelModal>
