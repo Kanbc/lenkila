@@ -353,7 +353,7 @@ class BookingEditModal extends Component {
                   })
                   this.clearCheckData()
                 }}>
-                  {this.props.booking.flag_status === '0'?'ชำระเงิน':'ยกเลิกการชำระเงิน'}
+                  {this.props.booking.flag_status === '0'?'ชำระเงิน':'ยกเลิกชำระเงิน'}
                 </CancelModal>
               </div>
             </div>
