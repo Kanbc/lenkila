@@ -243,10 +243,23 @@ class BookingEditModal extends Component {
               <p>{ summary && summary.reduce((partial_sum, a) => partial_sum + a,0) + this.sumValues(this.state.checkData) }</p>
             </div>
             <div className="col-sm-1">
-              <p className="bold-text">ค่ามัดจำ</p>
+              <p className="bold-text">ส่วนลดอื่นๆ</p>
             </div>
             <div className="col-sm-2">
-             <input type="text" className="form-control" id="firstname" value={this.state.deposit === ''? 0 : parseInt(this.state.deposit)} onChange={e => this.setState({ deposit: e.target.value })} />
+              <p>{Number.isNaN(discount) ? 0 : discount}</p>
+            </div>
+            <div className="col-sm-2">
+              <div className="space-r">
+                <ButtonModal color={Constant.Blue} width="120px" modalName={`#discount-${this.props.booking.id}`} >
+                  ส่วนลด
+                  <DiscountAddModal title="ส่วนลด" type={`discount-${this.props.booking.id}`} fields={this.fields}
+                    rebate_other={this.state.rebate_other}
+                    setStateDiscount={this.setStateDiscount}
+                    deleteStateDiscount={this.deleteStateDiscount}
+                    editStateDiscount={this.editStateDiscount}
+                  />
+                </ButtonModal>
+              </div>
             </div>
             {/* <div className="col-sm-1">
               <p>ค่าสินค้า</p>
@@ -254,6 +267,12 @@ class BookingEditModal extends Component {
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
             </div> */}
+            <div className="col-sm-2">
+              <p className="bold-text">ต้องชำระเพิ่มอีก</p>
+            </div>
+            <div className="col-sm-2">
+              <p>{summary && Number.isNaN(discount) ? summary.reduce((partial_sum, a) => partial_sum + a, 0) + this.sumValues(this.state.checkData) : summary.reduce((partial_sum, a) => partial_sum + a, 0) + this.sumValues(this.state.checkData) - discount}</p>
+            </div>
           </div>
           <div className="row">
             {/* <div className="col-sm-1">
@@ -263,23 +282,10 @@ class BookingEditModal extends Component {
               <input type="text" className="form-control" id="firstname" />
             </div> */}
             <div className="col-sm-1">
-              <p className="bold-text">ส่วนลดอื่นๆ</p>
+              <p className="bold-text">ค่ามัดจำ</p>
             </div>
             <div className="col-sm-2">
-              <p>{ Number.isNaN(discount)?0:discount  }</p>
-            </div>
-            <div className="col-sm-6">
-              <div className="space-r">
-                <ButtonModal color={Constant.Blue} width="120px" modalName={`#discount-${this.props.booking.id}`} >
-                  ส่วนลด
-                  <DiscountAddModal title="ส่วนลด" type={`discount-${this.props.booking.id}`} fields={this.fields} 
-                     rebate_other={this.state.rebate_other}
-                     setStateDiscount={this.setStateDiscount}
-                     deleteStateDiscount={this.deleteStateDiscount}
-                     editStateDiscount={this.editStateDiscount} 
-                  />
-                </ButtonModal>
-              </div>
+              <input type="text" className="form-control" id="firstname" value={this.state.deposit === '' ? 0 : parseInt(this.state.deposit)} onChange={e => this.setState({ deposit: e.target.value })} />
             </div>
           </div>
           <div className="row">
