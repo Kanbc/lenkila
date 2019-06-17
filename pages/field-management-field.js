@@ -15,8 +15,6 @@ class FieldManagementField extends Component {
   render() {
 
     const { items } = this.props;
-    console.log('thisproprender',this.props)
-    // console.log('users map',items)
 
     return (
       <TabsLayout title="สนาม" tabs={Constant.FieldTabs}>

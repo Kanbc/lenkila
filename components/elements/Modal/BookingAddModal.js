@@ -57,6 +57,7 @@ class BookingAddModal extends Component {
 
 
   render() {
+    console.log('check customer',this.props.customer)
     let player_value = this.state.player_value
     const summary = Object.keys(this.props.checkPriceData).map(key => {
       const value = this.props.checkPriceData[key]
@@ -85,7 +86,26 @@ class BookingAddModal extends Component {
               <p>เบอร์โทร*</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" value={this.state.customer_tel} onChange={e => this.setState({ customer_tel: e.target.value })} />
+              <input type="text" className="form-control" id="firstname" maxLength='10' value={this.state.customer_tel} 
+              onChange={e => {
+                  this.setState({ customer_tel: e.target.value })
+                  if(e.target.value.length === 10){
+                    let checkCustomer = this.props.customer.find(val=>val.tel === e.target.value)
+                    if(checkCustomer){
+                      this.setState({ customer_name: checkCustomer.name })
+                      if(checkCustomer.customer_type_history.length === 0){
+                        this.props.setStateSelected(customer_type_default)
+                      }else{
+                        // this.props.setStateSelected(checkCustomer.customer_type_history[0].name)
+                      }
+                    }
+                    else{
+                      this.setState({ customer_name: '' })
+                      this.props.setStateSelected('นักเรียน')
+                    }
+                  }
+                }
+              }/>
             </div>
             <div className="col-sm-1">
               <p>ชื่อ</p>

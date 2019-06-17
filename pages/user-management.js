@@ -11,9 +11,7 @@ class UserManagement extends Component {
   }
 
   render() {
-    console.log('this props',this.props)
     const { users,roleUser } = this.props;
-    console.log('render!', users);
     if(roleUser === "Employee"){
       return <div> 404 </div>
     }
@@ -52,7 +50,6 @@ class UserManagement extends Component {
                 </thead>
                 <tbody>
                   {users && users.map(user => {
-                    console.log('new=>>>>>',user)
                     return (
                       <tr key={user.user_id}>
                         <td className="hide1">{user.name} {user.surname}</td>
@@ -123,7 +120,6 @@ class UserManagement extends Component {
 
 
 function mapStateToProps(state) {
-  console.log('state',state.user_managementSaga.users)
   return {
     users: state.user_managementSaga.users,
     roleUser: state.auth.roleUser,

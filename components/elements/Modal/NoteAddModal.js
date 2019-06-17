@@ -45,7 +45,6 @@ class NoteAddModal extends Component {
     });
   }
   componentDidMount() {
-    console.log('this props =>>>', this.props)
   }
 
   // [GET] notes of this day

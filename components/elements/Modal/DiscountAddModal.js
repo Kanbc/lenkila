@@ -47,7 +47,6 @@ class DiscountAddModal extends Component {
 
   render() {
     const { rebate_other } = this.props;
-    console.log('rebate_other',rebate_other)
 
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="60">

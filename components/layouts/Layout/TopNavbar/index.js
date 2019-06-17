@@ -8,13 +8,11 @@ import {logout} from '../../../../store'
 class TopNavbar extends Component {
   // [GET] - admin
   componentDidMount() {
-    console.log('adminporps',this.props)
   }
   render() {
     const admin = this.props.userAdmin[0];
     const logout = this.props.logout
 
-    console.log('render! admin', admin);
     return (
       <nav className="navbar navbar-expand-lg navbar-dark d-flex justify-content-space-between">
         <a className="navbar-brand d-none d-sm-block" href="/">LENKILA Stadium</a>

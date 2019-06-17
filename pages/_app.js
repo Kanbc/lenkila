@@ -21,7 +21,6 @@ const bodyEnhancer = compose(
     componentDidMount() {
       var checkLogin = window.sessionStorage.getItem('LenkilaLogin')
       var idLogin = window.sessionStorage.getItem('LenkilaLoginID')
-      console.log('this.props',this.props)
       if(!checkLogin) {
         if(this.props.router.pathname === '/forgot-password'){
           Router.push({pathname:`/forgot-password`})

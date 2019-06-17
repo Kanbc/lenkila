@@ -17,7 +17,6 @@ class BookingEditModal2 extends Component {
     //   return prev + parseInt(cur.price);
     // }, 0);
     const summary = 0;
-    // console.log('thispropsbooking',this.props.booking)
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90">
         <Body>

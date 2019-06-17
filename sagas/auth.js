@@ -22,7 +22,6 @@ export function* loginSaga({data}) {
               password:data.password,
             },
           })
-          console.log('response auth',response)
           if(response.data.response_status){
             yield put(setData({user:response.data.response_data}))
             yield put(setData({roleUser:response.data.response_data[0].role}))
