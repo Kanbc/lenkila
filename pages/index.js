@@ -21,7 +21,6 @@ class Index extends Component {
 
   }
   // [GET] - Fields & Booking
-  // console.log(fields);
 
   render() {
 

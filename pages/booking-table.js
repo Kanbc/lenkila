@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { setDataBooking } from '../sagas/bookingSaga'
-import { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost,getEditMainByid  } from '../store';
+import { setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost,getEditMainByid,getCustomer } from '../store';
 import { Layout, BookingCalendar, PageTitle, Button, ButtonModal, Constant, NoteAddModal, BoostAddModal, ExportBookingModal,Loader } from '../components';
 
 class BookingTable extends Component {
@@ -99,7 +99,7 @@ class BookingTable extends Component {
     this.props.setNoteDate(this.state.gotoDate.format('YYYY-MM-DD'));
     this.props.getListBoost(this.state.gotoDate.format('YYYY-MM-DD'));
     this.props.getCustomerType();
-    
+    this.props.getCustomer();
     this.setStateAddMore(false);
     this.setStateCurrentModal('#add-drag-booking')
     this.props.setDataBooking({
@@ -243,6 +243,7 @@ class BookingTable extends Component {
             setDataBooking={this.props.setDataBooking}
             setStateBoostData={this.setStateBoostData}
             getEditMainByid={this.props.getEditMainByid}
+            customer={this.props.customer}
           />
         }
         </div>
@@ -300,9 +301,11 @@ const mapStateToProps = state => (
     csv: state.bookingSaga.csv,
     user: state.auth.user,
     isLoading:state.bookingSaga.isLoading,
+    customer: state.customerSaga.customer,
+
   }
 );
 
 export default connect(mapStateToProps, {
-  setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost,setDataBooking,getEditMainByid
+  setNote, setNoteDate, getListBooking, addBooking, checkPrice, getCustomerType, deleteBooking, editBooking, exportCsv,getListBoost,addBoost,setDataBooking,getEditMainByid,getCustomer
 })(BookingTable);

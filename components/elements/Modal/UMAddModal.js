@@ -20,7 +20,6 @@ class UMAddModal extends Component {
       role: 'Manager',
       note: ''
     };
-    console.log('this prpos=>',this.props)
     this.cancelAddUser = this.cancelAddUser.bind(this);
     this.addNewUser = this.addNewUser.bind(this);
   }

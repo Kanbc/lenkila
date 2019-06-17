@@ -27,8 +27,6 @@ class Customer extends Component {
   }
   
   render() {
-    console.log('fillterOptions',this.state.fillterOptions)
-    console.log('history',this.props.history)
     return (
       <TabsLayout title="ข้อมูลลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">

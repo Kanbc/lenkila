@@ -25,7 +25,6 @@ class ForgotPassword extends Component {
   // }
 
   handleValidation() {
-      console.log('this.props',this.props)
       const email = this.state.email;
       if (email === '' ) {
           this.setState({

@@ -6,7 +6,6 @@ import { ColorButton, CancelModal, Button } from '../..';
 
 class CustTypeAddModal extends Component {
   constructor(props) {
-    console.log('props',props)
     super(props);
     this.state = { hourDisabled:true,numberOfDays: 0 ,type:"ถาวร",color:'#CA0813' };
     

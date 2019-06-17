@@ -4,7 +4,7 @@ import Body from './DefaultModal/Body';
 import Footer from './DefaultModal/Footer';
 import { CancelModal,Button } from '../..';
 
-const FMImportPriceModal = ({ title, fieldIdImport,type,fieldOptions,importPrice,setDataPrice,fieldId,setStateImport,setImport}) =>console.log('fieldIdImport',fieldIdImport)|| (
+const FMImportPriceModal = ({ title, fieldIdImport,type,fieldOptions,importPrice,setDataPrice,fieldId,setStateImport,setImport}) =>(
   <DefaultModal title={title} type={type} percentWidth="36" setDataPrice={setDataPrice}>
     <Body>
       <div className="row">

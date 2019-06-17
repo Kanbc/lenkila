@@ -11,7 +11,6 @@ class CustomerType extends Component {
   }
   // [GET] - Users
   render() {
-    console.log('test',this.props.customerType)
     return (
       <TabsLayout title="ประเภทลูกค้า" tabs={Constant.CustomerTabs}>
         <div className="container">

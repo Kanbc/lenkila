@@ -31,7 +31,6 @@ class FMGiftEditModal extends Component {
     this.allDay = this.allDay.bind(this);
   }
   componentDidMount(){
-    console.log('this.props',this.props.userData.expired_at)
   }
 
   allDay() {

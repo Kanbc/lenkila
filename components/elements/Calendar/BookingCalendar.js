@@ -97,7 +97,6 @@ class BookingCalendar extends Component {
     });
   }
   updateEvents() {
-    console.log('that prop',this.props)
     const that = this; // to fix react class method instead of callback of Jquery
     $('#calendar').fullCalendar('destroy');
     $('#calendar').fullCalendar({
@@ -119,7 +118,6 @@ class BookingCalendar extends Component {
         return event.rendering === 'background';
       },
       select(startDate, endDate, jsEvent, view, resource) {
-        console.log('currentModal',that.props.currentModal)
         const start = startDate.format();
         const end = endDate.format();
         if(that.props.currentModal === '#add-boost'){
@@ -209,6 +207,7 @@ class BookingCalendar extends Component {
             setStateAddMore={this.props.setStateAddMore}
             setStateCurrentModal={this.props.setStateCurrentModal}
             setDataBooking={this.props.setDataBooking}
+            customer={this.props.customer}
             // fields={this.props.field}
 
             // day={this.state.day}
@@ -236,6 +235,7 @@ class BookingCalendar extends Component {
                 setStateCurrentModal={this.props.setStateCurrentModal}
                 priceFieldMore={this.state.price_field_more}
                 setDataBooking={this.props.setDataBooking}
+                customer={this.props.customer}
               />
             </ButtonModal>
           ))}

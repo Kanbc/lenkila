@@ -30,7 +30,6 @@ class FieldManagementPrice extends Component {
   }
   
   render() {
-    console.log('this.props.fieldsPrice',this.props.fieldId)
     const vipType = this.props.customerType.filter(value=> value.type !== 'default')
     return (
       <TabsLayout title="ราคา" tabs={Constant.FieldTabs}>
@@ -82,7 +81,7 @@ class FieldManagementPrice extends Component {
               </thead>            
               {this.props.isLoading ? <Loader price/> :          
               <tbody>
-                {this.props.fieldsPrice.map(user => (
+                {this.props.fieldsPrice && this.props.fieldsPrice.map(user => (
                   <tr key={user.id}>
                     <td className="hide1" style={{ color: `${user.color}` }}>
                     {user.is_mon === "1" && "Mon "}	
