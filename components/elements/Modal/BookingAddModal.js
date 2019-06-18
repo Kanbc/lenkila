@@ -94,14 +94,10 @@ class BookingAddModal extends Component {
                     if(checkCustomer){
                       this.setState({ customer_name: checkCustomer.name })
                       if(checkCustomer.customer_type_history.length === 0){
-                        this.props.setStateSelected(customer_type_default)
+                        this.props.setStateSelected(checkCustomer.customer_type_default)
                       }else{
                         this.props.setStateSelected(checkCustomer.customer_type_history[0].customer_type_name)
                       }
-                    }
-                    else{
-                      this.setState({ customer_name: '' })
-                      this.props.setStateSelected('นักเรียน')
                     }
                   }
                 }
