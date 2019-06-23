@@ -119,7 +119,7 @@ class FMPriceAddModal extends Component {
               <TimePicker
                 format={24}
                 start="00:00"
-                end="23:45"
+                end="24:00"
                 step={15}
                 value={this.state.startTime}
                 onChange={startTime => this.setState({ startTime })}
@@ -132,7 +132,7 @@ class FMPriceAddModal extends Component {
               <TimePicker
                 format={24}
                 start="00:00"
-                end="23:45"
+                end="24:00"
                 step={15}
                 value={this.state.endTime}
                 onChange={endTime => this.setState({ endTime })}
