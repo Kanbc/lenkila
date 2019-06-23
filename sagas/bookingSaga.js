@@ -72,6 +72,8 @@ const newReservation = (date) => (result, item) => {
       title: item.customer_name,
       start: moment(`${date} ${item.start_time}`),
       end: moment(`${date} ${item.end_time}`),
+      start_time:item.start_time,
+      end_time:item.end_time,
       color: item.color,
       textColor: 'black',
     })
@@ -168,14 +170,14 @@ export function* getBookingSaga({date}) {
     console.log('response booking',response)
     let start = response.data.response_data.stadium_doc.open_time
     let end = response.data.response_data.stadium_doc.close_time
-
+    let newMinTime = secondsToHHMMSS(moment.duration(response.data.response_data.stadium_doc.open_time).asSeconds() - 7200)
 
     const fieldsBooking = response.data.response_data.stadium_doc.field_list.reduce(newFields, [])
     const fieldDetail = {
       open: start,
       close: end,
       weekdayOpen: [0, 1, 2, 3, 4, 5, 6], // Monday - Friday (0=Sunday)
-      minTime: secondsToHHMMSS(moment.duration(response.data.response_data.stadium_doc.open_time).asSeconds() - 7200),
+      minTime: newMinTime.length === 8 ? newMinTime : '0'+newMinTime,
       maxTime: start < end ? secondsToHHMMSS(moment.duration(response.data.response_data.stadium_doc.close_time).asSeconds() + 10800) : secondsToHHMMSS(moment.duration(response.data.response_data.stadium_doc.close_time).asSeconds() + 10800 + moment.duration('24:00:00').asSeconds()) 
     };
     

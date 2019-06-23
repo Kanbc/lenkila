@@ -57,7 +57,7 @@ class BookingCalendar extends Component {
     // )
 
     this.setStateBooking(
-      moment(startTime).format('HH:mm:ss'),
+      startTime,
       endTime,
       resourceId,
       moment(this.props.gotoDate).format("YYYY-MM-DD")
@@ -67,7 +67,7 @@ class BookingCalendar extends Component {
       const findId = currenctModal.split('-')
 
       this.props.checkPrice({
-        start_time:moment(startTime).format('HH:mm:ss'),
+        start_time:startTime,
         end_time:endTime,
         field_id:resourceId,
         customer_type:this.props.reservationList.find(value => value.id === findId[findId.length-1]).customer_type,
@@ -76,7 +76,7 @@ class BookingCalendar extends Component {
     }
     else{
       this.props.checkPrice({
-        start_time:moment(startTime).format('HH:mm:ss'),
+        start_time:startTime,
         end_time:endTime,
         field_id:resourceId,
         customer_type:this.state.selected,
@@ -123,21 +123,26 @@ class BookingCalendar extends Component {
         }
         const start = startDate.format();
         const end = endDate.format();
-        let modifireEnd = moment(end).format('HH:mm:ss')
         let modifireStart = moment(start).format('HH:mm:ss')
+        let modifireEnd = moment(end).format('HH:mm:ss')
+        let minTime = that.props.detail.minTime
         if(modifireEnd < modifireStart){
+          modifireEnd = secondsToHHMMSS(moment.duration('24:00:00').asSeconds()+moment.duration(modifireEnd).asSeconds())
+        }
+        if(modifireStart < minTime){
+          modifireStart = secondsToHHMMSS(moment.duration('24:00:00').asSeconds()+moment.duration(modifireStart).asSeconds())
           modifireEnd = secondsToHHMMSS(moment.duration('24:00:00').asSeconds()+moment.duration(modifireEnd).asSeconds())
         }
         if(that.props.currentModal === '#add-boost'){
           that.props.setStateBoostData({
-            start_time:moment(start).format('HH:mm:ss'),
+            start_time:modifireStart,
             end_time:modifireEnd,
             field_id:resource.id,
             field_name:resource.field,
             date:moment(that.props.gotoDate).format("YYYY-MM-DD")
           })
         }
-        that.setDataBooking(start, modifireEnd, resource.id,that.props.currentModal);
+        that.setDataBooking(modifireStart, modifireEnd, resource.id,that.props.currentModal);
         // $('#add-drag-booking').modal('show');
         $(that.props.currentModal).modal('show');
       },
