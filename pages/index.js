@@ -55,16 +55,16 @@ class Index extends Component {
             todayBookingList && todayBookingList.map(field => (
               <div key={field.id} className="col-12 col-sm-6 col-md-4">
                 <StadiumBookingColumn 
-                title={field.field} 
-                bookings={field.bookings} 
-                date={moment(this.props.currentDate).format("YYYY-MM-DD")}
-                customerType={this.props.customerType}
-                deleteBooking={this.props.deleteBooking}
-                editBooking={this.props.editBooking}
-                checkPriceData={this.props.checkPriceData}
-                checkPrice={this.props.checkPrice}
-                reservationList={this.props.reservationList}
-                getEditMainByid={this.props.getEditMainByid}
+                  title={field.field} 
+                  bookings={field.bookings} 
+                  date={moment(this.props.currentDate).format("YYYY-MM-DD")}
+                  customerType={this.props.customerType}
+                  deleteBooking={this.props.deleteBooking}
+                  editBooking={this.props.editBooking}
+                  checkPriceData={this.props.checkPriceData}
+                  checkPrice={this.props.checkPrice}
+                  reservationList={this.props.reservationList}
+                  getEditMainByid={this.props.getEditMainByid}
                 />
               </div>
             ))

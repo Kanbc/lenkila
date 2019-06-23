@@ -167,12 +167,17 @@ class BookingAddModal extends Component {
                   <tbody>
                     {
                       this.props.checkPriceData && Object.keys(this.props.checkPriceData).map(key => {
+                        function secondsToHHMMSS (seconds) {
+                          return (Math.floor(seconds / 3600)) + ":" + ("0" + Math.floor(seconds / 60) % 60).slice(-2) + ":" + ("0" + seconds % 60).slice(-2)
+                        }
                         const fieldBook = this.props.checkPriceData[key]
                         const result = fieldBook.map((value,index) => {
+                          let endTimeMix = secondsToHHMMSS(moment.duration(value.end_time).asSeconds() - moment.duration('24:00:00').asSeconds())
+                          let startTimeMix = secondsToHHMMSS(moment.duration(value.start_time).asSeconds() - moment.duration('24:00:00').asSeconds())
                           return (
                             <tr key={value.time}>
                               <th scope="row">{value.field_name}</th>
-                              <td>{`${value.start_time} - ${value.end_time}`}</td>
+                              <td>{`${value.start_time > '24:00:00' ? startTimeMix.length === 8 ? startTimeMix : "0"+startTimeMix : value.start_time} - ${value.end_time > '24:00:00' ? endTimeMix.length === 8 ? endTimeMix : "0"+endTimeMix : value.end_time}`}</td>
                               { 
                                 value.edit_status === 0 ?
                                 value.type === 'boost'?

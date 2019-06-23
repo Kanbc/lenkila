@@ -16,8 +16,8 @@ const StadiumBookingColumn = ({ title, bookings,reservationList,date,customerTyp
             onClick={()=>{
               getEditMainByid(booking.main_id)
               checkPrice({
-                start_time:moment(booking.start).format('HH:mm:ss'),
-                end_time:moment(booking.end).format('HH:mm:ss'),
+                start_time:booking.start_time,
+                end_time:booking.end_time,
                 field_id:booking.resourceId,
                 customer_type:reservationList.find(value=> value.id === booking.id).customer_type,
                 date:moment(date).format('YYYY-MM-DD'),

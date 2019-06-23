@@ -220,10 +220,13 @@ class BookingEditModal extends Component {
                               document.getElementById(`myForm-${this.props.booking.id}-${key}`).reset();
                             }
                           }
+
+                          let endTimeMix = secondsToHHMMSS(moment.duration(value.end_time).asSeconds() - moment.duration('24:00:00').asSeconds())
+                          let startTimeMix = secondsToHHMMSS(moment.duration(value.start_time).asSeconds() - moment.duration('24:00:00').asSeconds())
                           return (
                             <tr key={value.time}>
                               <th scope="row">{value.field_name}</th>
-                              <td>{`${value.start_time} - ${value.end_time > '24:00:00' ? secondsToHHMMSS(moment.duration(value.end_time).asSeconds() - moment.duration('24:00:00').asSeconds()): value.end_time}`}</td>
+                              <td>{`${value.start_time > '24:00:00' ? startTimeMix.length === 8 ? startTimeMix : "0"+startTimeMix : value.start_time} - ${value.end_time > '24:00:00' ? endTimeMix.length === 8 ? endTimeMix : "0"+endTimeMix : value.end_time}`}</td>
                               { 
                                 value.edit_status === 0 ? 
                                 value.type === 'boost'?

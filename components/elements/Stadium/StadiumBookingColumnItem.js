@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import {moment} from 'moment'
+import moment from 'moment'
 
 class StadiumBookingColumnItem extends Component {
   render() {
+    let endTimeMix = secondsToHHMMSS(moment.duration(this.props.booking.end_time).asSeconds() - moment.duration('24:00:00').asSeconds())
+    let startTimeMix = secondsToHHMMSS(moment.duration(this.props.booking.start_time).asSeconds() - moment.duration('24:00:00').asSeconds())
     return (
       <div className="item">
         <div className="d-flex align-items-center">
-          <div className="time">{this.props.booking.start.format('HH:mm').toString()} - {this.props.booking.end.format('HH:mm').toString()}</div>
+          <div className="time">{`${this.props.booking.start_time > '24:00:00' ? startTimeMix.length === 8 ? startTimeMix.slice(0, -3) : "0"+startTimeMix.slice(0, -3) : this.props.booking.start_time.slice(0, -3)} - ${this.props.booking.end_time > '24:00:00' ? endTimeMix.length === 8 ? endTimeMix.slice(0, -3) : "0"+endTimeMix.slice(0, -3) : this.props.booking.end_time.slice(0, -3)}`}</div>
           <div className="name">
             <p>{this.props.booking.title}</p>
           </div>
@@ -35,6 +37,10 @@ class StadiumBookingColumnItem extends Component {
       </div>
     );
   }
+}
+
+function secondsToHHMMSS (seconds) {
+  return (Math.floor(seconds / 3600)) + ":" + ("0" + Math.floor(seconds / 60) % 60).slice(-2) + ":" + ("0" + seconds % 60).slice(-2)
 }
 
 export default StadiumBookingColumnItem;
