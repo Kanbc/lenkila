@@ -76,7 +76,7 @@ export function* editFieldDataSaga({data}){
             facilities:JSON.stringify(data.facilities),
             name:"lenkila",
             open_time:moment.utc(data.open_time*1000).format('HH:mm:ss'),
-            close_time:moment.utc(data.close_time*1000).format('HH:mm:ss'),
+            close_time:data.close_time === 86400 || data.close_time === 0 ?'24:00:00' : moment.utc(data.close_time*1000).format('HH:mm:ss'),
           },
         )
         console.log('response',response)

@@ -210,6 +210,9 @@ class BookingEditModal extends Component {
                   <tbody>
                     {
                        this.state.price_field && Object.keys(this.state.price_field).map(key => {
+                        function secondsToHHMMSS (seconds) {
+                          return (Math.floor(seconds / 3600)) + ":" + ("0" + Math.floor(seconds / 60) % 60).slice(-2) + ":" + ("0" + seconds % 60).slice(-2)
+                        }
                         const fieldBook = this.state.price_field[key]
                         const result = fieldBook.map((value,index) => {
                           if(parseInt(value.price) === 0){
@@ -220,7 +223,7 @@ class BookingEditModal extends Component {
                           return (
                             <tr key={value.time}>
                               <th scope="row">{value.field_name}</th>
-                              <td>{`${value.start_time} - ${value.end_time}`}</td>
+                              <td>{`${value.start_time} - ${value.end_time > '24:00:00' ? secondsToHHMMSS(moment.duration(value.end_time).asSeconds() - moment.duration('24:00:00').asSeconds()): value.end_time}`}</td>
                               { 
                                 value.edit_status === 0 ? 
                                 value.type === 'boost'?

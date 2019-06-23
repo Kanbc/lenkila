@@ -162,13 +162,21 @@ export function* getBookingSaga({date}) {
             date
           },
         })
+    function secondsToHHMMSS (seconds) {
+      return (Math.floor(seconds / 3600)) + ":" + ("0" + Math.floor(seconds / 60) % 60).slice(-2) + ":" + ("0" + seconds % 60).slice(-2)
+    }
+    console.log('response booking',response)
+    let start = response.data.response_data.stadium_doc.open_time
+    let end = response.data.response_data.stadium_doc.close_time
+
+
     const fieldsBooking = response.data.response_data.stadium_doc.field_list.reduce(newFields, [])
     const fieldDetail = {
-      open: response.data.response_data.stadium_doc.open_time,
-      close: response.data.response_data.stadium_doc.close_time,
+      open: start,
+      close: end,
       weekdayOpen: [0, 1, 2, 3, 4, 5, 6], // Monday - Friday (0=Sunday)
-      minTime: '05:00:00',
-      maxTime: '29:00:00',
+      minTime: secondsToHHMMSS(moment.duration(response.data.response_data.stadium_doc.open_time).asSeconds() - 7200),
+      maxTime: start < end ? secondsToHHMMSS(moment.duration(response.data.response_data.stadium_doc.close_time).asSeconds() + 10800) : secondsToHHMMSS(moment.duration(response.data.response_data.stadium_doc.close_time).asSeconds() + 10800 + moment.duration('24:00:00').asSeconds()) 
     };
     
     const fieldsPrice = response.data.response_data.field_price_list.reduce(newPriceFields(date), [])
