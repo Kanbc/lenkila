@@ -111,6 +111,7 @@ class BookingTable extends Component {
     })
   }
   render() {
+    console.log('test',this.props)
     return (
       <Layout title="การจอง">
         <div className="container">
