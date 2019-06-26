@@ -34,13 +34,13 @@ const newFields = (result, item) => {
 }
 
 const newPriceFields = (date) => (result, item) => {
-
+  console.log('test item',item)
   if (item){
     result.push({
       id:item.id+'_field',
       resourceId: item.field_id,
-      start: moment(`${date} ${item.start_time}`),
-      end: moment(`${date} ${item.end_time}`),
+      start: moment(`${item.date} ${item.start_time}`),
+      end: moment(`${item.date} ${item.end_time}`),
       color: item.color,
       rendering: 'background',
     })
@@ -427,7 +427,7 @@ export function* getBoostSaga({date}){
   yield put(setDataBooking({isLoading:true})) 
   yield delay(1000)
   const stadiumId = yield select(state => state.auth.user[0].stadium_doc.id)
-
+  
   try {
     const response = yield axios.get(apiUrl, {
       params: {
@@ -439,6 +439,7 @@ export function* getBoostSaga({date}){
         },
     }
     )
+    console.log('response boost',response)
     const modifireBoostList = response.data.response_data.reduce(newBoostFields, [])
   
     yield put(setDataBooking({boostList:modifireBoostList})) 
