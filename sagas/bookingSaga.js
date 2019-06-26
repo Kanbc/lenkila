@@ -34,7 +34,6 @@ const newFields = (result, item) => {
 }
 
 const newPriceFields = (date) => (result, item) => {
-  console.log('test item',item)
   if (item){
     result.push({
       id:item.id+'_field',
@@ -67,18 +66,19 @@ const newReservation = (date) => (result, item) => {
   function secondsToHHMMSS (seconds) {
     return (Math.floor(seconds / 3600)) + ":" + ("0" + Math.floor(seconds / 60) % 60).slice(-2) + ":" + ("0" + seconds % 60).slice(-2)
   }
+  let dateStart = item.start_time >= '24:00:00' ? moment(date).add(1,'days').format('YYYY-MM-DD') : date
+  let timeStart = item.start_time >= '24:00:00' ? secondsToHHMMSS(moment.duration(item.start_time).asSeconds() - moment.duration('24:00:00').asSeconds()) : item.start_time
   let dateEnd = item.end_time >= '24:00:00' ? moment(date).add(1,'days').format('YYYY-MM-DD') : date
   let timeEnd = item.end_time >= '24:00:00' ? secondsToHHMMSS(moment.duration(item.end_time).asSeconds() - moment.duration('24:00:00').asSeconds()) : item.end_time
 
-  console.log('test dateEnd',dateEnd)
-  console.log('test timeEnd',timeEnd)
+
   if (item){
     result.push({
       id: item.id,
       main_id:item.reservation_main_id,
       resourceId: item.field_doc_id,
       title: item.customer_name,
-      start: moment(`${date} ${item.start_time}`),
+      start: moment(`${dateStart} ${timeStart}`),
       end: moment(`${dateEnd} ${timeEnd}`),
       start_time:item.start_time,
       end_time:item.end_time,
