@@ -111,7 +111,7 @@ class BookingEditModal extends Component {
                   if(e.target.value.length === 10){
                     let checkCustomer = this.props.customer.find(val=>val.tel === e.target.value)
                     if(checkCustomer){
-                      this.setState({ customer_name: checkCustomer.name })
+                      this.setState({ customer_name: checkCustomer.nick_name })
                       if(checkCustomer.customer_type_history.length === 0){
                         this.setState({customer_type:checkCustomer.customer_type_default})
                       }else{

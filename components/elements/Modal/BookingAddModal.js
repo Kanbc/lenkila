@@ -92,7 +92,7 @@ class BookingAddModal extends Component {
                   if(e.target.value.length === 10){
                     let checkCustomer = this.props.customer.find(val=>val.tel === e.target.value)
                     if(checkCustomer){
-                      this.setState({ customer_name: checkCustomer.name })
+                      this.setState({ customer_name: checkCustomer.nick_name })
                       if(checkCustomer.customer_type_history.length === 0){
                         this.props.setStateSelected(checkCustomer.customer_type_default)
                       }else{
