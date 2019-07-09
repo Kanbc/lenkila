@@ -296,6 +296,7 @@ export function* priceCheckingBookingSaga({data,customer,edit,callback}){
     }
   }
 
+  console.log('newCheckprice',newCheckprice)
 
   try {
     const response = yield axios.post(apiUrl, {    

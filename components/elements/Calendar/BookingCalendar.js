@@ -243,6 +243,7 @@ class BookingCalendar extends Component {
             setStateCurrentModal={this.props.setStateCurrentModal}
             setDataBooking={this.props.setDataBooking}
             customer={this.props.customer}
+            addCustomer={this.props.addCustomer}
             // fields={this.props.field}
 
             // day={this.state.day}
@@ -277,6 +278,7 @@ class BookingCalendar extends Component {
                 setDataBooking={this.props.setDataBooking}
                 customer={this.props.customer}
                 user={this.props.user}
+                addCustomer={this.props.addCustomer}
               />
             </ButtonModal>
           ))}

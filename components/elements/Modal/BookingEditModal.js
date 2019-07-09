@@ -13,6 +13,7 @@ class BookingEditModal extends Component {
       price_field:this.props.booking.price_field && JSON.parse(this.props.booking.price_field) ,
       checkData:{},
       inputDefault : false,
+      isAddCustomer:false,
     };
     this.setStateDiscount = this.setStateDiscount.bind(this);
     this.setStatePrice = this.setStatePrice.bind(this);
@@ -111,12 +112,15 @@ class BookingEditModal extends Component {
                   if(e.target.value.length === 10){
                     let checkCustomer = this.props.customer.find(val=>val.tel === e.target.value)
                     if(checkCustomer){
-                      this.setState({ customer_name: checkCustomer.nick_name })
+                      this.setState({ customer_name: checkCustomer.nick_name,isAddCustomer:false })
                       if(checkCustomer.customer_type_history.length === 0){
                         this.setState({customer_type:checkCustomer.customer_type_default})
                       }else{
                         this.setState({customer_type:checkCustomer.customer_type_history[0].customer_type_name})
                       }
+                    }
+                    else{
+                      this.setState({isAddCustomer:true})
                     }
                   }
                 }
@@ -217,7 +221,7 @@ class BookingEditModal extends Component {
                         const result = fieldBook.map((value,index) => {
                           if(parseInt(value.price) === 0){
                             if(this.state.inputDefault){
-                              document.getElementById(`myForm-${this.props.booking.id}-${key}`).reset();
+                              // document.getElementById(`myForm-${this.props.booking.id}-${key}`).reset();
                             }
                           }
 
@@ -334,6 +338,31 @@ class BookingEditModal extends Component {
                     editAddmore:false
                   })
                   this.clearCheckData()
+
+                  if(this.state.customer_tel.length === 10){
+                    const {customer_type} = this.state
+                    let date = new Date()
+                    let birthDate = ''
+                    if(customer_type === 'นักเรียน'){
+                      birthDate = moment(date).format('YYYY-MM-DD')
+                    }else if(customer_type === "นักศึกษา"){
+                      birthDate = moment(date).subtract(19, "years").format('YYYY-MM-DD')
+                    }
+                    else if(customer_type === "สูงวัย"){
+                      birthDate = moment(date).subtract(61, "years").format('YYYY-MM-DD')
+                    }else{
+                      birthDate = moment(date).subtract(24, "years").format('YYYY-MM-DD')
+                    }
+
+                    if(this.state.isAddCustomer){
+                      this.props.addCustomer({
+                        gender: "ชาย",
+                        tel: this.state.customer_tel,
+                        nick_name:this.state.customer_name,
+                        date_of_birth:birthDate,
+                      })
+                    }
+                  }
                 } 
                 }
                   >
