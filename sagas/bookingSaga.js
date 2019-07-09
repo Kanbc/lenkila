@@ -178,7 +178,12 @@ export function* getBookingSaga({date}) {
     console.log('response booking',response)
     let start = response.data.response_data.stadium_doc.open_time
     let end = response.data.response_data.stadium_doc.close_time
-    let newMinTime = secondsToHHMMSS(moment.duration(response.data.response_data.stadium_doc.open_time).asSeconds() - 7200)
+    let newMinTime = ''
+    if(start < '02:00:00'){
+     newMinTime = secondsToHHMMSS(moment.duration('00:00:00').asSeconds())
+    }else{
+     newMinTime = secondsToHHMMSS(moment.duration(start).asSeconds() - 7200)
+    }
 
     const fieldsBooking = response.data.response_data.stadium_doc.field_list.reduce(newFields, [])
     const fieldDetail = {
