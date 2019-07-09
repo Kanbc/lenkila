@@ -15,6 +15,7 @@ class BookingAddModal extends Component {
       deposit:'',
       rebate_other:[],
       checkData:{},
+      isAddCustomer:true,
     };
     this.setStateDiscount = this.setStateDiscount.bind(this);
     this.deleteStateDiscount = this.deleteStateDiscount.bind(this);
@@ -92,12 +93,15 @@ class BookingAddModal extends Component {
                   if(e.target.value.length === 10){
                     let checkCustomer = this.props.customer.find(val=>val.tel === e.target.value)
                     if(checkCustomer){
-                      this.setState({ customer_name: checkCustomer.nick_name })
+                      this.setState({ customer_name: checkCustomer.nick_name, isAddCustomer:false})
                       if(checkCustomer.customer_type_history.length === 0){
                         this.props.setStateSelected(checkCustomer.customer_type_default)
                       }else{
                         this.props.setStateSelected(checkCustomer.customer_type_history[0].customer_type_name)
                       }
+                    }
+                    else{
+                      this.setState({isAddCustomer:true})
                     }
                   }
                 }
@@ -297,6 +301,31 @@ class BookingAddModal extends Component {
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
                   this.clearCheckData()
+
+                  if(this.state.customer_tel.length === 10){
+                    const {selected} = this.props
+                    let date = new Date()
+                    let birthDate = ''
+                    if(selected === 'นักเรียน'){
+                      birthDate = moment(date).format('YYYY-MM-DD')
+                    }else if(selected === "นักศึกษา"){
+                      birthDate = moment(date).subtract(19, "years").format('YYYY-MM-DD')
+                    }
+                    else if(selected === "สูงวัย"){
+                      birthDate = moment(date).subtract(61, "years").format('YYYY-MM-DD')
+                    }else{
+                      birthDate = moment(date).subtract(24, "years").format('YYYY-MM-DD')
+                    }
+
+                    if(this.state.isAddCustomer){
+                      this.props.addCustomer({
+                        gender: "ชาย",
+                        tel: this.state.customer_tel,
+                        nick_name:this.state.customer_name,
+                        date_of_birth:birthDate,
+                      })
+                    }
+                  }
 
                 }
                }>
