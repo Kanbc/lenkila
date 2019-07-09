@@ -120,6 +120,9 @@ class Customer extends Component {
                           history={this.props.history}
                           customerTypeId={this.props.customerTypeId}
                           customerTypeIdNext={this.props.customerTypeIdNext}
+                          getCustomer={this.props.getCustomer}
+                          getCustomerType={this.props.getCustomerType}
+                          
                           />
                         </ButtonModal>
                       </td>

@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import moment from 'moment';
-import { ButtonModal, BookingAddModal, BookingEditModal } from '../..';
+import React, { Component } from "react";
+import moment from "moment";
+import { ButtonModal, BookingAddModal, BookingEditModal } from "../..";
 
 class BookingCalendar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       day: moment(),
-      startTime: moment().format('LT'),
-      endTime: moment().format('LT'),
-      resourceId: '',
-      selected:'นักเรียน',
-      price_field_more:[],
+      startTime: moment().format("LT"),
+      endTime: moment().format("LT"),
+      resourceId: "",
+      selected: "ทั่วไป",
+      price_field_more: []
     };
 
     this.setDataBooking = this.setDataBooking.bind(this);
@@ -27,24 +27,22 @@ class BookingCalendar extends Component {
     this.updateEvents();
   }
 
-  setStateBooking = (start_time,end_time,field_id,date) => {
-     this.setState({start_time:start_time})
-     this.setState({end_time:end_time})
-     this.setState({field_id:field_id})
-     this.setState({date:date})
-  }
+  setStateBooking = (start_time, end_time, field_id, date) => {
+    this.setState({ start_time: start_time });
+    this.setState({ end_time: end_time });
+    this.setState({ field_id: field_id });
+    this.setState({ date: date });
+  };
 
-  setStateSelected = (selected) => {
-    this.setState({selected:selected})
-  }
+  setStateSelected = selected => {
+    this.setState({ selected: selected });
+  };
 
-  setStatePriceMore = (item) => {
-    this.setState({price_field_more:item})
-  }
+  setStatePriceMore = item => {
+    this.setState({ price_field_more: item });
+  };
 
-  
-
-  setDataBooking(startTime, endTime, resourceId,currenctModal) {
+  setDataBooking(startTime, endTime, resourceId, currenctModal) {
     // Call API
     // --Input--
     // - startTime
@@ -61,46 +59,50 @@ class BookingCalendar extends Component {
       endTime,
       resourceId,
       moment(this.props.gotoDate).format("YYYY-MM-DD")
-    )
+    );
 
-    if(currenctModal.includes('edit')){
-      const findId = currenctModal.split('-')
+    if (currenctModal.includes("edit")) {
+      const findId = currenctModal.split("-");
 
+      this.props.checkPrice(
+        {
+          start_time: startTime,
+          end_time: endTime,
+          field_id: resourceId,
+          customer_type: this.props.reservationList.find(
+            value => value.id === findId[findId.length - 1]
+          ).customer_type,
+          date: moment(this.props.gotoDate).format("YYYY-MM-DD")
+        },
+        false,
+        true,
+        this.setStatePriceMore
+      );
+    } else {
       this.props.checkPrice({
-        start_time:startTime,
-        end_time:endTime,
-        field_id:resourceId,
-        customer_type:this.props.reservationList.find(value => value.id === findId[findId.length-1]).customer_type,
-        date:moment(this.props.gotoDate).format("YYYY-MM-DD")
-      },false,true,this.setStatePriceMore)
-    }
-    else{
-      this.props.checkPrice({
-        start_time:startTime,
-        end_time:endTime,
-        field_id:resourceId,
-        customer_type:this.state.selected,
-        date:moment(this.props.gotoDate).format("YYYY-MM-DD")
-      })
+        start_time: startTime,
+        end_time: endTime,
+        field_id: resourceId,
+        customer_type: this.state.selected,
+        date: moment(this.props.gotoDate).format("YYYY-MM-DD")
+      });
     }
     // mock data
- 
-
   }
 
   setOnBusinessHourBooking(startTime, resourceId) {
     this.setState({
       day: moment(startTime),
-      startTime: '',
-      endTime: '',
-      resourceId,
+      startTime: "",
+      endTime: "",
+      resourceId
     });
   }
   updateEvents() {
     const that = this; // to fix react class method instead of callback of Jquery
-    $('#calendar').fullCalendar('destroy');
-    $('#calendar').fullCalendar({
-      defaultView: 'timelineDay',
+    $("#calendar").fullCalendar("destroy");
+    $("#calendar").fullCalendar({
+      defaultView: "timelineDay",
       nowIndicator: true,
       // customButtons: {
       //   datePickerButton: {
@@ -110,41 +112,61 @@ class BookingCalendar extends Component {
       //   },
       // },
       header: false,
-      height: 'auto',
+      height: "auto",
       slotWidth: 30,
       editable: false,
       selectable: that.props.canbook,
       selectOverlap(event) {
-        return event.rendering === 'background';
+        return event.rendering === "background";
       },
       select(startDate, endDate, jsEvent, view, resource) {
-        function secondsToHHMMSS (seconds) {
-          return (Math.floor(seconds / 3600)) + ":" + ("0" + Math.floor(seconds / 60) % 60).slice(-2) + ":" + ("0" + seconds % 60).slice(-2)
+        function secondsToHHMMSS(seconds) {
+          return (
+            Math.floor(seconds / 3600) +
+            ":" +
+            ("0" + (Math.floor(seconds / 60) % 60)).slice(-2) +
+            ":" +
+            ("0" + (seconds % 60)).slice(-2)
+          );
         }
         const start = startDate.format();
         const end = endDate.format();
-        let modifireStart = moment(start).format('HH:mm:ss')
-        let modifireEnd = moment(end).format('HH:mm:ss')
-        let minTime = that.props.detail.minTime
-        if(modifireEnd < modifireStart){
-          modifireEnd = secondsToHHMMSS(moment.duration('24:00:00').asSeconds()+moment.duration(modifireEnd).asSeconds())
+        let modifireStart = moment(start).format("HH:mm:ss");
+        let modifireEnd = moment(end).format("HH:mm:ss");
+        let minTime = that.props.detail.minTime;
+        if (modifireEnd < modifireStart) {
+          modifireEnd = secondsToHHMMSS(
+            moment.duration("24:00:00").asSeconds() +
+              moment.duration(modifireEnd).asSeconds()
+          );
         }
-        if(modifireStart < minTime){
-          modifireStart = secondsToHHMMSS(moment.duration('24:00:00').asSeconds()+moment.duration(modifireStart).asSeconds())
-          modifireEnd = secondsToHHMMSS(moment.duration('24:00:00').asSeconds()+moment.duration(modifireEnd).asSeconds())
+        if (modifireStart < minTime) {
+          modifireStart = secondsToHHMMSS(
+            moment.duration("24:00:00").asSeconds() +
+              moment.duration(modifireStart).asSeconds()
+          );
+          modifireEnd = secondsToHHMMSS(
+            moment.duration("24:00:00").asSeconds() +
+              moment.duration(modifireEnd).asSeconds()
+          );
         }
-        if(that.props.currentModal === '#add-boost'){
+        if (that.props.currentModal === "#add-boost") {
           that.props.setStateBoostData({
-            start_time:modifireStart,
-            end_time:modifireEnd,
-            field_id:resource.id,
-            field_name:resource.field,
-            date:moment(that.props.gotoDate).format("YYYY-MM-DD")
-          })
+            start_time: modifireStart,
+            end_time: modifireEnd,
+            field_id: resource.id,
+            field_name: resource.field,
+            date: moment(that.props.gotoDate).format("YYYY-MM-DD")
+          });
         }
-        that.setDataBooking(modifireStart, modifireEnd, resource.id,that.props.currentModal);
+        that.setDataBooking(
+          modifireStart,
+          modifireEnd,
+          resource.id,
+          that.props.currentModal
+        );
         // $('#add-drag-booking').modal('show');
-        $(that.props.currentModal).modal('show');
+        $(that.props.currentModal).modal("show");
       },
       // droppable: true, // this allows things to be dropped onto the calendar
       // drop() {
@@ -166,18 +188,18 @@ class BookingCalendar extends Component {
         //       date:moment(calEvent.start).format('YYYY-MM-DD'),
         //  }
         // )
-        console.log('calEvent',calEvent)
-        that.props.getEditMainByid(calEvent.main_id)
+        console.log("calEvent", calEvent);
+        that.props.getEditMainByid(calEvent.main_id);
 
-        $(`#edit-booking-modal-${  calEvent.id}`).modal('show');
+        $(`#edit-booking-modal-${calEvent.id}`).modal("show");
       },
       eventOverlap: true,
       resourceColumns: [
         {
-          labelText: 'สนาม',
-          field: 'field',
-          width: 100,
-        },
+          labelText: "สนาม",
+          field: "field",
+          width: 100
+        }
       ],
       // resourceAreaWidth: '20%',
 
@@ -187,12 +209,12 @@ class BookingCalendar extends Component {
       businessHours: {
         dow: that.props.detail.weekdayOpen,
         start: that.props.detail.open,
-        end: that.props.detail.close,
+        end: that.props.detail.close
       },
       resources: that.props.field,
-      events: that.props.booking,
+      events: that.props.booking
     });
-    $('#calendar').fullCalendar('gotoDate', that.props.gotoDate);
+    $("#calendar").fullCalendar("gotoDate", that.props.gotoDate);
   }
 
   render() {
@@ -231,8 +253,13 @@ class BookingCalendar extends Component {
         </ButtonModal>
 
         {/* Booking Modal */}
-        {this.props.reservationList && this.props.reservationList.map((booking) => (
-            <ButtonModal key={this.props.reservationList.id} modalName={`#edit-booking-modal-${booking.id}`} bstrap="invisible">
+        {this.props.reservationList &&
+          this.props.reservationList.map(booking => (
+            <ButtonModal
+              key={this.props.reservationList.id}
+              modalName={`#edit-booking-modal-${booking.id}`}
+              bstrap="invisible"
+            >
               <i className="fa fa-plus" aria-hidden="true" />
               <BookingEditModal
                 title="ข้อมูลการจอง"
@@ -249,10 +276,10 @@ class BookingCalendar extends Component {
                 priceFieldMore={this.state.price_field_more}
                 setDataBooking={this.props.setDataBooking}
                 customer={this.props.customer}
+                user={this.props.user}
               />
             </ButtonModal>
           ))}
-
       </div>
     );
   }

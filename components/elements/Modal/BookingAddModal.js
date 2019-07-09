@@ -267,7 +267,7 @@ class BookingAddModal extends Component {
               <p>สร้างโดย {this.props.user && this.props.user[0] && this.props.user[0].username}</p>
             </div>
             <div className="col-sm-3">
-              <p>เก็บเงิน {this.state.deposit !== '' && this.props.user && this.props.user[0] && this.props.user[0].username}</p>
+              {/* <p>เก็บเงิน {this.state.deposit !== '' && this.props.user && this.props.user[0] && this.props.user[0].username}</p> */}
             </div>
             <div className="col-sm-6 left-side">
               <div className="space-l">
