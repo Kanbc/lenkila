@@ -36,8 +36,18 @@ class CustEditModal extends Component {
     if (this.state.isEdit === true) {
       button1 = <CancelModal width={Constant.Buttons.default} bstrap="btn-success" onClick={()=>
         {
-          this.props.editCustomer(this.state)
-          this.cancelEditForm()
+          if (this.state.nick_name === "") {
+            window.alert("กรุณากรอกชื่อเล่น");
+            this.props.getCustomer()
+            this.props.getCustomerType()
+          } else if (this.state.tel === "") {
+            window.alert("กรุณากรอกเบอร์โทร");
+            this.props.getCustomer()
+            this.props.getCustomerType()
+          } else {
+            this.props.editCustomer(this.state)
+            this.cancelEditForm()
+          }
         }
        } >บันทึก</CancelModal>;
       button2 = <CancelModal width={Constant.Buttons.default} bstrap="btn-danger" onClick={() => this.cancelEditForm()}>ยกเลิก</CancelModal>;

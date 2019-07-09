@@ -315,7 +315,7 @@ class BookingEditModal extends Component {
               <p>สร้างโดย {this.state.create_by}</p>
             </div>
             <div className="col-sm-3">
-              <p>เก็บเงิน {this.state.cashier_by}</p>
+              <p>{this.props.booking.flag_status === '1' && `เก็บเงิน ${this.state.cashier_by}`}</p>
             </div>
             <div className="col-sm-6 left-side">
               <div className="space-l">
@@ -363,7 +363,8 @@ class BookingEditModal extends Component {
               <div className="space-l">
                 <CancelModal width="120px" bstrap="btn-success" onClick={()=>
                 {
-                  this.props.editBooking({...this.state},true)
+                  this.props.editBooking({...this.state,
+                    cashier_by:this.props.user && this.props.user[0] && this.props.user[0].username},true)
                   this.props.setStateAddMore && this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal && this.props.setStateCurrentModal('#add-drag-booking')
                   this.props.setDataBooking && this.props.setDataBooking({
