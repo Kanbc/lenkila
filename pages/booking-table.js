@@ -29,6 +29,7 @@ import {
   Constant,
   NoteAddModal,
   BoostAddModal,
+  BoostEditModal,
   ExportBookingModal,
   Loader
 } from "../components";
@@ -316,6 +317,54 @@ class BookingTable extends Component {
             />
           )}
         </div>
+        
+        {/* ถ้ามี Boost show ตารางข้างล่างนี้ด้วย */}
+        <PageTitle title="ข้อมูล Boost" />
+        <div className="container">
+          <div className="row overall-table">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col" className="hide1">สนาม</th>
+                  <th scope="col" className="hide1">ประเภท</th>
+                  <th scope="col">เวลาเริ่ม</th>
+                  <th scope="col">เวลาสิ้นสุด</th>
+                  <th scope="col" className="hide2">ราคา</th>
+                  <th scope="col" />
+                </tr>
+              </thead>
+              {/* {this.props.isLoading ? <Loader price /> : */}
+              <tbody>
+                <tr>
+                  <td>Right 1</td>
+                  <td>Buffet</td>
+                  <td >10/07/2019 3:00:00</td>
+                  <td >10/07/2019 6:00:00</td>
+                  <td>100บาท/คน</td>
+                  <td>
+                    <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-boost-${'boost-id'}`}>
+                      <i className="fa fa-pencil" />
+                      <BoostEditModal
+                        title="Boost"
+                        type={`edit-boost-${'boost-id'}`}
+                        fields={this.fields}
+                        setStateAddMore={this.setStateAddMore}
+                        setStateCurrentModal={this.setStateCurrentModal}
+                        setDataBooking={this.props.setDataBooking}
+                        addBoost={this.props.addBoost}
+                        detail={this.props.fieldDetail}
+                        gotoDate={this.state.gotoDate}
+                        boostData={this.state.boostData}
+                        setStateBoostData={this.setStateBoostData}
+                      />
+                    </ButtonModal>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {/* จบตาราง Boost */}
         <style jsx>
           {`
             .row {

@@ -39,6 +39,7 @@ import BookingEditModal from './elements/Modal/BookingEditModal';
 import BookingEditModal2 from './elements/Modal/BookingEditModal2';
 import NoteAddModal from './elements/Modal/NoteAddModal';
 import BoostAddModal from './elements/Modal/BoostAddModal';
+import BoostEditModal from './elements/Modal/BoostEditModal';
 import DiscountAddModal from './elements/Modal/DiscountAddModal';
 import BookingDragAddModal from './elements/Modal/BookingDragAddModal';
 import ExportBookingModal from './elements/Modal/ExportBookingModal';
@@ -93,6 +94,7 @@ export {
   NoteAddModal,
   DiscountAddModal,
   BoostAddModal,
+  BoostEditModal,
   BookingDragAddModal,
   ExportBookingModal,
   BookingCalendar,
