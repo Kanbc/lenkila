@@ -219,9 +219,9 @@ class BookingEditModal extends Component {
                         }
                         const fieldBook = this.state.price_field[key]
                         const result = fieldBook.map((value,index) => {
-                          if(parseInt(value.price) === 0){
+                          if(parseInt(value.price) === 0 && value.id === 0){
                             if(this.state.inputDefault){
-                              // document.getElementById(`myForm-${this.props.booking.id}-${key}`).reset();
+                              document.getElementById(`myForm-${this.props.booking.id}-${key}`).reset();
                             }
                           }
 
