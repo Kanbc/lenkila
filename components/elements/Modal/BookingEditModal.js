@@ -293,11 +293,11 @@ class BookingEditModal extends Component {
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" />
             </div> */}
-            <div className="col-sm-2">
-              <p className="bold-text">ต้องชำระเพิ่มอีก</p>
+            <div className="col-sm-1">
+              <p className="bold-text">ค่ามัดจำ</p>
             </div>
             <div className="col-sm-2">
-              <p>{summary && Number.isNaN(discount) ? summary.reduce((partial_sum, a) => partial_sum + a, 0) + this.sumValues(this.state.checkData) : summary.reduce((partial_sum, a) => partial_sum + a, 0) + this.sumValues(this.state.checkData) - discount}</p>
+              <input type="text" className="form-control" id="firstname" value={this.state.deposit === '' ? 0 : parseInt(this.state.deposit)} onChange={e => this.setState({ deposit: e.target.value })} />
             </div>
           </div>
           <div className="row">
@@ -308,10 +308,10 @@ class BookingEditModal extends Component {
               <input type="text" className="form-control" id="firstname" />
             </div> */}
             <div className="col-sm-1">
-              <p className="bold-text">ค่ามัดจำ</p>
+              <p className="bold-text">ต้องชำระเพิ่มอีก</p>
             </div>
             <div className="col-sm-2">
-              <input type="text" className="form-control" id="firstname" value={this.state.deposit === '' ? 0 : parseInt(this.state.deposit)} onChange={e => this.setState({ deposit: e.target.value })} />
+              <p>{summary && Number.isNaN(discount) ? summary.reduce((partial_sum, a) => partial_sum + a, 0) + this.sumValues(this.state.checkData) : summary.reduce((partial_sum, a) => partial_sum + a, 0) + this.sumValues(this.state.checkData) - discount - (this.state.deposit === '' ? 0 : parseInt(this.state.deposit))}</p>
             </div>
           </div>
           <div className="row">
