@@ -62,22 +62,25 @@ class BookingCalendar extends Component {
     );
 
     if (currenctModal.includes("edit")) {
-      const findId = currenctModal.split("-");
+      if (currenctModal.includes("edit-boost")) {
+      } else {
+        const findId = currenctModal.split("-");
 
-      this.props.checkPrice(
-        {
-          start_time: startTime,
-          end_time: endTime,
-          field_id: resourceId,
-          customer_type: this.props.reservationList.find(
-            value => value.id === findId[findId.length - 1]
-          ).customer_type,
-          date: moment(this.props.gotoDate).format("YYYY-MM-DD")
-        },
-        false,
-        true,
-        this.setStatePriceMore
-      );
+        this.props.checkPrice(
+          {
+            start_time: startTime,
+            end_time: endTime,
+            field_id: resourceId,
+            customer_type: this.props.reservationList.find(
+              value => value.id === findId[findId.length - 1]
+            ).customer_type,
+            date: moment(this.props.gotoDate).format("YYYY-MM-DD")
+          },
+          false,
+          true,
+          this.setStatePriceMore
+        );
+      }
     } else {
       this.props.checkPrice({
         start_time: startTime,
@@ -151,6 +154,15 @@ class BookingCalendar extends Component {
           );
         }
         if (that.props.currentModal === "#add-boost") {
+          that.props.setStateBoostData({
+            start_time: modifireStart,
+            end_time: modifireEnd,
+            field_id: resource.id,
+            field_name: resource.field,
+            date: moment(that.props.gotoDate).format("YYYY-MM-DD")
+          });
+        }
+        if (that.props.currentModal.includes("edit-boost")) {
           that.props.setStateBoostData({
             start_time: modifireStart,
             end_time: modifireEnd,

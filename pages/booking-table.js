@@ -18,7 +18,9 @@ import {
   addBoost,
   getEditMainByid,
   getCustomer,
-  addCustomer
+  addCustomer,
+  editBoost,
+  deleteBoost
 } from "../store";
 import {
   Layout,
@@ -44,7 +46,7 @@ class BookingTable extends Component {
       startTimeExport: moment().subtract(1, "months"),
       endTimeExport: moment(),
       addMore: false,
-      boostData: { start_time: "", end_time: "", field_name: "-" },
+      boostData: { start_time: "", end_time: "", field_name: "" },
       currentModal: "#add-drag-booking" // #add-drag-booking (add booking), #edit-booking-modal-${id} (edit booking ลอง booking พี่ id=75), #add-boost (add boost)
     };
 
@@ -138,6 +140,7 @@ class BookingTable extends Component {
   }
   render() {
     console.log("test", this.props);
+    console.log("boost", this.props.boostList);
     return (
       <Layout title="การจอง">
         <div className="container">
@@ -317,53 +320,80 @@ class BookingTable extends Component {
             />
           )}
         </div>
-        
+
         {/* ถ้ามี Boost show ตารางข้างล่างนี้ด้วย */}
-        <PageTitle title="ข้อมูล Boost" />
-        <div className="container">
-          <div className="row overall-table">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th scope="col" className="hide1">สนาม</th>
-                  <th scope="col" className="hide1">ประเภท</th>
-                  <th scope="col">เวลาเริ่ม</th>
-                  <th scope="col">เวลาสิ้นสุด</th>
-                  <th scope="col" className="hide2">ราคา</th>
-                  <th scope="col" />
-                </tr>
-              </thead>
-              {/* {this.props.isLoading ? <Loader price /> : */}
-              <tbody>
-                <tr>
-                  <td>Right 1</td>
-                  <td>Buffet</td>
-                  <td >10/07/2019 3:00:00</td>
-                  <td >10/07/2019 6:00:00</td>
-                  <td>100บาท/คน</td>
-                  <td>
-                    <ButtonModal color={Constant.Orange} width={Constant.Buttons.default} modalName={`#edit-boost-${'boost-id'}`}>
-                      <i className="fa fa-pencil" />
-                      <BoostEditModal
-                        title="Boost"
-                        type={`edit-boost-${'boost-id'}`}
-                        fields={this.fields}
-                        setStateAddMore={this.setStateAddMore}
-                        setStateCurrentModal={this.setStateCurrentModal}
-                        setDataBooking={this.props.setDataBooking}
-                        addBoost={this.props.addBoost}
-                        detail={this.props.fieldDetail}
-                        gotoDate={this.state.gotoDate}
-                        boostData={this.state.boostData}
-                        setStateBoostData={this.setStateBoostData}
-                      />
-                    </ButtonModal>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        {this.props.boostList && (
+          <React.Fragment>
+            <PageTitle title="ข้อมูล Boost" />
+            <div className="container">
+              <div className="row overall-table">
+                {this.props.isLoading ? (
+                  <Loader />
+                ) : (
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" className="hide1">
+                          สนาม
+                        </th>
+                        <th scope="col" className="hide1">
+                          ประเภท
+                        </th>
+                        <th scope="col">เวลาเริ่ม</th>
+                        <th scope="col">เวลาสิ้นสุด</th>
+                        <th scope="col" className="hide2">
+                          ราคา
+                        </th>
+                        <th scope="col" />
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.props.boostList &&
+                        this.props.boostList.map(val => (
+                          <tr>
+                            <td>{val.payload.field_doc_name}</td>
+                            <td>Buffet</td>
+                            <td>{val.payload.start_time}</td>
+                            <td>{val.payload.end_time}</td>
+                            <td>{parseInt(val.payload.price)} บาท/คน</td>
+                            <td>
+                              <ButtonModal
+                                color={Constant.Orange}
+                                width={Constant.Buttons.default}
+                                modalName={`#edit-boost-${val.id}`}
+                              >
+                                <i className="fa fa-pencil" />
+                                <BoostEditModal
+                                  title="Boost"
+                                  type={`edit-boost-${val.id}`}
+                                  fields={this.fields}
+                                  setStateAddMore={this.setStateAddMore}
+                                  setStateCurrentModal={
+                                    this.setStateCurrentModal
+                                  }
+                                  setDataBooking={this.props.setDataBooking}
+                                  addBoost={this.props.addBoost}
+                                  detail={this.props.fieldDetail}
+                                  boostData={this.state.boostData}
+                                  setStateBoostData={this.setStateBoostData}
+                                  date={moment(this.state.gotoDate).format(
+                                    "YYYY-MM-DD"
+                                  )}
+                                  item={val.payload}
+                                  deleteBoost={this.props.deleteBoost}
+                                  editBoost={this.props.editBoost}
+                                />
+                              </ButtonModal>
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            </div>
+          </React.Fragment>
+        )}
         {/* จบตาราง Boost */}
         <style jsx>
           {`
@@ -438,6 +468,8 @@ export default connect(
     setDataBooking,
     getEditMainByid,
     getCustomer,
-    addCustomer
+    addCustomer,
+    editBoost,
+    deleteBoost
   }
 )(BookingTable);

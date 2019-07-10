@@ -156,7 +156,7 @@ class BoostAddModal extends Component {
                     editFieldDocList:[],
                     editAddmore:false
                   })
-                  this.props.setStateBoostData({start_time:'',end_time:'',field_name:'-'})
+                  this.props.setStateBoostData({start_time:'',end_time:'',field_name:''})
                   this.setState({price:0})
                 }}>
                   บันทึก
