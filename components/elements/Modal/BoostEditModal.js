@@ -148,18 +148,21 @@ class BoostAddModal extends Component {
               <div className="space-l">
                 <CancelModal width="120px" bstrap="btn-danger" 
                   onClick={()=> {
-                    this.props.setStateAddMore(false)
-                    this.props.setStateCurrentModal('#add-drag-booking')
-                    this.props.setDataBooking({
-                      checkPriceData:[],
-                      paramsCheckprice:[],
-                      paramsFieldDocList:[],
-                      editFieldDocList:[],
-                      editAddmore:false
-                  })
-                  this.setState({isEdit:false})
-
-                  this.props.deleteBoost(this.state.id,this.props.date)
+                    let result = confirm("คุณต้องการลบข้อมูลส่วนนี้ใช่หรือไม่");
+                    if (result) {
+                      
+                      this.props.setStateAddMore(false)
+                      this.props.setStateCurrentModal('#add-drag-booking')
+                      this.props.setDataBooking({
+                        checkPriceData:[],
+                        paramsCheckprice:[],
+                        paramsFieldDocList:[],
+                        editFieldDocList:[],
+                        editAddmore:false
+                    })
+                    this.setState({isEdit:false})
+                    this.props.deleteBoost(this.state.id,this.props.date)
+                    }
                 }}
                 >
                   ลบ
