@@ -8,10 +8,17 @@ class BoostAddModal extends Component {
     super(props);
     this.state = { 
       boostType: 'buffet', 
-      price:0,
+      ...this.props.item,
+      price:parseInt(this.props.item.price),
+      isEdit:false,
     };
 
     this.changeBoostType = this.changeBoostType.bind(this);
+    this.setEditFalse = this.setEditFalse.bind(this);
+  }
+
+  componentDidMount(){
+    this.setState({isEdit:false})
   }
 
   changeBoostType(el) {
@@ -20,11 +27,19 @@ class BoostAddModal extends Component {
     });
   }
 
+  setEditFalse() {
+    this.setState({
+      isEdit: false,
+    });
+  }
+
   
 
   render() {
+    console.log('this.state',this.state)
+    console.log('this.props',this.props)
     return (
-      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking}>
+      <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking} setEditFalse={this.setEditFalse}>
         <Body>
           <div className="row">
             <div className="col-sm-1">
@@ -83,7 +98,9 @@ class BoostAddModal extends Component {
             <div className="col-sm-2">
               <CancelModal color={Constant.Green} onClick={()=> {
                   this.props.setStateAddMore(true)
-                  this.props.setStateCurrentModal('#add-boost')
+                  this.props.setStateCurrentModal(`#${this.props.type}`)
+                  this.setState({isEdit:true})
+                  
                 }} >
                 เลือกสนามเพิ่ม/แก้ไข
               </CancelModal>
@@ -111,8 +128,8 @@ class BoostAddModal extends Component {
                   </thead>
                   <tbody className={this.state.boostType === 'buffet' ? '' : 'red-text'}>
                     <tr>
-                      <th scope="row">{this.props.boostData ? this.props.boostData.field_name : null}</th>
-                      <td>{this.props.boostData ? `${this.props.boostData.start_time} - ${this.props.boostData.end_time}` : null}</td>
+                      <th scope="row">{this.props.boostData.field_name ? this.props.boostData.field_name : this.state.field_doc_name}</th>
+                      <td>{this.props.boostData.start_time ? `${this.props.boostData.start_time} - ${this.props.boostData.end_time}` : `${this.state.start_time.split(' ')[1]} - ${this.state.end_time.split(' ')[1]}`}</td>
                       <td>{this.state.price}</td>
                     </tr>
                   </tbody>
@@ -130,17 +147,20 @@ class BoostAddModal extends Component {
             <div className="col-sm-6 left-side">
               <div className="space-l">
                 <CancelModal width="120px" bstrap="btn-danger" 
-                  // onClick={()=> {
-                  //   this.props.setStateAddMore(false)
-                  //   this.props.setStateCurrentModal('#add-drag-booking')
-                  //   this.props.setDataBooking({
-                  //     checkPriceData:[],
-                  //     paramsCheckprice:[],
-                  //     paramsFieldDocList:[],
-                  //     editFieldDocList:[],
-                  //     editAddmore:false
-                  // })
-                // }}
+                  onClick={()=> {
+                    this.props.setStateAddMore(false)
+                    this.props.setStateCurrentModal('#add-drag-booking')
+                    this.props.setDataBooking({
+                      checkPriceData:[],
+                      paramsCheckprice:[],
+                      paramsFieldDocList:[],
+                      editFieldDocList:[],
+                      editAddmore:false
+                  })
+                  this.setState({isEdit:false})
+
+                  this.props.deleteBoost(this.state.id,this.props.date)
+                }}
                 >
                   ลบ
                 </CancelModal>
@@ -156,6 +176,8 @@ class BoostAddModal extends Component {
                     editFieldDocList:[],
                     editAddmore:false
                   })
+                  this.setState({isEdit:false})
+
                 }}
                 >
                   ยกเลิก
@@ -165,7 +187,7 @@ class BoostAddModal extends Component {
                 <CancelModal width="120px" bstrap="btn-success" onClick={()=> {
                   this.props.setStateAddMore(false)
                   this.props.setStateCurrentModal('#add-drag-booking')
-                  this.props.addBoost({...this.state,...this.props.boostData})
+                  this.props.editBoost({...this.state,start:this.props.boostData.start_time,end:this.props.boostData.end_time,isEdit:this.state.isEdit,date:this.props.date,fieldId:this.props.boostData.field_id})
                   this.props.setDataBooking({
                     checkPriceData:[],
                     paramsCheckprice:[],
@@ -173,8 +195,9 @@ class BoostAddModal extends Component {
                     editFieldDocList:[],
                     editAddmore:false
                   })
-                  this.props.setStateBoostData({start_time:'',end_time:'',field_name:'-'})
-                  this.setState({price:0})
+                  this.props.setStateBoostData({start_time:'',end_time:'',field_name:''})
+                  this.setState({isEdit:false})
+
                 }}>
                   บันทึก
                 </CancelModal>
