@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DefaultModal from './DefaultModal';
 import Body from './DefaultModal/Body';
+import moment from 'moment'
 import { CancelModal, Button, Constant, ButtonModal, DiscountAddModal } from '../..';
 
 class BoostAddModal extends Component {
@@ -23,6 +24,8 @@ class BoostAddModal extends Component {
   
 
   render() {
+    let endTimeMix = secondsToHHMMSS(moment.duration(this.props.boostData.end_time).asSeconds() - moment.duration('24:00:00').asSeconds())
+    let startTimeMix = secondsToHHMMSS(moment.duration(this.props.boostData.start_time).asSeconds() - moment.duration('24:00:00').asSeconds())
     return (
       <DefaultModal title={this.props.title} type={this.props.type} percentWidth="90" changeAddmore={this.props.setStateAddMore} changeCurrentModal={this.props.setStateCurrentModal} setDataBooking={this.props.setDataBooking}>
         <Body>
@@ -112,7 +115,7 @@ class BoostAddModal extends Component {
                   <tbody className={this.state.boostType === 'buffet' ? '' : 'red-text'}>
                     <tr>
                       <th scope="row">{this.props.boostData ? this.props.boostData.field_name : null}</th>
-                      <td>{this.props.boostData ? `${this.props.boostData.start_time} - ${this.props.boostData.end_time}` : null}</td>
+                      <td>{this.props.boostData ? `${this.props.boostData.start_time > '24:00:00' ? startTimeMix.length === 8 ? startTimeMix : "0"+startTimeMix : this.props.boostData.start_time} - ${this.props.boostData.end_time > '24:00:00' ? endTimeMix.length === 8 ? endTimeMix : "0"+endTimeMix : this.props.boostData.end_time}` : null}</td>
                       <td>{this.state.price}</td>
                     </tr>
                   </tbody>
@@ -139,6 +142,7 @@ class BoostAddModal extends Component {
                     editFieldDocList:[],
                     editAddmore:false
                   })
+                  this.props.setStateBoostData({start_time:'',end_time:'',field_name:''})
                 }}
                 >
                   ยกเลิก
@@ -238,6 +242,10 @@ class BoostAddModal extends Component {
       </DefaultModal>
     );
   }
+}
+
+function secondsToHHMMSS (seconds) {
+  return (Math.floor(seconds / 3600)) + ":" + ("0" + Math.floor(seconds / 60) % 60).slice(-2) + ":" + ("0" + seconds % 60).slice(-2)
 }
 
 export default BoostAddModal;

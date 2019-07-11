@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const CancelModal = ({
   children,
@@ -6,23 +6,31 @@ const CancelModal = ({
   width,
   bstrap,
   onClick,
-  disabled=false
+  dismiss = "modal",
+  disabled = false
 }) => (
-  <button type="button" disabled={disabled} className={`btn ${bstrap}`} data-dismiss="modal" onClick={onClick} >
+  <button
+    type="button"
+    disabled={disabled}
+    className={`btn ${bstrap}`}
+    data-dismiss={dismiss}
+    onClick={onClick}
+  >
     {children}
-    <style jsx>{`
-      button{
-        background-color: ${color};
-        cursor:pointer;
-        width: ${width};
-        color: #ffffff;
-      }
-      @media (max-width: 576px) { 
-        button{
-          width: 50px;
+    <style jsx>
+      {`
+        button {
+          background-color: ${color};
+          cursor: pointer;
+          width: ${width};
+          color: #ffffff;
         }
-      }
-    `}
+        @media (max-width: 576px) {
+          button {
+            width: 50px;
+          }
+        }
+      `}
     </style>
   </button>
 );

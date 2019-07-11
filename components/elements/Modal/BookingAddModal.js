@@ -108,7 +108,7 @@ class BookingAddModal extends Component {
               }/>
             </div>
             <div className="col-sm-1">
-              <p>ชื่อ</p>
+              <p>ชื่อเล่น*</p>
             </div>
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" value={this.state.customer_name} onChange={e => this.setState({ customer_name: e.target.value })}/>
@@ -275,8 +275,14 @@ class BookingAddModal extends Component {
             </div>
             <div className="col-sm-6 left-side">
               <div className="space-l">
-                <CancelModal width="100px" bstrap="btn-success" onClick={()=> {
-
+                <Button width="100px" bstrap="btn-success" onClick={()=> {
+                  if (this.state.customer_tel === "") {
+                    window.alert("กรุณากรอกเบอร์โทรศัพท์");
+                  } else if (this.state.customer_tel.length !== 10) {
+                    window.alert("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว");
+                  }  else if (this.state.customer_name === "") {
+                    window.alert("กรุณากรอกชื่อเล่น");
+                  }else {
                   this.props.addBooking({
                     start_time:this.props.start_time,
                     end_time:this.props.end_time,
@@ -326,11 +332,12 @@ class BookingAddModal extends Component {
                       })
                     }
                   }
-
+                  $("#add-drag-booking").modal("hide");
+                }
                 }
                }>
                   บันทีก
-                </CancelModal>
+                </Button>
               </div>
               <div className="space-l">
                 <CancelModal width="100px" bstrap="btn-danger" onClick={()=> {
