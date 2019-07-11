@@ -128,7 +128,7 @@ class BookingEditModal extends Component {
               />
             </div>
             <div className="col-sm-1">
-              <p>ชื่อ</p>
+              <p>ชื่อเล่น*</p>
             </div>
             <div className="col-sm-2">
               <input type="text" className="form-control" id="firstname" value={this.state.customer_name} onChange={e => this.setState({ customer_name: e.target.value })}/>
@@ -323,7 +323,14 @@ class BookingEditModal extends Component {
             </div>
             <div className="col-sm-6 left-side">
               <div className="space-l">
-                <CancelModal width="120px" bstrap="btn-success" onClick={() => {
+                <Button width="120px" bstrap="btn-success" onClick={() => {
+                  if (this.state.customer_tel === "") {
+                    window.alert("กรุณากรอกเบอร์โทรศัพท์");
+                  } else if (this.state.customer_tel.length !== 10) {
+                    window.alert("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว");
+                  }  else if (this.state.customer_name === "") {
+                    window.alert("กรุณากรอกชื่อเล่น");
+                  }else {
                   this.props.editBooking({
                     ...this.state,
                     pay_stadium:summary && summary.reduce((partial_sum, a) => partial_sum + a,0) + this.sumValues(this.state.checkData),
@@ -363,11 +370,13 @@ class BookingEditModal extends Component {
                       })
                     }
                   }
+                  $(`#${this.props.type}`).modal("hide");
+                }
                 } 
                 }
                   >
                   บันทีก
-                </CancelModal>
+                </Button>
               </div>
               <div className="space-l">
                 <CancelModal width="120px" bstrap="btn-danger" onClick={()=> {

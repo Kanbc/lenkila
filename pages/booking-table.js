@@ -329,6 +329,11 @@ class BookingTable extends Component {
               <div className="row overall-table">
                 {this.props.isLoading ? (
                   <Loader />
+                ) : this.props.boostList &&
+                  this.props.boostList.length === 0 ? (
+                  <div className="no-boost">
+                    ยังไม่มีบริการ Boost สำหรับวันนี้
+                  </div>
                 ) : (
                   <table className="table">
                     <thead>
@@ -423,6 +428,12 @@ class BookingTable extends Component {
               }
               .space-l {
                 margin-left: 15px;
+              }
+            }
+            .container {
+              .no-boost {
+                width: 100%;
+                text-align: center;
               }
             }
           `}

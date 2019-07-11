@@ -4,7 +4,7 @@ import moment from "moment";
 import DefaultModal from "./DefaultModal";
 import Body from "./DefaultModal/Body";
 import Footer from "./DefaultModal/Footer";
-import { CancelModal } from "../..";
+import { CancelModal, Button } from "../..";
 
 class CustAddModal extends Component {
   state = {
@@ -119,15 +119,18 @@ class CustAddModal extends Component {
           </div>
         </Body>
         <Footer>
-          <CancelModal
+          <Button
             width="100px"
             bstrap="btn-success"
             onClick={() => {
               if (this.state.nick_name === "") {
                 window.alert("กรุณากรอกชื่อเล่น");
               } else if (this.state.tel === "") {
-                window.alert("กรุณากรอกเบอร์โทร");
+                window.alert("กรุณากรอกเบอร์โทรศัพท์");
+              } else if (this.state.tel.length !== 10) {
+                window.alert("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 ตัว");
               } else {
+                $("#add-user").modal("hide");
                 this.props.addCustomer(this.state);
                 this.setState({
                   nick_name: "",
@@ -142,7 +145,7 @@ class CustAddModal extends Component {
             }}
           >
             สร้าง
-          </CancelModal>
+          </Button>
           <CancelModal width="100px" bstrap="btn-danger">
             ยกเลิก
           </CancelModal>
