@@ -551,7 +551,7 @@ export function* addBoostSaga({ data }) {
         action: "_boost_insert",
         ...data,
         stadium_doc_id: stadiumId,
-        field_id: [data.field_id]
+        field_id: data.field_id
       }
     });
     if (!response.data.response_status) {
